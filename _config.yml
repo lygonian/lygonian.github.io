@@ -1,11 +1,11 @@
 title: Samet Kurt # your name (or website title) here
 logo: "/images/Kurt_6x6.jpg?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
-  First description 
+  I hold a degree in Biochemistry and have recently become a Certified Data Scientist.  
+  My unique background helps me recognize patterns in data and visualize complex  
+  correlations effectively. I am now excited to apply my analytical skills and diverse  
+  knowledge to drive impactful solutions in the field of Data Science.
   <br><br>
-  Second description 
-  <br><br>
-  <a href="https://www.linkedin.com/in/example/">View My LinkedIn Profile</a> 
   
 remote_theme: pages-themes/minimal@v0.2.0
 plugins:
