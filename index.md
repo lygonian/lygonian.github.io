@@ -3,10 +3,11 @@
 ### Data Science Projects
 ---  
 [new project]()  
-in progress  
----  
-[24-09-23 ROSSMANN Filialen Umsatzanalyse](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage)  
+in progress   
 
+---
+[24-09-23 ROSSMANN Filialen Umsatzanalyse](https://lygonian.github.io/ROSSMANN_Umsatz_Vorhersage/)  
+Eine umfassende EDA der Features und Vorhersage der Umsätze für die nächsten 8 Wochen  
 <img src="images/Rossmann_Außenansicht_Innenstadtlage.jfif?raw=true"/>
 
 ---
