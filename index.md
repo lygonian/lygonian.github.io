@@ -1,24 +1,24 @@
 ## Portfolio
 
 ### Data Science Projects
----
-[new project]()
-in progress
----
-[24-09-23 ROSSMANN Filialen Umsatzanalyse](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
+---  
+[new project]()  
+in progress  
+---  
+[24-09-23 ROSSMANN Filialen Umsatzanalyse](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage)  
+<img src="images/Rossmann_Außenansicht_Innenstadtlage.jfif?raw=true"/>
 
 ---
 ### Thesis
 ---
-- [Master Thesis](/pdf/sample_presentation.pdf)
+- [Master Thesis](/pdf/master_thesis.pdf)
 
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
+<img src="images/master_bild.jpg?raw=true"/>
 
 ---
-- [Bachelor Thesis](/pdf/sample_presentation.pdf)
+- [Bachelor Thesis](/pdf/bachelor_thesis.pdf)
 
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
+<img src="images/bachelor_bild.jpg?raw=true"/>
 
 
 ---
