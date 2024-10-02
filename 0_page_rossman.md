@@ -1,7 +1,7 @@
 # ROSSMANN Filialen - Eine ausführliche Umsatzanalyse
 Mit diesem Projekt vertiefe ich meine Fähigkeiten als DataScientist. Dafür analysiere ich historischen Verkaufsdaten, visualisiere gewonnene Erkentnisse und wende maschinelle Lernmodelle am um Umsatzprognosen für 8 Wochen zu erstellen.
 
-![Alt text](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage/blob/master/Ausgew%C3%A4hlte_Plots/Rossmann_Au%C3%9Fenansicht_Innenstadtlage.jfif)
+![Alt text](https://raw.githubusercontent.com/lygonian/ROSSMANN_Umsatz_Vorhersage/c06237e50065238ad203b3656d15b1d30f96bc28/Ausgew%C3%A4hlte_Plots/Rossmann_Au%C3%9Fenansicht_Innenstadtlage.jfif)
 (Bildquelle: https://de.wikipedia.org/wiki/Rossmann_(Handelskette)#/media/Datei:Rossmann_Au%C3%9Fenansicht_Innenstadtlage.JPG)
 
 ## Projektbeschreibung
