@@ -36,10 +36,10 @@ Die Bearbeitung der Aufgaben unterteilt sich in 4 Bereiche:
     - Umsatz und Kunden pro Tag fallen mit der Distanz zu Wettbewerbern
     - Umsatz steigt bis Mai, fällt bis September und erreicht Maximum im Dezember.
 - exemplarische Diagramme: 
-![Alt text](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage/blob/master/Ausgew%C3%A4hlte_Plots/Korrelationen_von_Umsatz.png)
-![Alt text](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage/blob/master/Ausgew%C3%A4hlte_Plots/Jahresverlauf_der_KPIs.png)
-![Alt text](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage/blob/master/Ausgew%C3%A4hlte_Plots/Wirkung_der_Promos_auf_Gesch%C3%A4ftstyp_und_Sortiment.png)
-![Alt text](/https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage/blob/master/Ausgew%C3%A4hlte_Plots/Einfluss_der_Wettbewerber_Distanz_auf_KPIs.png)
+![Alt text](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage/blob/c06237e50065238ad203b3656d15b1d30f96bc28/Ausgew%C3%A4hlte_Plots/Korrelationen_von_Umsatz.png?raw=true)
+![Alt text](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage/blob/master/Ausgew%C3%A4hlte_Plots/Jahresverlauf_der_KPIs.png?raw=true)
+![Alt text](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage/blob/master/Ausgew%C3%A4hlte_Plots/Wirkung_der_Promos_auf_Gesch%C3%A4ftstyp_und_Sortiment.png?raw=true)
+![Alt text](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage/blob/master/Ausgew%C3%A4hlte_Plots/Einfluss_der_Wettbewerber_Distanz_auf_KPIs.png?raw=true)
 
 ### 3. RandomForestRegressor Umsatzvorhersage
 - Datenpreprozessieren und Transformieren
