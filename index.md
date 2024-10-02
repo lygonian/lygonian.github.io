@@ -1,29 +1,25 @@
 ## Portfolio
 
+### Data Science Projects
 ---
-
-### Category Name 1 
-
+[new project]()
+in progress
+---
 [24-09-23 ROSSMANN Filialen Umsatzanalyse](https://github.com/lygonian/ROSSMANN_Umsatz_Vorhersage)
 <img src="images/dummy_thumbnail.jpg?raw=true"/>
 
 ---
-[Project 2 Title](/pdf/sample_presentation.pdf)
+### Thesis
+---
+- [Master Thesis](/pdf/sample_presentation.pdf)
+
 <img src="images/dummy_thumbnail.jpg?raw=true"/>
 
 ---
-[Project 3 Title](http://example.com/)
+- [Bachelor Thesis](/pdf/sample_presentation.pdf)
+
 <img src="images/dummy_thumbnail.jpg?raw=true"/>
 
----
-
-### Category Name 2
-
-- [Project 1 Title](http://example.com/)
-- [Project 2 Title](http://example.com/)
-- [Project 3 Title](http://example.com/)
-- [Project 4 Title](http://example.com/)
-- [Project 5 Title](http://example.com/)
 
 ---
 
