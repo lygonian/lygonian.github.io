@@ -2,7 +2,7 @@
 
 ### Data Science Projects
 ---  
-- [2024-10-06 E-Commerce Customers](https://lygonian.github.io/01_e_commerce_customers)  
+- [2024-10-06 E-Commerce Customers](https://github.com/lygonian/lygonian.github.io/blob/main/01_e_commerce_customers)  
 Feature engineering and determining the highest contributing feature of sales with a linear regression model.
 ![Alt Text](https://github.com/lygonian/e_commerce_customers/blob/master/images/summary.png?raw=true)
 
