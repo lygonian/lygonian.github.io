@@ -2,8 +2,9 @@
 
 ### Data Science Projects
 ---  
-- [new project](/example)  
-in progress  
+- [2024-10-06 E-Commerce Customers](https://lygonian.github.io/01_e_commerce_customers)  
+Feature engineering and determining the highest contributing feature of sales with a linear regression model.
+![Alt Text](https://github.com/lygonian/e_commerce_customers/blob/master/images/summary.png?raw=true)
 
 ---
 - [2024-09-23 ROSSMANN Filialen Umsatzanalyse](https://lygonian.github.io/0_page_rossman)  
