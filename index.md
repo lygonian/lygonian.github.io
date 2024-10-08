@@ -19,8 +19,8 @@ A systematic in-depth EDA of the features and prediction of sales for the next 8
 ### Thesis
 ---
 - [Master Thesis](/pdf/master_thesis.pdf)  
-Title: The role of thiol-disulfide oxidoreductases on neural stem cell differentiation
-Abstract
+Title: The role of thiol-disulfide oxidoreductases on neural stem cell differentiation  
+Abstract  
 Oxidoreductases plays the vital roles in all aspects of cell biology. Here, we examined the 
 role of Grx2, a glutathione-dependent enzyme catalysing the reversible S
 deglutathionylation of various key proteins implicated in cellular metabolism, signal 
@@ -48,8 +48,8 @@ energetic and metabolic demands of myelinating cells in the CNS.
 
 ---
 - [Bachelor Thesis](/pdf/bachelor_thesis.pdf)  
-Title: Characterization of FRET-based sensors of interfacial macromolecular crowding
-Abstract
+Title: Characterization of FRET-based sensors of interfacial macromolecular crowding  
+Abstract  
 Cells provide a highly crowded environment in which the excluded volume effect affects 
 equilibria like protein folding and stability. This is barley probed on the cell surface which 
 shows a highly dense packed space with membrane proteins. In this thesis Förster’s resonance 
