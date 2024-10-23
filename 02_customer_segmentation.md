@@ -4,9 +4,9 @@
 
 This notebook provides a comprehensive analysis and prediction model for a bank marketing campaign dataset. The key steps include data preparation, feature engineering, exploratory data analysis (EDA), RFM segmentation, and machine learning model training and evaluation. The final model, a `BalancedRandomForestClassifier`, achieved a significant improvement in predicting customer subscriptions to term deposits, with a notable F2-score of 0.70 (increased from 0.30). (Notebook below)
 
-[Here](https://customer-segmentation-cbdg.onrender.com/) is a summarizing dash app which lets you filter between Customer Segments.
-Snippet of the app
-![At text](images/das
+[Here](https://customer-segmentation-cbdg.onrender.com/) is a summarizing dash app which lets you filter between Customer Segments.  
+Snippet of the app  
+![At text](https://github.com/lygonian/Customer_Segmentation/blob/master/images/dashapp.png?raw=true)
 
 
 ---  
