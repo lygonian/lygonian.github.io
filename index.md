@@ -4,7 +4,7 @@
 
 ---  
 - [2024-10-21 Customer Segmentation](https://lygonian.github.io/02_customer_segmentation)  
-In this project I derive actionable insights from data analysis, I engineere features and I evaluate and deploy a machine learning model to drive drive business decisions. This is a comprehensive approach and detailed analysis using the RFM Analysis and deploying a dash app to filter data freely in a browser.
+In this project, I derive actionable insights through comprehensive data analysis, feature engineering, and the evaluation and deployment of a machine learning model to drive business decisions. Utilizing RFM (Recency, Frequency, Monetary) Analysis, I provide a detailed examination of customer behavior. Additionally, I have developed and deployed a Dash app, enabling users to filter and explore data interactively within a browser. This project showcases a holistic approach to data science, combining analytical rigor with practical application to support strategic business initiatives.
 
 ![Alt Text](https://github.com/lygonian/Customer_Segmentation/blob/master/images/summary.png?raw=true)
 ---  
