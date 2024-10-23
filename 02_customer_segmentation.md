@@ -10,7 +10,7 @@ Here a summarizing dash app which lets you filter between Customer Segments.
 
 ---  
 
-# Notebook
+# Notebook  
 View notebook [here](https://nbviewer.org/github/lygonian/Customer_Segmentation/blob/master/notebooks/customer_segementation.ipynb)  
 File saved [here](https://github.com/lygonian/Customer_Segmentation/blob/master/notebooks/customer_segementation.ipynb)  
 The analysis includes data preparation, feature engineering, client profiling, RFM segmentation, and prediction using machine learning models. The final model achieved a significant improvement in predicting customer subscriptions to term deposits.  
@@ -37,6 +37,7 @@ The data is related to direct marketing campaigns (phone calls) of a Portuguese 
 3. **RFM Segmentation**:
     - Customers were segmented based on Recency, Frequency, and Monetary values.
     - Segments such as Champions, Potential Loyalists, and At-Risk Customers were identified, providing valuable insights for targeted marketing strategies.
+    - dash app was constructed
 
 4. **Prediction Model**:
     - A `BalancedRandomForestClassifier` was trained and evaluated, achieving a high F2-score.
@@ -114,12 +115,12 @@ The data is related to direct marketing campaigns (phone calls) of a Portuguese 
 
 
 
-## 1. Data Preparation and Exploratory Data Analysis (EDA)
-### 1.1 Data Attributes
+# Data Preparation and Exploratory Data Analysis (EDA)
+### Data Attributes
 - **Initial Data Inspection**: Loaded the dataset and checked for NaN values and duplicates.
 - **Attributes Summary**: Created a summary of data types, NaN values, duplicates, and unique values for each column.
 
-### 1.2 Feature Engineering
+### Feature Engineering
 - **Deposit (y)**: Renamed the target variable 'y' to 'deposit' and binarized it.
 - **Age**: Categorized age into life stages: young adults, middle adulthood, late adulthood, and seniors.
 - **Job**: Grouped job titles into broader categories such as Management, Blue-Collar, Self-Employment, etc.
@@ -129,7 +130,7 @@ The data is related to direct marketing campaigns (phone calls) of a Portuguese 
 - **Pdays**: Replaced -1 values in the pdays column with a placeholder.
 - **One-Hot Encoding**: Applied one-hot encoding to categorical columns.
 
-### 1.3 Client Profiling
+### Client Profiling
 - **Target Distribution**: Analyzed the distribution of the target variable (deposit).
 - **Correlation Analysis**: Examined correlations between numerical features and the target variable.
 - **Personal Information**: Analyzed the distribution of personal information features (age, job, marital status, education).
@@ -137,20 +138,19 @@ The data is related to direct marketing campaigns (phone calls) of a Portuguese 
 - **Current Campaign**: Analyzed the distribution of features related to the current campaign (contact, month, duration, campaign).
 - **Past Campaign**: Analyzed the distribution of features related to past campaigns (pdays, previous, poutcome).
 
-## 2. RFM Segmentation
+### RFM Segmentation
 - **RFM Analysis**: Performed Recency, Frequency, and Monetary (RFM) analysis to segment customers based on their interactions with the bank.
 - **Customer Segments**: Classified customers into segments such as Champions, Potential Loyalists, At-Risk Customers, etc.
 
-## 3. Prediction
-### 3.1 Feature Selection
+### Feature Selection
 - **RandomForestClassifier**: Trained a RandomForestClassifier to determine feature importances.
 - **Feature Selection**: Selected features with importance greater than 0.01 for the final model.
 
-### 3.2 Best Model
+### Best Model
 - **BalancedRandomForestClassifier**: Trained a BalancedRandomForestClassifier with selected features.
 - **Model Evaluation**: Evaluated the model using accuracy and F2-score.
 
-### 3.3 Hyperparameter Tuning
+### Hyperparameter Tuning
 - **RandomizedSearchCV**: Performed hyperparameter tuning using RandomizedSearchCV to optimize the model.
 - **Best Parameters**: Identified the best parameters and evaluated the model performance.
 
