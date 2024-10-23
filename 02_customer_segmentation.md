@@ -6,7 +6,7 @@ This notebook provides a comprehensive analysis and prediction model for a bank 
 
 [Here](https://customer-segmentation-cbdg.onrender.com/) is a summarizing dash app which lets you filter between Customer Segments.  
 Snippet of the app  
-![At text](https://github.com/lygonian/Customer_Segmentation/blob/master/images/dashapp.png?raw=true)
+![At text](https://github.com/lygonian/Customer_Segmentation/blob/master/images/dashapp.PNG?raw=true)
 
 
 ---  
