@@ -3,8 +3,9 @@
 ### Data Science Projects
 
 ---  
-- new project already in progress
+- [2024-10-21 Customer Segmentation](https://lygonian.github.io/01_e_commerce_customers)  
 
+![Alt Text](https://github.com/lygonian/Customer_Segmentation/blob/master/images/summary.png?raw=true)
 ---  
 - [2024-10-06 E-Commerce Customers](https://lygonian.github.io/01_e_commerce_customers)  
 Feature engineering and determining the highest contributing feature of sales with a linear regression model.
