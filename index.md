@@ -3,7 +3,8 @@
 ### Data Science Projects
 
 ---  
-- [2024-10-21 Customer Segmentation](https://lygonian.github.io/02_customers_segmentation)  
+- [2024-10-21 Customer Segmentation](https://lygonian.github.io/02_customer_segmentation)
+In this project I derive actionable insights from data analysis, I engineere features and I evaluate and deploy a machine learning model to drive drive business decisions. This is a comprehensive approach and detailed analysis using the RFM Analysis and deploying a dash app to filter data freely in a browser.
 
 ![Alt Text](https://github.com/lygonian/Customer_Segmentation/blob/master/images/summary.png?raw=true)
 ---  
