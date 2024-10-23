@@ -3,7 +3,7 @@
 ### Data Science Projects
 
 ---  
-- [2024-10-21 Customer Segmentation](https://lygonian.github.io/test.html)  
+- [2024-10-21 Customer Segmentation](https://lygonian.github.io/02_customers_segmentation)  
 
 ![Alt Text](https://github.com/lygonian/Customer_Segmentation/blob/master/images/summary.png?raw=true)
 ---  
