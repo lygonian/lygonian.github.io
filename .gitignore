@@ -1,0 +1,14 @@
+# Alte Seiten (durch deutsche Version ersetzt)
+automation.html
+data-analysis.html
+research.html
+
+# Jekyll-Reste (nicht mehr benötigt)
+_config.yml
+_layouts/
+*.md
+!.nojekyll
+
+# System
+.DS_Store
+Thumbs.db

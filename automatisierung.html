@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automatisierung — Samet Kurt</title>
+  <meta name="description" content="Prozessautomatisierung mit Python: CRM-Synchronisation, Angebotsgenerierung, API-Integration. Echte Systeme, echte Zeitersparnis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f8f7f4; --surface: #f0eee9; --card: #fff;
+      --border: #dedad4; --border-dim: #e8e5df;
+      --text: #1c1b18; --mid: #6a6660; --dim: #aaa69f;
+      --primary: #1a5c58; --primary-hi: #144d4a; --primary-bg: #eef5f4;
+      --amber: #7c5a1a; --amber-bg: #fdf5e6;
+      --code-bg: #131c28;
+      --mono: 'JetBrains Mono', monospace; --sans: 'Inter', sans-serif;
+    }
+    html { background: var(--bg); color: var(--text); scroll-behavior: smooth; }
+    body { font-family: var(--sans); font-weight: 400; min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+    /* Header */
+    header { border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(248,247,244,.95); backdrop-filter: blur(12px); z-index: 100; padding: 16px 0; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--mono); font-size: 13px; color: var(--text); letter-spacing: .04em; }
+    .logo span { color: var(--primary); }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: 13px; color: var(--mid); transition: color .15s; }
+    nav a:hover, nav a.active { color: var(--text); }
+    .header-cta { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; background: var(--primary); color: #fff; font-weight: 500; padding: 9px 20px; transition: background .15s; display: inline-block; }
+    .header-cta:hover { background: var(--primary-hi); }
+
+    /* Badges */
+    .badge { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; padding: 3px 8px; border: 1px solid; display: inline-block; }
+    .badge-active   { color: var(--primary); border-color: var(--primary); }
+    .badge-archived { color: var(--dim);     border-color: var(--border);  }
+    .badge-ongoing  { color: var(--amber);   border-color: var(--amber);   }
+
+    /* Page Hero */
+    .page-hero { padding: 72px 0 64px; border-bottom: 1px solid var(--border); }
+    .page-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .page-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--primary); }
+    .page-title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--text); margin-bottom: 20px; }
+    .page-sub { font-size: 16px; font-weight: 300; color: var(--mid); line-height: 1.8; max-width: 600px; }
+    .page-sub strong { color: var(--text); font-weight: 400; }
+    .page-meta { display: flex; gap: 24px; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border-dim); }
+    .page-meta-item { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+    .page-meta-item strong { color: var(--primary); font-family: var(--mono); display: block; font-size: 13px; margin-bottom: 3px; }
+
+    /* Project Grid */
+    .projects { padding: 72px 0; }
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+
+    /* Project Card */
+    .project-card { background: var(--card); display: flex; flex-direction: column; border-top: 2px solid transparent; transition: background .15s; }
+    .project-card.card-active { border-top-color: var(--primary); }
+    .project-card.card-ongoing { border-top-color: var(--amber); }
+    .project-card.card-archived { border-top-color: var(--border); }
+
+    .card-head { padding: 28px 28px 0; }
+    .card-num-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .card-num { font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: .08em; }
+    .card-title { font-size: 20px; font-weight: 700; letter-spacing: -.025em; margin-bottom: 14px; line-height: 1.2; }
+    .card-story { font-size: 13px; color: var(--mid); line-height: 1.8; margin-bottom: 20px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 24px; }
+    .ctag { font-family: var(--mono); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); color: var(--dim); }
+
+    .card-toggle { width: 100%; border: none; background: var(--surface); border-top: 1px solid var(--border-dim); padding: 14px 28px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); transition: background .15s; }
+    .card-toggle:hover { background: var(--primary-bg); }
+    .toggle-arrow { font-size: 14px; transition: transform .3s; }
+    .project-card.open .toggle-arrow { transform: rotate(180deg); }
+
+    /* Expand panel */
+    .card-detail { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+    .project-card.open .card-detail { max-height: 4000px; }
+    .detail-inner { padding: 28px; border-top: 1px solid var(--border-dim); background: var(--bg); }
+
+    /* Architecture Pipeline */
+    .arch-title { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin-bottom: 16px; }
+    .arch-pipeline { display: flex; align-items: center; gap: 0; margin-bottom: 28px; overflow-x: auto; padding-bottom: 8px; }
+    .arch-step { background: var(--card); border: 1px solid var(--border); padding: 10px 14px; flex-shrink: 0; }
+    .arch-step-label { font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); margin-bottom: 3px; }
+    .arch-step-name { font-size: 12px; font-weight: 600; color: var(--text); }
+    .arch-arrow { color: var(--primary); font-size: 16px; padding: 0 8px; flex-shrink: 0; }
+    .arch-step.highlight { border-color: var(--primary); background: var(--primary-bg); }
+    .arch-step.highlight .arch-step-name { color: var(--primary); }
+
+    /* Method steps */
+    .method-title { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin-bottom: 16px; }
+    .method-steps { display: flex; flex-direction: column; gap: 0; margin-bottom: 28px; }
+    .mstep { display: flex; gap: 14px; position: relative; }
+    .mstep:not(:last-child)::after { content: ''; position: absolute; left: 15px; top: 32px; bottom: -4px; width: 1px; background: var(--border); }
+    .mstep-dot { width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; color: var(--primary); flex-shrink: 0; margin-top: 2px; background: var(--card); }
+    .mstep-body { padding-bottom: 20px; }
+    .mstep-label { font-size: 13px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 3px; }
+    .mstep-desc { font-size: 12px; color: var(--mid); line-height: 1.7; }
+
+    /* Code block */
+    .code-block { background: var(--code-bg); padding: 22px 24px; margin-bottom: 24px; overflow-x: auto; }
+    .code-block pre { font-family: var(--mono); font-size: 12px; line-height: 1.75; color: #c9d1d9; }
+    .kw  { color: #ff7b72; }
+    .fn  { color: #79c0ff; }
+    .st  { color: #a5d6ff; }
+    .cm  { color: #6e7681; font-style: italic; }
+    .num { color: #79c0ff; }
+    .op  { color: #ff7b72; }
+    .var { color: #e6edf3; }
+    .dec { color: #d2a8ff; }
+
+    /* Metrics */
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 24px; }
+    .metric { background: var(--card); padding: 16px; text-align: center; }
+    .metric-val { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--primary); display: block; margin-bottom: 4px; }
+    .metric-label { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+
+    .card-link { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); display: inline-flex; align-items: center; gap: 8px; transition: gap .15s; }
+    .card-link:hover { gap: 14px; }
+
+    /* Story section */
+    .story-section { padding: 64px 0; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .story-inner { display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: start; }
+    .story-label { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--primary); margin-bottom: 16px; }
+    .story-headline { font-size: 26px; font-weight: 700; letter-spacing: -.03em; margin-bottom: 16px; line-height: 1.2; }
+    .story-body { font-size: 14px; color: var(--mid); line-height: 1.85; }
+    .story-body p + p { margin-top: 14px; }
+    .story-aside { background: var(--card); border: 1px solid var(--border); padding: 28px; }
+    .aside-title { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: 16px; }
+    .aside-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border-dim); }
+    .aside-item:last-child { border-bottom: none; }
+    .aside-dot { width: 5px; height: 5px; background: var(--primary); border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+    .aside-text { font-size: 13px; color: var(--mid); line-height: 1.65; }
+
+    /* Impact box */
+    .impact-box { background: var(--primary-bg); border: 1px solid var(--primary); border-left: 3px solid var(--primary); padding: 20px 24px; margin-bottom: 24px; }
+    .impact-label { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .impact-text { font-size: 13px; color: var(--text); line-height: 1.75; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; background: var(--surface); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--dim); }
+    .footer-logo span { color: var(--primary); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); transition: color .15s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+
+    @media (max-width: 800px) {
+      .wrap { padding: 0 20px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .story-inner { grid-template-columns: 1fr; }
+      .arch-pipeline { flex-wrap: nowrap; }
+      nav { gap: 18px; }
+      .page-meta { flex-wrap: wrap; gap: 16px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="header-inner">
+      <a href="index.html" class="logo">SK<span>.</span>portfolio</a>
+      <nav>
+        <a href="index.html">Start</a>
+        <a href="datenanalyse.html">Datenanalyse</a>
+        <a href="automatisierung.html" class="active">Automatisierung</a>
+        <a href="forschung.html">Forschung</a>
+      </nav>
+      <a href="mailto:s.kurt@stromlicht.de" class="header-cta">Kontakt</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="page-eyebrow">03 — Automatisierung</div>
+      <h1 class="page-title">Wenn Code<br>Arbeit übernimmt.</h1>
+      <p class="page-sub">
+        Manuelle Prozesse kosten Zeit — und Zeit kostet Geld. Diese Projekte zeigen, wie
+        <strong>wiederkehrende Aufgaben vollständig automatisiert</strong> werden: von der
+        Datensynchronisation über API-Integrationen bis zur automatischen Dokumentenerzeugung.
+      </p>
+      <div class="page-meta">
+        <div class="page-meta-item"><strong>2</strong>Systeme</div>
+        <div class="page-meta-item"><strong>Python</strong>Hauptsprache</div>
+        <div class="page-meta-item"><strong>API + PDF</strong>Technologien</div>
+        <div class="page-meta-item"><strong>Produktiv</strong>Status</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Bridge -->
+  <section class="story-section">
+    <div class="wrap">
+      <div class="story-inner">
+        <div class="story-text">
+          <div class="story-label">Die Überzeugung</div>
+          <h2 class="story-headline">Automatisieren, was sich wiederholt</h2>
+          <div class="story-body">
+            <p>
+              Jede Aufgabe, die ich zweimal manuell erledige, frage ich mich: Warum nicht einmal
+              und dann nie wieder? Dieser Gedanke hat mich von der Biochemie zur Programmierung
+              gebracht — und von Skripten zu produktiven Systemen.
+            </p>
+            <p>
+              Die hier gezeigten Lösungen laufen in echten Arbeitsumgebungen. Kein Proof-of-Concept,
+              keine Demo — sondern Code, der täglich Arbeit abnimmt und dabei verlässlich bleibt.
+            </p>
+          </div>
+        </div>
+        <div class="story-aside">
+          <div class="aside-title">Technologie-Stack</div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">requests, httpx — API-Kommunikation</div></div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">pdfplumber, pdfrw — PDF-Verarbeitung</div></div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">GraphQL — ERP/CRM-Abfragen</div></div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">pandas — Datentransformation</div></div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">pathlib, os — Dateiorganisation</div></div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">re (regex) — Mustererkennung in Texten</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Cards -->
+  <section class="projects">
+    <div class="wrap">
+      <div class="project-grid">
+
+        <!-- #A01 CRM Sync Engine -->
+        <div class="project-card card-active" id="crm-sync">
+          <div class="card-head">
+            <div class="card-num-row">
+              <span class="card-num">#A01</span>
+              <span class="badge badge-active">produktiv</span>
+            </div>
+            <h2 class="card-title">ERP/CRM Incremental Sync Engine</h2>
+            <p class="card-story">
+              Ein ERP-System mit tausenden Kontakten, Dokumenten und Projekten — und keine
+              einfache Möglichkeit, lokale Analysen damit zu betreiben. Die Lösung: eine
+              inkrementelle Synchronisations-Engine, die per GraphQL nur geänderte Datensätze
+              abruft, lokal in CSV speichert und dabei stabil mit Rate-Limits und Serverfehlern
+              umgeht. Aus stündlichen manuellen Exporten wurde ein vollautomatischer Datenstrom.
+            </p>
+            <div class="card-tags">
+              <span class="ctag">GraphQL</span>
+              <span class="ctag">Incremental Sync</span>
+              <span class="ctag">Watermark</span>
+              <span class="ctag">pandas</span>
+              <span class="ctag">requests</span>
+            </div>
+          </div>
+          <button class="card-toggle" onclick="toggleCard(this)">
+            <span>Details anzeigen</span>
+            <span class="toggle-arrow">↓</span>
+          </button>
+          <div class="card-detail">
+            <div class="detail-inner">
+
+              <div class="arch-title">Systemarchitektur</div>
+              <div class="arch-pipeline">
+                <div class="arch-step">
+                  <div class="arch-step-label">Schritt 1</div>
+                  <div class="arch-step-name">Light Query</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step highlight">
+                  <div class="arch-step-label">Schritt 2</div>
+                  <div class="arch-step-name">Delta-Erkennung</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step">
+                  <div class="arch-step-label">Schritt 3</div>
+                  <div class="arch-step-name">Full Query</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step">
+                  <div class="arch-step-label">Schritt 4</div>
+                  <div class="arch-step-name">Upsert CSV</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step">
+                  <div class="arch-step-label">Schritt 5</div>
+                  <div class="arch-step-name">Loop-Stable</div>
+                </div>
+              </div>
+
+              <div class="method-title">Wie es funktioniert</div>
+              <div class="method-steps">
+                <div class="mstep">
+                  <div class="mstep-dot">1</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Wasserzeichen-basiertes Delta</div>
+                    <div class="mstep-desc">Der letzte bekannte Zeitstempel wird als Watermark gespeichert. Beim nächsten Lauf werden nur Datensätze abgerufen, die danach geändert wurden.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">2</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Zweiphasen-Abfrage</div>
+                    <div class="mstep-desc">Phase 1: Leichte Abfrage (nur IDs + Timestamps) zur schnellen Identifikation geänderter Einträge. Phase 2: Vollständige Abfrage nur für die geänderten IDs in Batches.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">3</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Loop-until-stable</div>
+                    <div class="mstep-desc">Synchronisation läuft solange, bis ein Durchlauf keine neuen Änderungen mehr findet — garantiert vollständige Konsistenz auch bei serverseitiger Paginierung.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">4</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Fehlerresistenz</div>
+                    <div class="mstep-desc">Automatischer Retry bei HTTP 429/5xx, exponentielles Backoff, sauberes Logging — der Sync erholt sich selbst von transienten Serverfehlern.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="code-block">
+                <pre><span class="kw">import</span> <span class="var">os</span>, <span class="var">time</span>, <span class="var">requests</span>
+<span class="kw">import</span> <span class="var">pandas</span> <span class="kw">as</span> <span class="var">pd</span>
+<span class="kw">from</span> <span class="var">datetime</span> <span class="kw">import</span> <span class="var">datetime</span>, <span class="var">timezone</span>
+
+<span class="var">API_TOKEN</span> = os.<span class="var">environ</span>[<span class="st">"CRM_API_TOKEN"</span>]  <span class="cm"># niemals hardcoded</span>
+<span class="var">API_URL</span>   = os.<span class="var">environ</span>[<span class="st">"CRM_API_URL"</span>]
+
+<span class="kw">def</span> <span class="fn">gql</span>(query, variables=<span class="kw">None</span>, retries=<span class="num">3</span>):
+    <span class="cm"># GraphQL mit automatischem Retry bei 429/5xx</span>
+    <span class="kw">for</span> attempt <span class="kw">in</span> <span class="fn">range</span>(retries):
+        r = <span class="var">requests</span>.<span class="fn">post</span>(
+            <span class="var">API_URL</span>,
+            json={<span class="st">"query"</span>: query, <span class="st">"variables"</span>: variables <span class="kw">or</span> {}},
+            headers={<span class="st">"Authorization"</span>: <span class="st">f"Bearer {<span class="var">API_TOKEN</span>}"</span>},
+            timeout=<span class="num">30</span>
+        )
+        <span class="kw">if</span> r.status_code == <span class="num">429</span>:
+            <span class="var">time</span>.<span class="fn">sleep</span>(<span class="num">2</span> ** attempt)
+            <span class="kw">continue</span>
+        r.<span class="fn">raise_for_status</span>()
+        <span class="kw">return</span> r.<span class="fn">json</span>()[<span class="st">"data"</span>]
+    <span class="kw">raise</span> <span class="var">RuntimeError</span>(<span class="st">"Max retries exceeded"</span>)
+
+<span class="kw">def</span> <span class="fn">upsert_by_id</span>(existing_df, new_records):
+    <span class="cm"># Neue und geänderte Datensätze in lokale CSV einpflegen</span>
+    new_df  = <span class="var">pd</span>.<span class="fn">DataFrame</span>(new_records)
+    merged  = <span class="var">pd</span>.<span class="fn">concat</span>([existing_df, new_df])
+    <span class="kw">return</span> (merged
+            .<span class="fn">sort_values</span>(<span class="st">"modified_at"</span>, ascending=<span class="kw">False</span>)
+            .<span class="fn">drop_duplicates</span>(subset=[<span class="st">"id"</span>], keep=<span class="st">"first"</span>)
+            .<span class="fn">reset_index</span>(drop=<span class="kw">True</span>))
+
+<span class="kw">def</span> <span class="fn">sync_until_stable</span>(entity_fn, csv_path, watermark):
+    <span class="cm"># Loop: sync → prüfen ob neue Daten → wiederholen bis stabil</span>
+    <span class="kw">while</span> <span class="kw">True</span>:
+        new_records, new_watermark = <span class="fn">entity_fn</span>(watermark)
+        <span class="kw">if not</span> new_records:
+            <span class="kw">break</span>
+        df = <span class="var">pd</span>.<span class="fn">read_csv</span>(csv_path) <span class="kw">if</span> csv_path.<span class="fn">exists</span>() <span class="kw">else</span> <span class="var">pd</span>.<span class="fn">DataFrame</span>()
+        df = <span class="fn">upsert_by_id</span>(df, new_records)
+        df.<span class="fn">to_csv</span>(csv_path, index=<span class="kw">False</span>)
+        watermark = new_watermark</pre>
+              </div>
+
+              <div class="impact-box">
+                <div class="impact-label">Praxiswirkung</div>
+                <div class="impact-text">
+                  Tägliche manuelle Exporte entfallen vollständig. Der Sync läuft als geplanter Task —
+                  aktuelle Daten stehen jederzeit lokal für Auswertungen bereit, ohne Serverüberlastung
+                  durch unnötige Vollabfragen.
+                </div>
+              </div>
+
+              <div class="metrics">
+                <div class="metric">
+                  <span class="metric-val">4</span>
+                  <span class="metric-label">Entitätstypen</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-val">&lt;5%</span>
+                  <span class="metric-label">API-Last vs. Vollsync</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-val">0</span>
+                  <span class="metric-label">Manuelle Schritte</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- #A02 KV Pipeline -->
+        <div class="project-card card-active" id="kv-pipeline">
+          <div class="card-head">
+            <div class="card-num-row">
+              <span class="card-num">#A02</span>
+              <span class="badge badge-active">produktiv</span>
+            </div>
+            <h2 class="card-title">Angebots-Automatisierung — PDF Pipeline</h2>
+            <p class="card-story">
+              Angebote erstellen: CRM öffnen, PDF herunterladen, Positionen ablesen, Word-Vorlage
+              befüllen, PDF exportieren, ablegen. Für jedes Angebot. Jede Woche. Die Automatisierung
+              übernimmt den gesamten Prozess: CRM-Sync, PDF-Extraktion per pdfplumber, Regex-Parsing
+              der Positionen, Template-Befüllung via pdfrw — vollständig ohne manuelle Eingriffe.
+            </p>
+            <div class="card-tags">
+              <span class="ctag">pdfplumber</span>
+              <span class="ctag">pdfrw</span>
+              <span class="ctag">regex</span>
+              <span class="ctag">pandas</span>
+              <span class="ctag">pathlib</span>
+            </div>
+          </div>
+          <button class="card-toggle" onclick="toggleCard(this)">
+            <span>Details anzeigen</span>
+            <span class="toggle-arrow">↓</span>
+          </button>
+          <div class="card-detail">
+            <div class="detail-inner">
+
+              <div class="arch-title">Pipeline-Übersicht</div>
+              <div class="arch-pipeline">
+                <div class="arch-step">
+                  <div class="arch-step-label">Quelle</div>
+                  <div class="arch-step-name">CRM Sync</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step">
+                  <div class="arch-step-label">Download</div>
+                  <div class="arch-step-name">PDF abrufen</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step highlight">
+                  <div class="arch-step-label">Extraktion</div>
+                  <div class="arch-step-name">Text + Regex</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step">
+                  <div class="arch-step-label">Output</div>
+                  <div class="arch-step-name">Template füllen</div>
+                </div>
+                <div class="arch-arrow">→</div>
+                <div class="arch-step">
+                  <div class="arch-step-label">Ablage</div>
+                  <div class="arch-step-name">PDF + CSV-Log</div>
+                </div>
+              </div>
+
+              <div class="method-title">Technische Umsetzung</div>
+              <div class="method-steps">
+                <div class="mstep">
+                  <div class="mstep-dot">1</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">PDF-Textextraktion mit pdfplumber</div>
+                    <div class="mstep-desc">Strukturierte Textextraktion aus mehrseitigen PDFs. Tabelleninhalt wird seitenweise zusammengeführt und als Rohtext bereitgestellt.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">2</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Regex-Parsing der Angebotspositionen</div>
+                    <div class="mstep-desc">Reguläre Ausdrücke extrahieren Positionsnummer, Beschreibung, Menge und Einzelpreis — robust gegen Formatvariationen und mehrzeilige Einträge.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">3</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Template-Befüllung mit pdfrw</div>
+                    <div class="mstep-desc">PDF-Formularfelder werden programmatisch mit den extrahierten Werten befüllt. Ergebnis-PDF wird mit Angebotsnummer benannt und archiviert.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">4</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">CSV-Protokoll & Fehlerbehandlung</div>
+                    <div class="mstep-desc">Jedes verarbeitete Angebot wird mit Zeitstempel, Status und Dateipfad protokolliert. Fehlhafte PDFs werden in einer separaten Queue gesammelt.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="code-block">
+                <pre><span class="kw">import</span> <span class="var">pdfplumber</span>, <span class="var">pdfrw</span>, <span class="var">re</span>
+<span class="kw">from</span> <span class="var">pathlib</span> <span class="kw">import</span> <span class="var">Path</span>
+<span class="kw">from</span> <span class="var">datetime</span> <span class="kw">import</span> <span class="var">datetime</span>
+
+<span class="cm"># Positionen aus PDF-Text extrahieren</span>
+<span class="var">POSITION_PATTERN</span> = <span class="var">re</span>.<span class="fn">compile</span>(
+    <span class="st">r'(?P&lt;pos&gt;\d+)\s+'</span>
+    <span class="st">r'(?P&lt;desc&gt;[A-Za-z][\w\s,\-\.]+?)\s+'</span>
+    <span class="st">r'(?P&lt;qty&gt;\d+(?:[.,]\d+)?)\s+(?:Stk|m²|h)\s+'</span>
+    <span class="st">r'(?P&lt;price&gt;\d{1,3}(?:\.\d{3})*(?:,\d{2}))'</span>
+)
+
+<span class="kw">def</span> <span class="fn">extract_positions</span>(pdf_path):
+    <span class="kw">with</span> <span class="var">pdfplumber</span>.<span class="fn">open</span>(pdf_path) <span class="kw">as</span> pdf:
+        full_text = <span class="st">"\n"</span>.<span class="fn">join</span>(p.<span class="fn">extract_text</span>() <span class="kw">or</span> <span class="st">""</span> <span class="kw">for</span> p <span class="kw">in</span> pdf.pages)
+    <span class="kw">return</span> [m.<span class="fn">groupdict</span>() <span class="kw">for</span> m <span class="kw">in</span> <span class="var">POSITION_PATTERN</span>.<span class="fn">finditer</span>(full_text)]
+
+<span class="kw">def</span> <span class="fn">fill_template</span>(template_path, output_path, fields):
+    template = <span class="var">pdfrw</span>.<span class="fn">PdfReader</span>(template_path)
+    <span class="kw">for</span> page <span class="kw">in</span> template.pages:
+        annotations = page.<span class="fn">get</span>(<span class="st">"/Annots"</span>) <span class="kw">or</span> []
+        <span class="kw">for</span> ann <span class="kw">in</span> annotations:
+            key = <span class="fn">str</span>(ann.<span class="fn">get</span>(<span class="st">"/T"</span>, <span class="st">""</span>)).<span class="fn">strip</span>(<span class="st">"()"</span>)
+            <span class="kw">if</span> key <span class="kw">in</span> fields:
+                ann.<span class="fn">update</span>(<span class="var">pdfrw</span>.<span class="fn">PdfDict</span>(V=fields[key], AP=<span class="st">""</span>))
+    <span class="var">pdfrw</span>.<span class="fn">PdfWriter</span>().<span class="fn">write</span>(output_path, template)</pre>
+              </div>
+
+              <div class="impact-box">
+                <div class="impact-label">Praxiswirkung</div>
+                <div class="impact-text">
+                  Was vorher 15–20 Minuten pro Angebot dauerte, läuft jetzt in unter 10 Sekunden
+                  vollautomatisch durch. Formatfehler durch manuelle Übertragung gehören der Vergangenheit an.
+                </div>
+              </div>
+
+              <div class="metrics">
+                <div class="metric">
+                  <span class="metric-val">&lt;10s</span>
+                  <span class="metric-label">Je Angebot</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-val">100%</span>
+                  <span class="metric-label">Automatisiert</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-val">0</span>
+                  <span class="metric-label">Übertragungsfehler</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /project-grid -->
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-logo">SK<span>.</span>portfolio</div>
+      <div class="footer-links">
+        <a href="index.html">Start</a>
+        <a href="datenanalyse.html">Datenanalyse</a>
+        <a href="forschung.html">Forschung</a>
+        <a href="mailto:s.kurt@stromlicht.de">Kontakt</a>
+      </div>
+      <div class="footer-copy">© 2025 Samet Kurt</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleCard(btn) {
+    const card = btn.closest('.project-card');
+    const isOpen = card.classList.contains('open');
+    card.classList.toggle('open', !isOpen);
+    btn.querySelector('span:first-child').textContent = isOpen ? 'Details anzeigen' : 'Details ausblenden';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const target = document.getElementById(hash);
+      if (target) {
+        const btn = target.querySelector('.card-toggle');
+        if (btn) toggleCard(btn);
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
+    }
+  });
+</script>
+</body>
+</html>

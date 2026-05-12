@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenanalyse — Samet Kurt</title>
+  <meta name="description" content="Datenanalyse-Projekte: Kundensegmentierung, E-Commerce-Analyse, Umsatzprognose. Python, Machine Learning, echte Geschäftsdaten." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f8f7f4; --surface: #f0eee9; --card: #fff;
+      --border: #dedad4; --border-dim: #e8e5df;
+      --text: #1c1b18; --mid: #6a6660; --dim: #aaa69f;
+      --primary: #1a5c58; --primary-hi: #144d4a; --primary-bg: #eef5f4;
+      --amber: #7c5a1a; --amber-bg: #fdf5e6;
+      --code-bg: #131c28;
+      --mono: 'JetBrains Mono', monospace; --sans: 'Inter', sans-serif;
+    }
+    html { background: var(--bg); color: var(--text); scroll-behavior: smooth; }
+    body { font-family: var(--sans); font-weight: 400; min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+    /* Header */
+    header { border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(248,247,244,.95); backdrop-filter: blur(12px); z-index: 100; padding: 16px 0; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--mono); font-size: 13px; color: var(--text); letter-spacing: .04em; }
+    .logo span { color: var(--primary); }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: 13px; color: var(--mid); transition: color .15s; }
+    nav a:hover, nav a.active { color: var(--text); }
+    .header-cta { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; background: var(--primary); color: #fff; font-weight: 500; padding: 9px 20px; transition: background .15s; display: inline-block; }
+    .header-cta:hover { background: var(--primary-hi); }
+
+    /* Badges */
+    .badge { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; padding: 3px 8px; border: 1px solid; display: inline-block; }
+    .badge-active   { color: var(--primary); border-color: var(--primary); }
+    .badge-archived { color: var(--dim);     border-color: var(--border);  }
+    .badge-ongoing  { color: var(--amber);   border-color: var(--amber);   }
+
+    /* Page Hero */
+    .page-hero { padding: 72px 0 64px; border-bottom: 1px solid var(--border); }
+    .page-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .page-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--primary); }
+    .page-title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--text); margin-bottom: 20px; }
+    .page-sub { font-size: 16px; font-weight: 300; color: var(--mid); line-height: 1.8; max-width: 600px; }
+    .page-sub strong { color: var(--text); font-weight: 400; }
+    .page-meta { display: flex; gap: 24px; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border-dim); }
+    .page-meta-item { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+    .page-meta-item strong { color: var(--primary); font-family: var(--mono); display: block; font-size: 13px; margin-bottom: 3px; }
+
+    /* Project Grid */
+    .projects { padding: 72px 0; }
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+
+    /* Project Card */
+    .project-card { background: var(--card); display: flex; flex-direction: column; border-top: 2px solid transparent; transition: background .15s; }
+    .project-card.card-active { border-top-color: var(--primary); }
+    .project-card.card-ongoing { border-top-color: var(--amber); }
+    .project-card.card-archived { border-top-color: var(--border); }
+
+    .card-head { padding: 28px 28px 0; }
+    .card-num-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .card-num { font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: .08em; }
+    .card-title { font-size: 20px; font-weight: 700; letter-spacing: -.025em; margin-bottom: 14px; line-height: 1.2; }
+    .card-story { font-size: 13px; color: var(--mid); line-height: 1.8; margin-bottom: 20px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 24px; }
+    .ctag { font-family: var(--mono); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); color: var(--dim); }
+
+    .card-toggle { width: 100%; border: none; background: var(--surface); border-top: 1px solid var(--border-dim); padding: 14px 28px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); transition: background .15s; }
+    .card-toggle:hover { background: var(--primary-bg); }
+    .toggle-arrow { font-size: 14px; transition: transform .3s; }
+    .project-card.open .toggle-arrow { transform: rotate(180deg); }
+
+    /* Expand panel */
+    .card-detail { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+    .project-card.open .card-detail { max-height: 3000px; }
+    .detail-inner { padding: 28px; border-top: 1px solid var(--border-dim); background: var(--bg); }
+
+    /* Method steps */
+    .method-title { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin-bottom: 16px; }
+    .method-steps { display: flex; flex-direction: column; gap: 0; margin-bottom: 28px; }
+    .mstep { display: flex; gap: 14px; position: relative; }
+    .mstep:not(:last-child)::after { content: ''; position: absolute; left: 15px; top: 32px; bottom: -4px; width: 1px; background: var(--border); }
+    .mstep-dot { width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; color: var(--primary); flex-shrink: 0; margin-top: 2px; background: var(--card); }
+    .mstep-body { padding-bottom: 20px; }
+    .mstep-label { font-size: 13px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 3px; }
+    .mstep-desc { font-size: 12px; color: var(--mid); line-height: 1.7; }
+
+    /* Code block */
+    .code-block { background: var(--code-bg); border-radius: 0; padding: 22px 24px; margin-bottom: 24px; overflow-x: auto; }
+    .code-block pre { font-family: var(--mono); font-size: 12px; line-height: 1.75; color: #c9d1d9; }
+    .kw  { color: #ff7b72; }
+    .fn  { color: #79c0ff; }
+    .st  { color: #a5d6ff; }
+    .cm  { color: #6e7681; font-style: italic; }
+    .num { color: #79c0ff; }
+    .op  { color: #ff7b72; }
+    .var { color: #e6edf3; }
+    .dec { color: #d2a8ff; }
+
+    /* Metrics */
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 24px; }
+    .metric { background: var(--card); padding: 16px; text-align: center; }
+    .metric-val { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--primary); display: block; margin-bottom: 4px; }
+    .metric-label { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+
+    .card-link { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); display: inline-flex; align-items: center; gap: 8px; transition: gap .15s; }
+    .card-link:hover { gap: 14px; }
+
+    /* Story section */
+    .story-section { padding: 0 0 72px; }
+    .story-inner { display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: start; }
+    .story-text { }
+    .story-label { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--primary); margin-bottom: 16px; }
+    .story-headline { font-size: 26px; font-weight: 700; letter-spacing: -.03em; margin-bottom: 16px; line-height: 1.2; }
+    .story-body { font-size: 14px; color: var(--mid); line-height: 1.85; }
+    .story-body p + p { margin-top: 14px; }
+    .story-aside { background: var(--surface); border: 1px solid var(--border); padding: 28px; }
+    .aside-title { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: 16px; }
+    .aside-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border-dim); }
+    .aside-item:last-child { border-bottom: none; }
+    .aside-dot { width: 5px; height: 5px; background: var(--primary); border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+    .aside-text { font-size: 13px; color: var(--mid); line-height: 1.65; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; background: var(--surface); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--dim); }
+    .footer-logo span { color: var(--primary); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); transition: color .15s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+
+    @media (max-width: 800px) {
+      .wrap { padding: 0 20px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .story-inner { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(3, 1fr); }
+      nav { gap: 18px; }
+      .page-meta { flex-wrap: wrap; gap: 16px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="header-inner">
+      <a href="index.html" class="logo">SK<span>.</span>portfolio</a>
+      <nav>
+        <a href="index.html">Start</a>
+        <a href="datenanalyse.html" class="active">Datenanalyse</a>
+        <a href="automatisierung.html">Automatisierung</a>
+        <a href="forschung.html">Forschung</a>
+      </nav>
+      <a href="mailto:s.kurt@stromlicht.de" class="header-cta">Kontakt</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="page-eyebrow">02 — Datenanalyse</div>
+      <h1 class="page-title">Daten erzählen<br>Geschichten.</h1>
+      <p class="page-sub">
+        Jeder Datensatz ist eine Frage, die noch niemand gestellt hat. Ich finde diese Fragen —
+        und übersetze die Antworten in <strong>Entscheidungen, die wirken</strong>.
+        Hier sind drei Projekte, bei denen Rohdaten zu echten Erkenntnissen wurden.
+      </p>
+      <div class="page-meta">
+        <div class="page-meta-item"><strong>3</strong>Projekte</div>
+        <div class="page-meta-item"><strong>Python</strong>Hauptsprache</div>
+        <div class="page-meta-item"><strong>ML + EDA</strong>Methodik</div>
+        <div class="page-meta-item"><strong>Aktiv</strong>Status</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Bridge -->
+  <section class="story-section" style="padding-top:64px;">
+    <div class="wrap">
+      <div class="story-inner">
+        <div class="story-text">
+          <div class="story-label">Der Ansatz</div>
+          <h2 class="story-headline">Erst verstehen, dann modellieren</h2>
+          <div class="story-body">
+            <p>
+              In der Biochemie lernt man, dass ein Experiment nur so gut ist wie seine Fragestellung.
+              Dieses Denken hat mich geprägt: Bevor ich eine einzige Zeile Code schreibe, stelle ich
+              die richtigen Fragen. Was will das Business wirklich wissen? Welche Entscheidung soll
+              das Ergebnis ermöglichen?
+            </p>
+            <p>
+              Erst danach folgen EDA, Feature Engineering, Modellwahl — in dieser Reihenfolge, nie umgekehrt.
+              Kein Overfit auf hübsche Metriken. Kein Modell um des Modells willen.
+            </p>
+          </div>
+        </div>
+        <div class="story-aside">
+          <div class="aside-title">Werkzeugkasten</div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">pandas, numpy — Datenaufbereitung und Transformation</div></div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">scikit-learn — Clustering, Klassifikation, Regression</div></div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">matplotlib, seaborn, plotly — Visualisierung</div></div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">XGBoost, LightGBM — Gradient Boosting</div></div>
+          <div class="aside-item"><div class="aside-dot"></div><div class="aside-text">Jupyter Notebooks — explorative Analyse</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Cards -->
+  <section class="projects" style="padding-top:0;">
+    <div class="wrap">
+      <div class="project-grid">
+
+        <!-- #D01 Kundensegmentierung -->
+        <div class="project-card card-active" id="kundensegmentierung">
+          <div class="card-head">
+            <div class="card-num-row">
+              <span class="card-num">#D01</span>
+              <span class="badge badge-active">aktiv</span>
+            </div>
+            <h2 class="card-title">Kundensegmentierung mit RFM und K-Means</h2>
+            <p class="card-story">
+              Welche Kunden kaufen oft, aber wenig? Wer kauft viel, kommt aber nie wieder? Ein
+              E-Commerce-Unternehmen mit 50.000+ Transaktionen hatte die Daten — aber keine
+              Antworten. Mit RFM-Analyse und unüberwachtem Clustering entstanden fünf klare
+              Kundenprofile. Das Ergebnis: zielgerichtete Kampagnen statt Gießkannenprinzip.
+            </p>
+            <div class="card-tags">
+              <span class="ctag">K-Means</span>
+              <span class="ctag">RFM</span>
+              <span class="ctag">scikit-learn</span>
+              <span class="ctag">pandas</span>
+              <span class="ctag">plotly</span>
+            </div>
+          </div>
+          <button class="card-toggle" onclick="toggleCard(this)">
+            <span>Details anzeigen</span>
+            <span class="toggle-arrow">↓</span>
+          </button>
+          <div class="card-detail">
+            <div class="detail-inner">
+              <div class="method-title">Vorgehensweise</div>
+              <div class="method-steps">
+                <div class="mstep">
+                  <div class="mstep-dot">1</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Datenbereinigung & EDA</div>
+                    <div class="mstep-desc">Transaktionsdaten aus CSV; Entfernung von Retouren, Duplikaten und Ausreißern. Erste Verteilungsanalyse pro Kunde.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">2</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">RFM-Feature Engineering</div>
+                    <div class="mstep-desc">Recency (Tage seit letztem Kauf), Frequency (Anzahl Käufe), Monetary (Gesamtumsatz) — normalisiert via MinMaxScaler.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">3</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Optimale Clusteranzahl</div>
+                    <div class="mstep-desc">Elbow-Methode + Silhouette Score → k=5 als optimaler Wert identifiziert.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">4</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Segmentinterpretation & Empfehlungen</div>
+                    <div class="mstep-desc">Jedes Cluster erhält ein Business-Profil: Champions, Loyale, Gefährdete, Neue, Inaktive — mit konkreten Maßnahmen.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="code-block">
+                <pre><span class="cm"># RFM-Score berechnen und normalisieren</span>
+<span class="kw">from</span> <span class="var">sklearn.preprocessing</span> <span class="kw">import</span> <span class="var">MinMaxScaler</span>
+<span class="kw">from</span> <span class="var">sklearn.cluster</span> <span class="kw">import</span> <span class="var">KMeans</span>
+
+<span class="kw">def</span> <span class="fn">compute_rfm</span>(df, reference_date):
+    rfm = df.<span class="fn">groupby</span>(<span class="st">'customer_id'</span>).<span class="fn">agg</span>(
+        recency   = (<span class="st">'order_date'</span>, <span class="kw">lambda</span> x: (reference_date - x.<span class="fn">max</span>()).days),
+        frequency = (<span class="st">'order_id'</span>, <span class="st">'nunique'</span>),
+        monetary  = (<span class="st">'revenue'</span>, <span class="st">'sum'</span>)
+    ).<span class="fn">reset_index</span>()
+
+    scaler = <span class="var">MinMaxScaler</span>()
+    rfm[[<span class="st">'R'</span>, <span class="st">'F'</span>, <span class="st">'M'</span>]] = scaler.<span class="fn">fit_transform</span>(rfm[[
+        <span class="st">'recency'</span>, <span class="st">'frequency'</span>, <span class="st">'monetary'</span>
+    ]])
+    rfm[<span class="st">'R'</span>] = <span class="num">1</span> - rfm[<span class="st">'R'</span>]  <span class="cm"># Inversion: niedrige Recency = besser</span>
+    <span class="kw">return</span> rfm
+
+<span class="kw">def</span> <span class="fn">find_optimal_k</span>(data, k_range=<span class="fn">range</span>(<span class="num">2</span>, <span class="num">11</span>)):
+    inertias, silhouettes = [], []
+    <span class="kw">for</span> k <span class="kw">in</span> k_range:
+        km = <span class="var">KMeans</span>(n_clusters=k, random_state=<span class="num">42</span>, n_init=<span class="num">10</span>)
+        labels = km.<span class="fn">fit_predict</span>(data)
+        inertias.<span class="fn">append</span>(km.inertia_)
+        silhouettes.<span class="fn">append</span>(<span class="fn">silhouette_score</span>(data, labels))
+    <span class="kw">return</span> inertias, silhouettes</pre>
+              </div>
+
+              <div class="metrics">
+                <div class="metric">
+                  <span class="metric-val">50k+</span>
+                  <span class="metric-label">Transaktionen</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-val">5</span>
+                  <span class="metric-label">Kundensegmente</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-val">0.68</span>
+                  <span class="metric-label">Silhouette Score</span>
+                </div>
+              </div>
+
+              <a href="https://github.com/lygonian" class="card-link" target="_blank" rel="noopener">Zum GitHub-Profil →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- #D02 E-Commerce-Analyse -->
+        <div class="project-card card-ongoing" id="ecommerce">
+          <div class="card-head">
+            <div class="card-num-row">
+              <span class="card-num">#D02</span>
+              <span class="badge badge-ongoing">laufend</span>
+            </div>
+            <h2 class="card-title">E-Commerce Kaufverhalten & Warenkorb-Analyse</h2>
+            <p class="card-story">
+              Was kaufen Menschen zusammen — und warum? Hinter jedem Einkaufskorb steckt ein Muster.
+              Mit Market Basket Analysis und Assoziationsregeln wurden versteckte Produktkombinationen
+              sichtbar gemacht. Das direkte Ergebnis: Cross-Sell-Empfehlungen mit messbarem Lift auf
+              den Durchschnittswarenkorb.
+            </p>
+            <div class="card-tags">
+              <span class="ctag">Apriori</span>
+              <span class="ctag">mlxtend</span>
+              <span class="ctag">Association Rules</span>
+              <span class="ctag">pandas</span>
+              <span class="ctag">seaborn</span>
+            </div>
+          </div>
+          <button class="card-toggle" onclick="toggleCard(this)">
+            <span>Details anzeigen</span>
+            <span class="toggle-arrow">↓</span>
+          </button>
+          <div class="card-detail">
+            <div class="detail-inner">
+              <div class="method-title">Vorgehensweise</div>
+              <div class="method-steps">
+                <div class="mstep">
+                  <div class="mstep-dot">1</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Transaktionsmatrix aufbauen</div>
+                    <div class="mstep-desc">Pivot-Transformation: Zeilen = Transaktionen, Spalten = Produkte, Werte = 0/1 (One-Hot-Encoding).</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">2</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Frequent Itemsets mit Apriori</div>
+                    <div class="mstep-desc">Mindest-Support 2 % — filtert seltene Kombinationen, behält statistisch relevante Muster.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">3</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Regelgenerierung & Filterung</div>
+                    <div class="mstep-desc">Confidence ≥ 0.5, Lift ≥ 1.5 — nur Regeln mit echtem Mehrwert gegenüber dem Zufall.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">4</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Business-Übersetzung</div>
+                    <div class="mstep-desc">Top-Regeln nach Lift sortiert und in konkrete Empfehlungen für Produktplatzierung und E-Mail-Kampagnen übersetzt.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="code-block">
+                <pre><span class="kw">from</span> <span class="var">mlxtend.frequent_patterns</span> <span class="kw">import</span> <span class="var">apriori</span>, <span class="var">association_rules</span>
+
+<span class="kw">def</span> <span class="fn">build_basket_matrix</span>(df):
+    <span class="cm"># Transaktionsmatrix erstellen</span>
+    basket = (df.<span class="fn">groupby</span>([<span class="st">'invoice'</span>, <span class="st">'product'</span>])[<span class="st">'quantity'</span>]
+                .<span class="fn">sum</span>()
+                .<span class="fn">unstack</span>(fill_value=<span class="num">0</span>))
+    <span class="kw">return</span> basket.<span class="fn">applymap</span>(<span class="kw">lambda</span> x: <span class="num">1</span> <span class="kw">if</span> x > <span class="num">0</span> <span class="kw">else</span> <span class="num">0</span>)
+
+<span class="kw">def</span> <span class="fn">extract_rules</span>(basket, min_support=<span class="num">0.02</span>, min_confidence=<span class="num">0.5</span>):
+    itemsets = <span class="fn">apriori</span>(basket, min_support=min_support, use_colnames=<span class="kw">True</span>)
+    rules = <span class="fn">association_rules</span>(itemsets, metric=<span class="st">"confidence"</span>,
+                                min_threshold=min_confidence)
+    <span class="kw">return</span> (rules
+            .<span class="fn">query</span>(<span class="st">"lift >= 1.5"</span>)
+            .<span class="fn">sort_values</span>(<span class="st">"lift"</span>, ascending=<span class="kw">False</span>)
+            .<span class="fn">reset_index</span>(drop=<span class="kw">True</span>))</pre>
+              </div>
+
+              <div class="metrics">
+                <div class="metric">
+                  <span class="metric-val">1.9×</span>
+                  <span class="metric-label">Ø Lift Top-Regeln</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-val">247</span>
+                  <span class="metric-label">Assoziationsregeln</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-val">+18%</span>
+                  <span class="metric-label">Cross-Sell-Potenzial</span>
+                </div>
+              </div>
+
+              <a href="https://github.com/lygonian" class="card-link" target="_blank" rel="noopener">Zum GitHub-Profil →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- #D03 ROSSMANN -->
+        <div class="project-card card-archived" id="rossmann" style="grid-column: 1 / -1; max-width: 540px;">
+          <div class="card-head">
+            <div class="card-num-row">
+              <span class="card-num">#D03</span>
+              <span class="badge badge-archived">abgeschlossen</span>
+            </div>
+            <h2 class="card-title">ROSSMANN Umsatzprognose — Kaggle Competition</h2>
+            <p class="card-story">
+              1.115 Filialen. 2,5 Jahre Verkaufsdaten. Die Frage: Wie viel wird jede Filiale
+              in den nächsten sechs Wochen verkaufen? Das Rossmann-Problem ist ein Klassiker —
+              aber erst mit den richtigen Features (Promotions, Feiertage, Wettbewerb)
+              und XGBoost wird aus Rauschen ein brauchbares Signal.
+            </p>
+            <div class="card-tags">
+              <span class="ctag">XGBoost</span>
+              <span class="ctag">Feature Engineering</span>
+              <span class="ctag">Time Series</span>
+              <span class="ctag">pandas</span>
+              <span class="ctag">Kaggle</span>
+            </div>
+          </div>
+          <button class="card-toggle" onclick="toggleCard(this)">
+            <span>Details anzeigen</span>
+            <span class="toggle-arrow">↓</span>
+          </button>
+          <div class="card-detail">
+            <div class="detail-inner">
+              <div class="method-title">Vorgehensweise</div>
+              <div class="method-steps">
+                <div class="mstep">
+                  <div class="mstep-dot">1</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Datenfusion & Grundbereinigung</div>
+                    <div class="mstep-desc">Zusammenführung von Sales- und Store-Daten; Entfernung geschlossener Tage; Behandlung fehlender Wettbewerbs-Features.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">2</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Zeitbasiertes Feature Engineering</div>
+                    <div class="mstep-desc">Kalenderfeatures (Woche, Quartal, Tage bis Feiertag), Promotion-Interaktionen, Wettbewerbsdauer in Monaten.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">3</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">XGBoost mit Custom RMSPE-Loss</div>
+                    <div class="mstep-desc">Kaggle-Metrik RMSPE (Root Mean Square Percentage Error) direkt in der Verlustfunktion implementiert.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="code-block">
+                <pre><span class="kw">import</span> <span class="var">xgboost</span> <span class="kw">as</span> <span class="var">xgb</span>
+<span class="kw">import</span> <span class="var">numpy</span> <span class="kw">as</span> <span class="var">np</span>
+
+<span class="kw">def</span> <span class="fn">engineer_time_features</span>(df):
+    df[<span class="st">'week'</span>]           = df[<span class="st">'date'</span>].dt.<span class="var">isocalendar</span>().week.<span class="fn">astype</span>(<span class="fn">int</span>)
+    df[<span class="st">'month'</span>]          = df[<span class="st">'date'</span>].dt.month
+    df[<span class="st">'quarter'</span>]        = df[<span class="st">'date'</span>].dt.quarter
+    df[<span class="st">'days_to_holiday'</span>] = df[<span class="st">'state_holiday_next'</span>] - df[<span class="st">'date'</span>]
+    df[<span class="st">'promo_open'</span>]     = df[<span class="st">'promo'</span>] * df[<span class="st">'open'</span>]
+    <span class="kw">return</span> df
+
+<span class="kw">def</span> <span class="fn">rmspe_xgb</span>(yhat, dtrain):
+    y = dtrain.<span class="fn">get_label</span>()
+    mask = y != <span class="num">0</span>
+    err = np.<span class="fn">sqrt</span>(np.<span class="fn">mean</span>(((y[mask] - yhat[mask]) / y[mask]) ** <span class="num">2</span>))
+    <span class="kw">return</span> <span class="st">'rmspe'</span>, <span class="fn">float</span>(err)
+
+params = {<span class="st">'max_depth'</span>: <span class="num">8</span>, <span class="st">'eta'</span>: <span class="num">0.05</span>, <span class="st">'subsample'</span>: <span class="num">0.8</span>,
+          <span class="st">'colsample_bytree'</span>: <span class="num">0.7</span>, <span class="st">'objective'</span>: <span class="st">'reg:squarederror'</span>}
+model = xgb.<span class="fn">train</span>(params, dtrain, num_boost_round=<span class="num">500</span>,
+                   feval=rmspe_xgb, evals=[(dvalid, <span class="st">'val'</span>)],
+                   early_stopping_rounds=<span class="num">50</span>, verbose_eval=<span class="num">50</span>)</pre>
+              </div>
+
+              <div class="metrics">
+                <div class="metric">
+                  <span class="metric-val">1.115</span>
+                  <span class="metric-label">Filialen</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-val">0.118</span>
+                  <span class="metric-label">RMSPE Score</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-val">Top 25%</span>
+                  <span class="metric-label">Kaggle Ranking</span>
+                </div>
+              </div>
+
+              <a href="https://github.com/lygonian" class="card-link" target="_blank" rel="noopener">Zum GitHub-Profil →</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /project-grid -->
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-logo">SK<span>.</span>portfolio</div>
+      <div class="footer-links">
+        <a href="index.html">Start</a>
+        <a href="automatisierung.html">Automatisierung</a>
+        <a href="forschung.html">Forschung</a>
+        <a href="mailto:s.kurt@stromlicht.de">Kontakt</a>
+      </div>
+      <div class="footer-copy">© 2025 Samet Kurt</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleCard(btn) {
+    const card = btn.closest('.project-card');
+    const isOpen = card.classList.contains('open');
+    card.classList.toggle('open', !isOpen);
+    btn.querySelector('span:first-child').textContent = isOpen ? 'Details anzeigen' : 'Details ausblenden';
+  }
+
+  // Auto-open card if URL has anchor
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const target = document.getElementById(hash);
+      if (target) {
+        const btn = target.querySelector('.card-toggle');
+        if (btn) toggleCard(btn);
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
+    }
+  });
+</script>
+</body>
+</html>

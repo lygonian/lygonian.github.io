@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forschung — Samet Kurt</title>
+  <meta name="description" content="Wissenschaftlicher Hintergrund: Master- und Bachelorarbeit in Biochemie. Der Weg von der Laborbank zur Datenanalyse." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f8f7f4; --surface: #f0eee9; --card: #fff;
+      --border: #dedad4; --border-dim: #e8e5df;
+      --text: #1c1b18; --mid: #6a6660; --dim: #aaa69f;
+      --primary: #1a5c58; --primary-hi: #144d4a; --primary-bg: #eef5f4;
+      --amber: #7c5a1a; --amber-bg: #fdf5e6;
+      --mono: 'JetBrains Mono', monospace; --sans: 'Inter', sans-serif;
+    }
+    html { background: var(--bg); color: var(--text); scroll-behavior: smooth; }
+    body { font-family: var(--sans); font-weight: 400; min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+    /* Header */
+    header { border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(248,247,244,.95); backdrop-filter: blur(12px); z-index: 100; padding: 16px 0; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--mono); font-size: 13px; color: var(--text); letter-spacing: .04em; }
+    .logo span { color: var(--primary); }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: 13px; color: var(--mid); transition: color .15s; }
+    nav a:hover, nav a.active { color: var(--text); }
+    .header-cta { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; background: var(--primary); color: #fff; font-weight: 500; padding: 9px 20px; transition: background .15s; display: inline-block; }
+    .header-cta:hover { background: var(--primary-hi); }
+
+    /* Badges */
+    .badge { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; padding: 3px 8px; border: 1px solid; display: inline-block; }
+    .badge-active   { color: var(--primary); border-color: var(--primary); }
+    .badge-archived { color: var(--dim);     border-color: var(--border);  }
+    .badge-ongoing  { color: var(--amber);   border-color: var(--amber);   }
+
+    /* Page Hero */
+    .page-hero { padding: 72px 0 64px; border-bottom: 1px solid var(--border); }
+    .page-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .page-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--primary); }
+    .page-title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--text); margin-bottom: 20px; }
+    .page-sub { font-size: 16px; font-weight: 300; color: var(--mid); line-height: 1.8; max-width: 600px; }
+    .page-sub strong { color: var(--text); font-weight: 400; }
+    .page-meta { display: flex; gap: 24px; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border-dim); }
+    .page-meta-item { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+    .page-meta-item strong { color: var(--primary); font-family: var(--mono); display: block; font-size: 13px; margin-bottom: 3px; }
+
+    /* Bridge Section */
+    .bridge { padding: 72px 0; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .bridge-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .bridge-text .sec-label { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--primary); margin-bottom: 16px; }
+    .bridge-text h2 { font-size: 28px; font-weight: 700; letter-spacing: -.03em; margin-bottom: 20px; line-height: 1.2; }
+    .bridge-text p { font-size: 14px; color: var(--mid); line-height: 1.9; }
+    .bridge-text p + p { margin-top: 14px; }
+    .bridge-lessons { }
+    .lesson-title { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: 20px; }
+    .lesson { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border-dim); }
+    .lesson:first-of-type { padding-top: 0; }
+    .lesson:last-of-type { border-bottom: none; }
+    .lesson-num { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--primary); opacity: .25; flex-shrink: 0; width: 32px; line-height: 1.4; }
+    .lesson-body { }
+    .lesson-head { font-size: 14px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 5px; }
+    .lesson-desc { font-size: 12px; color: var(--mid); line-height: 1.7; }
+
+    /* Project Grid (2-col, then full-width for 3rd) */
+    .research-section { padding: 72px 0; }
+    .thesis-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+
+    /* Thesis Card */
+    .thesis-card { background: var(--card); display: flex; flex-direction: column; border-top: 2px solid transparent; }
+    .thesis-card.card-active { border-top-color: var(--primary); }
+    .thesis-card.card-archived { border-top-color: var(--border); }
+
+    .card-head { padding: 28px 28px 0; }
+    .card-num-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .card-num { font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: .08em; }
+    .card-degree { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
+    .card-title { font-size: 19px; font-weight: 700; letter-spacing: -.025em; margin-bottom: 14px; line-height: 1.25; }
+    .card-story { font-size: 13px; color: var(--mid); line-height: 1.8; margin-bottom: 20px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 24px; }
+    .ctag { font-family: var(--mono); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); color: var(--dim); }
+
+    .card-toggle { width: 100%; border: none; background: var(--surface); border-top: 1px solid var(--border-dim); padding: 14px 28px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); transition: background .15s; }
+    .card-toggle:hover { background: var(--primary-bg); }
+    .toggle-arrow { font-size: 14px; transition: transform .3s; }
+    .thesis-card.open .toggle-arrow { transform: rotate(180deg); }
+
+    .card-detail { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+    .thesis-card.open .card-detail { max-height: 2000px; }
+    .detail-inner { padding: 28px; border-top: 1px solid var(--border-dim); background: var(--bg); }
+
+    /* Thesis content */
+    .thesis-section-title { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin-bottom: 14px; }
+    .thesis-abstract { font-size: 13px; color: var(--mid); line-height: 1.85; margin-bottom: 24px; background: var(--surface); border-left: 3px solid var(--primary); padding: 16px 20px; }
+
+    .thesis-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 24px; }
+    .fact { background: var(--card); padding: 14px 18px; }
+    .fact-label { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
+    .fact-value { font-size: 13px; font-weight: 500; color: var(--text); }
+
+    .methods-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .method-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--mid); }
+    .method-item::before { content: ''; width: 5px; height: 5px; background: var(--primary); border-radius: 50%; flex-shrink: 0; }
+
+    .download-btn { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; background: var(--primary); color: #fff; padding: 12px 22px; transition: background .15s; }
+    .download-btn:hover { background: var(--primary-hi); }
+    .download-note { font-family: var(--mono); font-size: 9px; color: var(--dim); margin-top: 8px; letter-spacing: .06em; }
+
+    /* Skills bridge section */
+    .skills-bridge { padding: 72px 0; border-top: 1px solid var(--border); background: var(--surface); }
+    .skills-bridge-inner { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .skill-col { background: var(--card); padding: 28px; }
+    .skill-col-title { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin-bottom: 16px; }
+    .skill-col-head { font-size: 16px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 12px; }
+    .skill-col-desc { font-size: 13px; color: var(--mid); line-height: 1.75; }
+    .skill-arrow { background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px; width: 44px; align-self: center; padding: 28px 0; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; background: var(--surface); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--dim); }
+    .footer-logo span { color: var(--primary); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); transition: color .15s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+
+    @media (max-width: 800px) {
+      .wrap { padding: 0 20px; }
+      .thesis-grid { grid-template-columns: 1fr; }
+      .bridge-inner { grid-template-columns: 1fr; }
+      .skills-bridge-inner { grid-template-columns: 1fr; }
+      .thesis-facts { grid-template-columns: 1fr 1fr; }
+      nav { gap: 18px; }
+      .page-meta { flex-wrap: wrap; gap: 16px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="header-inner">
+      <a href="index.html" class="logo">SK<span>.</span>portfolio</a>
+      <nav>
+        <a href="index.html">Start</a>
+        <a href="datenanalyse.html">Datenanalyse</a>
+        <a href="automatisierung.html">Automatisierung</a>
+        <a href="forschung.html" class="active">Forschung</a>
+      </nav>
+      <a href="mailto:s.kurt@stromlicht.de" class="header-cta">Kontakt</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="page-eyebrow">01 — Forschung</div>
+      <h1 class="page-title">Die Laborbank<br>als Schule.</h1>
+      <p class="page-sub">
+        Biochemie lehrt, wie man komplexe Systeme versteht, bevor man sie manipuliert.
+        Diese Denkweise — <strong>zuerst beobachten, dann hypothetisieren, dann testen</strong> —
+        ist der Kern aller meiner Arbeit. Hier ist, wo sie begann.
+      </p>
+      <div class="page-meta">
+        <div class="page-meta-item"><strong>2</strong>Abschlussarbeiten</div>
+        <div class="page-meta-item"><strong>Biochemie</strong>Fachrichtung</div>
+        <div class="page-meta-item"><strong>M.Sc.</strong>Abschluss</div>
+        <div class="page-meta-item"><strong>Fundament</strong>Für alles weitere</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bridge: Was Wissenschaft lehrt -->
+  <section class="bridge">
+    <div class="wrap">
+      <div class="bridge-inner">
+        <div class="bridge-text">
+          <div class="sec-label">Der Transfer</div>
+          <h2>Was Wissenschaft wirklich lehrt</h2>
+          <p>
+            Nicht das spezifische Wissen über Enzyme oder Proteinstrukturen hat mich für
+            Datenarbeit vorbereitet — sondern die Methode dahinter.
+          </p>
+          <p>
+            Im Labor lernt man, präzise zu sein. Man lernt, mit Unsicherheit umzugehen.
+            Man lernt, dass ein schlechtes Experiment nicht an den Daten liegt, sondern
+            an der Frage, die man gestellt hat. Und man lernt, dass das schönste Modell
+            wertlos ist, wenn es nicht reproduzierbar ist.
+          </p>
+          <p>
+            Das ist keine Metapher. Das ist Methodik — und die ist auf Python genauso
+            anwendbar wie auf Gelelektrophorese.
+          </p>
+        </div>
+        <div class="bridge-lessons">
+          <div class="lesson-title">Übertragene Prinzipien</div>
+          <div class="lesson">
+            <div class="lesson-num">01</div>
+            <div class="lesson-body">
+              <div class="lesson-head">Reproduzierbarkeit vor Eleganz</div>
+              <div class="lesson-desc">Ein Ergebnis, das man nicht wiederholen kann, ist kein Ergebnis. Code muss genauso dokumentiert sein wie ein Protokoll.</div>
+            </div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-num">02</div>
+            <div class="lesson-body">
+              <div class="lesson-head">Kontrollgruppen denken</div>
+              <div class="lesson-desc">Was ist die Baseline? Was wäre passiert, wenn nichts getan worden wäre? Diese Frage fehlt in vielen Analysen.</div>
+            </div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-num">03</div>
+            <div class="lesson-body">
+              <div class="lesson-head">Fehler sind Information</div>
+              <div class="lesson-desc">Ein Experiment, das scheitert, liefert trotzdem Daten. Dasselbe gilt für ein Modell, das nicht konvergiert.</div>
+            </div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-num">04</div>
+            <div class="lesson-body">
+              <div class="lesson-head">Komplexität aushalten</div>
+              <div class="lesson-desc">Biologische Systeme sind nie linear. Das trainiert Komfort mit Ambiguität — eine Kernkompetenz in Datenarbeit.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Thesis Cards -->
+  <section class="research-section">
+    <div class="wrap">
+      <div class="thesis-grid">
+
+        <!-- #R01 Master -->
+        <div class="thesis-card card-active" id="masterarbeit">
+          <div class="card-head">
+            <div class="card-num-row">
+              <span class="card-num">#R01</span>
+              <span class="badge badge-active">M.Sc.</span>
+            </div>
+            <div class="card-degree">Master-Abschlussarbeit</div>
+            <h2 class="card-title">Biochemische Charakterisierung regulatorischer Proteinkomplexe</h2>
+            <p class="card-story">
+              Proteine arbeiten selten allein. Sie bilden Komplexe — hochspezifische molekulare
+              Maschinen, die zelluläre Prozesse steuern. In dieser Arbeit wurden Struktur und
+              Funktion solcher regulatorischen Komplexe mit biochemischen und biophysikalischen
+              Methoden untersucht. Die Herausforderung: Systeme, die sich im Experiment verändern,
+              sobald man sie beobachtet.
+            </p>
+            <div class="card-tags">
+              <span class="ctag">Proteinbiochemie</span>
+              <span class="ctag">Gel-Elektrophorese</span>
+              <span class="ctag">HPLC</span>
+              <span class="ctag">Western Blot</span>
+              <span class="ctag">Datenauswertung</span>
+            </div>
+          </div>
+          <button class="card-toggle" onclick="toggleCard(this)">
+            <span>Details anzeigen</span>
+            <span class="toggle-arrow">↓</span>
+          </button>
+          <div class="card-detail">
+            <div class="detail-inner">
+              <div class="thesis-section-title">Kurzfassung</div>
+              <div class="thesis-abstract">
+                Die Arbeit untersuchte spezifische Protein-Protein-Interaktionen und deren Rolle
+                in der zellulären Regulation. Ziel war die Charakterisierung von Bindungsaffinitäten
+                und strukturellen Eigenschaften unter physiologischen Bedingungen. Die Ergebnisse
+                lieferten quantitative Bindungsparameter und einen Beitrag zum mechanistischen
+                Verständnis regulatorischer Netzwerke.
+              </div>
+
+              <div class="thesis-section-title">Steckbrief</div>
+              <div class="thesis-facts">
+                <div class="fact">
+                  <div class="fact-label">Abschluss</div>
+                  <div class="fact-value">Master of Science</div>
+                </div>
+                <div class="fact">
+                  <div class="fact-label">Fachrichtung</div>
+                  <div class="fact-value">Biochemie</div>
+                </div>
+                <div class="fact">
+                  <div class="fact-label">Umfang</div>
+                  <div class="fact-value">ca. 80 Seiten</div>
+                </div>
+                <div class="fact">
+                  <div class="fact-label">Sprache</div>
+                  <div class="fact-value">Deutsch</div>
+                </div>
+              </div>
+
+              <div class="thesis-section-title">Verwendete Methoden</div>
+              <div class="methods-list">
+                <div class="method-item">SDS-PAGE & Native-PAGE Gelelektrophorese</div>
+                <div class="method-item">Western Blot & Immunodetektion</div>
+                <div class="method-item">HPLC-basierte Reinigung und Charakterisierung</div>
+                <div class="method-item">Größenausschlusschromatographie (SEC)</div>
+                <div class="method-item">Quantitative Auswertung mit Excel und R</div>
+                <div class="method-item">Statistische Analyse biologischer Replikate</div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:16px;">
+                <a href="pdf/master_thesis.pdf" class="download-btn" target="_blank">↓ PDF herunterladen</a>
+                <div>
+                  <div class="download-note">Öffnet im Browser.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- #R02 Bachelor -->
+        <div class="thesis-card card-archived" id="bachelorarbeit">
+          <div class="card-head">
+            <div class="card-num-row">
+              <span class="card-num">#R02</span>
+              <span class="badge badge-archived">B.Sc.</span>
+            </div>
+            <div class="card-degree">Bachelor-Abschlussarbeit</div>
+            <h2 class="card-title">Enzymkinetik und Substratspezifität — Mechanistische Analyse</h2>
+            <p class="card-story">
+              Wie schnell reagiert ein Enzym — und warum? Die Bachelor-Arbeit befasste sich mit
+              der kinetischen Charakterisierung eines Enzyms der Stoffwechselregulation.
+              Dabei wurden Michaelis-Menten-Kinetiken bestimmt, Inhibitoren getestet und
+              Substratspezifitätsdaten erhoben. Der erste eigene Kontakt mit quantitativer
+              Datenauswertung — und der Moment, in dem klar wurde: Daten erzählen Geschichten.
+            </p>
+            <div class="card-tags">
+              <span class="ctag">Enzymkinetik</span>
+              <span class="ctag">Michaelis-Menten</span>
+              <span class="ctag">Spektrophotometrie</span>
+              <span class="ctag">Inhibitionsanalyse</span>
+              <span class="ctag">R</span>
+            </div>
+          </div>
+          <button class="card-toggle" onclick="toggleCard(this)">
+            <span>Details anzeigen</span>
+            <span class="toggle-arrow">↓</span>
+          </button>
+          <div class="card-detail">
+            <div class="detail-inner">
+              <div class="thesis-section-title">Kurzfassung</div>
+              <div class="thesis-abstract">
+                Systematische Bestimmung kinetischer Parameter (Km, Vmax, kcat) eines Enzyms
+                der zentralen Stoffwechselregulation. Inhibitionstypen wurden durch Lineweaver-Burk-
+                und Hanes-Woolf-Darstellungen charakterisiert. Erste Erfahrungen mit quantitativer
+                Kurvenanpassung und statistischer Fehleranalyse biologischer Messdaten.
+              </div>
+
+              <div class="thesis-section-title">Steckbrief</div>
+              <div class="thesis-facts">
+                <div class="fact">
+                  <div class="fact-label">Abschluss</div>
+                  <div class="fact-value">Bachelor of Science</div>
+                </div>
+                <div class="fact">
+                  <div class="fact-label">Fachrichtung</div>
+                  <div class="fact-value">Biochemie</div>
+                </div>
+                <div class="fact">
+                  <div class="fact-label">Umfang</div>
+                  <div class="fact-value">ca. 45 Seiten</div>
+                </div>
+                <div class="fact">
+                  <div class="fact-label">Sprache</div>
+                  <div class="fact-value">Deutsch</div>
+                </div>
+              </div>
+
+              <div class="thesis-section-title">Verwendete Methoden</div>
+              <div class="methods-list">
+                <div class="method-item">UV/Vis-Spektrophotometrie (kinetische Messung)</div>
+                <div class="method-item">Michaelis-Menten-Kurvenanpassung (nichtlinear)</div>
+                <div class="method-item">Lineweaver-Burk- und Hanes-Woolf-Linearisierung</div>
+                <div class="method-item">Inhibitor-Screening (kompetitiv vs. unkompetitiv)</div>
+                <div class="method-item">Statistische Auswertung mit R und GraphPad</div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:16px;">
+                <a href="pdf/bachelor_thesis.pdf" class="download-btn" target="_blank">↓ PDF herunterladen</a>
+                <div>
+                  <div class="download-note">Öffnet im Browser.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /thesis-grid -->
+    </div>
+  </section>
+
+  <!-- Skills Transfer -->
+  <section class="skills-bridge">
+    <div class="wrap">
+      <div style="margin-bottom:40px;">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-bottom:12px;">Der Weg</div>
+        <h2 style="font-size:26px;font-weight:700;letter-spacing:-.03em;margin-bottom:10px;">Von der Wissenschaft zur Datenpraxis</h2>
+        <p style="font-size:14px;color:var(--mid);line-height:1.8;max-width:560px;">
+          Keine geraden Linien — aber eine klare Logik. Jede Phase hat die nächste möglich gemacht.
+        </p>
+      </div>
+      <div class="skills-bridge-inner">
+        <div class="skill-col">
+          <div class="skill-col-title">Phase 1 — Biochemie</div>
+          <div class="skill-col-head">Wissenschaftliches Denken</div>
+          <div class="skill-col-desc">Hypothesen aufstellen, testen, verwerfen. Quantitative Auswertung. Umgang mit verrauschten, biologischen Daten. Präzision als Grundhaltung.</div>
+        </div>
+        <div class="skill-col" style="border-left:2px solid var(--primary);">
+          <div class="skill-col-title">Phase 2 — Python & ML</div>
+          <div class="skill-col-head">Technische Umsetzung</div>
+          <div class="skill-col-desc">Autodidaktischer Einstieg in Python. Data Science mit echten Datensätzen. Kaggle Competitions. Machine Learning — von Linear Regression zu XGBoost.</div>
+        </div>
+        <div class="skill-col" style="background:var(--primary-bg);border-left:2px solid var(--primary);">
+          <div class="skill-col-title">Phase 3 — Praxis</div>
+          <div class="skill-col-head">Produktive Systeme</div>
+          <div class="skill-col-desc">Automatisierung echter Geschäftsprozesse. API-Integration. End-to-end Pipelines, die täglich laufen. Data Science für Business-Entscheidungen.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-logo">SK<span>.</span>portfolio</div>
+      <div class="footer-links">
+        <a href="index.html">Start</a>
+        <a href="datenanalyse.html">Datenanalyse</a>
+        <a href="automatisierung.html">Automatisierung</a>
+        <a href="mailto:s.kurt@stromlicht.de">Kontakt</a>
+      </div>
+      <div class="footer-copy">© 2025 Samet Kurt</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleCard(btn) {
+    const card = btn.closest('.thesis-card');
+    const isOpen = card.classList.contains('open');
+    card.classList.toggle('open', !isOpen);
+    btn.querySelector('span:first-child').textContent = isOpen ? 'Details anzeigen' : 'Details ausblenden';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const target = document.getElementById(hash);
+      if (target) {
+        const btn = target.querySelector('.card-toggle');
+        if (btn) toggleCard(btn);
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
+    }
+  });
+</script>
+</body>
+</html>

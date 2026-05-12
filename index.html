@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samet Kurt — Data Scientist</title>
+  <meta name="description" content="Data Scientist mit Biochemie-Hintergrund. Python, Machine Learning und Prozessautomatisierung." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f8f7f4; --surface: #f0eee9; --card: #fff;
+      --border: #dedad4; --border-dim: #e8e5df;
+      --text: #1c1b18; --mid: #6a6660; --dim: #aaa69f;
+      --primary: #1a5c58; --primary-hi: #144d4a; --primary-bg: #eef5f4;
+      --amber: #7c5a1a; --amber-bg: #fdf5e6;
+      --mono: 'JetBrains Mono', monospace; --sans: 'Inter', sans-serif;
+    }
+    html { background: var(--bg); color: var(--text); scroll-behavior: smooth; }
+    body { font-family: var(--sans); font-weight: 400; min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── Header ── */
+    header { border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(248,247,244,.95); backdrop-filter: blur(12px); z-index: 100; padding: 16px 0; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--mono); font-size: 13px; color: var(--text); letter-spacing: .04em; }
+    .logo span { color: var(--primary); }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: 13px; color: var(--mid); transition: color .15s; }
+    nav a:hover { color: var(--text); }
+    .header-cta { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; background: var(--primary); color: #fff; font-weight: 500; padding: 9px 20px; transition: background .15s; display: inline-block; }
+    .header-cta:hover { background: var(--primary-hi); }
+
+    /* ── Buttons ── */
+    .btn { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; background: var(--primary); color: #fff; font-weight: 500; padding: 13px 28px; display: inline-block; transition: background .15s; }
+    .btn:hover { background: var(--primary-hi); }
+    .btn-outline { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--border); color: var(--mid); padding: 13px 28px; display: inline-block; transition: border-color .15s, color .15s; }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ── Badges ── */
+    .badge { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; padding: 3px 8px; border: 1px solid; display: inline-block; }
+    .badge-active   { color: var(--primary); border-color: var(--primary); }
+    .badge-archived { color: var(--dim);     border-color: var(--border);  }
+    .badge-ongoing  { color: var(--amber);   border-color: var(--amber);   }
+
+    /* ── Section header ── */
+    .sec-num { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .sec-title { font-size: clamp(24px,3vw,32px); font-weight: 700; letter-spacing: -.03em; margin-bottom: 12px; color: var(--text); line-height: 1.15; }
+    .sec-sub { font-size: 15px; font-weight: 300; color: var(--mid); max-width: 540px; line-height: 1.75; }
+    .sec-sub strong { color: var(--text); font-weight: 400; }
+    .sec-header { margin-bottom: 48px; }
+
+    /* ── HERO ── */
+    .hero { padding: 88px 0 80px; border-bottom: 1px solid var(--border); }
+    .hero-inner { display: grid; grid-template-columns: 1fr 340px; gap: 72px; align-items: center; }
+
+    .hero-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--primary); margin-bottom: 22px; display: flex; align-items: center; gap: 12px; }
+    .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--primary); }
+
+    .hero-title { font-size: clamp(44px, 6.5vw, 72px); font-weight: 800; letter-spacing: -.04em; line-height: .95; color: var(--text); margin-bottom: 28px; }
+    .hero-title .slash { color: var(--primary); font-weight: 200; margin: 0 3px; }
+
+    .hero-sub { font-size: 16px; font-weight: 300; color: var(--mid); line-height: 1.8; max-width: 500px; margin-bottom: 44px; }
+    .hero-sub strong { color: var(--text); font-weight: 400; }
+
+    .hero-btns { display: flex; gap: 14px; margin-bottom: 56px; }
+
+    .hero-stats { display: flex; border: 1px solid var(--border); }
+    .stat { flex: 1; padding: 18px 20px; border-right: 1px solid var(--border); text-align: center; }
+    .stat:last-child { border-right: none; }
+    .stat-val { display: block; font-size: 22px; font-weight: 700; color: var(--primary); letter-spacing: -.02em; line-height: 1; margin-bottom: 5px; }
+    .stat-label { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+
+    /* Photo */
+    .photo-col { position: relative; }
+    .photo-frame { position: relative; border: 1px solid var(--border); }
+    .photo-frame::before { content: ''; position: absolute; top: -9px; left: -9px; right: 9px; bottom: 9px; border: 1px solid var(--primary); opacity: .25; pointer-events: none; }
+    .hero-photo { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: center 10%; display: block; }
+    .photo-badge { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(248,247,244,.92); border-top: 1px solid var(--border); padding: 11px 18px; display: flex; align-items: center; justify-content: space-between; }
+    .badge-text { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--primary); }
+    .pulse { width: 7px; height: 7px; background: var(--primary); border-radius: 50%; animation: blink 2.4s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(1.8)} }
+
+    /* ── Nexus ── */
+    .nexus { padding: 88px 0; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .pillar-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .pillar { background: var(--card); padding: 34px 30px; transition: background .15s; border-top: 2px solid transparent; }
+    .pillar:hover { background: #f8f7f4; }
+    .pillar.featured { border-top-color: var(--primary); }
+    .pillar-icon { width: 44px; height: 44px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: var(--primary); }
+    .pillar.featured .pillar-icon { border-color: var(--primary); background: var(--primary-bg); }
+    .pillar-title { font-size: 18px; font-weight: 600; letter-spacing: -.02em; margin-bottom: 12px; }
+    .pillar-desc { font-size: 13px; color: var(--mid); line-height: 1.75; margin-bottom: 20px; }
+    .pillar-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px; }
+    .ptag { font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); color: var(--dim); }
+    .pillar-link { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); display: inline-flex; align-items: center; gap: 8px; transition: gap .15s; }
+    .pillar-link:hover { gap: 14px; }
+
+    /* ── Teaser cards ── */
+    .teaser { padding: 88px 0; border-bottom: 1px solid var(--border); }
+    .teaser-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .teaser-card { background: var(--card); padding: 28px; display: flex; flex-direction: column; border-top: 2px solid transparent; transition: background .15s; color: inherit; }
+    .teaser-card:hover { background: var(--surface); }
+    .teaser-card.active-card { border-top-color: var(--primary); }
+    .teaser-card.ongoing-card { border-top-color: var(--amber); }
+    .tc-num { font-family: var(--mono); font-size: 10px; color: var(--dim); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+    .tc-title { font-size: 17px; font-weight: 600; letter-spacing: -.02em; margin-bottom: 12px; }
+    .tc-story { font-size: 13px; color: var(--mid); line-height: 1.75; flex: 1; margin-bottom: 20px; }
+    .tc-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border-dim); }
+    .tc-meta { font-family: var(--mono); font-size: 9px; color: var(--dim); text-transform: uppercase; letter-spacing: .06em; }
+    .tc-arrow { font-size: 16px; color: var(--primary); transition: transform .15s; }
+    .teaser-card:hover .tc-arrow { transform: translateX(4px); }
+
+    /* ── Process ── */
+    .process { padding: 88px 0; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .process-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .steps { display: flex; flex-direction: column; }
+    .step { display: grid; grid-template-columns: 44px 1fr; gap: 20px; position: relative; }
+    .step:not(:last-child)::after { content: ''; position: absolute; left: 21px; top: 44px; bottom: -12px; width: 1px; background: var(--border); }
+    .step-circle { width: 34px; height: 34px; border: 1px solid var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--primary); background: var(--primary-bg); flex-shrink: 0; margin-top: 4px; }
+    .step-body { padding-bottom: 44px; }
+    .step-title { font-size: 16px; font-weight: 600; letter-spacing: -.015em; margin-bottom: 8px; }
+    .step-desc { font-size: 13px; color: var(--mid); line-height: 1.75; margin-bottom: 12px; }
+    .step-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .stag { font-family: var(--mono); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; padding: 3px 7px; border: 1px solid var(--border); color: var(--dim); background: var(--bg); }
+
+    .summary-box { border: 1px solid var(--border); background: var(--card); padding: 32px; position: sticky; top: 96px; }
+    .sb-label { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; }
+    .sb-title { font-size: 20px; font-weight: 600; letter-spacing: -.025em; margin-bottom: 12px; line-height: 1.3; }
+    .sb-desc { font-size: 13px; color: var(--mid); line-height: 1.8; margin-bottom: 28px; }
+    .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .metric { padding: 16px 18px; background: var(--surface); }
+    .metric-val { font-size: 24px; font-weight: 700; color: var(--primary); letter-spacing: -.03em; line-height: 1; margin-bottom: 4px; }
+    .metric-label { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+
+    /* ── Stack ── */
+    .stack-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 0; background: var(--surface); }
+    .stack-inner { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+    .stack-label { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); margin-right: 6px; white-space: nowrap; }
+    .stack-tag { font-family: var(--mono); font-size: 10px; padding: 5px 11px; border: 1px solid var(--border); color: var(--mid); background: var(--card); cursor: default; transition: border-color .15s, color .15s; }
+    .stack-tag:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ── CTA ── */
+    .cta-section { text-align: center; padding: 100px 0; }
+    .cta-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 14px; }
+    .cta-eyebrow::before, .cta-eyebrow::after { content: ''; width: 40px; height: 1px; background: var(--primary); }
+    .cta-title { font-size: clamp(26px, 4vw, 42px); font-weight: 700; letter-spacing: -.035em; margin-bottom: 16px; line-height: 1.15; }
+    .cta-sub { font-size: 15px; font-weight: 300; color: var(--mid); max-width: 440px; margin: 0 auto 40px; line-height: 1.75; }
+    .cta-btns { display: flex; align-items: center; justify-content: center; gap: 14px; }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--border); padding: 22px 0; background: var(--surface); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); transition: color .15s; }
+    .footer-links a:hover { color: var(--primary); }
+
+    /* ── Responsive ── */
+    @media(max-width: 960px) {
+      .hero-inner, .process-inner { grid-template-columns: 1fr; gap: 40px; }
+      .photo-col { max-width: 240px; }
+      .pillar-grid, .teaser-grid { grid-template-columns: 1fr; }
+      nav a { display: none; }
+    }
+    @media(max-width: 600px) {
+      .wrap { padding: 0 20px; }
+      .hero { padding: 56px 0 60px; }
+      .hero-stats { flex-wrap: wrap; }
+      .stat { min-width: 50%; }
+      .metrics { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap header-inner">
+      <a href="index.html" class="logo">SK<span>_</span>LAB</a>
+      <nav>
+        <a href="datenanalyse.html">Datenanalyse</a>
+        <a href="automatisierung.html">Automatisierung</a>
+        <a href="forschung.html">Forschung</a>
+        <a href="https://github.com/lygonian" target="_blank">GitHub</a>
+      </nav>
+      <a href="mailto:s.kurt@stromlicht.de" class="header-cta">Verfügbar</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div>
+          <p class="hero-eyebrow">Samet Kurt — Data Scientist</p>
+          <h1 class="hero-title">
+            BIO<span class="slash">/</span>DATA<span class="slash">/</span>AUTO
+          </h1>
+          <p class="hero-sub">
+            Biochemie trifft <strong>Datenanalyse</strong> und
+            <strong>Prozessautomatisierung</strong> — Systeme die von Anfang bis Ende
+            funktionieren, nicht nur im Notebook.
+          </p>
+          <div class="hero-btns">
+            <a href="datenanalyse.html" class="btn">Projekte ansehen</a>
+            <a href="https://github.com/lygonian" target="_blank" class="btn-outline">GitHub</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><span class="stat-val">5+</span><span class="stat-label">Projekte</span></div>
+            <div class="stat"><span class="stat-val">3</span><span class="stat-label">Bereiche</span></div>
+            <div class="stat"><span class="stat-val">MSc</span><span class="stat-label">Biochemie</span></div>
+            <div class="stat"><span class="stat-val">2024</span><span class="stat-label">Zertifiziert</span></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-frame">
+            <img src="images/file_000000000bfc7246a9572bc280af3414.png" alt="Samet Kurt" class="hero-photo" />
+            <div class="photo-badge">
+              <span class="badge-text">Offen für Angebote</span>
+              <span class="pulse"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 01: DIE VERBINDUNG ── -->
+    <section class="nexus">
+      <div class="wrap">
+        <div class="sec-header">
+          <p class="sec-num">01 — Die Verbindung</p>
+          <h2 class="sec-title">Drei Disziplinen. Eine Perspektive.</h2>
+          <p class="sec-sub">Die meisten Data Scientists kommen aus Statistik oder Informatik. Ich komme aus dem Labor. Das verändert, wie ich Daten, Systeme und Ergebnisse denke.</p>
+        </div>
+        <div class="pillar-grid">
+
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15M14.25 3.104c.251.023.501.05.75.082M5 14.5l-1.44 1.696A2.25 2.25 0 0 0 5.025 19.5h13.95a2.25 2.25 0 0 0 1.463-3.956L19 14.5"/></svg>
+            </div>
+            <h3 class="pillar-title">Biochemie</h3>
+            <p class="pillar-desc">MSc Biochemie. Ausgebildet in experimentellem Design, dem Arbeiten mit unvollständigen Daten und der Interpretation von Ergebnissen unter Unsicherheit — die wissenschaftliche Methode auf jedes Problem angewendet.</p>
+            <div class="pillar-tags">
+              <span class="ptag">Forschungsmethodik</span>
+              <span class="ptag">Statistisches Denken</span>
+              <span class="ptag">Domänenwissen</span>
+            </div>
+            <a href="forschung.html" class="pillar-link">Akademischer Hintergrund →</a>
+          </div>
+
+          <div class="pillar featured">
+            <div class="pillar-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
+            </div>
+            <h3 class="pillar-title">Datenanalyse</h3>
+            <p class="pillar-desc">Zertifizierter Data Scientist. Von explorativer Analyse und Feature Engineering bis zu ML-Modellen und interaktiven Dashboards — operative Daten in verwertbare Erkenntnisse übersetzen.</p>
+            <div class="pillar-tags">
+              <span class="ptag">Machine Learning</span>
+              <span class="ptag">EDA</span>
+              <span class="ptag">Visualisierung</span>
+              <span class="ptag">Prognose</span>
+            </div>
+            <a href="datenanalyse.html" class="pillar-link">Projekte ansehen →</a>
+          </div>
+
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75"/></svg>
+            </div>
+            <h3 class="pillar-title">Automatisierung</h3>
+            <p class="pillar-desc">Ich verbinde, was andere getrennt lassen — APIs, PDFs, CRMs, E-Mail, Webformulare. Vollständige Pipelines die einlesen, verarbeiten und ausgeben, ohne manuelle Eingriffe.</p>
+            <div class="pillar-tags">
+              <span class="ptag">API-Integration</span>
+              <span class="ptag">Selenium</span>
+              <span class="ptag">Pipeline-Design</span>
+            </div>
+            <a href="automatisierung.html" class="pillar-link">Pipelines ansehen →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 02: PROJEKTE (Teaser) ── -->
+    <section class="teaser">
+      <div class="wrap">
+        <div class="sec-header">
+          <p class="sec-num">02 — Ausgewählte Projekte</p>
+          <h2 class="sec-title">Projekte die in der Praxis laufen</h2>
+          <p class="sec-sub">Kein akademisches Spielzeug — echte Probleme, echte Daten, echte Ergebnisse.</p>
+        </div>
+        <div class="teaser-grid">
+
+          <a href="datenanalyse.html#kundensegmentierung" class="teaser-card active-card">
+            <div class="tc-num"><span>#D01 · ML / Dashboard</span><span class="badge badge-active">Aktiv</span></div>
+            <h3 class="tc-title">Kundensegmentierung</h3>
+            <p class="tc-story">500+ Kunden, ein Datensatz — keine offensichtliche Struktur. Welche Kunden sind Champions, welche auf dem Weg raus? Die Antwort steckte in drei Zahlen und einem Algorithmus.</p>
+            <div class="tc-footer"><span class="tc-meta">Pandas · Scikit-learn · Dash</span><span class="tc-arrow">→</span></div>
+          </a>
+
+          <a href="automatisierung.html#kv-pipeline" class="teaser-card ongoing-card">
+            <div class="tc-num"><span>#A02 · Automatisierung</span><span class="badge badge-ongoing">Aktiv</span></div>
+            <h3 class="tc-title">Angebots-Pipeline</h3>
+            <p class="tc-story">Angebotsnummer eingeben. Das war früher der Start von 15 Minuten manueller Arbeit. Heute: PDF, Datenextraktion, Formular, Ablage — in unter 5 Sekunden.</p>
+            <div class="tc-footer"><span class="tc-meta">pdfplumber · pdfrw · pandas</span><span class="tc-arrow">→</span></div>
+          </a>
+
+          <a href="automatisierung.html#crm-sync" class="teaser-card">
+            <div class="tc-num"><span>#A01 · API / Pipeline</span><span class="badge badge-active">Aktiv</span></div>
+            <h3 class="tc-title">CRM Sync Engine</h3>
+            <p class="tc-story">1.400 Kontakte, 5.200 Dokumente, 775 Projekte — täglich aktuell, ohne vollständigen Sync. Das System fragt nur nach, was sich geändert hat.</p>
+            <div class="tc-footer"><span class="tc-meta">GraphQL · pandas · requests</span><span class="tc-arrow">→</span></div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 03: ARBEITSWEISE ── -->
+    <section class="process">
+      <div class="wrap">
+        <div class="sec-header">
+          <p class="sec-num">03 — Arbeitsweise</p>
+          <h2 class="sec-title">Von Rohdaten zum laufenden System</h2>
+          <p class="sec-sub">Jedes Projekt folgt derselben Logik — unabhängig vom Bereich.</p>
+        </div>
+        <div class="process-inner">
+          <div class="steps">
+
+            <div class="step">
+              <div class="step-circle">01</div>
+              <div class="step-body">
+                <h4 class="step-title">Datenaufnahme</h4>
+                <p class="step-desc">APIs, PDFs, IMAP-Postfächer, Web-Scraping oder CSVs. Jedes System hat eine Quelle — ich baue die Verbindung, unabhängig von Format oder Protokoll.</p>
+                <div class="step-tags">
+                  <span class="stag">REST APIs</span><span class="stag">GraphQL</span><span class="stag">Scrapy</span><span class="stag">pdfplumber</span><span class="stag">IMAP</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-circle">02</div>
+              <div class="step-body">
+                <h4 class="step-title">Analyse & Modellierung</h4>
+                <p class="step-desc">EDA, Feature Engineering, ML-Training und Validierung. Wissenschaftliche Disziplin auf operative Daten angewendet — zuerst die richtige Frage, dann das Modell.</p>
+                <div class="step-tags">
+                  <span class="stag">Pandas</span><span class="stag">Scikit-learn</span><span class="stag">NumPy</span><span class="stag">Feature Engineering</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-circle">03</div>
+              <div class="step-body">
+                <h4 class="step-title">Automatisierung & Ausgabe</h4>
+                <p class="step-desc">Das Ergebnis ist kein Bericht — es ist ein laufendes System. Dashboards, geplante Jobs, automatische E-Mails, CRM-Einträge. Gebaut um unbeaufsichtigt zu laufen.</p>
+                <div class="step-tags">
+                  <span class="stag">Selenium</span><span class="stag">smtplib</span><span class="stag">Dash</span><span class="stag">Plotly</span><span class="stag">schedule</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div>
+            <div class="summary-box">
+              <p class="sb-label">Was das bedeutet</p>
+              <h4 class="sb-title">Vollständige Verantwortung</h4>
+              <p class="sb-desc">Die meisten hören bei der Erkenntnis auf. Ich baue die vollständige Pipeline — von der Rohdatenquelle bis zur automatisierten Ausgabe. Das System läuft, nicht nur das Notebook.</p>
+              <div class="metrics">
+                <div class="metric"><div class="metric-val">5+</div><div class="metric-label">Systeme gebaut</div></div>
+                <div class="metric"><div class="metric-val">3</div><div class="metric-label">Quellentypen</div></div>
+                <div class="metric"><div class="metric-val">E2E</div><div class="metric-label">Pipeline-Umfang</div></div>
+                <div class="metric"><div class="metric-val">0</div><div class="metric-label">Manuelle Schritte</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STACK ── -->
+    <div class="stack-strip">
+      <div class="wrap stack-inner">
+        <span class="stack-label">Stack —</span>
+        <span class="stack-tag">Python</span><span class="stack-tag">Pandas</span><span class="stack-tag">NumPy</span>
+        <span class="stack-tag">Scikit-learn</span><span class="stack-tag">Plotly / Dash</span>
+        <span class="stack-tag">Selenium</span><span class="stack-tag">Scrapy</span><span class="stack-tag">SQL</span>
+        <span class="stack-tag">GraphQL</span><span class="stack-tag">smtplib / IMAP</span>
+        <span class="stack-tag">pdfplumber</span><span class="stack-tag">Git / GitHub</span>
+      </div>
+    </div>
+
+    <!-- ── CTA ── -->
+    <section class="cta-section">
+      <div class="wrap">
+        <p class="cta-eyebrow">Zusammenarbeit</p>
+        <h2 class="cta-title">Bereit etwas zu bauen,<br>das wirklich läuft?</h2>
+        <p class="cta-sub">Offen für Data Scientist und Python-Developer Stellen sowie Freelance-Projekte im Bereich Automatisierung und Datenengineering.</p>
+        <div class="cta-btns">
+          <a href="mailto:s.kurt@stromlicht.de" class="btn">Kontakt aufnehmen</a>
+          <a href="https://github.com/lygonian" target="_blank" class="btn-outline">GitHub ansehen</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span class="footer-copy">© 2026 — Samet Kurt · Data Scientist</span>
+      <div class="footer-links">
+        <a href="https://github.com/lygonian" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/" target="_blank">LinkedIn</a>
+        <a href="mailto:s.kurt@stromlicht.de">E-Mail</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

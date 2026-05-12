@@ -1,0 +1,19 @@
+/* ── Design Tokens ── */
+:root {
+  --bg:          #f8f7f4;
+  --surface:     #f0eee9;
+  --card:        #ffffff;
+  --border:      #dedad4;
+  --border-dim:  #e8e5df;
+  --text:        #1c1b18;
+  --mid:         #6a6660;
+  --dim:         #aaa69f;
+  --primary:     #1a5c58;
+  --primary-hi:  #144d4a;
+  --primary-bg:  #eef5f4;
+  --amber:       #7c5a1a;
+  --amber-bg:    #fdf5e6;
+  --code-bg:     #131c28;
+  --mono:        'JetBrains Mono', monospace;
+  --sans:        'Inter', sans-serif;
+}
