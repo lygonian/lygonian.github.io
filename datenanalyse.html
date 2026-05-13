@@ -327,7 +327,10 @@
                 </div>
               </div>
 
-              <a href="https://github.com/lygonian" class="card-link" target="_blank" rel="noopener">Zum GitHub-Profil →</a>
+              <div style="display:flex;gap:20px;flex-wrap:wrap;">
+                <a href="https://customer-segmentation-cbdg.onrender.com" class="card-link" target="_blank" rel="noopener">Live-Demo →</a>
+                <a href="https://github.com/lygonian/Customer_Segmentation" class="card-link" style="color:var(--dim);" target="_blank" rel="noopener">GitHub-Repo →</a>
+              </div>
             </div>
           </div>
         </div>
@@ -439,13 +442,12 @@
               <span class="card-num">#D03</span>
               <span class="badge badge-archived">abgeschlossen</span>
             </div>
-            <h2 class="card-title">ROSSMANN Umsatzprognose — Universitätsprojekt</h2>
+            <h2 class="card-title">ROSSMANN Umsatzprognose — XDi Abschlussprojekt</h2>
             <p class="card-story">
-              1.115 Filialen. 2,5 Jahre Verkaufsdaten. Die Frage: Wie viel wird jede Filiale
-              in den nächsten sechs Wochen verkaufen? Universitätsprojekt auf Basis des
-              öffentlichen Kaggle-Datensatzes — mit den richtigen Features (Promotions,
-              Feiertage, Wettbewerb) und einem Custom RMSPE-Loss in XGBoost wird aus
-              Rauschen ein brauchbares Signal. Bewertet von Prof. Dr. Thomas Mählmann (KU Eichstätt-Ingolstadt).
+              1.115 Filialen. 2,5 Jahre Verkaufsdaten. Abschlussprojekt der XDi DataScientist-Zertifizierung —
+              von der Datenvorbereitung über systematische EDA bis zum ML-Modell und einem
+              automatischen Filialbericht-Generator. Bewertet von Prof. Dr. Thomas Mählmann
+              (KU Eichstätt-Ingolstadt) mit Sehr gut.
             </p>
             <div class="card-tags">
               <span class="ctag">XGBoost</span>
@@ -461,6 +463,11 @@
           </button>
           <div class="card-detail">
             <div class="detail-inner">
+              <div style="margin-bottom:24px;">
+                <img src="images/rossmann_jahresverlauf_kpis.png" alt="Jahresverlauf der KPIs — Umsatz, Kunden, Umsatz pro Kunde" style="width:100%;border:1px solid var(--border);display:block;" />
+                <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:6px;letter-spacing:.06em;">EDA: Jahresverlauf der drei KPIs über 2,5 Jahre — Saisonalität und Dezember-Peaks klar sichtbar</div>
+              </div>
+
               <div class="method-title">Vorgehensweise</div>
               <div class="method-steps">
                 <div class="mstep">
@@ -473,15 +480,22 @@
                 <div class="mstep">
                   <div class="mstep-dot">2</div>
                   <div class="mstep-body">
-                    <div class="mstep-label">Zeitbasiertes Feature Engineering</div>
-                    <div class="mstep-desc">Kalenderfeatures (Woche, Quartal, Tage bis Feiertag), Promotion-Interaktionen, Wettbewerbsdauer in Monaten.</div>
+                    <div class="mstep-label">Systematische EDA (5 Notebooks)</div>
+                    <div class="mstep-desc">Vollständige Analyse aller KPIs nach Filialtyp, Region, Promo-Status und Saisonalität. Ermittlung der Bundesländer aus Schulferiendaten per Feature Engineering.</div>
                   </div>
                 </div>
                 <div class="mstep">
                   <div class="mstep-dot">3</div>
                   <div class="mstep-body">
-                    <div class="mstep-label">XGBoost mit Custom RMSPE-Loss</div>
-                    <div class="mstep-desc">Kaggle-Metrik RMSPE (Root Mean Square Percentage Error) direkt in der Verlustfunktion implementiert.</div>
+                    <div class="mstep-label">ML-Modell & Prognose</div>
+                    <div class="mstep-desc">Feature-Selektion über drei Methoden, Modellvergleich (Linear Regression bis Random Forest), Cross-Validation, Hyperparameter-Tuning.</div>
+                  </div>
+                </div>
+                <div class="mstep">
+                  <div class="mstep-dot">4</div>
+                  <div class="mstep-body">
+                    <div class="mstep-label">Filialbericht-Generator</div>
+                    <div class="mstep-desc">Eingabe einer Filialnummer → automatisch generierter PDF-Bericht mit filialspezifischen Daten und Grafiken. End-to-end Output direkt aus dem Modell.</div>
                   </div>
                 </div>
               </div>
