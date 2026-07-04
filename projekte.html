@@ -46,9 +46,17 @@
           <p class="eyebrow">Hauptprojekte</p>
           <h2>Fünf Systeme, die den Alltag tragen</h2>
         </div>
+
+        <ul class="legend" aria-label="Kategorien der Systemlandschaft">
+          <li data-cat="fundament">Datenfundament</li>
+          <li data-cat="finanzen">Finanzdaten &amp; Controlling</li>
+          <li data-cat="werkzeug">Operatives Werkzeug</li>
+          <li data-cat="analysen">Analysen</li>
+        </ul>
+
         <div class="feature-grid">
 
-          <article class="feature">
+          <article class="feature feature--flagship" data-cat="werkzeug" data-reveal>
             <div class="feature-kicker">
               <p class="eyebrow">Operatives Werkzeug</p>
               <span class="badge">Flaggschiff</span>
@@ -71,21 +79,24 @@
             </div>
           </article>
 
-          <article class="feature">
-            <div class="feature-kicker">
-              <p class="eyebrow">Datenfundament</p>
-              <span class="badge">Backbone</span>
-            </div>
-            <h3>CRM-Sync-Bibliothek</h3>
-            <p>
-              Das Datenfundament der gesamten Landschaft: ein inkrementeller
-              GraphQL-zu-CSV-Sync für vier CRM-Ressourcen. Leichte Delta-Erkennung über
-              Zeitstempel-Watermark, volle Abfrage nur für geänderte Datensätze, Upsert
-              per ID, Wiederholung bis zur Stabilität. Die API habe ich eigenständig
-              erschlossen, weil die Herstellerdokumentation unvollständig war.
-            </p>
-            <div class="card-tags">
-              <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span><span class="tag">requests</span>
+          <article class="feature feature--backbone" data-cat="fundament" data-reveal>
+            <span class="backbone-tag">Infrastruktur der Landschaft</span>
+            <div class="backbone-main">
+              <div class="feature-kicker">
+                <p class="eyebrow">Datenfundament</p>
+                <span class="badge">Backbone</span>
+              </div>
+              <h3>CRM-Sync-Bibliothek</h3>
+              <p>
+                Das Datenfundament der gesamten Landschaft: ein inkrementeller
+                GraphQL-zu-CSV-Sync für vier CRM-Ressourcen. Leichte Delta-Erkennung über
+                Zeitstempel-Watermark, volle Abfrage nur für geänderte Datensätze, Upsert
+                per ID, Wiederholung bis zur Stabilität. Die API habe ich eigenständig
+                erschlossen, weil die Herstellerdokumentation unvollständig war.
+              </p>
+              <div class="card-tags">
+                <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span><span class="tag">requests</span>
+              </div>
             </div>
             <div class="card-cta">
               <a href="projekte/crm-sync.html">Zur Projektseite</a>
@@ -93,7 +104,7 @@
             </div>
           </article>
 
-          <article class="feature">
+          <article class="feature" data-cat="finanzen" data-reveal>
             <div class="feature-kicker">
               <p class="eyebrow">Finanzdaten &amp; Controlling</p>
             </div>
@@ -114,7 +125,7 @@
             </div>
           </article>
 
-          <article class="feature">
+          <article class="feature" data-cat="finanzen" data-reveal>
             <div class="feature-kicker">
               <p class="eyebrow">Finanzdaten &amp; Controlling</p>
             </div>
@@ -135,7 +146,7 @@
             </div>
           </article>
 
-          <article class="feature">
+          <article class="feature" data-cat="fundament" data-reveal>
             <div class="feature-kicker">
               <p class="eyebrow">Datenfundament</p>
             </div>
@@ -172,7 +183,7 @@
         </div>
         <div class="card-grid">
 
-          <div class="card">
+          <div class="card" data-cat="werkzeug" data-reveal>
             <p class="eyebrow">Operatives Werkzeug</p>
             <h3>Lohnabrechnungs-Versand</h3>
             <p>
@@ -188,7 +199,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-cat="analysen" data-reveal>
             <p class="eyebrow">Analysen</p>
             <h3>Energie- &amp; PV-Analysen</h3>
             <p>
@@ -204,7 +215,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-cat="werkzeug" data-reveal>
             <p class="eyebrow">Operatives Werkzeug</p>
             <h3>PV-Einkaufslisten-Generator</h3>
             <p>
@@ -220,7 +231,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-cat="fundament" data-reveal>
             <p class="eyebrow">Datenfundament</p>
             <h3>Netzanmeldungs-Excel-Sync</h3>
             <p>
@@ -236,7 +247,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-cat="fundament" data-reveal>
             <p class="eyebrow">Datenfundament</p>
             <h3>Google-Kontakte-Sync</h3>
             <p>
@@ -252,7 +263,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-cat="finanzen" data-reveal>
             <p class="eyebrow">Finanzdaten &amp; Controlling</p>
             <h3>Tankkarten-API-Client</h3>
             <p>
@@ -300,5 +311,7 @@
       </div>
     </div>
   </footer>
+
+  <script src="assets/js/atlas.js" defer></script>
 </body>
 </html>
