@@ -1,4 +1,4 @@
-/* Systematlas — dezente Progressive Enhancement.
+/* Dezente Progressive Enhancement.
    Ohne dieses Skript bleibt die Seite vollständig sichtbar und bedienbar. */
 (function () {
   "use strict";
