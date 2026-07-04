@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gewerke-Controlling — Samet Kurt</title>
-  <meta name="description" content="Controlling-System, das Bankdaten, Rechnungspositionen, CRM-Dokumente und Gehaltskosten in eine Gewerk-Sicht zusammenführt — Zahlungsabgleich, Positions-Split und kWp-Ableitung.">
+  <title>Gewerke-Controlling — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Fallstudie: vier Datenquellen in eine Gewerk-Sicht bringen. Systemdenken über mehrere Quellen — Zahlungsabgleich, summenerhaltender Split, kWp-Ableitung, abgesichert durch Invarianten-Tests.">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -29,13 +29,12 @@
     <section class="page-hero">
       <div class="container">
         <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / Gewerke-Controlling</p>
-        <p class="eyebrow">Finanzdaten &amp; Controlling · System</p>
+        <p class="eyebrow">Verdichtet die Daten · System</p>
         <h1>Gewerke-Controlling</h1>
         <p class="lead">
-          Die Buchführung konnte eine einfache Frage nicht beantworten: Welche Gewerke
-          verursachen welche Einnahmen, Kosten und Ergebnisse? Das System führt vier
-          Datenquellen in eine gemeinsame Gewerk-Sicht zusammen — mein größtes Projekt
-          in Sachen Systemdenken.
+          Das anspruchsvollste Projekt der Reihe — und das beste, um Systemdenken über mehrere
+          Quellen zu lernen. Vier Datenquellen, die einander nicht kennen, sollen eine einfache
+          Frage beantworten: Welche Gewerke verursachen welche Einnahmen, Kosten und Ergebnisse?
         </p>
         <div class="meta-grid">
           <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
@@ -50,47 +49,97 @@
       <div class="container">
         <div class="split">
           <div class="prose">
-            <h2>Ausgangsproblem</h2>
+            <h2>Die Ausgangslage</h2>
             <p>
               Einnahmen und Ausgaben lagen verstreut vor: Zahlungen in den Bankdaten,
               Einkaufspositionen in der <a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a>,
-              Ausgangsrechnungen im CRM-System, dazu Gehaltskosten. Keine dieser Quellen
-              kannte die entscheidende Dimension: das Gewerk — also ob ein Betrag zur
-              PV-Montage, zur Elektrik, zur Sanierung oder zur Wärmepumpe gehört.
+              Ausgangsrechnungen im CRM, dazu Gehaltskosten. Keine dieser Quellen kannte die
+              entscheidende Dimension: das Gewerk — also ob ein Betrag zur PV-Montage, zur
+              Elektrik, zur Sanierung oder zur Wärmepumpe gehört.
             </p>
 
-            <h2>Denklogik</h2>
-            <ol class="flow">
-              <li><strong>Die Zielgröße zuerst.</strong> Gewünscht war eine Ergebnisrechnung je Gewerk und Monat. Daraus ergibt sich rückwärts, welche Zuordnungen die Daten brauchen — und welche Teilprobleme zu lösen sind.</li>
-              <li><strong>Zahlungen den Rechnungen zuordnen.</strong> Eingehende Zahlungen matchen selten sauber: Sammelüberweisungen, Teilzahlungen, fehlende Referenzen. Der Debitoren-Abgleich behandelt diese Fälle explizit, statt sie zu ignorieren.</li>
-              <li><strong>Positionen den Gewerken zuordnen.</strong> Rechnungspositionen werden klassifiziert und bei Bedarf über mehrere Gewerke aufgeteilt — summenerhaltend: Kein Cent geht bei der Aufteilung verloren oder entsteht doppelt.</li>
-              <li><strong>Fehlende Angaben herleiten.</strong> Die Anlagengröße (kWp) steckt nicht immer im selben Feld. Eine Fallback-Hierarchie leitet sie aus den verfügbaren Quellen ab und markiert Fälle, die manuelle Prüfung brauchen.</li>
-              <li><strong>Invarianten testen.</strong> Die fachlichen Kernregeln — Summenerhalt, eindeutige Zuordnung, Wiederholbarkeit — sind mit fokussierten Tests abgesichert, nicht nur mit Stichproben.</li>
-            </ol>
-
-            <h2>Technische Umsetzung</h2>
+            <h2>Warum das kniffliger war, als es aussah</h2>
             <p>
-              Das System ist in <strong>Python</strong> mit <strong>pandas</strong> gebaut
-              und in klar geschnittene Bausteine zerlegt, die auch einzeln nutzbar sind.
-              Drei davon sind als eigenständige öffentliche Repositories dokumentiert:
-              der Zahlungsabgleich (<em>Debitoren-Matching</em>), die Positionsklassifikation
-              mit Gewerk-Split (<em>Positions-Gewerk-Split</em>) und die kWp-Ableitung
-              (<em>PV-kWp-Inference</em>). Das Dach-Repository führt die Bausteine zu einer
-              Demo-Pipeline mit synthetischen Daten zusammen.
+              Die Daten „nur zusammenzuführen" scheitert an der Realität: Eine Banküberweisung
+              deckt oft mehrere Rechnungen ab, eine Rechnung wird in Teilbeträgen bezahlt,
+              Referenznummern fehlen. Eine Rechnungsposition gehört manchmal zu einem Gewerk,
+              manchmal anteilig zu mehreren. Und Kenngrößen wie die Anlagenleistung stehen nicht
+              immer im selben Feld. Jeder dieser Punkte ist ein eigenes kleines Problem — und
+              jedes davon kann die Endzahl still verfälschen.
             </p>
 
-            <h2>Ergebnis</h2>
+            <h2>Was ich zuerst wissen musste: die Zielgröße</h2>
             <p>
-              Aus vier getrennten Datenquellen wurde eine belastbare Ergebnis-Sicht je
-              Gewerk und Monat. Grenzfälle wie Misch- und Teilzahlungen werden explizit
-              behandelt statt still verworfen, und die fachlichen Regeln sind durch Tests
-              dokumentiert — das System läuft produktiv im Controlling.
+              Bei so einem Projekt fange ich am Ende an. Gewünscht war eine Ergebnisrechnung je
+              Gewerk und Monat. Von dieser Zielgröße aus lässt sich rückwärts ableiten, welche
+              Zuordnungen die Daten brauchen und welche Teilprobleme zu lösen sind: Zahlungen den
+              Rechnungen zuordnen, Positionen den Gewerken zuordnen, fehlende Kenngrößen herleiten.
+              Erst diese Zerlegung macht aus einem unmöglich wirkenden Auftrag drei machbare.
+            </p>
+
+            <h2>Die Basis und die Schritte an die KI</h2>
+            <p>
+              Ich habe das System bewusst in klar geschnittene Bausteine zerlegt, die auch einzeln
+              nutzbar (und einzeln testbar) sind — drei davon sind als eigenständige Repositories
+              dokumentiert. Für jeden Baustein galt dasselbe Vorgehen: Ich lege die Schnittstelle
+              und die fachliche Regel fest, die KI arbeitet die Umsetzung aus. Der heikelste
+              Baustein ist der Split, weil hier am ehesten Geld „verschwinden" kann:
+            </p>
+            <div class="prompt">
+              <span class="prompt-label">Beispiel-Prompt · Summenerhaltender Split</span>
+              <p>
+                „Schreib eine Funktion, die einen Rechnungsbetrag anhand vorgegebener Anteile auf
+                mehrere Gewerke aufteilt. Harte Bedingung: Die Summe der Teilbeträge muss auf den
+                Cent exakt dem Ausgangsbetrag entsprechen — durch Rundung darf nichts verloren
+                gehen oder doppelt entstehen. Rundungsdifferenzen auf die größte Teilposition
+                legen. Schreib gleich einen Test dazu, der das mit krummen Beträgen und drei
+                Gewerken prüft."
+              </p>
+            </div>
+
+            <div class="deadend">
+              <span class="deadend-label">Sackgasse</span>
+              <p>
+                Der Zahlungsabgleich sollte anfangs einfach sein: Betrag plus Referenz gleich
+                zugeordnet. In der Praxis blieb damit ein großer Teil der Zahlungen unzugeordnet —
+                Sammelüberweisungen und Teilzahlungen passten schlicht nicht auf eine einzelne
+                Rechnung. Ich habe den ersten Abgleich verworfen und die Fälle explizit
+                modelliert: eine Zahlung darf mehrere Rechnungen bedienen, eine Rechnung mehrere
+                Zahlungen bekommen. Erst das spiegelte die Realität wider, statt sie
+                wegzudefinieren.
+              </p>
+            </div>
+
+            <h2>Wie ich die Logik geprüft habe</h2>
+            <p>
+              Bei Zahlen, die am Ende ins Controlling gehen, reichen Stichproben nicht. Die
+              fachlichen Kernregeln sind mit fokussierten Tests abgesichert: dass der Split
+              summenerhaltend ist, dass jede Position genau einem Gewerk (oder einer definierten
+              Aufteilung) zugeordnet wird und dass ein erneuter Lauf dasselbe Ergebnis liefert.
+              Diese Invarianten sind zugleich die beste Dokumentation der fachlichen Absicht.
+            </p>
+
+            <h2>Validierung &amp; Sicherheitsnetz</h2>
+            <p>
+              Wo eine Angabe hergeleitet werden muss — etwa die Anlagenleistung in kWp — greift
+              eine Fallback-Hierarchie: zuerst die verlässlichste Quelle, dann die nächste, und
+              Fälle, in denen nichts Belastbares übrig bleibt, werden zur manuellen Prüfung
+              markiert statt geraten. Grenzfälle fallen so auf, statt still ein falsches Ergebnis
+              zu erzeugen.
+            </p>
+
+            <h2>Was sich auf andere Projekte übertragen lässt</h2>
+            <p>
+              Zwei Dinge nimmt man von hier überallhin mit. Erstens: Von der Zielgröße rückwärts
+              denken zerlegt große Aufgaben in lösbare. Zweitens: Transformationen, die etwas
+              aufteilen oder umverteilen, brauchen eine harte Invariante (hier: Summenerhalt) —
+              sonst merkt niemand, wenn unterwegs etwas verloren geht.
             </p>
           </div>
 
           <aside>
             <ul class="fact-list">
-              <li><strong>Zeigt</strong>Systemdenken über mehrere Quellen, Matching-Logik, summenerhaltende Transformationen, Tests für fachliche Invarianten</li>
+              <li><strong>Was man hier mitnimmt</strong>Von der Zielgröße rückwärts denken, Matching-Sonderfälle explizit modellieren, summenerhaltende Transformationen, fachliche Invarianten testen</li>
               <li><strong>Nutzt</strong><a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a> und Tankkarten-API-Client als vorgelagerte Quellen</li>
               <li><strong>Bausteine</strong>Drei Kernmodule als eigene Repos (unten verlinkt)</li>
             </ul>
@@ -115,7 +164,7 @@
       <div class="container">
         <div class="page-nav">
           <a href="../projekte.html">← Alle Projekte</a>
-          <a href="lead-automation.html">Nächstes Projekt: Lead-Automation →</a>
+          <a href="pv-vertragsgenerator.html">Nächste Fallstudie: PV-Vertragsgenerator →</a>
         </div>
       </div>
     </section>

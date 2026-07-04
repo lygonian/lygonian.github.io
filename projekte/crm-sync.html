@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRM-Sync-Bibliothek — Samet Kurt</title>
-  <meta name="description" content="Inkrementelle GraphQL-zu-CSV-Sync-Bibliothek für CRM-Daten: Watermark-Delta-Erkennung, Upsert per ID, Retry mit Backoff — das Datenfundament einer ganzen Automatisierungslandschaft.">
+  <title>CRM-Sync-Bibliothek — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Fallstudie: Wie aus einer lückenhaft dokumentierten CRM-Schnittstelle Schritt für Schritt eine inkrementelle Sync-Bibliothek wird — mit Beispiel-Prompts, Sackgassen und den eingebauten Prüfungen.">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -29,19 +29,19 @@
     <section class="page-hero">
       <div class="container">
         <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / CRM-Sync-Bibliothek</p>
-        <p class="eyebrow">Datenfundament · Bibliothek</p>
+        <p class="eyebrow">Startpunkt · Datenfundament</p>
         <h1>CRM-Sync-Bibliothek</h1>
         <p class="lead">
-          Bevor fünf Projekte je einzeln mit dem CRM sprechen, lohnt eine grundsätzlichere
-          Frage: Wie sähe die eine Bibliothek aus, auf der alle aufbauen können? Die Antwort
-          ist ein inkrementeller GraphQL-zu-CSV-Sync — das Datenfundament meiner gesamten
-          Automatisierungslandschaft.
+          Der beste Einstieg in diese Werkstatt. An diesem Projekt lässt sich fast alles
+          zeigen: wie man eine schlecht dokumentierte Schnittstelle selbst erschließt, wie man
+          eine Basis von Hand legt und der KI dann Stück für Stück die Logik erklärt — und wie
+          aus einem einfachen Skript ein System wird, das jederzeit wiederholbar läuft.
         </p>
         <div class="meta-grid">
           <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
           <div class="meta-item"><strong>Kontext</strong>Mittelständisches Energie-/PV-Unternehmen</div>
           <div class="meta-item"><strong>Stack</strong>Python, GraphQL, pandas, requests</div>
-          <div class="meta-item"><strong>Status</strong>Produktiv, Backbone mehrerer Projekte</div>
+          <div class="meta-item"><strong>Status</strong>Produktiv, Fundament mehrerer Projekte</div>
         </div>
       </div>
     </section>
@@ -50,47 +50,131 @@
       <div class="container">
         <div class="split">
           <div class="prose">
-            <h2>Ausgangsproblem</h2>
+            <h2>Die Ausgangslage</h2>
             <p>
               Immer mehr Automatisierungen brauchten aktuelle CRM-Daten: Kontakte, Dokumente,
-              Projekte, Termine. Jedes Projekt einzeln an die API anzubinden hätte dieselbe
-              Logik mehrfach erzeugt — mit mehrfachen Fehlerquellen und mehrfacher Last auf
-              der API. Erschwerend kam hinzu, dass die Herstellerdokumentation der
-              CRM-Schnittstelle unvollständig war.
+              Projekte, Termine. Jedes dieser Vorhaben hätte sich einzeln an die Schnittstelle
+              anbinden können — mit dem Ergebnis, dass dieselbe Logik fünfmal existiert, fünfmal
+              gepflegt werden muss und fünfmal Last auf der API erzeugt. Die naheliegende Frage
+              war deshalb nicht „Wie hole ich Daten?", sondern: „Wie sähe die eine Bibliothek aus,
+              auf der alles andere aufbauen kann?"
             </p>
 
-            <h2>Denklogik</h2>
-            <ol class="flow">
-              <li><strong>Die API erschließen.</strong> Was die Dokumentation nicht hergab, habe ich systematisch selbst ermittelt: Abfragen formulieren, Antworten beobachten, Verhalten dokumentieren — bis ein belastbares Bild der Schnittstelle stand.</li>
-              <li><strong>Einmal bauen statt fünfmal.</strong> Eine Bibliothek mit einheitlicher Sync-Logik für alle vier Ressourcentypen, die jedes Folgeprojekt einfach importiert.</li>
-              <li><strong>Inkrementell statt Vollabzug.</strong> Ein Watermark auf dem Änderungszeitstempel merkt sich den letzten Stand. Eine leichte Abfrage erkennt, was sich geändert hat; nur für diese Datensätze werden die vollen Daten geholt.</li>
-              <li><strong>Idempotent schreiben.</strong> Geänderte Datensätze werden per ID in die lokalen CSV-Bestände eingefügt oder aktualisiert (Upsert). Ein Lauf darf jederzeit wiederholt werden, ohne Duplikate zu erzeugen.</li>
-              <li><strong>Konsistenz absichern.</strong> Der Sync wiederholt sich, bis ein Durchlauf keine Änderungen mehr findet (loop-until-stable) — Änderungen während des Laufs gehen nicht verloren. Bei Überlast oder Serverfehlern greift ein Retry mit exponentiellem Backoff.</li>
-            </ol>
-
-            <h2>Technische Umsetzung</h2>
+            <h2>Warum das kniffliger war, als es aussah</h2>
             <p>
-              Die Bibliothek ist in <strong>Python</strong> geschrieben und spricht die
-              CRM-Schnittstelle per <strong>GraphQL</strong> an. Die zweiphasige Abfrage
-              (leichte Delta-Erkennung, dann volle Daten nur für Geändertes) hält die Last
-              klein. Ergebnisse landen als CSV-Bestände, die nachgelagerte Projekte —
-              vom <a href="pv-vertragsgenerator.html">Vertragsgenerator</a> bis zum
-              Excel-Sync — direkt weiterverwenden. Die Konfiguration läuft über
-              Umgebungsvariablen, Zugangsdaten bleiben außerhalb des Codes.
+              „Daten aus einer API holen" klingt nach einem Nachmittag Arbeit. Zwei Dinge machten
+              es zäher. Erstens war die Herstellerdokumentation der Schnittstelle unvollständig —
+              welche Felder es gibt, wie man filtert und wie sich die API bei Last verhält, stand
+              nirgends verlässlich. Zweitens verändert sich der Datenbestand im CRM ständig, auch
+              während ein Sync läuft. Ein einfacher „hol alles"-Ansatz wird damit entweder zu
+              langsam oder er verliert genau die Datensätze, die sich gerade ändern.
             </p>
 
-            <h2>Ergebnis</h2>
+            <h2>Was ich zuerst wissen musste</h2>
             <p>
-              Statt fünf Insellösungen gibt es eine gemeinsame Datenschicht: Die Bibliothek
-              läuft produktiv und wird von mehreren internen Projekten als Backbone
-              importiert. Neue Automatisierungen starten nicht mehr bei der API-Anbindung,
-              sondern direkt bei ihrer eigentlichen Aufgabe.
+              Bevor Code entstand, habe ich die Schnittstelle selbst kartiert: Abfragen
+              formulieren, Antworten beobachten, Verhalten dokumentieren — bis ein belastbares
+              Bild stand. Welche Ressourcen gibt es, welche Felder liefern sie, gibt es einen
+              Änderungszeitstempel, den man als Anker nutzen kann? Diese Inventur ist der Teil,
+              den man nicht delegieren kann. Erst als ich wusste, worauf ich mich verlassen kann,
+              ergab es Sinn, überhaupt zu bauen.
+            </p>
+
+            <h2>Die Basis, die ich selbst gelegt habe</h2>
+            <p>
+              Ich starte solche Projekte nicht mit einem großen Auftrag an die KI, sondern mit
+              einem kleinen Rahmen von Hand. Hier war das eine einzige Funktion: eine Ressource
+              per GraphQL komplett abfragen und als CSV ablegen. Klein, aber vollständig
+              funktionierend — sie legt die Struktur fest (eine Ressource rein, eine CSV raus)
+              und gibt jeder späteren Erweiterung einen klaren Anknüpfungspunkt.
+            </p>
+            <p>
+              Erst danach überlege ich die Logik: Der Sync soll nicht jedes Mal alles holen,
+              sondern nur, was sich geändert hat. Dafür braucht es einen gemerkten Stand
+              (ein „Watermark"), eine leichte Abfrage, die Änderungen erkennt, und ein Schreiben,
+              das sich beliebig wiederholen lässt. Diese drei Teilaufgaben habe ich einzeln an
+              die KI gegeben.
+            </p>
+
+            <h2>Wie ich es der KI Stück für Stück erklärt habe</h2>
+            <p>
+              Statt „bau mir einen inkrementellen Sync" beschreibe ich eine kleine, klar
+              umrissene Erweiterung nach der anderen — immer mit dem bestehenden Code als
+              Ausgangspunkt und der Bitte, erst den Plan zu zeigen. Der erste Schritt: die
+              Änderungserkennung neben die bestehende Funktion setzen, ohne sie anzufassen.
+            </p>
+            <div class="prompt">
+              <span class="prompt-label">Beispiel-Prompt · Delta-Erkennung</span>
+              <p>
+                „Anbei eine Funktion <code>fetch_all(resource)</code>, die alle Datensätze einer
+                Ressource per GraphQL holt und als CSV speichert. Lass sie unverändert. Schreib
+                eine neue Funktion daneben, die in einer ersten, leichten Abfrage nur ID und
+                Änderungszeitstempel jedes Datensatzes holt und mit einem gespeicherten Watermark
+                vergleicht. Ergebnis: die Liste der IDs, die neuer sind als das Watermark. Zeig
+                mir zuerst den Plan in Stichpunkten, dann den Code."
+              </p>
+            </div>
+            <p>
+              Steht die Delta-Erkennung, folgt das idempotente Schreiben — der Schritt, der aus
+              einem Skript ein wiederholbares System macht:
+            </p>
+            <div class="prompt">
+              <span class="prompt-label">Beispiel-Prompt · Idempotentes Schreiben</span>
+              <p>
+                „Schreib eine Funktion, die einen DataFrame mit geänderten Zeilen per Spalte
+                <code>id</code> in eine bestehende CSV einfügt oder aktualisiert (Upsert). Wichtig:
+                Ein zweiter Lauf mit denselben Daten darf keine Duplikate erzeugen und die Datei
+                nicht anders sortieren. Nur pandas, keine Datenbank. Nenn mir die Fälle, in denen
+                das schiefgehen könnte."
+              </p>
+            </div>
+
+            <div class="deadend">
+              <span class="deadend-label">Sackgasse</span>
+              <p>
+                Mein erster Ansatz vertraute allein auf einen Server-Filter „geändert seit X".
+                Das war verführerisch einfach — und unzuverlässig: Datensätze, die sich während
+                des laufenden Syncs änderten, fielen durchs Raster. Ich habe den Abschnitt
+                verworfen und die Logik neu ausgearbeitet: Der Sync wiederholt sich jetzt so
+                lange, bis ein Durchlauf keine Änderungen mehr findet. Erst diese Schleife macht
+                das Ergebnis verlässlich.
+              </p>
+            </div>
+
+            <h2>Wie ich die Logik geprüft habe</h2>
+            <p>
+              Idempotenz kann man testen, nicht nur behaupten: Ich lasse den Sync zweimal
+              hintereinander laufen und vergleiche die Ergebnis-CSVs — sie müssen bis auf die
+              Sortierung identisch sein. Dazu Stichproben auf einzelne IDs (kommt jeder geänderte
+              Datensatz genau einmal an?) und ein Abgleich der Zeilenzahlen gegen die leichte
+              Abfrage. Was hier nicht stimmt, fällt sofort auf.
+            </p>
+
+            <h2>Validierung &amp; Sicherheitsnetz</h2>
+            <p>
+              Rund um die Kernlogik liegen die Netze, die den Dauerbetrieb tragen: Das Watermark
+              wird nach jedem erfolgreichen Lauf persistiert, sodass ein Neustart dort weitermacht,
+              wo der letzte aufhörte. Bei Überlast oder Serverfehlern greift ein Retry mit
+              exponentiellem Backoff, statt den ganzen Lauf abzubrechen. Zugangsdaten stehen nie
+              im Code, sondern kommen aus Umgebungsvariablen. Und die zweiphasige Abfrage — erst
+              leicht Deltas erkennen, dann volle Daten nur für Geändertes — hält die Last auf der
+              API klein.
+            </p>
+
+            <h2>Was sich auf andere Projekte übertragen lässt</h2>
+            <p>
+              Fast alles hier taucht später wieder auf. Der Upsert-Gedanke steckt im
+              Netzanmeldungs-Excel-Sync und im Google-Kontakte-Sync; das „erst prüfen, dann
+              schreiben" prägt die
+              <a href="lead-automation.html">Lead-Automation</a>; die Idee, Formate erst zu
+              inventarisieren, trägt die <a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a>.
+              Wer dieses eine Projekt versteht, erkennt in den anderen die gleichen Bausteine wieder.
             </p>
           </div>
 
           <aside>
             <ul class="fact-list">
-              <li><strong>Zeigt</strong>Datenarchitektur, API-Erschließung, idempotente Sync-Muster, Bibliotheksdesign</li>
+              <li><strong>Was man hier mitnimmt</strong>Eine unbekannte API erschließen, eine Basis selbst legen, Aufgaben klein an die KI geben, Idempotenz prüfen</li>
               <li><strong>Versorgt</strong><a href="pv-vertragsgenerator.html">PV-Vertragsgenerator</a>, Kontakt- und Excel-Syncs</li>
               <li><strong>Kernmuster</strong>Watermark · zweiphasige Abfrage · Upsert · loop-until-stable · Retry/Backoff</li>
             </ul>
@@ -110,7 +194,7 @@
       <div class="container">
         <div class="page-nav">
           <a href="../projekte.html">← Alle Projekte</a>
-          <a href="rechnungs-pipeline.html">Nächstes Projekt: Rechnungs-Pipeline →</a>
+          <a href="lead-automation.html">Nächste Fallstudie: Lead-Automation →</a>
         </div>
       </div>
     </section>

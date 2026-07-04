@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projekte — Samet Kurt</title>
-  <meta name="description" content="Prozessautomatisierung, Datenpipelines und operative Werkzeuge aus dem laufenden Betrieb eines Energie-/PV-Unternehmens — mit öffentlichen Repositories auf GitHub.">
+  <title>Projekte — Fallstudien zum Nachvollziehen — Samet Kurt</title>
+  <meta name="description" content="Echte Projekte als Fallstudien: wie aus operativen Problemen Schritt für Schritt prüfbare Systeme werden. Einstieg über den CRM-Sync, alle mit öffentlichem Repository.">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -28,14 +28,15 @@
 
     <section class="hero">
       <div class="container">
-        <p class="eyebrow">Projekte</p>
-        <h1>Vom unklaren Zustand zum laufenden System</h1>
+        <p class="eyebrow">Projekte als Fallstudien</p>
+        <h1>Nachvollziehen, wie diese Systeme entstehen</h1>
         <p class="lead">
-          Alle Projekte stammen aus dem realen Betrieb eines mittelständischen
-          Energie-/PV-Unternehmens: Prozesse, die vorher manuell, verstreut oder
-          fehleranfällig waren. Zu jedem Projekt gibt es ein öffentliches Repository
-          mit synthetischen Demo-Daten — die produktiven Versionen mit echten
-          Unternehmensdaten bleiben privat.
+          Jedes Projekt hier stammt aus dem realen Betrieb eines mittelständischen
+          Energie-/PV-Unternehmens — und ist so aufgeschrieben, dass man den Weg mitgehen kann:
+          von der unklaren Ausgangslage über die ersten selbst geschriebenen Zeilen und die
+          Anweisungen an die KI bis zu den Prüfungen am Ende. Der beste Einstieg ist der
+          CRM-Sync; darauf bauen die übrigen Projekte auf. Zu jedem gibt es ein öffentliches
+          Repository mit synthetischen Demo-Daten.
         </p>
       </div>
     </section>
@@ -43,8 +44,13 @@
     <section class="section">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">Hauptprojekte</p>
-          <h2>Fünf Systeme, die den Alltag tragen</h2>
+          <p class="eyebrow">Der Lernpfad</p>
+          <h2>Vom Fundament zum Endprodukt</h2>
+          <p>
+            Die Reihenfolge ist kein Zufall: Der Sync liefert die Daten, die Pipelines
+            verarbeiten sie, das Controlling verdichtet sie, die App macht ein Endprodukt
+            daraus. Wer oben anfängt, versteht die späteren Projekte leichter.
+          </p>
         </div>
 
         <ul class="legend" aria-label="Kategorien der Systemlandschaft">
@@ -56,114 +62,105 @@
 
         <div class="feature-grid">
 
-          <article class="feature feature--flagship" data-cat="werkzeug" data-reveal>
+          <article class="feature feature--flagship" data-cat="fundament" data-reveal>
             <div class="feature-kicker">
-              <p class="eyebrow">Operatives Werkzeug</p>
-              <span class="badge">Flaggschiff</span>
+              <p class="eyebrow">Datenfundament</p>
+              <span class="badge">Startpunkt</span>
             </div>
-            <h3>PV-Vertragsgenerator</h3>
+            <h3>CRM-Sync-Bibliothek</h3>
             <p>
-              Kaufverträge wurden Position für Position aus CRM, Angebot und Vorlage
-              zusammengetragen. Die Desktop-App erzeugt aus einer Angebotsnummer einen
-              fertig ausgefüllten Vertrag als PDF: Angebots-Parsing, CSV-Merge aus
-              CRM-Exporten, deterministisches Formularfeld-Mapping — gebaut für
-              Fachnutzer ohne Entwicklungsumgebung, inklusive Betriebs- und
-              Sicherheitsdokumentation.
+              Der beste Einstieg, um zu sehen, wie so ein System wächst. Hier lässt sich
+              nachvollziehen, wie man eine lückenhaft dokumentierte Schnittstelle selbst
+              erschließt, wie sich ein Sync merkt, was sich geändert hat, und wie man so
+              schreibt, dass ein Lauf jederzeit ohne Duplikate wiederholbar ist. Auf dieser
+              Datenschicht setzen mehrere der folgenden Projekte auf.
             </p>
             <div class="card-tags">
-              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">pdfplumber</span><span class="tag">pdfrw</span><span class="tag">Tkinter</span>
+              <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span><span class="tag">requests</span>
             </div>
             <div class="card-cta">
-              <a href="projekte/pv-vertragsgenerator.html">Zur Projektseite</a>
-              <a href="https://github.com/lygonian/pv-contract-generator" rel="noopener">Code auf GitHub</a>
+              <a href="projekte/crm-sync.html">Zur Fallstudie</a>
+              <a href="https://github.com/lygonian/hero-syncs" rel="noopener">Code auf GitHub</a>
             </div>
           </article>
 
-          <article class="feature feature--backbone" data-cat="fundament" data-reveal>
-            <span class="backbone-tag">Infrastruktur der Landschaft</span>
-            <div class="backbone-main">
-              <div class="feature-kicker">
-                <p class="eyebrow">Datenfundament</p>
-                <span class="badge">Backbone</span>
-              </div>
-              <h3>CRM-Sync-Bibliothek</h3>
-              <p>
-                Das Datenfundament der gesamten Landschaft: ein inkrementeller
-                GraphQL-zu-CSV-Sync für vier CRM-Ressourcen. Leichte Delta-Erkennung über
-                Zeitstempel-Watermark, volle Abfrage nur für geänderte Datensätze, Upsert
-                per ID, Wiederholung bis zur Stabilität. Die API habe ich eigenständig
-                erschlossen, weil die Herstellerdokumentation unvollständig war.
-              </p>
-              <div class="card-tags">
-                <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span><span class="tag">requests</span>
-              </div>
+          <article class="feature" data-cat="fundament" data-reveal>
+            <div class="feature-kicker">
+              <p class="eyebrow">Baut auf dem Sync auf · Workflow</p>
+            </div>
+            <h3>Lead-Automation</h3>
+            <p>
+              Ein überschaubares Projekt, um das Muster „erst prüfen, dann schreiben" zu lernen.
+              Lead-Mails werden per IMAP geholt, geparst, normalisiert und als Kontakt, Projekt
+              und Vermerk ins CRM geschrieben — über dieselben API-Muster wie der Sync, mit
+              Validierung und einem Dry-Run-Modus, der zeigt, was passieren würde, bevor es passiert.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">IMAP</span><span class="tag">BeautifulSoup</span><span class="tag">GraphQL</span>
             </div>
             <div class="card-cta">
-              <a href="projekte/crm-sync.html">Zur Projektseite</a>
-              <a href="https://github.com/lygonian/hero-syncs" rel="noopener">Code auf GitHub</a>
+              <a href="projekte/lead-automation.html">Zur Fallstudie</a>
+              <a href="https://github.com/lygonian/auto-leads" rel="noopener">Code auf GitHub</a>
             </div>
           </article>
 
           <article class="feature" data-cat="finanzen" data-reveal>
             <div class="feature-kicker">
-              <p class="eyebrow">Finanzdaten &amp; Controlling</p>
+              <p class="eyebrow">Baut auf dem Sync auf · Pipeline</p>
             </div>
             <h3>Rechnungs-Pipeline für Lieferantenrechnungen</h3>
             <p>
-              Rechnungen von sechs Lieferanten kamen in sechs verschiedenen PDF-Layouts
-              über verschiedene Kanäle. Je Lieferant ein dokumentiertes Parserprofil,
-              darüber eine gemeinsame Pipeline: Positionen extrahieren, Übersichts- und
-              Positionsdaten erzeugen, Summen gegen Rechnungswerte prüfen — idempotent
-              über ein Skip-Ledger, damit kein Beleg doppelt verarbeitet wird.
+              Das Musterbeispiel für „Inventur vor Struktur": Rechnungen von sechs Lieferanten
+              in sechs PDF-Layouts. Je Lieferant ein dokumentiertes Parserprofil, darüber eine
+              gemeinsame Pipeline mit Summenprüfung und einem Skip-Ledger gegen Doppelverarbeitung.
+              Wer verstehen will, wie man fremde Formate bändigt, fängt hier an.
             </p>
             <div class="card-tags">
-              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">pdfplumber</span><span class="tag">openpyxl</span>
+              <span class="tag">Python</span><span class="tag">pdfplumber</span><span class="tag">pandas</span><span class="tag">openpyxl</span>
             </div>
             <div class="card-cta">
-              <a href="projekte/rechnungs-pipeline.html">Zur Projektseite</a>
+              <a href="projekte/rechnungs-pipeline.html">Zur Fallstudie</a>
               <a href="https://github.com/lygonian/rechnungsparser-haendler" rel="noopener">Code auf GitHub</a>
             </div>
           </article>
 
           <article class="feature" data-cat="finanzen" data-reveal>
             <div class="feature-kicker">
-              <p class="eyebrow">Finanzdaten &amp; Controlling</p>
+              <p class="eyebrow">Verdichtet die Daten · System</p>
             </div>
             <h3>Gewerke-Controlling</h3>
             <p>
-              Die Buchführung konnte nicht beantworten, welche Gewerke Einnahmen, Kosten
-              und Ergebnis verursachen. Das System führt Bankdaten, Rechnungspositionen,
-              CRM-Dokumente und Gehaltskosten in eine gemeinsame Gewerk-Sicht zusammen:
-              Zahlungsabgleich, Positionsklassifikation mit summenerhaltendem Split,
-              kWp-Ableitung mit Fallback-Hierarchie — Ergebnis je Gewerk und Monat.
+              Das anspruchsvollste Projekt, gut geeignet, um Systemdenken über mehrere Quellen
+              zu lernen. Bankdaten, Rechnungspositionen, CRM-Dokumente und Gehaltskosten fließen
+              in eine Gewerk-Sicht zusammen: Zahlungsabgleich, summenerhaltender Positions-Split,
+              kWp-Ableitung mit Fallbacks — abgesichert durch Tests der fachlichen Kernregeln.
             </p>
             <div class="card-tags">
               <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">Matching</span><span class="tag">Validierung</span>
             </div>
             <div class="card-cta">
-              <a href="projekte/gewerke-controlling.html">Zur Projektseite</a>
+              <a href="projekte/gewerke-controlling.html">Zur Fallstudie</a>
               <a href="https://github.com/lygonian/gewerke-controlling" rel="noopener">Code auf GitHub</a>
             </div>
           </article>
 
-          <article class="feature" data-cat="fundament" data-reveal>
+          <article class="feature" data-cat="werkzeug" data-reveal>
             <div class="feature-kicker">
-              <p class="eyebrow">Datenfundament</p>
+              <p class="eyebrow">Endprodukt der Kette · Desktop-App</p>
             </div>
-            <h3>Lead-Automation</h3>
+            <h3>PV-Vertragsgenerator</h3>
             <p>
-              Lead-Mails aus Partnerportalen und dem Website-Kontaktformular wurden von
-              Hand ins CRM übertragen. Der Workflow holt die Mails per IMAP, parst und
-              normalisiert die Inhalte und legt Kontakt, Projekt und Logbucheintrag
-              automatisch im CRM an — mit Validierung und Dry-Run-Modus, bevor etwas
-              geschrieben wird.
+              Das sichtbare Ende der Kette: Aus den aufbereiteten Daten wird ein Werkzeug für
+              Fachkollegen. Angebots-Parsing, CSV-Merge aus den CRM-Exporten, deterministisches
+              Formularfeld-Mapping — aus einer Angebotsnummer entsteht ein fertiger Vertrag als
+              PDF, bedienbar ohne Entwicklungsumgebung, inklusive Betriebs- und Sicherheitsdoku.
             </p>
             <div class="card-tags">
-              <span class="tag">Python</span><span class="tag">BeautifulSoup</span><span class="tag">IMAP</span><span class="tag">GraphQL</span>
+              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">pdfplumber</span><span class="tag">pdfrw</span><span class="tag">Tkinter</span>
             </div>
             <div class="card-cta">
-              <a href="projekte/lead-automation.html">Zur Projektseite</a>
-              <a href="https://github.com/lygonian/auto-leads" rel="noopener">Code auf GitHub</a>
+              <a href="projekte/pv-vertragsgenerator.html">Zur Fallstudie</a>
+              <a href="https://github.com/lygonian/pv-contract-generator" rel="noopener">Code auf GitHub</a>
             </div>
           </article>
 
@@ -174,11 +171,12 @@
     <section class="section section-alt">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">Weitere Projekte</p>
-          <h2>Kleinere Werkzeuge aus derselben Landschaft</h2>
+          <p class="eyebrow">Weitere Werkzeuge</p>
+          <h2>Kleinere Bausteine aus derselben Landschaft</h2>
           <p>
-            Jedes dieser Projekte löst ein konkretes operatives Problem und ist als
-            öffentliches Repository mit Demo-Daten nachvollziehbar.
+            Nicht jedes Projekt trägt eine eigene Fallstudie — manche sind schlicht klein.
+            Jedes löst ein konkretes operatives Problem und ist als öffentliches Repository
+            mit Demo-Daten nachvollziehbar.
           </p>
         </div>
         <div class="card-grid">
@@ -285,16 +283,17 @@
 
     <section class="section-dark">
       <div class="container">
-        <p class="eyebrow">Hintergrund</p>
-        <h2>Wie diese Systeme entstehen</h2>
+        <p class="eyebrow">Der rote Faden</p>
+        <h2>Ein Muster, viele Projekte</h2>
         <p>
-          Jedes dieser Projekte ist KI-gestützt gebaut — mit klarer Arbeitsteilung:
-          Ich zerlege das Problem, definiere die Regeln und prüfe die Ergebnisse;
-          KI beschleunigt Architektur und Umsetzung.
+          So verschieden die Projekte sind — der Weg ist jedes Mal derselbe: das Problem
+          zerlegen, eine Basis selbst schreiben, der KI die Logik stückweise erklären, prüfen,
+          absichern. Wie diese Arbeitsteilung mit der KI konkret aussieht, steht auf der
+          Methoden-Seite.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="ki-workflow.html">Mein KI-Workflow</a>
-          <a class="btn btn-ghost" href="ueber-mich.html">Über mich</a>
+          <a class="btn btn-primary" href="index.html#methode">So gehe ich vor</a>
+          <a class="btn btn-ghost" href="ki-workflow.html">Mein KI-Workflow</a>
         </div>
       </div>
     </section>

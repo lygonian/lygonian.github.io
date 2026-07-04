@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lead-Automation — Samet Kurt</title>
-  <meta name="description" content="Automatisierter Lead-Workflow: E-Mails per IMAP holen, parsen und normalisieren, Kontakt und Projekt im CRM anlegen — mit Validierung und Dry-Run-Modus.">
+  <title>Lead-Automation — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Fallstudie: ein überschaubarer Workflow, an dem sich das Muster „erst prüfen, dann schreiben" lernen lässt — Mails per IMAP holen, normalisieren und mit Dry-Run ins CRM schreiben.">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -29,12 +29,12 @@
     <section class="page-hero">
       <div class="container">
         <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / Lead-Automation</p>
-        <p class="eyebrow">Datenfundament · Workflow</p>
+        <p class="eyebrow">Baut auf dem Sync auf · Workflow</p>
         <h1>Lead-Automation</h1>
         <p class="lead">
-          Jede Lead-Mail, die von Hand ins CRM übertragen wird, kostet Zeit und riskiert
-          Übertragungsfehler — und liegen bleibt sie auch mal. Der Workflow übernimmt den
-          kompletten Weg von der Mail bis zum angelegten CRM-Datensatz.
+          Ein bewusst überschaubares Projekt — und gerade deshalb ein gutes zweites Beispiel.
+          Hier lässt sich in Ruhe das Muster lernen, das später in fast jedem Schreibzugriff
+          steckt: erst prüfen und anzeigen, was passieren würde, dann tatsächlich schreiben.
         </p>
         <div class="meta-grid">
           <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
@@ -49,43 +49,64 @@
       <div class="container">
         <div class="split">
           <div class="prose">
-            <h2>Ausgangsproblem</h2>
+            <h2>Die Ausgangslage</h2>
             <p>
               Neue Leads kamen aus zwei Kanälen ins Postfach: als tabellarische Mails eines
-              Partnerportals und über das Kontaktformular der Website. Beide mussten manuell
-              gelesen und ins CRM-System übertragen werden — je Lead ein Kontakt, ein Projekt
-              und ein Vermerk. Ein wiederkehrender, rein mechanischer Ablauf.
+              Partnerportals und über das Kontaktformular der Website. Beide mussten von Hand
+              gelesen und ins CRM übertragen werden — je Lead ein Kontakt, ein Projekt und ein
+              Vermerk. Ein rein mechanischer Ablauf, der Zeit kostet, Übertragungsfehler riskiert
+              und in stressigen Wochen auch mal liegen bleibt.
             </p>
 
-            <h2>Denklogik</h2>
-            <ol class="flow">
-              <li><strong>Die Kanäle verstehen.</strong> Beide Mail-Typen haben eine eigene, aber stabile Struktur. Für jeden Kanal entstand ein eigener Parser, der die relevanten Felder zuverlässig herauslöst.</li>
-              <li><strong>Normalisieren vor Anlegen.</strong> Namen, Telefonnummern und Adressen kommen in unterschiedlichen Schreibweisen an. Ein Normalisierungsschritt bringt sie in ein einheitliches Format, bevor irgendetwas ins CRM geht.</li>
-              <li><strong>Erst prüfen, dann schreiben.</strong> Vor dem Anlegen validiert der Workflow die Pflichtfelder. Ein Dry-Run-Modus zeigt vollständig an, was angelegt würde — ohne es zu tun.</li>
-              <li><strong>Den ganzen Vorgang abbilden.</strong> Pro Lead entstehen Kontakt, Projekt und Logbucheintrag im CRM in einem sequenziellen, nachvollziehbaren Ablauf — kein halb angelegter Zustand.</li>
-            </ol>
-
-            <h2>Technische Umsetzung</h2>
+            <h2>Was ich zuerst wissen musste</h2>
             <p>
-              Die Mails werden per <strong>IMAP</strong> abgeholt, HTML-Inhalte mit
-              <strong>BeautifulSoup</strong> geparst. Das Anlegen im CRM-System läuft über
-              dieselben <strong>GraphQL</strong>-Muster wie in der
-              <a href="crm-sync.html">CRM-Sync-Bibliothek</a>. Das öffentliche Repository
-              zeigt den Workflow mit Beispiel-Mails und einem IMAP-Dry-Run — echte
-              Postfach- und CRM-Zugänge bleiben privat.
+              Der entscheidende Punkt vorab: Beide Mail-Typen sehen unterschiedlich aus, haben
+              aber jeweils eine stabile Struktur. Das habe ich mir zuerst angeschaut — welche
+              Felder stehen wo, in welchen Schreibweisen kommen Namen, Telefonnummern und
+              Adressen an? Aus dieser Bestandsaufnahme ergab sich der Plan fast von selbst: pro
+              Kanal ein eigener Parser, danach ein gemeinsamer Normalisierungsschritt.
             </p>
 
-            <h2>Ergebnis</h2>
+            <h2>Die Basis und die Schritte an die KI</h2>
             <p>
-              Leads landen ohne manuelles Abtippen als vollständige, einheitlich
-              formatierte Datensätze im CRM. Der Workflow läuft produktiv; durch Dry-Run
-              und Validierung ist jederzeit nachvollziehbar, was er tut, bevor er es tut.
+              Die Basis war ein kleines Skript, das eine Mail per IMAP holt und ihren HTML-Inhalt
+              ausgibt. Von da an ging es in kleinen Schritten weiter — Parser je Kanal, dann
+              Normalisierung, dann das Anlegen im CRM. Beim Schreiben ins CRM habe ich bewusst
+              dieselben API-Muster genutzt wie in der
+              <a href="crm-sync.html">CRM-Sync-Bibliothek</a>, statt sie neu zu erfinden.
+            </p>
+            <div class="prompt">
+              <span class="prompt-label">Beispiel-Prompt · Dry-Run zuerst</span>
+              <p>
+                „Bevor irgendetwas ins CRM geschrieben wird: Bau einen Dry-Run-Modus. Statt die
+                Anlage-Funktionen aufzurufen, soll der Workflow vollständig ausgeben, welcher
+                Kontakt, welches Projekt und welcher Vermerk mit welchen Feldern entstehen würden.
+                Erst ein zweiter, expliziter Schalter führt das Schreiben wirklich aus. Zeig mir
+                den Plan, dann den Code."
+              </p>
+            </div>
+
+            <h2>Erst prüfen, dann schreiben</h2>
+            <p>
+              Vor dem Anlegen prüft der Workflow die Pflichtfelder; unvollständige Leads fallen
+              auf, statt halb im CRM zu landen. Der Dry-Run zeigt den kompletten geplanten
+              Vorgang, ohne ihn auszuführen. Und pro Lead entstehen Kontakt, Projekt und
+              Logbucheintrag in einer festen Reihenfolge — kein halb angelegter Zustand, wenn
+              zwischendrin etwas hakt.
+            </p>
+
+            <h2>Was sich übertragen lässt</h2>
+            <p>
+              „Erst prüfen, dann schreiben" ist kein Detail dieses Projekts, sondern ein Prinzip.
+              Derselbe Dry-Run-Gedanke steckt im Lohnabrechnungs-Versand und im
+              Google-Kontakte-Sync. Und die Idee, Eingaben vor dem Weiterverarbeiten zu
+              normalisieren, taucht überall dort auf, wo Daten aus fremder Hand kommen.
             </p>
           </div>
 
           <aside>
             <ul class="fact-list">
-              <li><strong>Zeigt</strong>Mail-Parsing, Datennormalisierung, Validierung, sichere Schreibzugriffe auf Fremdsysteme</li>
+              <li><strong>Was man hier mitnimmt</strong>Kanäle einzeln parsen, Eingaben normalisieren, Dry-Run vor jedem Schreibzugriff, sequenzielle Anlage</li>
               <li><strong>Verwandt mit</strong><a href="crm-sync.html">CRM-Sync-Bibliothek</a> (gleiche API-Muster)</li>
               <li><strong>Kernmuster</strong>Parser je Kanal · Normalisierung · Dry-Run vor Schreibzugriff</li>
             </ul>
@@ -105,7 +126,7 @@
       <div class="container">
         <div class="page-nav">
           <a href="../projekte.html">← Alle Projekte</a>
-          <a href="pv-vertragsgenerator.html">Nächstes Projekt: PV-Vertragsgenerator →</a>
+          <a href="rechnungs-pipeline.html">Nächste Fallstudie: Rechnungs-Pipeline →</a>
         </div>
       </div>
     </section>

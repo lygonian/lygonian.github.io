@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PV-Vertragsgenerator — Samet Kurt</title>
-  <meta name="description" content="Desktop-App, die aus einer Angebotsnummer einen fertig ausgefüllten PV-Kaufvertrag als PDF erzeugt — PDF-Parsing, CRM-Datenmerge und deterministisches Formularfeld-Mapping.">
+  <title>PV-Vertragsgenerator — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Fallstudie: Aus einem manuellen Abtipp-Prozess wird ein Datenproblem. Wie aus PDF-Parsing, CRM-Daten und deterministischem Formular-Mapping eine App für Fachnutzer entsteht.">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -29,12 +29,13 @@
     <section class="page-hero">
       <div class="container">
         <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / PV-Vertragsgenerator</p>
-        <p class="eyebrow">Operatives Werkzeug · Desktop-App</p>
+        <p class="eyebrow">Endprodukt der Kette · Desktop-App</p>
         <h1>PV-Vertragsgenerator</h1>
         <p class="lead">
-          Ein Vertrag, der bisher Position für Position abgetippt wurde, ist kein
-          Schreibproblem — er ist ein Datenextraktionsproblem. Und so habe ich es behandelt:
-          Die App erzeugt aus einer Angebotsnummer einen fertig ausgefüllten Kaufvertrag als PDF.
+          Das sichtbare Ende der Kette: Aus den aufbereiteten Daten wird ein Werkzeug, das
+          Fachkollegen selbst bedienen. Der Schlüssel war eine Umdeutung — ein Vertrag, der
+          Position für Position abgetippt wurde, ist kein Schreibproblem, sondern ein
+          Datenextraktionsproblem. Genau so habe ich es behandelt.
         </p>
         <div class="meta-grid">
           <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
@@ -49,49 +50,94 @@
       <div class="container">
         <div class="split">
           <div class="prose">
-            <h2>Ausgangsproblem</h2>
+            <h2>Die Ausgangslage</h2>
             <p>
               Für jeden Kaufvertrag mussten Daten aus drei Quellen von Hand zusammengetragen
-              werden: Kundendaten aus dem CRM-System, die verkauften Komponenten aus dem
-              Angebots-PDF, dazu die Vertragsvorlage. Jede Übertragung von Hand ist eine
-              Gelegenheit für Tippfehler — und der Ablauf hing an wenigen Personen, die
-              wussten, welche Angabe wohin gehört.
+              werden: Kundendaten aus dem CRM, die verkauften Komponenten aus dem Angebots-PDF,
+              dazu die Vertragsvorlage. Jede Übertragung von Hand ist eine Gelegenheit für
+              Tippfehler — und der Ablauf hing an wenigen Personen, die wussten, welche Angabe
+              wohin gehört.
             </p>
 
-            <h2>Denklogik</h2>
-            <ol class="flow">
-              <li><strong>Das Problem umdeuten.</strong> Nicht „Wie schreibt man Verträge schneller?", sondern: Alle Angaben existieren bereits strukturiert — sie müssen nur zuverlässig extrahiert, zusammengeführt und an die richtige Stelle geschrieben werden.</li>
-              <li><strong>Inventur der Angebote.</strong> Bevor Code entstand: Welche Komponenten tauchen in Angeboten auf, in welchen Schreibweisen, mit welchen Ausnahmen? Aus dieser Bestandsaufnahme wurden Erkennungsmuster für Module, Wechselrichter, Speicher und Wallboxen.</li>
-              <li><strong>Datenquellen zusammenführen.</strong> Kunden- und Projektdaten kommen als CSV-Exporte aus der eigenen CRM-Sync-Bibliothek, die Komponenten aus dem geparsten Angebots-PDF — zusammengeführt über die Angebotsnummer.</li>
-              <li><strong>Deterministisch statt kreativ.</strong> Das Befüllen der Vertragsvorlage ist ein festes Feld-zu-Feld-Mapping auf PDF-Formularfelder. Gleiche Eingabe, gleicher Vertrag — jederzeit nachvollziehbar.</li>
-              <li><strong>Für Fachnutzer verpacken.</strong> Eine Desktop-Oberfläche, in der eine Angebotsnummer genügt. Dazu Installations- und Übergabe-Dokumentation plus Sicherheitskonzept, damit das Werkzeug ohne den Entwickler betreibbar ist.</li>
-            </ol>
-
-            <h2>Technische Umsetzung</h2>
+            <h2>Warum das kniffliger war, als es aussah</h2>
             <p>
-              Die App liest das Angebots-PDF mit <strong>pdfplumber</strong> und extrahiert
-              Positionen und Komponenten über geprüfte Erkennungsmuster. Kunden- und
-              Projektdaten werden per <strong>pandas</strong> aus den CRM-Exporten
-              zusammengeführt. Das Vertrags-PDF wird mit <strong>pdfrw</strong> über ein
-              deterministisches Formularfeld-Mapping befüllt. Die Oberfläche ist mit
-              <strong>Tkinter</strong> gebaut; in der produktiven Version werden Zugangsdaten
-              über den Anmeldeinformationsspeicher des Betriebssystems verwaltet und die App
-              als eigenständige Anwendung für Windows und macOS paketiert.
+              Die drei Quellen sprechen nicht dieselbe Sprache. Im Angebots-PDF stehen dieselben
+              Komponenten in wechselnden Schreibweisen; die Kundendaten liegen als CSV-Export vor;
+              die Vorlage erwartet Werte an ganz bestimmten Stellen. „Zusammenführen" heißt hier:
+              aus unstrukturiertem PDF-Text verlässlich die richtigen Angaben herauslösen und sie
+              ohne Verrutschen an die richtige Stelle eines Dokuments schreiben — jedes Mal gleich.
             </p>
 
-            <h2>Ergebnis</h2>
+            <h2>Was ich zuerst wissen musste</h2>
             <p>
-              Aus einem manuellen Übertragungsprozess wurde ein Ein-Eingabe-System: Angebotsnummer
-              rein, geprüfter Vertragsentwurf raus. Die App läuft produktiv und wird von
-              Fachkollegen ohne Entwicklungsumgebung bedient. Zum Produkt gehören
-              Betriebsdokumentation und ein Sicherheitskonzept — fertig heißt für mich:
-              läuft, ist dokumentiert und funktioniert auch ohne mich.
+              Vor dem Code stand wieder eine Inventur: Welche Komponenten tauchen in Angeboten
+              überhaupt auf — Module, Wechselrichter, Speicher, Wallboxen — und in welchen
+              Schreibweisen? Aus dieser Bestandsaufnahme wurden robuste Erkennungsmuster. Und:
+              Woher kommen die Kundendaten verlässlich? Antwort: als CSV-Export aus der eigenen
+              <a href="crm-sync.html">CRM-Sync-Bibliothek</a> — der Grund, warum dieses Projekt
+              am Ende der Kette steht und nicht am Anfang.
+            </p>
+
+            <h2>Die Basis und die Schritte an die KI</h2>
+            <p>
+              Die Basis, die ich selbst legte, war das Grundgerüst: PDF-Text einlesen, CSV laden,
+              beides über die Angebotsnummer zusammenführen. Auf diesem Rahmen habe ich die
+              kniffligen Teile einzeln an die KI gegeben — allen voran die Komponentenerkennung,
+              bei der ich Wert darauf legte, dass ich das Ergebnis nachprüfen kann:
+            </p>
+            <div class="prompt">
+              <span class="prompt-label">Beispiel-Prompt · Komponenten erkennen und belegen</span>
+              <p>
+                „Anbei eine Funktion, die den Text eines Angebots-PDF liefert. Schreib eine
+                Funktion, die daraus die Komponenten erkennt — Module, Wechselrichter, Speicher,
+                Wallbox. Die Bezeichnungen variieren, hier sind Beispielzeilen je Kategorie. Nutz
+                robuste Muster statt exakter Strings, und gib zu jedem Fund die Rohzeile mit
+                zurück, damit ich die Erkennung prüfen kann. Zeig mir zuerst deine Muster."
+              </p>
+            </div>
+
+            <div class="deadend">
+              <span class="deadend-label">Sackgasse</span>
+              <p>
+                Beim Befüllen der Vorlage wollte ich den Text zunächst an festen Koordinaten
+                platzieren — funktionierte, bis die Vorlage einmal minimal geändert wurde und
+                alles verrutschte. Ich habe den Ansatz verworfen und auf die benannten
+                Formularfelder des PDFs umgestellt: ein festes Feld-zu-Feld-Mapping statt Positionen
+                auf der Seite. Seitdem ist das Befüllen unabhängig vom Layout und jederzeit
+                nachvollziehbar.
+              </p>
+            </div>
+
+            <h2>Wie ich die Logik geprüft habe</h2>
+            <p>
+              Das Befüllen ist bewusst deterministisch: Gleiche Angebotsnummer, gleicher Vertrag —
+              jederzeit reproduzierbar. Das lässt sich prüfen, indem man denselben Fall zweimal
+              erzeugt und die Ergebnisse vergleicht. Bei der Komponentenerkennung half die
+              mitgelieferte Rohzeile: Man sieht auf einen Blick, ob ein Fund wirklich zur richtigen
+              Kategorie gehört, statt dem Parser blind zu vertrauen.
+            </p>
+
+            <h2>Validierung &amp; Sicherheitsnetz</h2>
+            <p>
+              Weil das Werkzeug ohne Entwickler laufen soll, gehört mehr dazu als Code: eine
+              schlichte Oberfläche, in der eine Angebotsnummer genügt, dazu Installations- und
+              Übergabe-Dokumentation und ein Sicherheitskonzept. In der produktiven Version werden
+              Zugangsdaten über den Anmeldeinformationsspeicher des Betriebssystems verwaltet — nie
+              im Code — und die App als eigenständige Anwendung für Windows und macOS paketiert.
+            </p>
+
+            <h2>Was sich auf andere Projekte übertragen lässt</h2>
+            <p>
+              Die wichtigste Lehre ist die Umdeutung am Anfang: Viele „Schreibaufgaben" sind in
+              Wahrheit Datenprobleme — die Angaben existieren schon, sie müssen nur zuverlässig
+              extrahiert und zusammengeführt werden. Und „deterministisch statt kreativ" ist ein
+              gutes Ziel überall dort, wo ein Ergebnis nachvollziehbar und wiederholbar sein muss.
             </p>
           </div>
 
           <aside>
             <ul class="fact-list">
-              <li><strong>Zeigt</strong>End-to-End-Automatisierung: PDF-Parsing, Datenintegration, Formular-Befüllung, Desktop-UX</li>
+              <li><strong>Was man hier mitnimmt</strong>Ein Schreibproblem als Datenproblem umdeuten, Erkennung prüfbar bauen, deterministisch statt kreativ befüllen, ein Werkzeug für Fachnutzer verpacken</li>
               <li><strong>Baut auf</strong><a href="crm-sync.html">CRM-Sync-Bibliothek</a> als Datenquelle</li>
               <li><strong>Besonderheit</strong>Übergabe-Doku und Sicherheitskonzept als Teil des Produkts</li>
             </ul>
@@ -111,7 +157,7 @@
       <div class="container">
         <div class="page-nav">
           <a href="../projekte.html">← Alle Projekte</a>
-          <a href="crm-sync.html">Nächstes Projekt: CRM-Sync-Bibliothek →</a>
+          <a href="crm-sync.html">Wieder zum Anfang: CRM-Sync →</a>
         </div>
       </div>
     </section>
