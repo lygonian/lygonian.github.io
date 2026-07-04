@@ -50,96 +50,141 @@
       <div class="container">
         <div class="split">
           <div class="prose">
-            <h2>Die Ausgangslage</h2>
+            <h2>Das Problem: derselbe Vertrag, jedes Mal von Hand</h2>
             <p>
-              Für jeden Kaufvertrag mussten Daten aus drei Quellen von Hand zusammengetragen
-              werden: Kundendaten aus dem CRM, die verkauften Komponenten aus dem Angebots-PDF,
-              dazu die Vertragsvorlage. Jede Übertragung von Hand ist eine Gelegenheit für
-              Tippfehler — und der Ablauf hing an wenigen Personen, die wussten, welche Angabe
-              wohin gehört.
+              Für jeden Kaufvertrag mussten Angaben aus drei Quellen von Hand zusammengetragen
+              werden: die Kundendaten aus dem CRM, die verkauften Komponenten aus dem Angebots-PDF
+              und die Vertragsvorlage. Jedes Abtippen ist eine Gelegenheit für einen Fehler — und
+              der Ablauf hing an den wenigen Leuten, die wussten, welche Angabe wohin gehört.
             </p>
 
-            <h2>Warum das kniffliger war, als es aussah</h2>
+            <h2>Die Umdeutung, mit der alles anfing</h2>
             <p>
-              Die drei Quellen sprechen nicht dieselbe Sprache. Im Angebots-PDF stehen dieselben
-              Komponenten in wechselnden Schreibweisen; die Kundendaten liegen als CSV-Export vor;
-              die Vorlage erwartet Werte an ganz bestimmten Stellen. „Zusammenführen" heißt hier:
-              aus unstrukturiertem PDF-Text verlässlich die richtigen Angaben herauslösen und sie
-              ohne Verrutschen an die richtige Stelle eines Dokuments schreiben — jedes Mal gleich.
+              Der wichtigste Schritt war ein Gedanke, kein Code: Das hier ist gar keine
+              Schreibaufgabe, sondern ein Datenproblem. Alle Angaben existieren schon irgendwo — sie
+              müssen nur zuverlässig herausgelöst und an die richtige Stelle gesetzt werden. Diese
+              Umdeutung ist meine Arbeit; sie entscheidet über den ganzen Rest. Die KI kann sie mir
+              nicht abnehmen, denn dafür muss man das Geschäft dahinter verstehen, nicht den Code.
             </p>
 
-            <h2>Was ich zuerst wissen musste</h2>
+            <h2>Warum die drei Quellen nicht dieselbe Sprache sprechen</h2>
             <p>
-              Vor dem Code stand wieder eine Inventur: Welche Komponenten tauchen in Angeboten
-              überhaupt auf — Module, Wechselrichter, Speicher, Wallboxen — und in welchen
-              Schreibweisen? Aus dieser Bestandsaufnahme wurden robuste Erkennungsmuster. Und:
-              Woher kommen die Kundendaten verlässlich? Antwort: als CSV-Export aus der eigenen
-              <a href="crm-sync.html">CRM-Sync-Bibliothek</a> — der Grund, warum dieses Projekt
-              am Ende der Kette steht und nicht am Anfang.
+              Im Angebots-PDF stehen dieselben Komponenten in wechselnden Schreibweisen; die
+              Kundendaten kommen als einfache Tabelle (CSV-Export) aus der eigenen
+              <a href="crm-sync.html">CRM-Sync-Bibliothek</a> — deshalb steht dieses Projekt am
+              <em>Ende</em> der Kette, nicht am Anfang; und die Vorlage erwartet jeden Wert an einer
+              ganz bestimmten Stelle. Vor dem Bauen stand deshalb wieder eine Bestandsaufnahme:
+              Welche Komponenten tauchen überhaupt auf — Module, Wechselrichter, Speicher,
+              Wallboxen — und in welchen Schreibweisen? Daraus wurden die Erkennungsmuster.
             </p>
 
-            <h2>Die Basis und die Schritte an die KI</h2>
+            <h2>Die Basis: PDF rein, Tabelle rein, über die Angebotsnummer verheiraten</h2>
             <p>
-              Die Basis, die ich selbst legte, war das Grundgerüst: PDF-Text einlesen, CSV laden,
-              beides über die Angebotsnummer zusammenführen. Auf diesem Rahmen habe ich die
-              kniffligen Teile einzeln an die KI gegeben — allen voran die Komponentenerkennung,
-              bei der ich Wert darauf legte, dass ich das Ergebnis nachprüfen kann:
+              Das Grundgerüst habe ich selbst gelegt: PDF-Text einlesen, Tabelle laden, beides über
+              die Angebotsnummer zusammenbringen. Auf diesem Rahmen habe ich die kniffligen Teile
+              einzeln an die KI gegeben — allen voran das Erkennen der Komponenten. Dabei war mir
+              eines wichtig: Ich muss jedes Ergebnis nachprüfen können, statt dem Programm blind zu
+              glauben.
             </p>
             <div class="prompt">
-              <span class="prompt-label">Beispiel-Prompt · Komponenten erkennen und belegen</span>
+              <span class="prompt-label">Beispiel-Prompt · erkennen und den Fund belegen</span>
               <p>
-                „Anbei eine Funktion, die den Text eines Angebots-PDF liefert. Schreib eine
-                Funktion, die daraus die Komponenten erkennt — Module, Wechselrichter, Speicher,
-                Wallbox. Die Bezeichnungen variieren, hier sind Beispielzeilen je Kategorie. Nutz
-                robuste Muster statt exakter Strings, und gib zu jedem Fund die Rohzeile mit
-                zurück, damit ich die Erkennung prüfen kann. Zeig mir zuerst deine Muster."
+                „Anbei eine Funktion, die den Text eines Angebots-PDF liefert. Schreib eine Funktion,
+                die daraus die Komponenten erkennt — Module, Wechselrichter, Speicher, Wallbox. Die
+                Bezeichnungen schwanken, hier sind Beispielzeilen je Kategorie. Nutz nachgiebige
+                Muster statt fixer Wörter, und gib zu jedem Fund die Original-Textzeile mit zurück,
+                damit ich die Erkennung prüfen kann. Zeig mir zuerst deine Muster."
               </p>
             </div>
 
-            <div class="deadend">
-              <span class="deadend-label">Sackgasse</span>
-              <p>
-                Beim Befüllen der Vorlage wollte ich den Text zunächst an festen Koordinaten
-                platzieren — funktionierte, bis die Vorlage einmal minimal geändert wurde und
-                alles verrutschte. Ich habe den Ansatz verworfen und auf die benannten
-                Formularfelder des PDFs umgestellt: ein festes Feld-zu-Feld-Mapping statt Positionen
-                auf der Seite. Seitdem ist das Befüllen unabhängig vom Layout und jederzeit
-                nachvollziehbar.
-              </p>
+            <h2>Wo die KI auf dem brüchigen Weg beharrte</h2>
+            <p>
+              Beim Befüllen der Vorlage wollte die KI den naheliegenden Weg gehen — der später
+              garantiert kaputtgeht. Da mussten wir ein paar Runden drehen:
+            </p>
+            <div class="exchange">
+              <span class="exchange-label">So lief das wirklich · Werte in die Vorlage schreiben</span>
+              <div class="turn turn-me">
+                <span class="turn-who">Ich</span>
+                <p>Die erkannten Werte sollen in die Vertragsvorlage — an die richtigen Stellen im PDF.</p>
+              </div>
+              <div class="turn turn-ai">
+                <span class="turn-who">KI</span>
+                <p>Ich setze den Text an feste Koordinaten auf der Seite: Kundenname bei x/y hier, Leistung dort. Dann sitzt jeder Wert genau an seinem Platz.</p>
+              </div>
+              <div class="turn turn-me turn-push">
+                <span class="turn-who">Ich</span>
+                <p>Und was passiert, wenn jemand die Vorlage einmal um eine Zeile verschiebt? Dann rutscht mit deinen Koordinaten <em>alles</em> daneben, und keiner merkt es sofort. Das ist mir zu brüchig. Die Vorlage hat benannte Formularfelder — nutz die. Schreib „Kundenname" ins Feld „Kundenname", nicht an Position x/y. Dann ist es egal, wie die Seite aussieht.</p>
+              </div>
+              <div class="turn turn-ai">
+                <span class="turn-who">KI</span>
+                <p>Stimmt, das ist unabhängig vom Layout. Ich fülle die benannten Felder direkt und lasse die Koordinaten ganz weg.</p>
+              </div>
             </div>
-
-            <h2>Wie ich die Logik geprüft habe</h2>
             <p>
-              Das Befüllen ist bewusst deterministisch: Gleiche Angebotsnummer, gleicher Vertrag —
-              jederzeit reproduzierbar. Das lässt sich prüfen, indem man denselben Fall zweimal
-              erzeugt und die Ergebnisse vergleicht. Bei der Komponentenerkennung half die
-              mitgelieferte Rohzeile: Man sieht auf einen Blick, ob ein Fund wirklich zur richtigen
-              Kategorie gehört, statt dem Parser blind zu vertrauen.
+              Die KI griff zur ersten Lösung, die funktioniert. Ich musste die zweite Frage stellen —
+              „und was, wenn sich die Vorlage ändert?" —, weil ich weiß, dass Vorlagen sich immer
+              ändern. Solche Vorausahnung ist genau das, was ich einbringe.
             </p>
 
-            <h2>Validierung &amp; Sicherheitsnetz</h2>
+            <h2>Deterministisch statt kreativ</h2>
             <p>
-              Weil das Werkzeug ohne Entwickler laufen soll, gehört mehr dazu als Code: eine
-              schlichte Oberfläche, in der eine Angebotsnummer genügt, dazu Installations- und
-              Übergabe-Dokumentation und ein Sicherheitskonzept. In der produktiven Version werden
-              Zugangsdaten über den Anmeldeinformationsspeicher des Betriebssystems verwaltet — nie
-              im Code — und die App als eigenständige Anwendung für Windows und macOS paketiert.
+              Das Befüllen ist bewusst <em>deterministisch</em> — ein sperriges Wort für etwas
+              Einfaches: Gleiche Angebotsnummer rein, exakt derselbe Vertrag raus, jedes Mal. Nichts
+              wird „frei formuliert". Prüfen lässt sich das, indem man denselben Fall zweimal erzeugt
+              und die Ergebnisse vergleicht. Bei der Komponentenerkennung hilft die mitgelieferte
+              Original-Textzeile: Man sieht auf einen Blick, ob ein Fund wirklich in die erkannte
+              Kategorie gehört.
             </p>
+
+            <h2>Das Sicherheitsnetz — und die Verpackung für Fachnutzer</h2>
+            <p>
+              Weil das Werkzeug ohne Entwickler laufen soll, gehört mehr dazu als der Code: eine
+              schlichte Oberfläche, in der eine Angebotsnummer genügt, dazu eine Anleitung zur
+              Installation und Übergabe sowie ein Sicherheitskonzept. In der produktiven Version
+              liegen Zugangsdaten im geschützten Speicher des Betriebssystems — nie im Code — und die
+              App ist als eigenständiges Programm für Windows und macOS verpackt.
+            </p>
+
+            <h2>So baust du das selbst nach</h2>
+            <ol class="flow">
+              <li>
+                <strong>Die Aufgabe umdeuten.</strong> Frag dich: Existieren die Angaben schon
+                irgendwo? Dann ist es kein Schreib-, sondern ein Datenproblem — herauslösen und
+                zusammensetzen.
+              </li>
+              <li>
+                <strong>Die Quellen inventarisieren.</strong> Schau nach, in welchen Schreibweisen
+                die Angaben vorkommen, und leite daraus nachgiebige Erkennungsmuster ab.
+              </li>
+              <li>
+                <strong>Das Gerüst selbst legen.</strong> Quellen einlesen und über einen
+                gemeinsamen Schlüssel (hier die Angebotsnummer) verbinden.
+              </li>
+              <li>
+                <strong>Erkennung prüfbar bauen.</strong> Zu jedem Fund die Original-Textzeile
+                mitliefern lassen, damit du kontrollieren kannst statt zu glauben.
+              </li>
+              <li>
+                <strong>In benannte Felder schreiben, nicht an Positionen.</strong> Nutz die
+                Formularfelder der Vorlage — dann übersteht das Befüllen jede Layout-Änderung.
+              </li>
+            </ol>
 
             <h2>Was sich auf andere Projekte übertragen lässt</h2>
             <p>
               Die wichtigste Lehre ist die Umdeutung am Anfang: Viele „Schreibaufgaben" sind in
-              Wahrheit Datenprobleme — die Angaben existieren schon, sie müssen nur zuverlässig
-              extrahiert und zusammengeführt werden. Und „deterministisch statt kreativ" ist ein
-              gutes Ziel überall dort, wo ein Ergebnis nachvollziehbar und wiederholbar sein muss.
+              Wahrheit Datenprobleme — die Angaben sind schon da, sie müssen nur verlässlich
+              herausgelöst und zusammengesetzt werden. Und „immer dasselbe Ergebnis bei derselben
+              Eingabe" ist überall ein gutes Ziel, wo etwas nachvollziehbar und wiederholbar sein muss.
             </p>
           </div>
 
           <aside>
             <ul class="fact-list">
-              <li><strong>Was man hier mitnimmt</strong>Ein Schreibproblem als Datenproblem umdeuten, Erkennung prüfbar bauen, deterministisch statt kreativ befüllen, ein Werkzeug für Fachnutzer verpacken</li>
+              <li><strong>Was du hier lernst</strong>Ein Schreibproblem als Datenproblem erkennen, die Erkennung prüfbar bauen, immer dasselbe Ergebnis erzeugen, ein Werkzeug für Nicht-Entwickler verpacken</li>
               <li><strong>Baut auf</strong><a href="crm-sync.html">CRM-Sync-Bibliothek</a> als Datenquelle</li>
-              <li><strong>Besonderheit</strong>Übergabe-Doku und Sicherheitskonzept als Teil des Produkts</li>
+              <li><strong>Besonderheit</strong>Übergabe-Anleitung und Sicherheitskonzept als Teil des Produkts</li>
             </ul>
             <p class="note">
               <strong>Öffentliches Repo:</strong> Offline-Demo mit synthetischen Beispieldaten

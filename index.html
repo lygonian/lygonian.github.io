@@ -245,27 +245,34 @@
       <div class="container">
         <div class="section-head">
           <p class="eyebrow">In der Praxis</p>
-          <h2>Wie so eine Anweisung an die KI konkret aussieht</h2>
+          <h2>So eine Anweisung ist selten ein Treffer — es ist ein Gespräch</h2>
           <p>
-            Ein wiederkehrendes Muster in meinen Prompts: Ich habe schon einen Rahmen gebaut
-            und bitte um eine klar umrissene Erweiterung — mit der Bitte, erst den Plan zu zeigen,
-            dann den Code. Ein Beispiel aus dem CRM-Sync:
+            Ein sauberer Prompt, eine perfekte Antwort — so läuft es fast nie. Meistens ist es ein
+            Hin und Her, manchmal ein Streit: Die KI nimmt eine Abkürzung, ich hole sie zurück,
+            wir drehen eine Runde. Sie ist nicht der Denker, sondern der Übersetzer meiner
+            Gedanken — und wenn mein Gedanke unklar ist oder sie ihn zu bequem auslegt, kommt
+            Unsinn heraus. Ein Ausschnitt aus dem CRM-Sync:
           </p>
         </div>
-        <div class="prompt">
-          <span class="prompt-label">Beispiel-Prompt an die KI</span>
-          <p>
-            „Ich habe eine Funktion, die eine Ressource komplett abfragt und als CSV speichert
-            (Code unten). Erweitere sie so, dass sie sich den Zeitstempel des letzten Laufs merkt
-            und beim nächsten Mal nur geänderte Datensätze holt. Ändere die Signatur nicht und
-            fass die bestehende CSV-Logik nicht an. Zeig mir zuerst den Plan in Stichpunkten,
-            dann den Code."
-          </p>
+        <div class="exchange">
+          <span class="exchange-label">So lief das wirklich · nur das Neue holen</span>
+          <div class="turn turn-me">
+            <span class="turn-who">Ich</span>
+            <p>Ich will beim nächsten Lauf nur die Datensätze, die sich seit dem letzten Mal geändert haben. Bau mir die Erkennung.</p>
+          </div>
+          <div class="turn turn-ai">
+            <span class="turn-who">KI</span>
+            <p>Kein Problem. Ich filtere direkt am Server: „gib mir alles, was sich seit Zeitpunkt X geändert hat". Eine Zeile, fertig.</p>
+          </div>
+          <div class="turn turn-me turn-push">
+            <span class="turn-who">Ich</span>
+            <p>Nein — und du hörst mir nicht zu. Während der Lauf läuft, ändern sich weiter Datensätze; dein einmaliger Filter lässt genau die durchrutschen. Ich will, dass sich der Lauf so lange wiederholt, bis ein Durchgang <em>nichts Neues</em> mehr findet. Erst dann fehlt garantiert nichts.</p>
+          </div>
         </div>
         <p style="max-width: 68ch;">
-          Prompts allein machen aber noch kein System. Was ein Skript verlässlich macht, sind die
-          Prüfungen und Sicherheitsnetze drumherum — und die entstehen von Hand. Auf den
-          Projektseiten steht jeweils, welche das waren und warum.
+          Und selbst das perfekte Gespräch macht noch kein System. Was ein Skript verlässlich
+          macht, sind die Prüfungen und Sicherheitsnetze drumherum — und die Logik dafür kommt von
+          mir. Auf den Projektseiten steht jeweils, welche das waren und warum.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="projekte.html">Zu den Fallstudien</a>

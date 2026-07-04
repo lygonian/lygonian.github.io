@@ -32,10 +32,11 @@
         <p class="eyebrow">Startpunkt · Datenfundament</p>
         <h1>CRM-Sync-Bibliothek</h1>
         <p class="lead">
-          Der beste Einstieg in diese Werkstatt. An diesem Projekt lässt sich fast alles
-          zeigen: wie man eine schlecht dokumentierte Schnittstelle selbst erschließt, wie man
-          eine Basis von Hand legt und der KI dann Stück für Stück die Logik erklärt — und wie
-          aus einem einfachen Skript ein System wird, das jederzeit wiederholbar läuft.
+          Der beste Einstieg in diese Werkstatt. Ich zeige hier von Anfang bis Ende, wie so ein
+          System entsteht: wie man eine schlecht dokumentierte Schnittstelle selbst versteht, wie
+          man mit ein paar Zeilen von Hand anfängt und der KI dann Stück für Stück erklärt, was als
+          Nächstes gebaut werden soll. Fachbegriffe erkläre ich unterwegs — ich kannte sie selbst
+          nicht, als ich anfing.
         </p>
         <div class="meta-grid">
           <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
@@ -50,133 +51,194 @@
       <div class="container">
         <div class="split">
           <div class="prose">
-            <h2>Die Ausgangslage</h2>
+            <h2>Das Problem in einem Satz</h2>
             <p>
-              Immer mehr Automatisierungen brauchten aktuelle CRM-Daten: Kontakte, Dokumente,
-              Projekte, Termine. Jedes dieser Vorhaben hätte sich einzeln an die Schnittstelle
-              anbinden können — mit dem Ergebnis, dass dieselbe Logik fünfmal existiert, fünfmal
-              gepflegt werden muss und fünfmal Last auf der API erzeugt. Die naheliegende Frage
-              war deshalb nicht „Wie hole ich Daten?", sondern: „Wie sähe die eine Bibliothek aus,
-              auf der alles andere aufbauen kann?"
+              Immer mehr kleine Programme brauchten aktuelle Daten aus dem CRM — also aus dem
+              System, in dem Kontakte, Projekte und Termine gepflegt werden. Jedes dieser
+              Programme hätte sich seine Daten einzeln holen können. Dann gäbe es dieselbe
+              Anbindung aber fünfmal, fünfmal zu pflegen, fünfmal fehleranfällig. Also war die
+              Frage nicht „wie hole ich Daten?", sondern: „wie sieht die <em>eine</em> Grundlage
+              aus, auf der alles andere aufsetzen kann?"
             </p>
 
-            <h2>Warum das kniffliger war, als es aussah</h2>
+            <h2>Warum das schwieriger ist, als es klingt</h2>
             <p>
-              „Daten aus einer API holen" klingt nach einem Nachmittag Arbeit. Zwei Dinge machten
-              es zäher. Erstens war die Herstellerdokumentation der Schnittstelle unvollständig —
-              welche Felder es gibt, wie man filtert und wie sich die API bei Last verhält, stand
-              nirgends verlässlich. Zweitens verändert sich der Datenbestand im CRM ständig, auch
-              während ein Sync läuft. Ein einfacher „hol alles"-Ansatz wird damit entweder zu
-              langsam oder er verliert genau die Datensätze, die sich gerade ändern.
+              „Daten aus einer Schnittstelle holen" klingt nach einem Nachmittag. Zwei Dinge
+              machten es zäh. Erstens: Die Schnittstelle war schlecht dokumentiert — welche Felder
+              es gibt und wie man sie abfragt, stand nirgends verlässlich. (Eine <em>Schnittstelle</em>
+              oder <em>API</em> ist nur die vereinbarte Art, wie zwei Programme miteinander reden;
+              hier über eine Abfragesprache namens <em>GraphQL</em>, mit der man gezielt sagt,
+              welche Felder man haben will.) Zweitens ändert sich der Datenbestand im CRM
+              dauernd — auch <em>während</em> man ihn abfragt. Ein simples „hol einfach alles" wird
+              dadurch entweder quälend langsam oder verliert genau die Datensätze, die sich gerade
+              bewegen.
             </p>
 
-            <h2>Was ich zuerst wissen musste</h2>
+            <h2>Wer hier was macht</h2>
             <p>
-              Bevor Code entstand, habe ich die Schnittstelle selbst kartiert: Abfragen
-              formulieren, Antworten beobachten, Verhalten dokumentieren — bis ein belastbares
-              Bild stand. Welche Ressourcen gibt es, welche Felder liefern sie, gibt es einen
-              Änderungszeitstempel, den man als Anker nutzen kann? Diese Inventur ist der Teil,
-              den man nicht delegieren kann. Erst als ich wusste, worauf ich mich verlassen kann,
-              ergab es Sinn, überhaupt zu bauen.
+              Das ist der wichtigste Teil, weil ihn viele falsch verstehen: Die Denkarbeit mache
+              ich. Ich erkenne, welche Logik das Ding braucht, und zerlege sie in kleine Schritte.
+              Code schreibe ich kaum noch selbst — nur den allerersten Rahmen. Danach lasse ich die
+              KI schreiben, aber immer nur <strong>Block für Block</strong>, nie alles auf einmal.
+              Die KI ist dabei nicht der Denker, sondern der Übersetzer meiner Gedanken in Code.
+              Und wenn ich selbst nicht weiterweiß, mache ich mit ihr Sparring: Vorschlag, Einwand,
+              Gegenvorschlag — bis die Logik steht.
             </p>
 
-            <h2>Die Basis, die ich selbst gelegt habe</h2>
+            <h2>Schritt 1 — Die Schnittstelle von Hand verstehen</h2>
             <p>
-              Ich starte solche Projekte nicht mit einem großen Auftrag an die KI, sondern mit
-              einem kleinen Rahmen von Hand. Hier war das eine einzige Funktion: eine Ressource
-              per GraphQL komplett abfragen und als CSV ablegen. Klein, aber vollständig
-              funktionierend — sie legt die Struktur fest (eine Ressource rein, eine CSV raus)
-              und gibt jeder späteren Erweiterung einen klaren Anknüpfungspunkt.
-            </p>
-            <p>
-              Erst danach überlege ich die Logik: Der Sync soll nicht jedes Mal alles holen,
-              sondern nur, was sich geändert hat. Dafür braucht es einen gemerkten Stand
-              (ein „Watermark"), eine leichte Abfrage, die Änderungen erkennt, und ein Schreiben,
-              das sich beliebig wiederholen lässt. Diese drei Teilaufgaben habe ich einzeln an
-              die KI gegeben.
+              Bevor eine einzige Zeile Programm entstand, habe ich die Schnittstelle selbst
+              erkundet: Abfragen abschicken, die Antworten anschauen, das Verhalten aufschreiben.
+              Welche Daten gibt es, welche Felder liefern sie, und — die wichtigste Frage — gibt es
+              zu jedem Datensatz einen Zeitstempel „zuletzt geändert am"? Den brauche ich später als
+              Anker. Dieses Erkunden kann mir niemand abnehmen, auch keine KI: Sie kennt diese eine
+              Schnittstelle nicht.
             </p>
 
-            <h2>Wie ich es der KI Stück für Stück erklärt habe</h2>
+            <h2>Schritt 2 — Die kleinste Version selbst bauen</h2>
             <p>
-              Statt „bau mir einen inkrementellen Sync" beschreibe ich eine kleine, klar
-              umrissene Erweiterung nach der anderen — immer mit dem bestehenden Code als
-              Ausgangspunkt und der Bitte, erst den Plan zu zeigen. Der erste Schritt: die
-              Änderungserkennung neben die bestehende Funktion setzen, ohne sie anzufassen.
+              Ich starte nie mit einem großen Auftrag an die KI, sondern mit einem winzigen
+              Gerüst von Hand. Hier war das eine einzige Funktion: eine Sorte Daten komplett
+              abfragen und als CSV-Datei speichern (eine einfache Tabelle, wie man sie in Excel
+              öffnen kann). Klein, aber komplett funktionierend. Diese Funktion legt die Form fest —
+              Daten rein, Tabelle raus — und gibt allem, was später dazukommt, einen klaren
+              Andockpunkt.
+            </p>
+
+            <h2>Schritt 3 — Der KI die nächste Erweiterung erklären</h2>
+            <p>
+              Statt „bau mir das ganze System" beschreibe ich eine kleine, scharf umrissene
+              Erweiterung. Die erste: nicht mehr jedes Mal alles holen, sondern nur, was neu ist.
+              Dafür merke ich mir nach jedem Lauf einen Zeitstempel — Fachleute nennen das ein
+              <em>Watermark</em>, also eine Markierung „bis hierhin bin ich schon durch". Beim
+              nächsten Lauf frage ich zuerst nur ganz leicht ab: welche Datensätze sind neuer als
+              diese Marke?
             </p>
             <div class="prompt">
-              <span class="prompt-label">Beispiel-Prompt · Delta-Erkennung</span>
+              <span class="prompt-label">Beispiel-Prompt · nur das Neue erkennen</span>
               <p>
-                „Anbei eine Funktion <code>fetch_all(resource)</code>, die alle Datensätze einer
-                Ressource per GraphQL holt und als CSV speichert. Lass sie unverändert. Schreib
-                eine neue Funktion daneben, die in einer ersten, leichten Abfrage nur ID und
-                Änderungszeitstempel jedes Datensatzes holt und mit einem gespeicherten Watermark
-                vergleicht. Ergebnis: die Liste der IDs, die neuer sind als das Watermark. Zeig
-                mir zuerst den Plan in Stichpunkten, dann den Code."
+                „Anbei eine Funktion <code>fetch_all(resource)</code>, die alle Datensätze holt und
+                als CSV speichert. Lass sie unverändert. Schreib eine <em>neue</em> Funktion
+                daneben, die in einer ersten, leichten Abfrage nur die ID und den
+                Änderungszeitstempel jedes Datensatzes holt und ihn mit einer gemerkten Marke
+                (Watermark) vergleicht. Ergebnis: die Liste der IDs, die neuer sind als die Marke.
+                Zeig mir zuerst den Plan in Stichpunkten, dann erst den Code."
               </p>
             </div>
+
+            <h2>Wo wir aneinander vorbeiredeten</h2>
             <p>
-              Steht die Delta-Erkennung, folgt das idempotente Schreiben — der Schritt, der aus
-              einem Skript ein wiederholbares System macht:
+              Genau hier hakte es — und das gehört dazu. Die KI schlug den bequemen Weg vor, und
+              ich musste sie zurückholen. So lief das ungefähr:
+            </p>
+            <div class="exchange">
+              <span class="exchange-label">So lief das wirklich · nur das Neue holen</span>
+              <div class="turn turn-me">
+                <span class="turn-who">Ich</span>
+                <p>Ich will beim nächsten Lauf nur die Datensätze, die sich seit dem letzten Mal geändert haben. Bau mir die Erkennung.</p>
+              </div>
+              <div class="turn turn-ai">
+                <span class="turn-who">KI</span>
+                <p>Kein Problem. Ich filtere direkt am Server: „gib mir alles, was sich seit Zeitpunkt X geändert hat". Eine Zeile, fertig.</p>
+              </div>
+              <div class="turn turn-me turn-push">
+                <span class="turn-who">Ich</span>
+                <p>Nein. Genau das wollte ich vermeiden, und du hörst mir nicht zu. Während der Lauf läuft, ändern sich weiter Datensätze — dein einmaliger Filter lässt genau die durchrutschen. Ich will keinen Filter „einmal geänderte seit X". Ich will, dass sich der Lauf so lange wiederholt, bis ein kompletter Durchgang <em>nichts Neues</em> mehr findet. Erst dann bin ich sicher, dass nichts fehlt.</p>
+              </div>
+              <div class="turn turn-ai">
+                <span class="turn-who">KI</span>
+                <p>Verstanden. Dann wiederhole ich die Abfrage in einer Schleife und höre erst auf, sobald ein Durchlauf keine geänderten Datensätze mehr liefert.</p>
+              </div>
+            </div>
+            <p>
+              Das ist der Punkt, den ich meine: Die KI ist nicht allwissend. Sie ist der Übersetzer
+              meiner Gedanken — und wenn sie eine Abkürzung nimmt, kommt Unsinn heraus. Die Einsicht,
+              dass der Lauf erst „fertig" ist, wenn nichts mehr nachkommt, musste von mir kommen.
+              Sauber in Code gegossen hat sie sie dann in Sekunden.
+            </p>
+
+            <h2>Schritt 4 — Wiederholbar speichern</h2>
+            <p>
+              Steht die Erkennung, folgt der Schritt, der aus einem Skript ein verlässliches System
+              macht: das Speichern muss <em>wiederholbar</em> sein. Fachwort dafür ist
+              <em>idempotent</em> — es bedeutet einfach: Ob ich den Lauf einmal oder fünfmal starte,
+              das Ergebnis ist am Ende dasselbe, nichts wird doppelt. Dafür wird jede geänderte
+              Zeile in der Tabelle entweder neu eingefügt oder aktualisiert (ein <em>Upsert</em>:
+              „update or insert"), aber nie ein zweites Mal angehängt.
             </p>
             <div class="prompt">
-              <span class="prompt-label">Beispiel-Prompt · Idempotentes Schreiben</span>
+              <span class="prompt-label">Beispiel-Prompt · einfügen oder aktualisieren, nie doppelt</span>
               <p>
-                „Schreib eine Funktion, die einen DataFrame mit geänderten Zeilen per Spalte
-                <code>id</code> in eine bestehende CSV einfügt oder aktualisiert (Upsert). Wichtig:
-                Ein zweiter Lauf mit denselben Daten darf keine Duplikate erzeugen und die Datei
-                nicht anders sortieren. Nur pandas, keine Datenbank. Nenn mir die Fälle, in denen
-                das schiefgehen könnte."
+                „Schreib eine Funktion, die geänderte Zeilen anhand der Spalte <code>id</code> in
+                eine bestehende CSV schreibt: vorhandene ID → Zeile ersetzen, neue ID → Zeile
+                anhängen. Wichtig: Ein zweiter Lauf mit denselben Daten darf keine Doppel erzeugen
+                und die Datei nicht umsortieren. Nur pandas, keine Datenbank. Und sag mir gleich,
+                in welchen Fällen das schiefgehen kann."
               </p>
             </div>
 
-            <div class="deadend">
-              <span class="deadend-label">Sackgasse</span>
-              <p>
-                Mein erster Ansatz vertraute allein auf einen Server-Filter „geändert seit X".
-                Das war verführerisch einfach — und unzuverlässig: Datensätze, die sich während
-                des laufenden Syncs änderten, fielen durchs Raster. Ich habe den Abschnitt
-                verworfen und die Logik neu ausgearbeitet: Der Sync wiederholt sich jetzt so
-                lange, bis ein Durchlauf keine Änderungen mehr findet. Erst diese Schleife macht
-                das Ergebnis verlässlich.
-              </p>
-            </div>
-
-            <h2>Wie ich die Logik geprüft habe</h2>
+            <h2>Prüfen, ob es wirklich stimmt</h2>
             <p>
-              Idempotenz kann man testen, nicht nur behaupten: Ich lasse den Sync zweimal
-              hintereinander laufen und vergleiche die Ergebnis-CSVs — sie müssen bis auf die
-              Sortierung identisch sein. Dazu Stichproben auf einzelne IDs (kommt jeder geänderte
-              Datensatz genau einmal an?) und ein Abgleich der Zeilenzahlen gegen die leichte
-              Abfrage. Was hier nicht stimmt, fällt sofort auf.
+              „Wiederholbar" kann man testen, statt es nur zu behaupten: Ich lasse den Sync zweimal
+              hintereinander laufen und vergleiche die beiden Ergebnis-Tabellen — sie müssen bis auf
+              die Sortierung identisch sein. Dazu ein paar Stichproben auf einzelne IDs (kommt jeder
+              geänderte Datensatz genau einmal an?) und ein Abgleich der Zeilenzahl gegen die leichte
+              Vorab-Abfrage. Stimmt hier etwas nicht, fällt es sofort auf.
             </p>
 
-            <h2>Validierung &amp; Sicherheitsnetz</h2>
+            <h2>Das Sicherheitsnetz drumherum</h2>
             <p>
-              Rund um die Kernlogik liegen die Netze, die den Dauerbetrieb tragen: Das Watermark
-              wird nach jedem erfolgreichen Lauf persistiert, sodass ein Neustart dort weitermacht,
-              wo der letzte aufhörte. Bei Überlast oder Serverfehlern greift ein Retry mit
-              exponentiellem Backoff, statt den ganzen Lauf abzubrechen. Zugangsdaten stehen nie
-              im Code, sondern kommen aus Umgebungsvariablen. Und die zweiphasige Abfrage — erst
-              leicht Deltas erkennen, dann volle Daten nur für Geändertes — hält die Last auf der
-              API klein.
+              Um die Kernlogik liegen die Netze für den Dauerbetrieb: Die gemerkte Marke wird nach
+              jedem erfolgreichen Lauf gespeichert, damit ein Neustart dort weitermacht, wo der
+              letzte aufhörte. Wenn der Server überlastet ist oder kurz ausfällt, versucht es das
+              Programm mit wachsenden Pausen erneut, statt gleich alles abzubrechen. Zugangsdaten
+              stehen nie im Code, sondern kommen von außen aus der Umgebung. Und die zweistufige
+              Abfrage — erst leicht schauen, was neu ist, dann nur dafür die vollen Daten holen —
+              hält die Belastung der Schnittstelle klein.
             </p>
 
-            <h2>Was sich auf andere Projekte übertragen lässt</h2>
+            <h2>So baust du das selbst nach</h2>
+            <ol class="flow">
+              <li>
+                <strong>Die Schnittstelle von Hand erkunden.</strong> Schick ein paar Testabfragen
+                ab und schau dir die Antworten an. Notier dir: Welche Felder gibt es? Gibt es zu
+                jedem Datensatz ein „zuletzt geändert am"?
+              </li>
+              <li>
+                <strong>Die kleinste Version selbst schreiben.</strong> Eine Funktion: eine Sorte
+                Daten komplett holen und als CSV speichern. Erst wenn die läuft, kommt die KI dazu.
+              </li>
+              <li>
+                <strong>Nur das Neue erkennen.</strong> Lass dir eine zweite Funktion bauen, die
+                mit der gemerkten Marke vergleicht und nur die neueren IDs zurückgibt. Immer erst
+                den Plan zeigen lassen, dann den Code.
+              </li>
+              <li>
+                <strong>Wiederhol-fest speichern.</strong> Geänderte Zeilen einfügen oder
+                aktualisieren, nie doppelt anhängen. Danach die Marke neu setzen.
+              </li>
+              <li>
+                <strong>Zweimal laufen lassen und vergleichen.</strong> Kommen beide Male dieselben
+                Daten heraus, stimmt die Logik. Wenn nicht, hast du genau hier deinen Fehler.
+              </li>
+            </ol>
+
+            <h2>Was du in anderen Projekten wiedererkennst</h2>
             <p>
-              Fast alles hier taucht später wieder auf. Der Upsert-Gedanke steckt im
-              Netzanmeldungs-Excel-Sync und im Google-Kontakte-Sync; das „erst prüfen, dann
-              schreiben" prägt die
-              <a href="lead-automation.html">Lead-Automation</a>; die Idee, Formate erst zu
-              inventarisieren, trägt die <a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a>.
-              Wer dieses eine Projekt versteht, erkennt in den anderen die gleichen Bausteine wieder.
+              Fast alles hier taucht später wieder auf. Das „einfügen oder aktualisieren, nie
+              doppelt" steckt im Netzanmeldungs-Sync und im Kontakte-Sync; das „erst prüfen, dann
+              schreiben" prägt die <a href="lead-automation.html">Lead-Automation</a>; die Idee,
+              ein fremdes Format erst in Ruhe zu verstehen, trägt die
+              <a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a>. Wer dieses eine Projekt
+              versteht, erkennt in den anderen dieselben Bausteine wieder.
             </p>
           </div>
 
           <aside>
             <ul class="fact-list">
-              <li><strong>Was man hier mitnimmt</strong>Eine unbekannte API erschließen, eine Basis selbst legen, Aufgaben klein an die KI geben, Idempotenz prüfen</li>
+              <li><strong>Was du hier lernst</strong>Eine unbekannte Schnittstelle selbst verstehen, klein von Hand anfangen, der KI Aufgaben Block für Block geben, das Ergebnis nachprüfen statt glauben</li>
               <li><strong>Versorgt</strong><a href="pv-vertragsgenerator.html">PV-Vertragsgenerator</a>, Kontakt- und Excel-Syncs</li>
-              <li><strong>Kernmuster</strong>Watermark · zweiphasige Abfrage · Upsert · loop-until-stable · Retry/Backoff</li>
+              <li><strong>Kernideen</strong>gemerkte Marke · erst leicht schauen, dann voll holen · einfügen-oder-aktualisieren · wiederholen, bis nichts Neues mehr kommt</li>
             </ul>
             <p class="note">
               <strong>Öffentliches Repo:</strong> Demo-Client mit synthetischen Daten,

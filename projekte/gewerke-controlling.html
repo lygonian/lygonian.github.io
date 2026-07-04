@@ -49,98 +49,141 @@
       <div class="container">
         <div class="split">
           <div class="prose">
-            <h2>Die Ausgangslage</h2>
+            <h2>Das Problem: Geld ohne Etikett</h2>
             <p>
-              Einnahmen und Ausgaben lagen verstreut vor: Zahlungen in den Bankdaten,
-              Einkaufspositionen in der <a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a>,
-              Ausgangsrechnungen im CRM, dazu Gehaltskosten. Keine dieser Quellen kannte die
-              entscheidende Dimension: das Gewerk — also ob ein Betrag zur PV-Montage, zur
-              Elektrik, zur Sanierung oder zur Wärmepumpe gehört.
+              Einnahmen und Ausgaben lagen verstreut herum: Zahlungen in den Bankdaten,
+              Einkäufe in der <a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a>,
+              Ausgangsrechnungen im CRM, dazu die Gehaltskosten. Keine dieser Quellen wusste das
+              Entscheidende: zu welchem <em>Gewerk</em> ein Betrag gehört — also ob er zur
+              PV-Montage zählt, zur Elektrik, zur Sanierung oder zur Wärmepumpe. Genau diese
+              Zuordnung braucht man aber, um zu sehen, welcher Bereich Geld verdient und welcher nicht.
             </p>
 
-            <h2>Warum das kniffliger war, als es aussah</h2>
+            <h2>Warum „einfach zusammenführen" scheitert</h2>
             <p>
-              Die Daten „nur zusammenzuführen" scheitert an der Realität: Eine Banküberweisung
-              deckt oft mehrere Rechnungen ab, eine Rechnung wird in Teilbeträgen bezahlt,
-              Referenznummern fehlen. Eine Rechnungsposition gehört manchmal zu einem Gewerk,
-              manchmal anteilig zu mehreren. Und Kenngrößen wie die Anlagenleistung stehen nicht
-              immer im selben Feld. Jeder dieser Punkte ist ein eigenes kleines Problem — und
-              jedes davon kann die Endzahl still verfälschen.
+              An der Realität. Eine Überweisung deckt oft mehrere Rechnungen ab; eine Rechnung wird
+              in Teilbeträgen bezahlt; Referenznummern fehlen. Ein Einkaufsposten gehört mal ganz zu
+              einem Gewerk, mal anteilig zu mehreren. Und Kennzahlen wie die Anlagenleistung (in
+              kWp, also der Größe der PV-Anlage) stehen nicht immer im selben Feld. Jeder dieser
+              Punkte ist ein eigenes kleines Problem — und jedes kann die Endzahl still verfälschen.
             </p>
 
-            <h2>Was ich zuerst wissen musste: die Zielgröße</h2>
+            <h2>Mein Trick: vom Ergebnis rückwärts denken</h2>
             <p>
-              Bei so einem Projekt fange ich am Ende an. Gewünscht war eine Ergebnisrechnung je
-              Gewerk und Monat. Von dieser Zielgröße aus lässt sich rückwärts ableiten, welche
-              Zuordnungen die Daten brauchen und welche Teilprobleme zu lösen sind: Zahlungen den
-              Rechnungen zuordnen, Positionen den Gewerken zuordnen, fehlende Kenngrößen herleiten.
-              Erst diese Zerlegung macht aus einem unmöglich wirkenden Auftrag drei machbare.
+              Bei so einem Wust fange ich am Ende an. Ich lege zuerst fest, was hinten herauskommen
+              soll — hier: eine Ergebnisrechnung je Gewerk und Monat. Von diesem Ziel aus frage ich
+              rückwärts: Welche Zuordnungen braucht es dafür? Das ist meine Denkarbeit, und sie ist
+              der Kern des Projekts. Die KI kann mir die Bausteine bauen, aber die Zerlegung — was
+              hängt woran — muss von mir kommen. Wenn ich dabei selbst ins Stocken gerate, denke ich
+              sie im Sparring mit der KI laut durch, bis die Kette steht.
             </p>
 
-            <h2>Die Basis und die Schritte an die KI</h2>
+            <h2>Aus einem unmöglichen Auftrag drei machbare</h2>
             <p>
-              Ich habe das System bewusst in klar geschnittene Bausteine zerlegt, die auch einzeln
-              nutzbar (und einzeln testbar) sind — drei davon sind als eigenständige Repositories
-              dokumentiert. Für jeden Baustein galt dasselbe Vorgehen: Ich lege die Schnittstelle
-              und die fachliche Regel fest, die KI arbeitet die Umsetzung aus. Der heikelste
-              Baustein ist der Split, weil hier am ehesten Geld „verschwinden" kann:
+              Rückwärts gedacht zerfällt der Berg in drei greifbare Teile: Zahlungen den Rechnungen
+              zuordnen, Einkaufsposten den Gewerken zuordnen, fehlende Kennzahlen herleiten. Jeden
+              Teil habe ich als eigenen, für sich testbaren Baustein gebaut — drei davon liegen als
+              eigene Projekte offen (unten verlinkt). Für jeden gilt dasselbe: Ich lege die Form und
+              die fachliche Regel fest, die KI schreibt die Umsetzung, Block für Block. Der heikelste
+              ist das Aufteilen, weil hier am ehesten Geld „verschwinden" kann:
             </p>
             <div class="prompt">
-              <span class="prompt-label">Beispiel-Prompt · Summenerhaltender Split</span>
+              <span class="prompt-label">Beispiel-Prompt · aufteilen, ohne einen Cent zu verlieren</span>
               <p>
-                „Schreib eine Funktion, die einen Rechnungsbetrag anhand vorgegebener Anteile auf
+                „Schreib eine Funktion, die einen Rechnungsbetrag nach vorgegebenen Anteilen auf
                 mehrere Gewerke aufteilt. Harte Bedingung: Die Summe der Teilbeträge muss auf den
-                Cent exakt dem Ausgangsbetrag entsprechen — durch Rundung darf nichts verloren
-                gehen oder doppelt entstehen. Rundungsdifferenzen auf die größte Teilposition
-                legen. Schreib gleich einen Test dazu, der das mit krummen Beträgen und drei
-                Gewerken prüft."
+                Cent genau dem Ausgangsbetrag entsprechen — durch Rundung darf nichts verloren gehen
+                oder doppelt entstehen. Rundungsreste auf den größten Teil legen. Schreib gleich
+                einen Test dazu, der das mit krummen Beträgen und drei Gewerken prüft."
               </p>
             </div>
 
-            <div class="deadend">
-              <span class="deadend-label">Sackgasse</span>
-              <p>
-                Der Zahlungsabgleich sollte anfangs einfach sein: Betrag plus Referenz gleich
-                zugeordnet. In der Praxis blieb damit ein großer Teil der Zahlungen unzugeordnet —
-                Sammelüberweisungen und Teilzahlungen passten schlicht nicht auf eine einzelne
-                Rechnung. Ich habe den ersten Abgleich verworfen und die Fälle explizit
-                modelliert: eine Zahlung darf mehrere Rechnungen bedienen, eine Rechnung mehrere
-                Zahlungen bekommen. Erst das spiegelte die Realität wider, statt sie
-                wegzudefinieren.
-              </p>
+            <h2>Wo die KI die Realität zu ordentlich sah</h2>
+            <p>
+              Beim Zuordnen der Zahlungen wollte die KI es sauber und einfach — die Realität ist es
+              aber nicht. So lief das:
+            </p>
+            <div class="exchange">
+              <span class="exchange-label">So lief das wirklich · Zahlungen den Rechnungen zuordnen</span>
+              <div class="turn turn-me">
+                <span class="turn-who">Ich</span>
+                <p>Ich muss Bankzahlungen den passenden Rechnungen zuordnen. Bau mir den Abgleich.</p>
+              </div>
+              <div class="turn turn-ai">
+                <span class="turn-who">KI</span>
+                <p>Einfach: Ich vergleiche Betrag und Referenznummer. Stimmen beide, ist die Zahlung ihrer Rechnung zugeordnet. Eins zu eins.</p>
+              </div>
+              <div class="turn turn-me turn-push">
+                <span class="turn-who">Ich</span>
+                <p>Das ist die Theorie. In echt bleibt damit die Hälfte übrig. Eine Überweisung bezahlt oft <em>mehrere</em> Rechnungen auf einmal, und eine Rechnung wird in mehreren Raten beglichen — dein „eins zu eins" passt auf diese Fälle einfach nicht, und Referenzen fehlen sowieso oft. Ich will, dass du das so modellierst, wie es wirklich ist: Eine Zahlung darf mehrere Rechnungen bedienen, eine Rechnung mehrere Zahlungen bekommen.</p>
+              </div>
+              <div class="turn turn-ai">
+                <span class="turn-who">KI</span>
+                <p>Dann löse ich mich vom Eins-zu-eins und ordne Beträge auch teil- und sammelweise zu, mit den offenen Restbeträgen als Führung.</p>
+              </div>
             </div>
-
-            <h2>Wie ich die Logik geprüft habe</h2>
             <p>
-              Bei Zahlen, die am Ende ins Controlling gehen, reichen Stichproben nicht. Die
-              fachlichen Kernregeln sind mit fokussierten Tests abgesichert: dass der Split
-              summenerhaltend ist, dass jede Position genau einem Gewerk (oder einer definierten
-              Aufteilung) zugeordnet wird und dass ein erneuter Lauf dasselbe Ergebnis liefert.
-              Diese Invarianten sind zugleich die beste Dokumentation der fachlichen Absicht.
+              Die KI baut, was ich sage — aber sie kennt die krummen Fälle aus dem echten
+              Zahlungsverkehr nicht. Sie wegzudefinieren wäre bequem gewesen und hätte die Zahlen
+              still verfälscht. Sie abzubilden war meine Aufgabe.
             </p>
 
-            <h2>Validierung &amp; Sicherheitsnetz</h2>
+            <h2>Warum ich hier teste statt Stichproben zu ziehen</h2>
             <p>
-              Wo eine Angabe hergeleitet werden muss — etwa die Anlagenleistung in kWp — greift
-              eine Fallback-Hierarchie: zuerst die verlässlichste Quelle, dann die nächste, und
-              Fälle, in denen nichts Belastbares übrig bleibt, werden zur manuellen Prüfung
-              markiert statt geraten. Grenzfälle fallen so auf, statt still ein falsches Ergebnis
-              zu erzeugen.
+              Bei Zahlen, die am Ende ins Controlling gehen, reicht „sieht gut aus" nicht. Die
+              wichtigsten Regeln sind mit gezielten Tests abgesichert: dass beim Aufteilen die
+              Summe erhalten bleibt, dass jeder Posten genau einem Gewerk (oder einer festgelegten
+              Aufteilung) zugeordnet ist und dass ein zweiter Lauf dasselbe Ergebnis liefert. Solche
+              immer-gültigen Regeln nennt man <em>Invarianten</em> — Sätze, die stimmen müssen, egal
+              was passiert. Sie sind zugleich die beste Beschreibung dessen, was das System
+              eigentlich soll.
             </p>
+
+            <h2>Das Sicherheitsnetz</h2>
+            <p>
+              Wo eine Angabe hergeleitet werden muss — etwa die Anlagenleistung — greift eine
+              Rangfolge von Quellen: zuerst die verlässlichste, dann die nächste. Bleibt am Ende
+              nichts Belastbares übrig, wird der Fall zur Prüfung von Hand markiert, statt geraten.
+              So fallen Grenzfälle auf, statt still eine falsche Zahl zu erzeugen.
+            </p>
+
+            <h2>So baust du das selbst nach</h2>
+            <ol class="flow">
+              <li>
+                <strong>Am Ende anfangen.</strong> Schreib auf, was hinten herauskommen soll — bei
+                mir: Ergebnis je Bereich und Monat. Alles Weitere leitet sich davon ab.
+              </li>
+              <li>
+                <strong>Rückwärts zerlegen.</strong> Frag dich, welche Zuordnungen dieses Ergebnis
+                braucht, und mach aus jeder ein eigenes, kleines Teilproblem.
+              </li>
+              <li>
+                <strong>Jeden Teil einzeln bauen und testen.</strong> Regel festlegen, KI schreiben
+                lassen, mit einem eigenen Test absichern — erst dann zum nächsten.
+              </li>
+              <li>
+                <strong>Die harte Regel prüfen.</strong> Überall, wo Beträge aufgeteilt werden:
+                testen, dass die Summe auf den Cent erhalten bleibt.
+              </li>
+              <li>
+                <strong>Unklares markieren, nicht raten.</strong> Wo die Daten keine sichere
+                Zuordnung hergeben, den Fall zur Prüfung von Hand kennzeichnen.
+              </li>
+            </ol>
 
             <h2>Was sich auf andere Projekte übertragen lässt</h2>
             <p>
-              Zwei Dinge nimmt man von hier überallhin mit. Erstens: Von der Zielgröße rückwärts
-              denken zerlegt große Aufgaben in lösbare. Zweitens: Transformationen, die etwas
-              aufteilen oder umverteilen, brauchen eine harte Invariante (hier: Summenerhalt) —
-              sonst merkt niemand, wenn unterwegs etwas verloren geht.
+              Zwei Dinge nimmt man von hier überallhin mit. Erstens: Vom Ziel rückwärts denken
+              zerlegt eine überwältigende Aufgabe in lösbare Häppchen. Zweitens: Alles, was Beträge
+              aufteilt oder umverteilt, braucht eine harte, immer-gültige Regel (hier: die Summe
+              bleibt erhalten) — sonst merkt niemand, wenn unterwegs etwas verloren geht.
             </p>
           </div>
 
           <aside>
             <ul class="fact-list">
-              <li><strong>Was man hier mitnimmt</strong>Von der Zielgröße rückwärts denken, Matching-Sonderfälle explizit modellieren, summenerhaltende Transformationen, fachliche Invarianten testen</li>
-              <li><strong>Nutzt</strong><a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a> und Tankkarten-API-Client als vorgelagerte Quellen</li>
+              <li><strong>Was du hier lernst</strong>Vom Ergebnis rückwärts denken, krumme Sonderfälle abbilden statt wegdefinieren, beim Aufteilen die Summe erhalten, wichtige Regeln testen</li>
+              <li><strong>Nutzt</strong><a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a> und Tankkarten-Client als vorgelagerte Quellen</li>
               <li><strong>Bausteine</strong>Drei Kernmodule als eigene Repos (unten verlinkt)</li>
             </ul>
             <p class="note">

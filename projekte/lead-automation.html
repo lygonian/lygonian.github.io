@@ -49,66 +49,95 @@
       <div class="container">
         <div class="split">
           <div class="prose">
-            <h2>Die Ausgangslage</h2>
+            <h2>Das Problem: Leads von Hand ins CRM</h2>
             <p>
-              Neue Leads kamen aus zwei Kanälen ins Postfach: als tabellarische Mails eines
+              Neue Interessenten kamen aus zwei Kanälen ins Postfach: als tabellarische Mails eines
               Partnerportals und über das Kontaktformular der Website. Beide mussten von Hand
-              gelesen und ins CRM übertragen werden — je Lead ein Kontakt, ein Projekt und ein
-              Vermerk. Ein rein mechanischer Ablauf, der Zeit kostet, Übertragungsfehler riskiert
-              und in stressigen Wochen auch mal liegen bleibt.
+              gelesen und ins CRM übertragen werden — je Lead ein Kontakt, ein Projekt, ein Vermerk.
+              Ein stures Abtippen, das Zeit kostet, Fehler riskiert und in stressigen Wochen auch
+              mal liegen bleibt.
             </p>
 
-            <h2>Was ich zuerst wissen musste</h2>
+            <h2>Was ich zuerst erkannt habe: die Struktur</h2>
             <p>
-              Der entscheidende Punkt vorab: Beide Mail-Typen sehen unterschiedlich aus, haben
-              aber jeweils eine stabile Struktur. Das habe ich mir zuerst angeschaut — welche
-              Felder stehen wo, in welchen Schreibweisen kommen Namen, Telefonnummern und
-              Adressen an? Aus dieser Bestandsaufnahme ergab sich der Plan fast von selbst: pro
-              Kanal ein eigener Parser, danach ein gemeinsamer Normalisierungsschritt.
+              Beide Mail-Typen sehen verschieden aus, haben aber jeweils einen festen Aufbau. Genau
+              das habe ich mir zuerst angeschaut — welches Feld steht wo, in welchen Schreibweisen
+              kommen Namen, Telefonnummern und Adressen an? Aus dieser Beobachtung ergab sich der
+              Plan fast von selbst: pro Kanal ein eigenes kleines Ausleseprogramm, danach ein
+              gemeinsamer Schritt, der die Angaben in eine einheitliche Form bringt. Den Plan gebe
+              ich vor; die Umsetzung schreibt die KI dann Block für Block.
             </p>
 
-            <h2>Die Basis und die Schritte an die KI</h2>
+            <h2>Der Trick: erst zeigen, was passieren würde — dann erst tun</h2>
             <p>
-              Die Basis war ein kleines Skript, das eine Mail per IMAP holt und ihren HTML-Inhalt
-              ausgibt. Von da an ging es in kleinen Schritten weiter — Parser je Kanal, dann
-              Normalisierung, dann das Anlegen im CRM. Beim Schreiben ins CRM habe ich bewusst
-              dieselben API-Muster genutzt wie in der
-              <a href="crm-sync.html">CRM-Sync-Bibliothek</a>, statt sie neu zu erfinden.
+              Das Herzstück ist eine einfache Regel: nichts ins CRM schreiben, bevor man gesehen
+              hat, was geschrieben würde. Dafür gibt es einen <em>Dry-Run</em> — einen Probelauf,
+              der vollständig anzeigt, welcher Kontakt, welches Projekt und welcher Vermerk entstehen
+              würden, aber noch nichts wirklich anlegt. Auch das war eine Stelle, an der ich die KI
+              zurückpfeifen musste:
             </p>
-            <div class="prompt">
-              <span class="prompt-label">Beispiel-Prompt · Dry-Run zuerst</span>
-              <p>
-                „Bevor irgendetwas ins CRM geschrieben wird: Bau einen Dry-Run-Modus. Statt die
-                Anlage-Funktionen aufzurufen, soll der Workflow vollständig ausgeben, welcher
-                Kontakt, welches Projekt und welcher Vermerk mit welchen Feldern entstehen würden.
-                Erst ein zweiter, expliziter Schalter führt das Schreiben wirklich aus. Zeig mir
-                den Plan, dann den Code."
-              </p>
+            <div class="exchange">
+              <span class="exchange-label">So lief das wirklich · schreiben oder erst zeigen?</span>
+              <div class="turn turn-me">
+                <span class="turn-who">Ich</span>
+                <p>Aus der ausgelesenen Mail sollen im CRM ein Kontakt, ein Projekt und ein Vermerk entstehen.</p>
+              </div>
+              <div class="turn turn-ai">
+                <span class="turn-who">KI</span>
+                <p>Klar, ich rufe direkt die Anlage-Funktionen auf: Kontakt anlegen, Projekt anlegen, Vermerk anlegen. Läuft in einem Durchgang.</p>
+              </div>
+              <div class="turn turn-me turn-push">
+                <span class="turn-who">Ich</span>
+                <p>Auf keinen Fall gleich schreiben. Das landet in einem echten CRM — wenn dein Parser eine Zeile falsch versteht, habe ich hunderte kaputte Kontakte drin und kriege die nicht mehr sauber raus. Bau zuerst einen Probelauf: Er soll <em>ausgeben</em>, was er anlegen würde, und sonst nichts tun. Erst ein zweiter, ausdrücklicher Schalter schreibt wirklich.</p>
+              </div>
+              <div class="turn turn-ai">
+                <span class="turn-who">KI</span>
+                <p>Verstanden. Standardmäßig nur Vorschau, das echte Anlegen hinter einem eigenen Schalter.</p>
+              </div>
             </div>
-
-            <h2>Erst prüfen, dann schreiben</h2>
             <p>
-              Vor dem Anlegen prüft der Workflow die Pflichtfelder; unvollständige Leads fallen
-              auf, statt halb im CRM zu landen. Der Dry-Run zeigt den kompletten geplanten
-              Vorgang, ohne ihn auszuführen. Und pro Lead entstehen Kontakt, Projekt und
-              Logbucheintrag in einer festen Reihenfolge — kein halb angelegter Zustand, wenn
-              zwischendrin etwas hakt.
+              Vor dem Anlegen prüft der Ablauf zusätzlich die Pflichtfelder — unvollständige Leads
+              fallen auf, statt halb im CRM zu landen. Und pro Lead entstehen Kontakt, Projekt und
+              Eintrag in fester Reihenfolge, damit nichts halb Angelegtes zurückbleibt, wenn
+              zwischendrin etwas hakt. Beim Schreiben ins CRM habe ich bewusst dieselben Muster
+              genutzt wie in der <a href="crm-sync.html">CRM-Sync-Bibliothek</a>, statt sie neu zu
+              erfinden.
             </p>
+
+            <h2>So baust du das selbst nach</h2>
+            <ol class="flow">
+              <li>
+                <strong>Den Aufbau der Eingänge anschauen.</strong> Öffne ein paar Beispiele je
+                Kanal und notier, welches Feld wo steht.
+              </li>
+              <li>
+                <strong>Pro Kanal auslesen, dann vereinheitlichen.</strong> Ein kleines Programm je
+                Kanal, danach ein gemeinsamer Schritt, der alles in dieselbe Form bringt.
+              </li>
+              <li>
+                <strong>Immer zuerst den Probelauf.</strong> Erst anzeigen lassen, was entstehen
+                würde. Echtes Schreiben nur hinter einem eigenen, bewussten Schalter.
+              </li>
+              <li>
+                <strong>Pflichtfelder prüfen.</strong> Unvollständige Einträge aussortieren, bevor
+                irgendetwas angelegt wird.
+              </li>
+            </ol>
 
             <h2>Was sich übertragen lässt</h2>
             <p>
-              „Erst prüfen, dann schreiben" ist kein Detail dieses Projekts, sondern ein Prinzip.
-              Derselbe Dry-Run-Gedanke steckt im Lohnabrechnungs-Versand und im
-              Google-Kontakte-Sync. Und die Idee, Eingaben vor dem Weiterverarbeiten zu
-              normalisieren, taucht überall dort auf, wo Daten aus fremder Hand kommen.
+              „Erst zeigen, dann schreiben" ist kein Detail dieses Projekts, sondern ein Prinzip.
+              Derselbe Probelauf-Gedanke steckt im Lohnabrechnungs-Versand und im
+              Google-Kontakte-Sync. Und die Idee, fremde Eingaben erst in eine einheitliche Form zu
+              bringen, taucht überall auf, wo Daten aus fremder Hand kommen.
             </p>
           </div>
 
           <aside>
             <ul class="fact-list">
-              <li><strong>Was man hier mitnimmt</strong>Kanäle einzeln parsen, Eingaben normalisieren, Dry-Run vor jedem Schreibzugriff, sequenzielle Anlage</li>
-              <li><strong>Verwandt mit</strong><a href="crm-sync.html">CRM-Sync-Bibliothek</a> (gleiche API-Muster)</li>
-              <li><strong>Kernmuster</strong>Parser je Kanal · Normalisierung · Dry-Run vor Schreibzugriff</li>
+              <li><strong>Was du hier lernst</strong>Kanäle einzeln auslesen, Eingaben in eine Form bringen, immer erst der Probelauf, in fester Reihenfolge anlegen</li>
+              <li><strong>Verwandt mit</strong><a href="crm-sync.html">CRM-Sync-Bibliothek</a> (gleiche Muster fürs Schreiben)</li>
+              <li><strong>Kernideen</strong>ein Ausleseprogramm je Kanal · vereinheitlichen · Probelauf vor jedem Schreiben</li>
             </ul>
             <p class="note">
               <strong>Öffentliches Repo:</strong> Demo mit synthetischen Lead-Mails und

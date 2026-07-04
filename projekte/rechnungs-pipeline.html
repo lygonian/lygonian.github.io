@@ -49,94 +49,147 @@
       <div class="container">
         <div class="split">
           <div class="prose">
-            <h2>Die Ausgangslage</h2>
+            <h2>Das Problem: sechs Lieferanten, sechs Formate</h2>
             <p>
-              Eingangsrechnungen kamen von sechs Lieferanten in sechs völlig verschiedenen
-              PDF-Layouts über verschiedene Kanäle — als E-Mail-Anhang oder manuell abgelegt.
-              Wer wissen wollte, welche Positionen eingekauft wurden, musste jede Rechnung einzeln
-              öffnen. Eine strukturierte, positionsgenaue Sicht auf die Ausgaben gab es nicht.
+              Eingangsrechnungen kamen von sechs Lieferanten — jede in einem völlig anderen
+              PDF-Layout, manche per Mail, manche von Hand abgelegt. Wer wissen wollte, was
+              eigentlich eingekauft wurde, musste jede Rechnung einzeln öffnen. Eine geordnete
+              Übersicht, Position für Position, gab es nicht.
             </p>
 
-            <h2>Warum das kniffliger war, als es aussah</h2>
+            <h2>Warum PDFs so gemein sind</h2>
             <p>
-              PDFs sehen aus wie Text, sind aber keiner: Positionen stehen an unterschiedlichen
-              Stellen, Tabellen sind unterschiedlich gesetzt, dieselbe Angabe heißt bei jedem
-              Lieferanten anders. Ein Parser, der auf Rechnung A funktioniert, scheitert an B.
-              Und weil jeden Monat neue Belege dazukommen, muss das Ganze nicht einmal laufen,
-              sondern immer wieder — ohne dass ein Beleg doppelt verarbeitet wird.
+              Ein PDF sieht aus wie ein sauberes Dokument, ist innen aber ein Durcheinander:
+              Positionen stehen mal hier, mal da, Tabellen sind unterschiedlich gesetzt, und
+              dieselbe Angabe heißt bei jedem Lieferanten anders. Ein Ausleseprogramm, das bei
+              Rechnung A klappt, scheitert an B. Dazu kommt: Jeden Monat kommen neue Belege dazu.
+              Das Ganze darf also nicht einmal laufen, sondern immer wieder — ohne dass ein Beleg
+              versehentlich doppelt gezählt wird.
             </p>
 
-            <h2>Was ich zuerst wissen musste: Inventur vor Struktur</h2>
+            <h2>Der Satz, der dieses Projekt trägt</h2>
             <p>
-              Bevor eine Zeile Pipeline entstand, habe ich für jeden Lieferanten das Layout
-              analysiert und als Profil dokumentiert: Wo stehen Rechnungsnummer, Datum, Positionen
-              und Summen? Welche Sonderfälle gibt es — Rabattzeilen, Zwischensummen, Seitenumbrüche
-              mitten in der Tabelle? Diese Bestandsaufnahme ist die eigentliche Denkarbeit. Der
-              Code ist danach fast nur noch das Aufschreiben.
+              Die eigentliche Arbeit ist nicht das Programmieren, sondern das Verstehen. Und dieses
+              Verstehen ist meins — es lässt sich an keine KI abgeben. Ich schaue mir jedes Format
+              genau an und erkenne das Muster dahinter. Die Umsetzung in Code lasse ich dann Block
+              für Block schreiben; selbst tippe ich fast nichts mehr. Die KI ist schnell im
+              Übersetzen, aber sie kennt diese sechs Rechnungen nicht — das muss ich ihr beibringen.
             </p>
 
-            <h2>Die Basis und die Schritte an die KI</h2>
+            <h2>Inventur: erst alles anschauen, dann bauen</h2>
             <p>
-              Die Basis war eine gemeinsame Schnittstelle, die ich selbst festgelegt habe: Jedes
-              Parserprofil bekommt ein PDF und gibt dieselbe strukturierte Positionsliste zurück.
-              Damit war der Rahmen klar — und die KI konnte pro Lieferant ein Profil ausarbeiten,
-              ohne die Pipeline drumherum zu berühren.
+              Bevor eine Zeile entstand, habe ich für jeden Lieferanten aufgeschrieben: Wo steht
+              die Rechnungsnummer, wo das Datum, wo die einzelnen Posten, wo die Summe? Welche
+              Sonderfälle gibt es — Rabattzeilen, Zwischensummen, ein Seitenumbruch mitten in der
+              Tabelle? Diese Bestandsaufnahme ist die Denkarbeit. Steht sie, ist der Code fast nur
+              noch das Aufschreiben dessen, was ich schon weiß.
+            </p>
+
+            <h2>Ein Bauplan je Format</h2>
+            <p>
+              Zuerst habe ich selbst eine gemeinsame Form festgelegt: Egal von welchem Lieferanten —
+              jedes Ausleseprogramm bekommt ein PDF hinein und gibt dieselbe geordnete Liste an
+              Posten zurück. Diese Form (Fachleute sagen <em>Schnittstelle</em>) ist der Rahmen. Erst
+              danach lasse ich die KI je Lieferant so ein Programm bauen — eines nach dem anderen,
+              ohne dass es den Rest anfasst.
             </p>
             <div class="prompt">
-              <span class="prompt-label">Beispiel-Prompt · Ein Profil nach Vorlage</span>
+              <span class="prompt-label">Beispiel-Prompt · ein Format nach Vorlage</span>
               <p>
-                „Hier ist die gemeinsame Profil-Schnittstelle und ein fertiges Profil für
-                Lieferant A als Vorbild. Schreib nach demselben Muster ein Profil für Lieferant B.
-                Die Positionsblöcke beginnen nach der Zeile ‚Pos. Bezeichnung Menge Preis' und
-                enden vor ‚Zwischensumme'. Halte dich an die vorgegebene Rückgabestruktur und
-                erfinde keine Felder. Zeig mir zuerst, wie du die Positionszeilen erkennen willst."
+                „Hier ist die gemeinsame Form und ein fertiges Ausleseprogramm für Lieferant A als
+                Vorbild. Bau nach demselben Muster eines für Lieferant B. Die Posten beginnen nach
+                der Zeile ‚Pos. Bezeichnung Menge Preis' und enden vor ‚Zwischensumme'. Halte dich
+                an die vorgegebene Rückgabe und erfinde keine Felder. Zeig mir zuerst, wie du die
+                Zeilen mit Posten erkennen willst."
               </p>
             </div>
 
-            <div class="deadend">
-              <span class="deadend-label">Sackgasse</span>
-              <p>
-                Der erste Versuch war ein einziger, universeller Parser mit vielen
-                Wenn-dann-Regeln, der alle Formate abdecken sollte. Mit jedem neuen Layout wurde
-                er unübersichtlicher, und eine Änderung für Lieferant C brach die Erkennung bei A.
-                Ich habe ihn verworfen und auf getrennte Profile mit gemeinsamer Schnittstelle
-                umgestellt. Seitdem bedeutet ein neuer Lieferant ein neues Profil — keinen Umbau
-                am Bestehenden.
-              </p>
+            <h2>Wo ich die KI ausbremsen musste</h2>
+            <p>
+              Anfangs wollte die KI unbedingt clever sein — ein einziges Programm für alle sechs
+              Formate. Das klingt gut und wird zur Falle. So ging das Gespräch:
+            </p>
+            <div class="exchange">
+              <span class="exchange-label">So lief das wirklich · ein Programm oder sechs?</span>
+              <div class="turn turn-me">
+                <span class="turn-who">Ich</span>
+                <p>Wir haben sechs Rechnungsformate. Ich brauche etwas, das aus jedem die Posten herausliest.</p>
+              </div>
+              <div class="turn turn-ai">
+                <span class="turn-who">KI</span>
+                <p>Am elegantesten ist ein einziges, universelles Programm mit ein paar Wenn-dann-Regeln, das alle sechs Formate erkennt. Dann hast du nur eine Datei zu pflegen.</p>
+              </div>
+              <div class="turn turn-me turn-push">
+                <span class="turn-who">Ich</span>
+                <p>Nein — genau das habe ich schon mal gebaut und wieder eingerissen. Mit jedem neuen Format wird dieses eine Programm unübersichtlicher, und eine Änderung für Lieferant C zerschießt plötzlich die Erkennung bei A. Ich will das Gegenteil: ein <em>eigenes</em> kleines Programm pro Format, alle mit derselben gemeinsamen Form. Ein neuer Lieferant heißt dann: ein neues kleines Programm — und der Rest bleibt unangetastet.</p>
+              </div>
+              <div class="turn turn-ai">
+                <span class="turn-who">KI</span>
+                <p>Klar, das ist robuster. Dann definiere ich die gemeinsame Rückgabe einmal und baue je Lieferant ein getrenntes Ausleseprogramm dagegen.</p>
+              </div>
             </div>
-
-            <h2>Wie ich die Logik geprüft habe</h2>
             <p>
-              Jede Extraktion muss sich beweisen: Die Summe der extrahierten Positionen wird gegen
-              den auf der Rechnung ausgewiesenen Betrag geprüft. Stimmt beides nicht überein,
-              fällt der Beleg auf und wird zur Kontrolle markiert, statt still falsche Zahlen in
-              die Auswertung zu tragen. Diese eine Prüfung fängt den Großteil aller Parser-Fehler ab.
+              Die KI optimiert auf „elegant" und „wenig Dateien". Ich optimiere darauf, dass mir in
+              einem halben Jahr nicht das ganze Haus einstürzt, wenn ein Lieferant sein Layout
+              ändert. Diese Erfahrung kann sie nicht haben — ich schon.
             </p>
 
-            <h2>Validierung &amp; Sicherheitsnetz</h2>
+            <h2>Die eine Prüfung, die fast alle Fehler fängt</h2>
             <p>
-              Ein Skip-Ledger hält fest, welche Belege bereits verarbeitet wurden — die Pipeline
-              darf dadurch jederzeit erneut laufen, ohne dass etwas doppelt gezählt wird. Je Beleg
-              entstehen ein Eintrag in der Übersicht und positionsgenaue Datensätze als
-              CSV-Bestände, die das nachgelagerte
-              <a href="gewerke-controlling.html">Gewerke-Controlling</a> direkt weiterverwendet.
+              Jede Auslese muss sich beweisen: Ich addiere die herausgelesenen Posten und vergleiche
+              die Summe mit dem Betrag, der unten auf der Rechnung steht. Passt beides nicht
+              zusammen, wird der Beleg zur Kontrolle markiert — statt still eine falsche Zahl in die
+              Auswertung zu tragen. Diese einzige Prüfung fängt den Großteil aller Auslesefehler ab.
             </p>
+
+            <h2>Das Sicherheitsnetz</h2>
+            <p>
+              Eine mitlaufende Liste merkt sich, welche Belege schon verarbeitet wurden. Dadurch
+              darf die Verarbeitung jederzeit erneut laufen, ohne etwas doppelt zu zählen. Pro Beleg
+              entstehen ein Eintrag in der Übersicht und die einzelnen Posten als Tabelle, die das
+              nachgelagerte <a href="gewerke-controlling.html">Gewerke-Controlling</a> direkt
+              weiterverwendet.
+            </p>
+
+            <h2>So baust du das selbst nach</h2>
+            <ol class="flow">
+              <li>
+                <strong>Jedes Format einmal in Ruhe anschauen.</strong> Öffne von jedem Absender
+                eine Rechnung und notier: Wo stehen Nummer, Datum, Posten, Summe? Welche
+                Sonderfälle gibt es?
+              </li>
+              <li>
+                <strong>Die gemeinsame Form festlegen.</strong> Entscheide, welche Felder am Ende
+                jede Rechnung liefern soll — für alle Absender gleich. Das ist dein Rahmen.
+              </li>
+              <li>
+                <strong>Pro Absender ein kleines Programm bauen lassen.</strong> Immer eines nach
+                dem anderen, immer gegen dieselbe Form, mit einem fertigen als Vorbild.
+              </li>
+              <li>
+                <strong>Gegen die Summe prüfen.</strong> Lass die Posten aufaddieren und mit dem
+                Rechnungsbetrag vergleichen. Weicht es ab, markieren statt durchwinken.
+              </li>
+              <li>
+                <strong>Erledigte Belege merken.</strong> Führ eine Liste der schon verarbeiteten
+                Belege, damit ein erneuter Lauf nichts doppelt zählt.
+              </li>
+            </ol>
 
             <h2>Was sich auf andere Projekte übertragen lässt</h2>
             <p>
-              „Ein Profil je Format, eine gemeinsame Schnittstelle darüber" ist ein Muster, das
-              überall trägt, wo fremde Formate zusammenkommen — die
-              <a href="lead-automation.html">Lead-Automation</a> nutzt dieselbe Idee für ihre
-              Mail-Kanäle. Und die Summenprüfung ist ein Beispiel für eine Kontrolle, die ein
-              Ergebnis nicht nur produziert, sondern belegt.
+              „Ein kleines Programm je Format, eine gemeinsame Form darüber" trägt überall, wo
+              fremde Formate zusammenkommen — die <a href="lead-automation.html">Lead-Automation</a>
+              nutzt genau dieselbe Idee für ihre Mail-Kanäle. Und die Summenprüfung ist ein gutes
+              Beispiel für eine Kontrolle, die ein Ergebnis nicht nur liefert, sondern auch belegt.
             </p>
           </div>
 
           <aside>
             <ul class="fact-list">
-              <li><strong>Was man hier mitnimmt</strong>Formate erst inventarisieren, Profile mit gemeinsamer Schnittstelle, jede Extraktion gegen eine Summe prüfen, idempotent verarbeiten</li>
+              <li><strong>Was du hier lernst</strong>Ein fremdes Format erst verstehen, dann bauen; ein kleines Programm je Format; jede Auslese gegen eine Summe prüfen; erledigte Belege merken</li>
               <li><strong>Liefert an</strong><a href="gewerke-controlling.html">Gewerke-Controlling</a> als vorgelagerte Quelle</li>
-              <li><strong>Kernmuster</strong>Parserprofil je Lieferant · Skip-Ledger · Summenprüfung</li>
+              <li><strong>Kernideen</strong>ein Ausleseprogramm je Lieferant · Liste erledigter Belege · Summenprüfung</li>
             </ul>
             <p class="note">
               <strong>Öffentliches Repo:</strong> Demo mit synthetischen Belegen je Profil.
