@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samet Kurt — Prozessautomatisierung & Datenpipelines mit Python und KI</title>
+  <meta name="description" content="Ich übersetze unklare operative Abläufe in dokumentierte, laufende Systeme — Datenpipelines, Parser, Syncs und Desktop-Tools, gebaut mit Python und KI-gestützter Entwicklung.">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="index.html" aria-current="page">Start</a>
+        <a href="projekte.html">Projekte</a>
+        <a href="ueber-mich.html">Über mich</a>
+        <a href="ki-workflow.html">KI-Workflow</a>
+        <a href="forschung.html">Forschung</a>
+        <a href="kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Prozessautomatisierung · Datenpipelines · Python &amp; KI</p>
+        <h1>Aus operativem Chaos werden Systeme, die laufen.</h1>
+        <p class="lead">
+          Ich bin Biochemiker mit einem zweiten Handwerk: Prozessautomatisierung und
+          Datenarbeit mit Python und KI. In einem mittelständischen Energie-/PV-Unternehmen
+          habe ich manuelle, fehleranfällige Abläufe in Systeme übersetzt, die dokumentiert
+          und ohne mich betreibbar sind — von der CRM-Datenschicht über Rechnungs-Pipelines
+          bis zur Desktop-App, die Verträge erzeugt.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="projekte.html">Projekte ansehen</a>
+          <a class="btn btn-ghost" href="ki-workflow.html">Wie ich mit KI arbeite</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Systemlandschaft</p>
+          <h2>Eine Landschaft, keine Einzeltools</h2>
+          <p>
+            Meine Projekte bauen aufeinander auf: Eine gemeinsame Datenschicht versorgt
+            Pipelines, die Pipelines versorgen operative Werkzeuge. So entsteht aus vielen
+            kleinen Automatisierungen ein zusammenhängendes System.
+          </p>
+        </div>
+        <div class="cluster-flow">
+          <div class="cluster-step">
+            <strong>Datenfundament</strong>
+            <span>Inkrementeller CRM-Sync, Kontakt- und Lead-Flüsse — die Basis, auf der alles andere aufsetzt.</span>
+          </div>
+          <div class="cluster-step">
+            <strong>Finanzdaten &amp; Controlling</strong>
+            <span>Rechnungen parsen, Zahlungen abgleichen, Kosten und Ergebnis je Gewerk sichtbar machen.</span>
+          </div>
+          <div class="cluster-step">
+            <strong>Operative Werkzeuge</strong>
+            <span>Verträge, Einkaufslisten und Dokumentversand — Endprodukte, die Fachkollegen selbst bedienen.</span>
+          </div>
+          <div class="cluster-step">
+            <strong>Analysen</strong>
+            <span>Markt-, Wetter- und Betriebsdaten verschneiden, wenn Entscheidungen Zahlen brauchen.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Ausgewählte Projekte</p>
+          <h2>Drei Systeme, eine Methode</h2>
+          <p>
+            Alle drei laufen produktiv. Zu jedem gibt es ein öffentliches Repository mit
+            synthetischen Demo-Daten — die produktiven Versionen mit echten Daten bleiben privat.
+          </p>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <p class="eyebrow">Desktop-App · Flaggschiff</p>
+            <h3>PV-Vertragsgenerator</h3>
+            <p>
+              Ein Kaufvertrag, der bisher Position für Position abgetippt wurde, ist kein
+              Schreibproblem — er ist ein Datenextraktionsproblem. Die App erzeugt aus einer
+              Angebotsnummer einen fertig ausgefüllten Vertrag als PDF, bedienbar ohne
+              Entwicklungsumgebung.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">pdfplumber</span><span class="tag">pdfrw</span><span class="tag">Tkinter</span>
+            </div>
+            <div class="card-cta">
+              <a href="projekte/pv-vertragsgenerator.html">Zur Projektseite</a>
+            </div>
+          </div>
+          <div class="card">
+            <p class="eyebrow">Datenarchitektur</p>
+            <h3>CRM-Sync-Bibliothek</h3>
+            <p>
+              Bevor fünf Projekte je einzeln mit dem CRM sprechen, lohnt eine grundsätzlichere
+              Frage: Wie sähe die eine Bibliothek aus, auf der alle aufbauen können? Inkrementeller
+              GraphQL-Sync mit Watermark, Upsert und Retry — das Datenfundament der Landschaft.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span>
+            </div>
+            <div class="card-cta">
+              <a href="projekte/crm-sync.html">Zur Projektseite</a>
+            </div>
+          </div>
+          <div class="card">
+            <p class="eyebrow">Datenpipeline</p>
+            <h3>Rechnungs-Pipeline</h3>
+            <p>
+              Sechs Lieferanten, sechs Rechnungsformate. Die eigentliche Arbeit war nicht das
+              Programmieren, sondern die Inventur: jedes Muster verstehen und dokumentieren,
+              bevor daraus ein einziger, wiederholbar sicherer Datenfluss wird.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">pdfplumber</span><span class="tag">pandas</span>
+            </div>
+            <div class="card-cta">
+              <a href="projekte/rechnungs-pipeline.html">Zur Projektseite</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Arbeitsweise</p>
+          <h2>Was meine Systeme gemeinsam haben</h2>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <h3>Inventur vor Struktur</h3>
+            <p>
+              Ich fange nicht mit der Lösung an, sondern mit einer Bestandsaufnahme: Was liegt
+              wirklich vor, in welchen Formaten, mit welchen Ausnahmen? Struktur entsteht bei
+              mir aus Beobachtung, nicht aus Annahmen.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Gebaut für den Fehlerfall</h3>
+            <p>
+              Ein gutes System darf man jederzeit neu starten, ohne dass etwas doppelt oder
+              verloren geht. Deshalb arbeiten meine Pipelines mit Ledgern, Watermarks und
+              Dry-Run-Modi — Idempotenz ist Standard, nicht Extra.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Doku als Teil des Produkts</h3>
+            <p>
+              Fertig heißt für mich: läuft, ist dokumentiert und funktioniert auch ohne mich.
+              Zu meinen Systemen gehören Übergabe-Dokumentation und nachvollziehbare
+              Entscheidungen — nicht nur Code.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-dark">
+      <div class="container">
+        <p class="eyebrow">Kontakt</p>
+        <h2>Sprechen wir über Ihr unübersichtlichstes Problem</h2>
+        <p>
+          Unklare Prozesse, verstreute Daten, manuelle Abläufe, die niemand mehr anfassen
+          will — genau da fange ich gern an. Der kürzeste Weg zu mir führt über LinkedIn.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn-Profil</a>
+          <a class="btn btn-ghost" href="kontakt.html">Kontaktseite</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/lygonian" rel="noopener">GitHub</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rechnungs-Pipeline — Samet Kurt</title>
+  <meta name="description" content="Pipeline für Lieferantenrechnungen: sechs dokumentierte Parserprofile, Positionsextraktion aus PDFs, Summenprüfung und idempotente Verarbeitung über ein Skip-Ledger.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="../index.html">Start</a>
+        <a href="../projekte.html" aria-current="true">Projekte</a>
+        <a href="../ueber-mich.html">Über mich</a>
+        <a href="../ki-workflow.html">KI-Workflow</a>
+        <a href="../forschung.html">Forschung</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / Rechnungs-Pipeline</p>
+        <p class="eyebrow">Finanzdaten &amp; Controlling · Pipeline</p>
+        <h1>Rechnungs-Pipeline für Lieferantenrechnungen</h1>
+        <p class="lead">
+          Sechs Lieferanten, sechs Rechnungsformate. Die eigentliche Arbeit war nicht das
+          Programmieren, sondern die Inventur: jedes Muster verstehen und dokumentieren,
+          bevor daraus ein einziger, wiederholbar sicherer Datenfluss wird.
+        </p>
+        <div class="meta-grid">
+          <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
+          <div class="meta-item"><strong>Kontext</strong>Mittelständisches Energie-/PV-Unternehmen</div>
+          <div class="meta-item"><strong>Stack</strong>Python, pandas, pdfplumber, openpyxl</div>
+          <div class="meta-item"><strong>Status</strong>Produktiv im Einsatz</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="split">
+          <div class="prose">
+            <h2>Ausgangsproblem</h2>
+            <p>
+              Eingangsrechnungen kamen von sechs Lieferanten in sechs völlig verschiedenen
+              PDF-Layouts über verschiedene Kanäle — als E-Mail-Anhang oder manuell abgelegt.
+              Wer wissen wollte, welche Positionen eingekauft wurden, musste jede Rechnung
+              einzeln öffnen. Eine strukturierte, positionsgenaue Sicht auf die Ausgaben gab
+              es nicht.
+            </p>
+
+            <h2>Denklogik</h2>
+            <ol class="flow">
+              <li><strong>Inventur vor Struktur.</strong> Für jeden Lieferanten habe ich das Rechnungslayout analysiert und als Profil dokumentiert: Wo stehen Rechnungsnummer, Datum, Positionen, Summen? Welche Ausnahmen gibt es?</li>
+              <li><strong>Profile statt Sonderfälle.</strong> Jedes dokumentierte Muster wurde ein eigenes Parserprofil mit gemeinsamer Schnittstelle. Die Pipeline dahinter ist für alle gleich — neue Lieferanten bedeuten ein neues Profil, keinen Umbau.</li>
+              <li><strong>Nichts doppelt verarbeiten.</strong> Ein Skip-Ledger hält fest, welche Belege bereits verarbeitet wurden. Die Pipeline darf jederzeit erneut laufen — Idempotenz statt Aufräumen von Hand.</li>
+              <li><strong>Jede Extraktion beweisen.</strong> Die Summe der extrahierten Positionen wird gegen den Rechnungsbetrag geprüft. Stimmt sie nicht, fällt der Beleg auf, statt still falsche Daten zu erzeugen.</li>
+            </ol>
+
+            <h2>Technische Umsetzung</h2>
+            <p>
+              Die Extraktion nutzt <strong>pdfplumber</strong>, die Aufbereitung
+              <strong>pandas</strong>. Je Beleg entstehen ein Eintrag in der Übersicht und
+              positionsgenaue Datensätze — als CSV-Bestände, die das nachgelagerte
+              <a href="gewerke-controlling.html">Gewerke-Controlling</a> direkt
+              weiterverwendet. In der produktiven Version werden Rechnungsanhänge
+              automatisiert aus dem Postfach eingesammelt; dieser Teil bleibt privat.
+            </p>
+
+            <h2>Ergebnis</h2>
+            <p>
+              Aus sechs unterschiedlichen Rechnungsformaten wurde ein einheitlicher,
+              idempotenter Datenfluss: positionsgenaue Ausgabedaten, geprüfte Summen,
+              dokumentierte Profile. Die Pipeline läuft produktiv und liefert die
+              Datengrundlage für das Controlling.
+            </p>
+          </div>
+
+          <aside>
+            <ul class="fact-list">
+              <li><strong>Zeigt</strong>Parser-Architektur, Profil-Muster, Idempotenz, eingebaute Validierung</li>
+              <li><strong>Liefert an</strong><a href="gewerke-controlling.html">Gewerke-Controlling</a> als vorgelagerte Quelle</li>
+              <li><strong>Kernmuster</strong>Parserprofil je Lieferant · Skip-Ledger · Summenprüfung</li>
+            </ul>
+            <p class="note">
+              <strong>Öffentliches Repo:</strong> Demo mit synthetischen Belegen je Profil.
+              Echte Rechnungen, Bankdaten und die Postfach-Automatisierung bleiben privat.
+            </p>
+            <div class="repo-links">
+              <a class="btn btn-primary" href="https://github.com/lygonian/rechnungsparser-haendler" rel="noopener">Code auf GitHub</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="page-nav">
+          <a href="../projekte.html">← Alle Projekte</a>
+          <a href="gewerke-controlling.html">Nächstes Projekt: Gewerke-Controlling →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/lygonian" rel="noopener">GitHub</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

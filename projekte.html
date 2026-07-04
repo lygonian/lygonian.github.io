@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projekte — Samet Kurt</title>
+  <meta name="description" content="Prozessautomatisierung, Datenpipelines und operative Werkzeuge aus dem laufenden Betrieb eines Energie-/PV-Unternehmens — mit öffentlichen Repositories auf GitHub.">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="index.html">Start</a>
+        <a href="projekte.html" aria-current="page">Projekte</a>
+        <a href="ueber-mich.html">Über mich</a>
+        <a href="ki-workflow.html">KI-Workflow</a>
+        <a href="forschung.html">Forschung</a>
+        <a href="kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Projekte</p>
+        <h1>Vom unklaren Zustand zum laufenden System</h1>
+        <p class="lead">
+          Alle Projekte stammen aus dem realen Betrieb eines mittelständischen
+          Energie-/PV-Unternehmens: Prozesse, die vorher manuell, verstreut oder
+          fehleranfällig waren. Zu jedem Projekt gibt es ein öffentliches Repository
+          mit synthetischen Demo-Daten — die produktiven Versionen mit echten
+          Unternehmensdaten bleiben privat.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Hauptprojekte</p>
+          <h2>Fünf Systeme, die den Alltag tragen</h2>
+        </div>
+        <div class="feature-grid">
+
+          <article class="feature">
+            <div class="feature-kicker">
+              <p class="eyebrow">Operatives Werkzeug</p>
+              <span class="badge">Flaggschiff</span>
+            </div>
+            <h3>PV-Vertragsgenerator</h3>
+            <p>
+              Kaufverträge wurden Position für Position aus CRM, Angebot und Vorlage
+              zusammengetragen. Die Desktop-App erzeugt aus einer Angebotsnummer einen
+              fertig ausgefüllten Vertrag als PDF: Angebots-Parsing, CSV-Merge aus
+              CRM-Exporten, deterministisches Formularfeld-Mapping — gebaut für
+              Fachnutzer ohne Entwicklungsumgebung, inklusive Betriebs- und
+              Sicherheitsdokumentation.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">pdfplumber</span><span class="tag">pdfrw</span><span class="tag">Tkinter</span>
+            </div>
+            <div class="card-cta">
+              <a href="projekte/pv-vertragsgenerator.html">Zur Projektseite</a>
+              <a href="https://github.com/lygonian/pv-contract-generator" rel="noopener">Code auf GitHub</a>
+            </div>
+          </article>
+
+          <article class="feature">
+            <div class="feature-kicker">
+              <p class="eyebrow">Datenfundament</p>
+              <span class="badge">Backbone</span>
+            </div>
+            <h3>CRM-Sync-Bibliothek</h3>
+            <p>
+              Das Datenfundament der gesamten Landschaft: ein inkrementeller
+              GraphQL-zu-CSV-Sync für vier CRM-Ressourcen. Leichte Delta-Erkennung über
+              Zeitstempel-Watermark, volle Abfrage nur für geänderte Datensätze, Upsert
+              per ID, Wiederholung bis zur Stabilität. Die API habe ich eigenständig
+              erschlossen, weil die Herstellerdokumentation unvollständig war.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span><span class="tag">requests</span>
+            </div>
+            <div class="card-cta">
+              <a href="projekte/crm-sync.html">Zur Projektseite</a>
+              <a href="https://github.com/lygonian/hero-syncs" rel="noopener">Code auf GitHub</a>
+            </div>
+          </article>
+
+          <article class="feature">
+            <div class="feature-kicker">
+              <p class="eyebrow">Finanzdaten &amp; Controlling</p>
+            </div>
+            <h3>Rechnungs-Pipeline für Lieferantenrechnungen</h3>
+            <p>
+              Rechnungen von sechs Lieferanten kamen in sechs verschiedenen PDF-Layouts
+              über verschiedene Kanäle. Je Lieferant ein dokumentiertes Parserprofil,
+              darüber eine gemeinsame Pipeline: Positionen extrahieren, Übersichts- und
+              Positionsdaten erzeugen, Summen gegen Rechnungswerte prüfen — idempotent
+              über ein Skip-Ledger, damit kein Beleg doppelt verarbeitet wird.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">pdfplumber</span><span class="tag">openpyxl</span>
+            </div>
+            <div class="card-cta">
+              <a href="projekte/rechnungs-pipeline.html">Zur Projektseite</a>
+              <a href="https://github.com/lygonian/rechnungsparser-haendler" rel="noopener">Code auf GitHub</a>
+            </div>
+          </article>
+
+          <article class="feature">
+            <div class="feature-kicker">
+              <p class="eyebrow">Finanzdaten &amp; Controlling</p>
+            </div>
+            <h3>Gewerke-Controlling</h3>
+            <p>
+              Die Buchführung konnte nicht beantworten, welche Gewerke Einnahmen, Kosten
+              und Ergebnis verursachen. Das System führt Bankdaten, Rechnungspositionen,
+              CRM-Dokumente und Gehaltskosten in eine gemeinsame Gewerk-Sicht zusammen:
+              Zahlungsabgleich, Positionsklassifikation mit summenerhaltendem Split,
+              kWp-Ableitung mit Fallback-Hierarchie — Ergebnis je Gewerk und Monat.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">Matching</span><span class="tag">Validierung</span>
+            </div>
+            <div class="card-cta">
+              <a href="projekte/gewerke-controlling.html">Zur Projektseite</a>
+              <a href="https://github.com/lygonian/gewerke-controlling" rel="noopener">Code auf GitHub</a>
+            </div>
+          </article>
+
+          <article class="feature">
+            <div class="feature-kicker">
+              <p class="eyebrow">Datenfundament</p>
+            </div>
+            <h3>Lead-Automation</h3>
+            <p>
+              Lead-Mails aus Partnerportalen und dem Website-Kontaktformular wurden von
+              Hand ins CRM übertragen. Der Workflow holt die Mails per IMAP, parst und
+              normalisiert die Inhalte und legt Kontakt, Projekt und Logbucheintrag
+              automatisch im CRM an — mit Validierung und Dry-Run-Modus, bevor etwas
+              geschrieben wird.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">BeautifulSoup</span><span class="tag">IMAP</span><span class="tag">GraphQL</span>
+            </div>
+            <div class="card-cta">
+              <a href="projekte/lead-automation.html">Zur Projektseite</a>
+              <a href="https://github.com/lygonian/auto-leads" rel="noopener">Code auf GitHub</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Weitere Projekte</p>
+          <h2>Kleinere Werkzeuge aus derselben Landschaft</h2>
+          <p>
+            Jedes dieser Projekte löst ein konkretes operatives Problem und ist als
+            öffentliches Repository mit Demo-Daten nachvollziehbar.
+          </p>
+        </div>
+        <div class="card-grid">
+
+          <div class="card">
+            <p class="eyebrow">Operatives Werkzeug</p>
+            <h3>Lohnabrechnungs-Versand</h3>
+            <p>
+              Lohnabrechnungs-PDFs werden per Datei-Kontakt-Abgleich den richtigen
+              Empfängern zugeordnet, pro Person gebündelt und per SMTP versendet —
+              Dry-Run zuerst, Versand erst nach Prüfung des Mailplans.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">SMTP</span><span class="tag">Matching</span>
+            </div>
+            <div class="card-cta">
+              <a href="https://github.com/lygonian/payroll-pdf-mailer" rel="noopener">Code auf GitHub</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <p class="eyebrow">Analysen</p>
+            <h3>Energie- &amp; PV-Analysen</h3>
+            <p>
+              Strompreis-, Verbrauchs-, Wetter- und PV-Zeitreihen werden robust geparst
+              (deutsche Zahlenformate, Zähler-Resets), aggregiert und mit Trendlinien
+              ausgewertet — aus Notebooks in testbare Module überführt.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">numpy</span><span class="tag">matplotlib</span>
+            </div>
+            <div class="card-cta">
+              <a href="https://github.com/lygonian/energy-market-analytics" rel="noopener">Code auf GitHub</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <p class="eyebrow">Operatives Werkzeug</p>
+            <h3>PV-Einkaufslisten-Generator</h3>
+            <p>
+              Aus den Montageterminen eines Monats werden die passenden Angebote
+              gefiltert, Positionen aus Entwürfen oder PDFs extrahiert, bereinigt und
+              artikelweise zu einer Excel-Einkaufsliste aggregiert.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">pdfplumber</span><span class="tag">openpyxl</span>
+            </div>
+            <div class="card-cta">
+              <a href="https://github.com/lygonian/pv-purchase-list-builder" rel="noopener">Code auf GitHub</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <p class="eyebrow">Datenfundament</p>
+            <h3>Netzanmeldungs-Excel-Sync</h3>
+            <p>
+              Neue Montageprojekte aus CRM-Exporten werden automatisch in eine bestehende
+              Excel-Arbeitsliste übernommen — formaterhaltend, mit Dubletten-Bereinigung
+              und beliebig wiederholbar.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">openpyxl</span>
+            </div>
+            <div class="card-cta">
+              <a href="https://github.com/lygonian/netzanmeldung-excel-sync" rel="noopener">Code auf GitHub</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <p class="eyebrow">Datenfundament</p>
+            <h3>Google-Kontakte-Sync</h3>
+            <p>
+              CRM-Kontaktexporte werden dedupliziert (priorisierte Match-Keys), gegen
+              bestehende Google-Kontakte abgeglichen und nur echte Neukontakte über die
+              People API angelegt — Dry-Run als Standard.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">People API</span>
+            </div>
+            <div class="card-cta">
+              <a href="https://github.com/lygonian/google-contacts-sync" rel="noopener">Code auf GitHub</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <p class="eyebrow">Finanzdaten &amp; Controlling</p>
+            <h3>Tankkarten-API-Client</h3>
+            <p>
+              Paginierte JSON-Antworten der Tankkarten-Anbieter-API zu
+              Kraftstofftransaktionen werden normalisiert und über die sichtbaren
+              Kartenziffern einem Zuordnungs-Mapping für das Controlling zugewiesen.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">requests</span>
+            </div>
+            <div class="card-cta">
+              <a href="https://github.com/lygonian/radius-tankkarten-api" rel="noopener">Code auf GitHub</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section-dark">
+      <div class="container">
+        <p class="eyebrow">Hintergrund</p>
+        <h2>Wie diese Systeme entstehen</h2>
+        <p>
+          Jedes dieser Projekte ist KI-gestützt gebaut — mit klarer Arbeitsteilung:
+          Ich zerlege das Problem, definiere die Regeln und prüfe die Ergebnisse;
+          KI beschleunigt Architektur und Umsetzung.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="ki-workflow.html">Mein KI-Workflow</a>
+          <a class="btn btn-ghost" href="ueber-mich.html">Über mich</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/lygonian" rel="noopener">GitHub</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

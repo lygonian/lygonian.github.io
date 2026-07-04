@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gewerke-Controlling — Samet Kurt</title>
+  <meta name="description" content="Controlling-System, das Bankdaten, Rechnungspositionen, CRM-Dokumente und Gehaltskosten in eine Gewerk-Sicht zusammenführt — Zahlungsabgleich, Positions-Split und kWp-Ableitung.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="../index.html">Start</a>
+        <a href="../projekte.html" aria-current="true">Projekte</a>
+        <a href="../ueber-mich.html">Über mich</a>
+        <a href="../ki-workflow.html">KI-Workflow</a>
+        <a href="../forschung.html">Forschung</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / Gewerke-Controlling</p>
+        <p class="eyebrow">Finanzdaten &amp; Controlling · System</p>
+        <h1>Gewerke-Controlling</h1>
+        <p class="lead">
+          Die Buchführung konnte eine einfache Frage nicht beantworten: Welche Gewerke
+          verursachen welche Einnahmen, Kosten und Ergebnisse? Das System führt vier
+          Datenquellen in eine gemeinsame Gewerk-Sicht zusammen — mein größtes Projekt
+          in Sachen Systemdenken.
+        </p>
+        <div class="meta-grid">
+          <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
+          <div class="meta-item"><strong>Kontext</strong>Mittelständisches Energie-/PV-Unternehmen</div>
+          <div class="meta-item"><strong>Stack</strong>Python, pandas</div>
+          <div class="meta-item"><strong>Status</strong>Produktiv im Einsatz</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="split">
+          <div class="prose">
+            <h2>Ausgangsproblem</h2>
+            <p>
+              Einnahmen und Ausgaben lagen verstreut vor: Zahlungen in den Bankdaten,
+              Einkaufspositionen in der <a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a>,
+              Ausgangsrechnungen im CRM-System, dazu Gehaltskosten. Keine dieser Quellen
+              kannte die entscheidende Dimension: das Gewerk — also ob ein Betrag zur
+              PV-Montage, zur Elektrik, zur Sanierung oder zur Wärmepumpe gehört.
+            </p>
+
+            <h2>Denklogik</h2>
+            <ol class="flow">
+              <li><strong>Die Zielgröße zuerst.</strong> Gewünscht war eine Ergebnisrechnung je Gewerk und Monat. Daraus ergibt sich rückwärts, welche Zuordnungen die Daten brauchen — und welche Teilprobleme zu lösen sind.</li>
+              <li><strong>Zahlungen den Rechnungen zuordnen.</strong> Eingehende Zahlungen matchen selten sauber: Sammelüberweisungen, Teilzahlungen, fehlende Referenzen. Der Debitoren-Abgleich behandelt diese Fälle explizit, statt sie zu ignorieren.</li>
+              <li><strong>Positionen den Gewerken zuordnen.</strong> Rechnungspositionen werden klassifiziert und bei Bedarf über mehrere Gewerke aufgeteilt — summenerhaltend: Kein Cent geht bei der Aufteilung verloren oder entsteht doppelt.</li>
+              <li><strong>Fehlende Angaben herleiten.</strong> Die Anlagengröße (kWp) steckt nicht immer im selben Feld. Eine Fallback-Hierarchie leitet sie aus den verfügbaren Quellen ab und markiert Fälle, die manuelle Prüfung brauchen.</li>
+              <li><strong>Invarianten testen.</strong> Die fachlichen Kernregeln — Summenerhalt, eindeutige Zuordnung, Wiederholbarkeit — sind mit fokussierten Tests abgesichert, nicht nur mit Stichproben.</li>
+            </ol>
+
+            <h2>Technische Umsetzung</h2>
+            <p>
+              Das System ist in <strong>Python</strong> mit <strong>pandas</strong> gebaut
+              und in klar geschnittene Bausteine zerlegt, die auch einzeln nutzbar sind.
+              Drei davon sind als eigenständige öffentliche Repositories dokumentiert:
+              der Zahlungsabgleich (<em>Debitoren-Matching</em>), die Positionsklassifikation
+              mit Gewerk-Split (<em>Positions-Gewerk-Split</em>) und die kWp-Ableitung
+              (<em>PV-kWp-Inference</em>). Das Dach-Repository führt die Bausteine zu einer
+              Demo-Pipeline mit synthetischen Daten zusammen.
+            </p>
+
+            <h2>Ergebnis</h2>
+            <p>
+              Aus vier getrennten Datenquellen wurde eine belastbare Ergebnis-Sicht je
+              Gewerk und Monat. Grenzfälle wie Misch- und Teilzahlungen werden explizit
+              behandelt statt still verworfen, und die fachlichen Regeln sind durch Tests
+              dokumentiert — das System läuft produktiv im Controlling.
+            </p>
+          </div>
+
+          <aside>
+            <ul class="fact-list">
+              <li><strong>Zeigt</strong>Systemdenken über mehrere Quellen, Matching-Logik, summenerhaltende Transformationen, Tests für fachliche Invarianten</li>
+              <li><strong>Nutzt</strong><a href="rechnungs-pipeline.html">Rechnungs-Pipeline</a> und Tankkarten-API-Client als vorgelagerte Quellen</li>
+              <li><strong>Bausteine</strong>Drei Kernmodule als eigene Repos (unten verlinkt)</li>
+            </ul>
+            <p class="note">
+              <strong>Öffentliche Repos:</strong> bewusst vereinfachte Demo mit synthetischen
+              Daten. Echte Bank-, Rechnungs- und Gehaltsdaten bleiben privat.
+            </p>
+            <div class="repo-links">
+              <a class="btn btn-primary" href="https://github.com/lygonian/gewerke-controlling" rel="noopener">Code auf GitHub</a>
+            </div>
+            <div class="repo-links">
+              <a class="btn btn-ghost" href="https://github.com/lygonian/debitoren-matching" rel="noopener">Debitoren-Matching</a>
+              <a class="btn btn-ghost" href="https://github.com/lygonian/positions-gewerk-split" rel="noopener">Positions-Gewerk-Split</a>
+              <a class="btn btn-ghost" href="https://github.com/lygonian/pv-kwp-inference" rel="noopener">PV-kWp-Inference</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="page-nav">
+          <a href="../projekte.html">← Alle Projekte</a>
+          <a href="lead-automation.html">Nächstes Projekt: Lead-Automation →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/lygonian" rel="noopener">GitHub</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

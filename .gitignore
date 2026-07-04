@@ -1,0 +1,11 @@
+# Kein Jekyll-Processing (statisches HTML, siehe .nojekyll)
+_config.yml
+_layouts/
+
+# Markdown nur lokal, außer README
+*.md
+!README.md
+
+# System
+.DS_Store
+Thumbs.db

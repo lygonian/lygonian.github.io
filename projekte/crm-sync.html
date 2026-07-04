@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM-Sync-Bibliothek — Samet Kurt</title>
+  <meta name="description" content="Inkrementelle GraphQL-zu-CSV-Sync-Bibliothek für CRM-Daten: Watermark-Delta-Erkennung, Upsert per ID, Retry mit Backoff — das Datenfundament einer ganzen Automatisierungslandschaft.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="../index.html">Start</a>
+        <a href="../projekte.html" aria-current="true">Projekte</a>
+        <a href="../ueber-mich.html">Über mich</a>
+        <a href="../ki-workflow.html">KI-Workflow</a>
+        <a href="../forschung.html">Forschung</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / CRM-Sync-Bibliothek</p>
+        <p class="eyebrow">Datenfundament · Bibliothek</p>
+        <h1>CRM-Sync-Bibliothek</h1>
+        <p class="lead">
+          Bevor fünf Projekte je einzeln mit dem CRM sprechen, lohnt eine grundsätzlichere
+          Frage: Wie sähe die eine Bibliothek aus, auf der alle aufbauen können? Die Antwort
+          ist ein inkrementeller GraphQL-zu-CSV-Sync — das Datenfundament meiner gesamten
+          Automatisierungslandschaft.
+        </p>
+        <div class="meta-grid">
+          <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
+          <div class="meta-item"><strong>Kontext</strong>Mittelständisches Energie-/PV-Unternehmen</div>
+          <div class="meta-item"><strong>Stack</strong>Python, GraphQL, pandas, requests</div>
+          <div class="meta-item"><strong>Status</strong>Produktiv, Backbone mehrerer Projekte</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="split">
+          <div class="prose">
+            <h2>Ausgangsproblem</h2>
+            <p>
+              Immer mehr Automatisierungen brauchten aktuelle CRM-Daten: Kontakte, Dokumente,
+              Projekte, Termine. Jedes Projekt einzeln an die API anzubinden hätte dieselbe
+              Logik mehrfach erzeugt — mit mehrfachen Fehlerquellen und mehrfacher Last auf
+              der API. Erschwerend kam hinzu, dass die Herstellerdokumentation der
+              CRM-Schnittstelle unvollständig war.
+            </p>
+
+            <h2>Denklogik</h2>
+            <ol class="flow">
+              <li><strong>Die API erschließen.</strong> Was die Dokumentation nicht hergab, habe ich systematisch selbst ermittelt: Abfragen formulieren, Antworten beobachten, Verhalten dokumentieren — bis ein belastbares Bild der Schnittstelle stand.</li>
+              <li><strong>Einmal bauen statt fünfmal.</strong> Eine Bibliothek mit einheitlicher Sync-Logik für alle vier Ressourcentypen, die jedes Folgeprojekt einfach importiert.</li>
+              <li><strong>Inkrementell statt Vollabzug.</strong> Ein Watermark auf dem Änderungszeitstempel merkt sich den letzten Stand. Eine leichte Abfrage erkennt, was sich geändert hat; nur für diese Datensätze werden die vollen Daten geholt.</li>
+              <li><strong>Idempotent schreiben.</strong> Geänderte Datensätze werden per ID in die lokalen CSV-Bestände eingefügt oder aktualisiert (Upsert). Ein Lauf darf jederzeit wiederholt werden, ohne Duplikate zu erzeugen.</li>
+              <li><strong>Konsistenz absichern.</strong> Der Sync wiederholt sich, bis ein Durchlauf keine Änderungen mehr findet (loop-until-stable) — Änderungen während des Laufs gehen nicht verloren. Bei Überlast oder Serverfehlern greift ein Retry mit exponentiellem Backoff.</li>
+            </ol>
+
+            <h2>Technische Umsetzung</h2>
+            <p>
+              Die Bibliothek ist in <strong>Python</strong> geschrieben und spricht die
+              CRM-Schnittstelle per <strong>GraphQL</strong> an. Die zweiphasige Abfrage
+              (leichte Delta-Erkennung, dann volle Daten nur für Geändertes) hält die Last
+              klein. Ergebnisse landen als CSV-Bestände, die nachgelagerte Projekte —
+              vom <a href="pv-vertragsgenerator.html">Vertragsgenerator</a> bis zum
+              Excel-Sync — direkt weiterverwenden. Die Konfiguration läuft über
+              Umgebungsvariablen, Zugangsdaten bleiben außerhalb des Codes.
+            </p>
+
+            <h2>Ergebnis</h2>
+            <p>
+              Statt fünf Insellösungen gibt es eine gemeinsame Datenschicht: Die Bibliothek
+              läuft produktiv und wird von mehreren internen Projekten als Backbone
+              importiert. Neue Automatisierungen starten nicht mehr bei der API-Anbindung,
+              sondern direkt bei ihrer eigentlichen Aufgabe.
+            </p>
+          </div>
+
+          <aside>
+            <ul class="fact-list">
+              <li><strong>Zeigt</strong>Datenarchitektur, API-Erschließung, idempotente Sync-Muster, Bibliotheksdesign</li>
+              <li><strong>Versorgt</strong><a href="pv-vertragsgenerator.html">PV-Vertragsgenerator</a>, Kontakt- und Excel-Syncs</li>
+              <li><strong>Kernmuster</strong>Watermark · zweiphasige Abfrage · Upsert · loop-until-stable · Retry/Backoff</li>
+            </ul>
+            <p class="note">
+              <strong>Öffentliches Repo:</strong> Demo-Client mit synthetischen Daten,
+              ohne Zugangsdaten und interne API-Details.
+            </p>
+            <div class="repo-links">
+              <a class="btn btn-primary" href="https://github.com/lygonian/hero-syncs" rel="noopener">Code auf GitHub</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="page-nav">
+          <a href="../projekte.html">← Alle Projekte</a>
+          <a href="rechnungs-pipeline.html">Nächstes Projekt: Rechnungs-Pipeline →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/lygonian" rel="noopener">GitHub</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
