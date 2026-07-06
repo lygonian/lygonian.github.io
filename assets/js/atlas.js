@@ -54,4 +54,27 @@
     });
     legend.addEventListener("mouseleave", function () { setFocus(null); });
   }
+
+  // 3) Ganze Karte klickbar ------------------------------------------------
+  // Führt einen Klick auf die Kartenfläche auf den primären Link der Karte.
+  // Echte Links/Buttons behalten ihr eigenes Ziel; Tastaturnutzer folgen wie
+  // bisher den sichtbaren Links. Ohne JS bleibt alles normal bedienbar.
+  var cards = [].slice.call(document.querySelectorAll(".card, .feature"));
+  cards.forEach(function (card) {
+    var primary = card.querySelector(".card-cta a[href], a[href]");
+    if (!primary) return;
+    card.classList.add("is-clickable");
+    card.addEventListener("click", function (e) {
+      // Klicks auf echte interaktive Elemente nicht abfangen.
+      if (e.target.closest("a, button, input, textarea, select, label")) return;
+      // Textmarkierung nicht als Klick werten.
+      if (window.getSelection && String(window.getSelection())) return;
+      var newTab = primary.target === "_blank" || e.metaKey || e.ctrlKey || e.button === 1;
+      if (newTab) {
+        window.open(primary.href, "_blank", "noopener");
+      } else {
+        window.location.href = primary.href;
+      }
+    });
+  });
 })();

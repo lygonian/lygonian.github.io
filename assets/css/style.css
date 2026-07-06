@@ -435,6 +435,10 @@ img { max-width: 100%; height: auto; }
   box-shadow: 0 6px 24px -14px rgba(20, 24, 27, 0.28);
 }
 
+/* Ganze Karte anklickbar (per JS aktiviert) */
+.card.is-clickable,
+.feature.is-clickable { cursor: pointer; }
+
 .card .eyebrow {
   margin-bottom: 12px;
   color: var(--ink-3);
