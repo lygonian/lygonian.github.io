@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automatische Bewässerungsanlage mit ESP32 — Projekt — Samet Kurt</title>
+  <meta name="description" content="Wie aus zu vielen Zimmerpflanzen eine selbstgebaute Bewässerungsanlage wurde: Hydraulik, Löten, Sensoren, ein ESP32-S3 und eine Weboberfläche — mit allen Fehlversuchen, kaputten Bauteilen und Kurswechseln, die dazugehörten.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="../index.html">Start</a>
+        <a href="../projekte.html" aria-current="page">Projekte</a>
+        <a href="../ki-workflow.html">KI-Workflow</a>
+        <a href="../forschung.html">Forschung</a>
+        <a href="../ueber-mich.html">Über mich</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / Bewässerungsanlage</p>
+        <div class="split">
+          <div>
+            <p class="eyebrow">Projekt · Elektronik &amp; Mikrocontroller</p>
+            <h1>Von zu vielen Zimmerpflanzen zur selbstgebauten Bewässerungsanlage</h1>
+            <p class="lead">
+              Irgendwann standen zu viele Zimmerpflanzen in der Wohnung, und das Gießen war eine
+              lästige Aufgabe, die man leicht vergisst. Statt einer Gießkanne sollte es etwas
+              geben, das ich zentral steuern kann. Aus dieser Idee wurde ein Gerät aus Pumpen,
+              Schläuchen, Feuchtesensoren, einem kleinen Mikrocontroller und einer Weboberfläche
+              — und ein ziemlich chaotischer Lernweg mit Löten, verpolten Bauteilen, unplausiblen
+              Messwerten und mehreren Kurswechseln.
+            </p>
+          </div>
+          <aside>
+            <ul class="fact-list">
+              <li><strong>Ausgangslage</strong>Zu viele Pflanzen, regelmäßiges Gießen als lästige Daueraufgabe, Wunsch nach einer zentral steuerbaren Lösung.</li>
+              <li><strong>Erster Versuch</strong>Ein Breadboard mit ESP32, OLED und einzelnen Bauteilen, um zu verstehen, wie Pins, Sensoren, Pumpen und MOSFETs zusammenspielen.</li>
+              <li><strong>Der schwierigste Teil</strong>Die Sensorik: Ultraschall scheiterte am Fass, die Bodenfeuchtesensoren machten über Wochen Probleme.</li>
+              <li><strong>Ergebnis</strong>Eine fest verlötete Anlage mit Weboberfläche für fünf Pflanzen, manueller Pumpe und mehreren Schutzlogiken.</li>
+              <li><strong>Technik</strong>ESP32-S3 · C++/Arduino · Löten · MOSFETs · Webserver</li>
+            </ul>
+            <p class="note">
+              <strong>Öffentliche Version:</strong> der Steuerungs-Code des Endsystems,
+              WLAN-Zugangsdaten durch Platzhalter ersetzt.
+            </p>
+            <div class="repo-links">
+              <a class="btn btn-primary" href="https://github.com/lygonian/esp32-bewaesserung" rel="noopener">Code auf GitHub</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="prose prose--wide">
+
+          <p>
+            Dieses Projekt verbindet mehr Bereiche als meine bisherigen Software-Fallstudien:
+            Hydraulik, Elektronik, einen Mikrocontroller, Löten, Programmierung, viel Fehlersuche
+            und am Ende eine kleine Weboberfläche. Der folgende Aufbau folgt der Reihenfolge, in
+            der die Probleme wirklich auftraten — inklusive der Stellen, an denen nichts
+            funktionierte, Ratschläge verworfen wurden und Bauteile kaputtgingen.
+          </p>
+
+          <nav class="toc" aria-label="Inhaltsverzeichnis">
+            <span class="toc-label">Inhalt</span>
+            <ol>
+              <li><a href="#idee">Idee und Anforderungen</a></li>
+              <li><a href="#planung">Planung und Einkauf</a></li>
+              <li><a href="#breadboard">Der erste Breadboard-Prototyp</a></li>
+              <li><a href="#wasser">Wasser verteilen und dosieren</a></li>
+              <li><a href="#sensoren">Sensorprobleme und Fehlversuche</a></li>
+              <li><a href="#loeten">Verdrahtung, Löten und dauerhafter Aufbau</a></li>
+              <li><a href="#steuerung">Steuerung und Weboberfläche</a></li>
+              <li><a href="#sicherheit">Sicherheitsentscheidungen</a></li>
+              <li><a href="#system">Das fertige System</a></li>
+              <li><a href="#gelernt">Was ich dabei gelernt habe</a></li>
+            </ol>
+          </nav>
+
+          <h2 id="idee">1. Idee und Anforderungen</h2>
+          <p>
+            Der Auslöser war banal: mehrere Zimmerpflanzen, die alle unterschiedlich oft Wasser
+            brauchen, und ein Gießrhythmus, den man im Alltag ständig verpasst. Eine einfache
+            Zeitschaltuhr an einer Pumpe hätte das nicht gelöst, weil eine Aloe Vera etwas ganz
+            anderes braucht als eine Monstera. Ich wollte etwas, das ich von einem Punkt aus
+            steuern kann, das den Zustand jeder Pflanze einzeln kennt und das ich notfalls auch
+            von Hand auslösen kann.
+          </p>
+          <p>
+            Aus diesen Wünschen wurden schon vor dem ersten Bauteil ein paar Anforderungen: pro
+            Pflanze eine eigene Wasserversorgung, ein gemeinsamer Vorratstank, eine Messung der
+            Bodenfeuchte und eine Bedienung, für die ich nicht am Gerät stehen muss. Damit war
+            klar, dass das kein reines Elektronik-Basteln wird, sondern ein System aus Wasser,
+            Strom, Software und Bedienung, bei dem jeder Teil zum anderen passen muss.
+          </p>
+
+          <h2 id="planung">2. Planung und Einkauf</h2>
+          <p>
+            Da mir das nötige Wissen an fast allen Stellen fehlte, habe ich den theoretischen
+            Aufbau zuerst mit ChatGPT durchgesprochen: Was steuert eigentlich eine Pumpe, wie
+            schaltet ein Mikrocontroller etwas, das mehr Strom braucht als er selbst liefern darf,
+            welche Sensoren gibt es für Bodenfeuchte und Wasserstand. Aus diesen Gesprächen entstand
+            nach und nach eine Materialliste — ein ESP32-Mikrocontroller, Feuchtesensoren,
+            kleine Pumpen, MOSFETs als Schalter, ein OLED-Display, Schläuche, Tropfer — die ich
+            dann bei AliExpress bestellt habe.
+          </p>
+          <p>
+            Diese Phase war nützlich, aber nicht mehr als ein grober Rahmen. Die KI konnte mir
+            erklären, welche Bauteil-<em>Kategorien</em> ich brauche und warum. Welche konkreten
+            Teile am Ende zusammenpassen, ob die Pumpenleistung reicht und wie viele Kanäle
+            sinnvoll sind, hat sich erst beim realen Aufbau entschieden. Die Bestellung war
+            also eine begründete Vermutung, keine fertige Stückliste.
+          </p>
+
+          <h2 id="breadboard">3. Der erste Breadboard-Prototyp</h2>
+          <p>
+            Statt gleich alles zusammenzustecken, habe ich klein angefangen: ein Breadboard —
+            eine Steckplatine, auf der man Schaltungen ohne Löten ausprobiert — und pro Schritt
+            genau ein neues Bauteil. Zuerst nur der ESP32 mit einem winzigen Testprogramm, dann
+            das OLED-Display, dann ein einzelner Sensor, dann eine Pumpe über einen MOSFET.
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/bewaesserung-breadboard.jpg" alt="Steckplatine mit ESP32-Entwicklungsboard, angeschlossenem OLED-Display, das einen selbst geschriebenen Testtext anzeigt, und bunten Steckkabeln auf kariertem Papier">
+            <figcaption>
+              <span class="fig-label">Abbildung 1</span> — Der erste Aufbau auf dem Breadboard:
+              ESP32, ein OLED-Display und ein paar Steckkabel. Sobald das Display einen selbst
+              geschriebenen Text zeigte, war klar, dass Mikrocontroller, Verkabelung und
+              Programm grundsätzlich zusammenspielen.
+              <span class="fig-credit">Eigene Aufnahme.</span>
+            </figcaption>
+          </figure>
+          <p>
+            Ein MOSFET ist dabei nichts anderes als ein elektronischer Schalter: Der ESP32 darf
+            eine Pumpe nicht direkt versorgen, weil sie mehr Strom zieht, als seine Pins vertragen.
+            Der Mikrocontroller schaltet deshalb nur den MOSFET, und der MOSFET schaltet die Pumpe.
+            Genau solche Zusammenhänge habe ich hier zum ersten Mal nicht als Theorie gelesen,
+            sondern an einem Bauteil gesehen, das entweder lief oder eben nicht. Jedes Teil wurde
+            einzeln geprüft, bevor das nächste dazukam.
+          </p>
+
+          <h2 id="wasser">4. Wasser verteilen und dosieren</h2>
+          <p>
+            Bevor es um Automatik ging, stand eine viel unromantischere Frage im Raum: Wie kommt
+            das Wasser überhaupt gleichmäßig in die Erde? Bei einem Topf mit 30 Zentimetern
+            Durchmesser reicht ein einzelner Tropfpunkt nicht. Die Lösung wurde pro Pflanze eine
+            eigene kleine Pumpe, die über einen Schlauch einen Bewässerungsring mit mehreren
+            Tropfern speist.
+          </p>
+          <p>
+            An dieser Stelle habe ich zum ersten Mal einen Vorschlag aus dem Chat bewusst nicht
+            übernommen. Theoretisch wurde mir erklärt, warum ein geschlossener Ring im Topf zu
+            ungleichmäßiger Verteilung führen kann. Mein realer Test sah aber anders aus:
+          </p>
+          <div class="quote">
+            <p>„Also bei meinem ringsystem kam das wasser unter harten bdingunfen nicht ungleichmäßig. Ich cerstehe daher das problem nicht. Es sieht auch schöner aus"</p>
+            <span class="quote-src">Eigene Chatnachricht während der Hydraulik-Phase</span>
+          </div>
+          <p>
+            Der Ring blieb, weil er unter meinen Bedingungen nicht das Problem war. Das eigentliche
+            Problem war die Gesamtmenge pro Zeit. Also habe ich gemessen statt geschätzt: Drei
+            Tropfer mit je 2 l/h an einer Pumpe ergaben ungefähr 62 Milliliter pro Minute. Aus
+            diesem Durchfluss und der gewünschten Wassermenge ließen sich dann Laufzeiten
+            ausrechnen. Wichtig war weniger die konkrete Zahl als die Denkweise: erst den realen
+            Aufbau messen, dann rechnen — nicht aus einer allgemeinen Tabelle heraus.
+          </p>
+
+          <h2 id="sensoren">5. Sensorprobleme und Fehlversuche</h2>
+          <p>
+            Der längste und unordentlichste Teil des Projekts war die Sensorik. Hier lief über
+            Wochen fast nichts geradlinig.
+          </p>
+          <p>
+            Zuerst sollte der Wasserstand im Tank per Ultraschall gemessen werden: ein Sensor oben
+            am Fass, der den Abstand zur Wasseroberfläche misst. Auf dem Papier naheliegend, in der
+            Praxis unbrauchbar. Der Messwert am Fass änderte sich kaum, sobald ich aber mit der Hand
+            in den Strahl ging, sprang er sofort:
+          </p>
+          <div class="quote">
+            <p>„der wert liegt am fass bei 1550. aber wenn ich den deckel abmache und den sensor gegen die wdecke halte bleibt der wert ungefährt gleich. wenn ich mit meiern hand dran gehe, fällt der wert auf 1100"</p>
+            <span class="quote-src">Eigene Chatnachricht bei der Wasserstands-Fehlersuche</span>
+          </div>
+          <p>
+            Der Sensor sah also nicht zuverlässig das Wasser, sondern Reflexionen und die Geometrie
+            des runden Fasses. Interessant war der Moment, in dem klar wurde, dass nicht die Software
+            schuld ist:
+          </p>
+          <div class="quote">
+            <p>„der minimalwert liegt bei 1100. ich glaube dein code ist falsch"</p>
+            <span class="quote-src">Eigene Chatnachricht — die Diagnose verschob sich hier vom Code zum Messprinzip</span>
+          </div>
+          <p>
+            Erst meine echten Rohwerte kippten die Einschätzung. Das war ein Muster, das sich durch
+            das ganze Projekt zog: Ohne konkrete Zahlen aus dem realen Aufbau blieben die Antworten
+            der KI zu abstrakt. Mit Rohwerten, Fotos und Spannungsmessungen wurde der Dialog deutlich
+            besser. Die Konsequenz war kein feiner Software-Trick, sondern ein Methodenwechsel: Der
+            Ultraschallsensor flog raus, ein Schwimmerschalter kam rein — ein simpler Schalter, der
+            bei genug Wasser oben schwimmt. Damit war der genaue Prozent-Füllstand weg, aber dafür
+            gab es eine robuste Grenze zwischen „Wasser da" und „leer", und genau die braucht ein
+            Trockenlaufschutz.
+          </p>
+          <p>
+            Noch härter waren die kapazitiven Bodenfeuchtesensoren. Rohwerte von null, Pins, die sich
+            nicht logisch verhielten, Sensoren, die die Versorgung herunterzogen, und wiederholte
+            Brownouts — kurze Spannungseinbrüche, bei denen der Chip einfach neu startet. Diese Phase
+            war keine saubere Lernkurve, sondern eine Serie von Ausschlüssen: nur den einen ADC-Pin
+            testen, nur einen Sensor, nur die Spannung am Ausgang, nur den MOSFET an und aus. Dazwischen
+            passierte ein echter Fehlgriff:
+          </p>
+          <div class="quote">
+            <p>„alle kabel richtig. ich habe kurz gnd und vcc vertauscht einfach zum testen. es hat bisschen geropchen, wieder vertauscht und jetzt ist der wert bei 500 +-"</p>
+            <span class="quote-src">Eigene Chatnachricht — eine Verpolung hatte mindestens einen Sensor beschädigt</span>
+          </div>
+          <p>
+            Das ist kein schöner Moment, gehört aber dazu. Ab hier war die Frage nicht mehr, wie man
+            einen Sensor ideal anschließt, sondern was ein falscher Test bereits zerstört hatte. Und
+            genau daraus wurde der wichtigste Lernschritt der ganzen Sensorik — der Punkt, an dem aus
+            Ausprobieren echtes Verständnis wurde:
+          </p>
+          <div class="quote">
+            <p>„wie sind sie denn gestorben wenn sie vorher funktionierten. sie hingen noch nicht in asser oder ede. nur an luft. ich will beim nächsten kauf nicht den gleichen fehler haben"</p>
+            <span class="quote-src">Eigene Chatnachricht — weg von der reinen Fehlersuche, hin zur vermeidbaren Ursache</span>
+          </div>
+          <p>
+            Auch bei der Sensorversorgung habe ich am Ende meiner eigenen Projektlogik den Vorzug
+            gegeben. Die KI riet zwischenzeitlich zu mehreren einzeln geschalteten Versorgungen. Für
+            meinen Aufbau ergab das keinen Sinn, weil ich ohnehin immer alle Sensoren gemeinsam messe:
+          </p>
+          <div class="quote">
+            <p>„ne, für mich sind alle gleichzeitig sinnvoll."</p>
+            <span class="quote-src">Eigene Chatnachricht — Entscheidung für eine gemeinsame, per MOSFET geschaltete Sensorversorgung</span>
+          </div>
+          <p>
+            Statt den Vorschlag umzusetzen, habe ich den vorhandenen gemeinsamen Schalter einfach real
+            getestet — Sensorversorgung aus, dann an, und die Rohwerte verglichen. Das Ergebnis war die
+            erste eindeutig belegte Teillösung nach langer Fehlersuche: im Aus-Zustand fast null, im
+            Ein-Zustand plausible Werte.
+          </p>
+          <div class="quote">
+            <p>„es funktioniert perfekt"</p>
+            <span class="quote-src">Eigene Chatnachricht nach der Aus/Ein-Messreihe der Sensorversorgung</span>
+          </div>
+          <figure class="figure">
+            <img src="../assets/img/bewaesserung-chaos.jpg" alt="Wohnzimmer mit einer großen Dieffenbachie, einem weißen 60-Liter-Wasserfass, Gießkanne und Eimer auf dem Teppich; im Hintergrund ein Tisch voller Kabel, Steckbretter und ein Multimeter mit roten Messspitzen">
+            <figcaption>
+              <span class="fig-label">Abbildung 2</span> — Ein typischer Zwischenstand: Vorratsfass
+              und Gießkanne auf dem Boden, auf dem Tisch das Multimeter und ein Gewirr aus Kabeln
+              und Steckbrettern. Die Fehlersuche fand fast vollständig über gemessene Rohwerte und
+              Spannungen statt.
+              <span class="fig-credit">Eigene Aufnahme.</span>
+            </figcaption>
+          </figure>
+
+          <h2 id="loeten">6. Verdrahtung, Löten und dauerhafter Aufbau</h2>
+          <p>
+            Ein funktionierendes Steckbrett ist noch keine Anlage. Sobald etwas dauerhaft laufen soll,
+            reicht „es läuft irgendwie" nicht mehr — die Verbindungen dürfen sich nicht lösen, die
+            Schaltung muss elektrisch sauber sein und sie muss wartbar bleiben. An dieser Stelle war
+            die Hilfe der KI wieder konkret und brauchbar, weil die Aufgabe klein genug war: weg vom
+            Breadboard, hin zur Lochrasterplatine — einer festen Platine, auf der jede Verbindung
+            gelötet statt gesteckt ist.
+          </p>
+          <p>
+            Beim dauerhaften Aufbau kamen die Bauteile dazu, die eine Schaltung erst robust machen:
+            Freilaufdioden, die die Elektronik vor Spannungsspitzen schützen, wenn eine Pumpe abschaltet;
+            Pulldown-Widerstände und Gate-Widerstände, damit die MOSFETs beim Einschalten des Geräts
+            einen definierten Zustand haben; Kondensatoren zur Stabilisierung; eine getrennte Versorgung
+            für Pumpen und Mikrocontroller; und steckbare Anschlüsse, damit man einen einzelnen Kanal
+            wieder abnehmen kann. Diese Begriffe tauchten nicht als Vokabelliste auf, sondern jeweils
+            als Antwort auf ein konkretes Problem, das ich vorher gesehen hatte — Resets, instabile
+            Zustände, unkontrolliertes Schalten beim Booten.
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/bewaesserung-loeten.jpg" alt="Arbeitstisch mit Lötstation, Lötzinn und Entlötpumpe; in der Mitte die Lochrasterplatine mit ESP32 in einem schwarzen Gehäuse, daneben ein handschriftlicher Notizzettel mit Messwerten">
+            <figcaption>
+              <span class="fig-label">Abbildung 3</span> — Der Übergang zum festen Aufbau: Lötstation,
+              Lochrasterplatine im Gehäuse und ein Notizzettel mit Messwerten. Jeder Kanal wurde
+              einzeln verlötet und geprüft, bevor der nächste dazukam.
+              <span class="fig-credit">Eigene Aufnahme.</span>
+            </figcaption>
+          </figure>
+          <p>
+            Sauber war das nicht auf Anhieb. Einzelne Kanäle mussten nachgearbeitet werden, weil eine
+            Lötstelle nicht hielt oder eine Verbindung falsch saß. Am Ende stand aber eine feste Platine
+            mit acht Pumpen-Anschlüssen, geschalteter Sensorversorgung, Spannungsregelung und steckbaren
+            Klemmen für Pumpen und Sensoren.
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/bewaesserung-platine.jpg" alt="Fertig gelötete Lochrasterplatine mit vielen blauen Schraubklemmen, mehreren MOSFETs, einem ESP32-S3-Board, einem Spannungswandler und blauen Verbindungsdrähten">
+            <figcaption>
+              <span class="fig-label">Abbildung 4</span> — Die fertig verlötete Lochrasterplatine:
+              blaue Schraubklemmen für die einzelnen Pumpen und Sensoren, MOSFETs als Schalter, in
+              der Mitte der ESP32-S3, rechts die getrennte Spannungsversorgung.
+              <span class="fig-credit">Eigene Aufnahme.</span>
+            </figcaption>
+          </figure>
+          <p>
+            Erst nachdem alles verlötet war, habe ich den Aufbau in EasyEDA nachgezeichnet — als
+            Schaltplan und als Platinenlayout. Das war bewusst der letzte Schritt und nicht der erste:
+            Es ging nicht darum, vorher am Rechner zu planen, sondern den real gebauten Zustand im
+            Nachhinein sauber zu dokumentieren.
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/bewaesserung-schaltplan.png" alt="EasyEDA-Schaltplan der Anlage mit acht Pumpenstufen aus MOSFETs, Freilaufdioden und Schraubklemmen, den Bodenfeuchte-Eingängen, dem Schwimmerschalter, dem OLED und dem ESP32">
+            <figcaption>
+              <span class="fig-label">Abbildung 5</span> — Der in EasyEDA nachgezeichnete Schaltplan:
+              acht Pumpenstufen mit MOSFET und Freilaufdiode, die Bodenfeuchte-Eingänge, der
+              Schwimmerschalter und das OLED am ESP32.
+              <span class="fig-credit">Eigene Darstellung (EasyEDA).</span>
+            </figcaption>
+          </figure>
+          <figure class="figure">
+            <img src="../assets/img/bewaesserung-pcb.png" alt="EasyEDA-Platinenlayout derselben Schaltung mit den Leiterbahnen und der Anordnung der Bauteile">
+            <figcaption>
+              <span class="fig-label">Abbildung 6</span> — Das zugehörige Platinenlayout. Die
+              Dokumentation kam nach dem Bauen und bildet den tatsächlich verlöteten Aufbau nach.
+              <span class="fig-credit">Eigene Darstellung (EasyEDA).</span>
+            </figcaption>
+          </figure>
+
+          <h2 id="steuerung">7. Steuerung und Weboberfläche</h2>
+          <p>
+            Mit der stabilen Platine verschob sich die Arbeit auf das Zusammenwachsen zum Gesamtsystem:
+            das OLED für einen schnellen Blick vor Ort, ein DHT22 für Temperatur und Luftfeuchte, der
+            Wasserstand, die Bodenfeuchte, die Pumpensteuerung und eine Bedienung, für die man nicht am
+            Gerät stehen muss. Der ESP32 spannt dafür einen kleinen Webserver im WLAN auf, den ich vom
+            Handy oder Laptop aus erreiche.
+          </p>
+          <p>
+            Auch das lief nicht sauber linear. An einer Stelle sollte der gelieferte Code angeblich schon
+            fertige Anpassungen der Oberfläche enthalten, die ich schlicht nicht fand:
+          </p>
+          <div class="quote">
+            <p>„willst du mich verarschen? wo ist das alles?"</p>
+            <span class="quote-src">Eigene Chatnachricht in der Integrationsphase</span>
+          </div>
+          <p>
+            Kein dekorativer Ausraster, sondern eine ehrliche Stelle: Wenn Codebausteine, Erklärungen und
+            der tatsächliche Stand auseinanderlaufen, wird aus Hilfe schnell Reibung. Wie schon bei der
+            Sensorik half die KI auch hier am besten, wenn der Fehler eng begrenzt war — erst nur das OLED,
+            dann OLED plus DHT, dann ein USB-Problem auf der Platine isolieren, dann prüfen, ob ein
+            bestimmter Pin überhaupt als Pumpen-Ausgang taugt. Für jeden dieser Schritte musste ich selbst
+            nachliefern: Screenshots, Spannungen, Rohwerte, konkrete Pins, den aktuellen Code.
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/bewaesserung-weboberflaeche.png" alt="Screenshot der Weboberfläche auf dem Handy: oben Temperatur 26 Grad, Luftfeuchte 60,3 Prozent und Wassertank OK mit Rohwert; darunter zwei Buttons und Pflanzenkarten für Dieffenbachie und Aloe Vera mit ASCII-Grafik, Feuchte-Prozentwert und Gießen-Button">
+            <figcaption>
+              <span class="fig-label">Abbildung 7</span> — Die Weboberfläche im Browser: oben Temperatur,
+              Luftfeuchte und der Tankzustand, darunter je eine Karte pro Pflanze mit Feuchtewert,
+              Rohwert, Pumpenstatus, letztem Gießzeitpunkt und Buttons zum Messen und 60-sekündigen Gießen.
+              <span class="fig-credit">Eigener Screenshot.</span>
+            </figcaption>
+          </figure>
+          <p>
+            Die Oberfläche ist mehr als eine rohe Datenausgabe. Sie hat drei Statusfelder für Temperatur,
+            Luftfeuchte und Wassertank, zwei globale Buttons („Measure All" und „Measure &amp; Water All")
+            und darunter für jede Pflanze eine eigene Karte — mit kleiner ASCII-Grafik, Zonenname,
+            Feuchte in Prozent, Rohwert, Pumpenstatus, dem letzten Gießzeitpunkt und Buttons zum einzelnen
+            Messen oder Gießen. Die manuelle Pumpe hat eine eigene Karte. Die Seite aktualisiert sich alle
+            drei Sekunden selbst. Jede Karte entspricht einer echten Pflanze, die fest einer Pumpe und einem
+            Sensor zugeordnet ist.
+          </p>
+
+          <h2 id="sicherheit">8. Sicherheitsentscheidungen</h2>
+          <p>
+            Ein Gerät, das Pumpen schaltet und dauerhaft am Strom hängt, wirft eine berechtigte Frage auf:
+            Was passiert im Fehlerfall? Genau diese Skepsis gehört in die Geschichte, weil sie den
+            Unterschied zwischen „läuft gerade" und „ist dauerhaft vertrauenswürdig" markiert. Aus ihr
+            wurden mehrere bewusste Entscheidungen, die im Code des Endsystems auch tatsächlich stehen:
+          </p>
+          <ul>
+            <li><strong>Pumpen starten immer aus.</strong> Beim Hochfahren werden alle Pumpen-Ausgänge
+              zuerst auf „aus" gesetzt, damit ein Reset nicht ungewollt eine Pumpe startet.</li>
+            <li><strong>Feste Laufzeitgrenze.</strong> Jeder Gießvorgang dauert exakt 60 Sekunden und wird
+              danach automatisch beendet. Eine Pumpe kann nicht unbemerkt weiterlaufen.</li>
+            <li><strong>Höchstens zwei Pumpen gleichzeitig.</strong> Gießaufträge laufen über eine
+              Warteschlange; es sind nie mehr als zwei Pumpen parallel aktiv, mit etwas Abstand zwischen
+              zwei Starts.</li>
+            <li><strong>Wasserstand prüfen.</strong> Der Tank wird als „OK" oder „leer" bewertet, damit
+              nicht ins Leere gepumpt wird.</li>
+            <li><strong>Getrennte Versorgung mit zusätzlichem Schalter.</strong> Die Pumpen hängen an einer
+              eigenen 5-Volt-Versorgung, die sich zusätzlich über eine Hue-Steckdose ganz vom Strom nehmen
+              lässt — eine physische Ebene über der Software.</li>
+          </ul>
+          <p>
+            Bemerkenswert ist auch, was das System <em>nicht</em> tut: Es gießt standardmäßig nicht von
+            allein. Im Code ist eine automatische Schwellenlogik zwar vorbereitet, aber deaktiviert.
+            „Measure &amp; Water All" misst im aktuellen Stand nur und startet noch keine automatische
+            Bewässerung. Das ist eine bewusste, konservative Einstellung — lieber ein Werkzeug, das ich
+            gezielt auslöse, als eine Automatik, der ich noch nicht traue.
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/bewaesserung-anlage.jpg" alt="Holzgestell an einem Fenster mit dem weißen 60-Liter-Fass darunter; oben stehen mehrere Pumpen, von denen weiße Schläuche in Bögen zu den Pflanzen führen; links hängt der schwarze Steuerkasten mit der Platine, aus dem viele rote, schwarze und blaue Kabel kommen">
+            <figcaption>
+              <span class="fig-label">Abbildung 8</span> — Der reale Aufbau: das 60-Liter-Fass als
+              Vorrat, oben die einzelnen Pumpen mit ihren Schläuchen zu den Pflanzen, links der
+              Steuerkasten mit der verlöteten Platine und der gemeinsamen Verkabelung.
+              <span class="fig-credit">Eigene Aufnahme.</span>
+            </figcaption>
+          </figure>
+
+          <h2 id="system">9. Das fertige System</h2>
+          <p>
+            Der Endstand ist kein vollautomatisches Wundergerät, sondern eine konkret bedienbare Anlage
+            mit klaren Grenzen. Gesteuert wird sie von einem ESP32-S3 mit WLAN-Weboberfläche und
+            OLED-Anzeige. Auf der Platine sind acht Pumpen-Ausgänge und acht Bodenfeuchte-Kanäle angelegt;
+            fest eingebunden sind davon fünf Pflanzen — Dieffenbachie, Aloe Vera, Gummibaum, Monstera und
+            Efeutute — jede mit ihrer eigenen Pumpe und ihrem eigenen Sensor. Dazu kommt eine manuell
+            auslösbare Pumpe als Override. Zwei der acht Sensorkanäle sind am Ende außen vor geblieben;
+            der Aufbau ist also keine generische Acht-Zonen-Steuerung, sondern auf diesen realen
+            Pflanzenbestand zugeschnitten.
+          </p>
+          <p>
+            Gemessen wird nicht ständig alles: Temperatur und Luftfeuchte werden regelmäßig aktualisiert,
+            der Wasserstand ebenfalls. Die Bodenfeuchte dagegen wird nur auf Anforderung gemessen — die
+            Sensoren bekommen über einen MOSFET erst kurz vor der Messung Strom, stabilisieren sich ein
+            paar Sekunden, werden dann über viele Einzelmessungen gemittelt und danach wieder abgeschaltet.
+            Das schont die kapazitiven Sensoren, deren Empfindlichkeit ich in der Fehlersuche schmerzhaft
+            kennengelernt hatte. Die Rohwerte werden über hinterlegte Eichwerte für „trocken" und „nass"
+            in Prozent umgerechnet.
+          </p>
+          <p>
+            Was das System heute wirklich kann: den Zustand jeder der fünf Pflanzen einzeln anzeigen, auf
+            Knopfdruck messen, gezielt eine Pflanze oder alle auf einmal 60 Sekunden gießen, eine manuelle
+            Pumpe schalten und festhalten, wann zuletzt gegossen wurde. Was es bewusst nicht kann: von allein
+            entscheiden, wann gegossen wird. Und offen bleibt der Weg von der binären Tank-Anzeige zurück zu
+            einem echten Füllstand sowie die Frage, ob die vorbereitete Automatik später mit belastbaren
+            Schwellenwerten scharf geschaltet wird.
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/bewaesserung-wohnzimmer.jpg" alt="Wohnzimmer mit Fernseher auf einem Sideboard, umgeben von mehreren großen Zimmerpflanzen — Dieffenbachie, Gummibaum und Monstera —, warm beleuchtet am Abend">
+            <figcaption>
+              <span class="fig-label">Abbildung 9</span> — Am Ende steht kein Laboraufbau, sondern ein
+              Wohnzimmer mit Pflanzen, die im Alltag versorgt werden. Die Technik dahinter bleibt
+              unauffällig.
+              <span class="fig-credit">Eigene Aufnahme.</span>
+            </figcaption>
+          </figure>
+
+          <h2 id="gelernt">Was ich dabei gelernt habe</h2>
+          <p>
+            Rückblickend war der wertvollste Teil nicht das fertige Gerät, sondern das Vorgehen, das sich in
+            jeder Phase wiederholte: ein Problem in den kleinsten prüfbaren Schritt zerlegen, ein Bauteil
+            oder eine Annahme isoliert testen, messen statt raten und Ratschläge — auch die der KI — an
+            realen Werten scheitern lassen oder bestätigen. Hydraulik, Löten, Fehlersuche mit dem Multimeter,
+            Sensor-Kalibrierung und die Zustandslogik der Pumpensteuerung habe ich nicht als Theorie gelernt,
+            sondern jeweils an der Stelle, an der die bisherige Annahme nicht mehr trug. Genau die Stellen,
+            an denen es unordentlich wurde, waren die, an denen ich am meisten verstanden habe.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="page-nav">
+          <a href="../projekte.html">← Alle Projekte</a>
+          <a href="crm-sync.html">Nächste Fallstudie: CRM-Sync-Bibliothek →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/lygonian" rel="noopener">GitHub</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
