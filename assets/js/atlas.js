@@ -25,37 +25,7 @@
     targets.forEach(function (t) { t.classList.add("is-in"); });
   }
 
-  // 2) Kategorie-Highlight über die Legende --------------------------------
-  var grid = document.querySelector(".feature-grid");
-  var legend = document.querySelector(".legend");
-  if (grid && legend) {
-    var setFocus = function (cat) {
-      var items = grid.querySelectorAll(".feature");
-      if (!cat) {
-        grid.classList.remove("is-focusing");
-        items.forEach(function (el) { el.classList.remove("is-match"); });
-        return;
-      }
-      var matches = 0;
-      items.forEach(function (el) {
-        var m = el.getAttribute("data-cat") === cat;
-        if (m) matches++;
-        el.classList.toggle("is-match", m);
-      });
-      // Kategorie ohne Treffer im Grid: kein Dimmen (z. B. nur in „Weitere Projekte").
-      grid.classList.toggle("is-focusing", matches > 0);
-    };
-    legend.querySelectorAll("li").forEach(function (li) {
-      var cat = li.getAttribute("data-cat");
-      li.addEventListener("mouseenter", function () { setFocus(cat); });
-      li.addEventListener("mouseleave", function () { setFocus(null); });
-      li.addEventListener("focus", function () { setFocus(cat); }, true);
-      li.addEventListener("blur", function () { setFocus(null); }, true);
-    });
-    legend.addEventListener("mouseleave", function () { setFocus(null); });
-  }
-
-  // 3) Ganze Karte klickbar ------------------------------------------------
+  // 2) Ganze Karte klickbar ------------------------------------------------
   // Führt einen Klick auf die Kartenfläche auf den primären Link der Karte.
   // Echte Links/Buttons behalten ihr eigenes Ziel; Tastaturnutzer folgen wie
   // bisher den sichtbaren Links. Ohne JS bleibt alles normal bedienbar.

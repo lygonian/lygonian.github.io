@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projekte — Vier Fallstudien — Samet Kurt</title>
-  <meta name="description" content="Vier nachvollziehbare Fallstudien: CRM-Sync, Lead-Automation, Rechnungs-Pipeline und PV-Vertragsgenerator.">
+  <title>Projekte — Fallstudien aus der Praxis — Samet Kurt</title>
+  <meta name="description" content="Nachvollziehbare Fallstudien aus der Praxis: Datenzugriff, E-Mail-Automatisierung, Zahlungsabgleich und Desktop-Werkzeuge — jedes Projekt steht für sich.">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -16,9 +16,9 @@
       <nav class="site-nav" aria-label="Hauptnavigation">
         <a href="index.html">Start</a>
         <a href="projekte.html" aria-current="page">Projekte</a>
-        <a href="ueber-mich.html">Über mich</a>
         <a href="ki-workflow.html">KI-Workflow</a>
         <a href="forschung.html">Forschung</a>
+        <a href="ueber-mich.html">Über mich</a>
         <a href="kontakt.html">Kontakt</a>
       </nav>
     </div>
@@ -31,19 +31,20 @@
         <div class="split">
           <div>
             <p class="eyebrow">Projekte als Fallstudien</p>
-            <h1>Vier Projekte, die den Weg vom Datenzugriff zur nutzbaren Automatisierung zeigen</h1>
+            <h1>Projekte, die den Weg vom realen Problem zur funktionierenden Lösung zeigen</h1>
             <p class="lead">
               Die Projektseiten sind als nachvollziehbare Arbeitsprotokolle geschrieben:
-              Ausgangslage, erster kleiner Test, Stolperstellen, technische Entscheidungen
-              und die Prüfungen, die ein Skript zu einem belastbaren Prozess machen.
+              Ausgangslage, erster kleiner Test, Stolperstellen, Entscheidungen und die
+              Prüfungen, die aus einem ersten Versuch etwas Belastbares machen. Bislang
+              stammen sie aus dem Arbeitsalltag; weitere Themen kommen dazu.
             </p>
           </div>
           <aside>
             <ul class="fact-list">
-              <li><strong>Startpunkt</strong>CRM-Sync als gemeinsame Datengrundlage.</li>
-              <li><strong>Workflow</strong>Lead-Automation als Beispiel für E-Mail-Eingang, Validierung und CRM-Übergabe.</li>
-              <li><strong>Pipeline</strong>Rechnungs-Pipeline als kontrollierter Zahlungs- und Verbuchungsprozess.</li>
-              <li><strong>Werkzeug</strong>PV-Vertragsgenerator als Fachnutzer-App am Ende der Datenkette.</li>
+              <li><strong>Eigenständig</strong>Jede Fallstudie steht für sich und ist ohne die anderen lesbar.</li>
+              <li><strong>Format</strong>Arbeitsprotokoll: Ausgangslage, Entscheidungen, Stolperstellen, Prüfung.</li>
+              <li><strong>Code</strong>Zu jedem Projekt gehört ein öffentliches GitHub-Repository.</li>
+              <li><strong>Wächst</strong>Weitere Projekte kommen laufend dazu.</li>
             </ul>
           </aside>
         </div>
@@ -52,31 +53,14 @@
 
     <section class="section">
       <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Der Lernpfad</p>
-          <h2>Vom Fundament zum Endprodukt</h2>
-          <p>
-            Die Reihenfolge ist kein Zufall. Der Sync macht die Daten zugänglich. Darauf
-            aufbauend werden Leads und Zahlungen verarbeitet. Der Vertragsgenerator zeigt,
-            wie aus denselben Grundlagen ein Werkzeug für Fachkollegen entsteht.
-          </p>
-        </div>
-
-        <ul class="legend" aria-label="Kategorien der Systemlandschaft">
-          <li data-cat="fundament">Datenfundament</li>
-          <li data-cat="finanzen">Finanzdaten</li>
-          <li data-cat="werkzeug">Operatives Werkzeug</li>
-        </ul>
-
         <div class="feature-grid">
 
-          <article class="feature feature--row feature--flagship" data-cat="fundament" data-reveal>
+          <article class="feature feature--row feature--flagship" data-reveal>
             <div class="feature-head">
               <div class="feature-kicker">
-                <p class="eyebrow">Datenfundament</p>
-                <span class="badge">Startpunkt</span>
+                <p class="eyebrow">Datenzugriff · Python-Bibliothek</p>
               </div>
-              <h3>CRM-Sync-Bibliothek</h3>
+              <h3>CRM-Daten automatisch abrufen und aktuell halten</h3>
             </div>
             <div class="feature-body">
               <p>
@@ -95,12 +79,12 @@
             </div>
           </article>
 
-          <article class="feature feature--row" data-cat="fundament" data-reveal>
+          <article class="feature feature--row feature--flagship" data-reveal>
             <div class="feature-head">
               <div class="feature-kicker">
-                <p class="eyebrow">Baut auf dem Sync auf · Automatisierung</p>
+                <p class="eyebrow">E-Mail-Automatisierung</p>
               </div>
-              <h3>Lead-Automation</h3>
+              <h3>E-Mail-Anfragen automatisch ins CRM übertragen</h3>
             </div>
             <div class="feature-body">
               <p>
@@ -118,12 +102,12 @@
             </div>
           </article>
 
-          <article class="feature feature--row" data-cat="finanzen" data-reveal>
+          <article class="feature feature--row feature--flagship" data-reveal>
             <div class="feature-head">
               <div class="feature-kicker">
-                <p class="eyebrow">Baut auf dem Sync auf · Pipeline</p>
+                <p class="eyebrow">Zahlungsabgleich · Pipeline</p>
               </div>
-              <h3>Rechnungs-Pipeline</h3>
+              <h3>Zahlungseingänge automatisch Rechnungen zuordnen und verbuchen</h3>
             </div>
             <div class="feature-body">
               <p>
@@ -141,12 +125,12 @@
             </div>
           </article>
 
-          <article class="feature feature--row" data-cat="werkzeug" data-reveal>
+          <article class="feature feature--row feature--flagship" data-reveal>
             <div class="feature-head">
               <div class="feature-kicker">
-                <p class="eyebrow">Endprodukt der Kette · Desktop-App</p>
+                <p class="eyebrow">Desktop-App</p>
               </div>
-              <h3>PV-Vertragsgenerator</h3>
+              <h3>Kaufverträge automatisch aus dem Angebot erstellen</h3>
             </div>
             <div class="feature-body">
               <p>
@@ -170,16 +154,17 @@
 
     <section class="section-dark">
       <div class="container">
-        <p class="eyebrow">Der rote Faden</p>
-        <h2>Die Projekte zeigen ein wiederholbares Muster</h2>
+        <p class="eyebrow">Ähnliche Schritte</p>
+        <h2>Wie diese Projekte entstanden sind</h2>
         <p>
-          Datenzugriff herstellen, reale Formate verstehen, Ausnahmen sichtbar machen,
-          Validierung vor das Schreiben setzen und erst dann automatisieren. Die KI ist dabei
-          ein Werkzeug im Prozess, nicht die fachliche Kontrollinstanz.
+          So unterschiedlich die Aufgaben waren, das Vorgehen ähnelte sich: an die Daten
+          herankommen, die realen Formate verstehen, Ausnahmen sichtbar machen und erst
+          prüfen, dann schreiben. Wie ich dabei mit KI arbeite, steht ausführlich im
+          KI-Workflow.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="index.html#ablauf">Arbeitsweise ansehen</a>
-          <a class="btn btn-ghost" href="ki-workflow.html">KI-Workflow</a>
+          <a class="btn btn-primary" href="ki-workflow.html">Zum KI-Workflow</a>
+          <a class="btn btn-ghost" href="ueber-mich.html">Über mich</a>
         </div>
       </div>
     </section>
