@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lead-Automation — Fallstudie — Samet Kurt</title>
-  <meta name="description" content="Fallstudie: ein überschaubarer Workflow, an dem sich das Muster „erst prüfen, dann schreiben" lernen lässt — Mails per IMAP holen, normalisieren und mit Dry-Run ins CRM schreiben.">
+  <meta name="description" content="Fallstudie: Wie aus Lead-Mails automatisch CRM-Vorgänge werden — Python liest Partnerportal- und Formular-Mails per IMAP aus, normalisiert die Angaben und legt Kontakt, Projekt und Notiz im CRM an.">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -29,124 +29,424 @@
     <section class="page-hero">
       <div class="container">
         <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / Lead-Automation</p>
-        <p class="eyebrow">Baut auf dem Sync auf · Workflow</p>
-        <h1>Lead-Automation</h1>
-        <p class="lead">
-          Ein bewusst überschaubares Projekt — und gerade deshalb ein gutes zweites Beispiel.
-          Hier lässt sich in Ruhe das Muster lernen, das später in fast jedem Schreibzugriff
-          steckt: erst prüfen und anzeigen, was passieren würde, dann tatsächlich schreiben.
-        </p>
-        <div class="meta-grid">
-          <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
-          <div class="meta-item"><strong>Kontext</strong>Mittelständisches Energie-/PV-Unternehmen</div>
-          <div class="meta-item"><strong>Stack</strong>Python, BeautifulSoup, IMAP, GraphQL</div>
-          <div class="meta-item"><strong>Status</strong>Produktiv im Einsatz</div>
+        <div class="split">
+          <div>
+            <p class="eyebrow">Baut auf dem Sync auf · Automatisierung</p>
+            <h1>Vom E-Mail-Lead zum CRM-Vorgang</h1>
+            <p class="lead">
+              Neue Anfragen kamen nicht direkt im CRM an, sondern als E-Mail: aus einem
+              Partnerportal oder aus dem Kontaktformular der eigenen Website. In beiden
+              Fällen enthielten die Nachrichten bereits Namen, Telefonnummern, Adressen und
+              Projektinformationen. Trotzdem mussten Mitarbeiter diese Angaben von Hand aus
+              dem Postfach kopieren und im CRM neu anlegen. Ich habe daraus einen
+              Python-Workflow gebaut, der ungelesene Lead-Mails erkennt, das passende
+              Mailformat ausliest, die Daten normalisiert und anschließend Kontakt, Projekt
+              und Notiz im CRM vorbereitet oder anlegt.
+            </p>
+          </div>
+          <aside>
+            <ul class="fact-list">
+              <li><strong>Ausgangslage</strong>Lead-Daten kamen regelmäßig per E-Mail an und mussten von Hand ins CRM übertragen werden.</li>
+              <li><strong>Erster Versuch</strong>Ein Python-Parser las die gleichbleibenden Felder aus einer Lead-Mail aus und überführte sie in eine gemeinsame Datenstruktur.</li>
+              <li><strong>Entscheidende Verbesserung</strong>Unterschiedliche Quellen werden getrennt behandelt: HTML-Tabellenmails eines Partnerportals und Schlüssel-Wert-Mails des Website-Formulars.</li>
+              <li><strong>Ergebnis</strong>Aus einer E-Mail entstehen ein CRM-Kontakt und das zugehörige Projekt. Freitextnachrichten können als Logbucheintrag übernommen werden.</li>
+              <li><strong>Technik</strong>Python · IMAP · BeautifulSoup · GraphQL · pytest · Google People API</li>
+            </ul>
+            <p class="note">
+              <strong>Öffentliche Version:</strong> Bereinigtes Python-Paket mit synthetischen
+              Beispielmails, Demo-Client und Tests — ohne echte Mailadressen, Zugangsdaten
+              oder Kundendaten.
+            </p>
+            <div class="repo-links">
+              <a class="btn btn-primary" href="https://github.com/lygonian/auto-leads" rel="noopener">Code auf GitHub</a>
+              <a class="btn btn-ghost" href="https://github.com/lygonian/google-contacts-sync" rel="noopener">Google-Kontakte-Sync</a>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="split">
-          <div class="prose">
-            <h2>Das Problem: Leads von Hand ins CRM</h2>
-            <p>
-              Neue Interessenten kamen aus zwei Kanälen ins Postfach: als tabellarische Mails eines
-              Partnerportals und über das Kontaktformular der Website. Beide mussten von Hand
-              gelesen und ins CRM übertragen werden — je Lead ein Kontakt, ein Projekt, ein Vermerk.
-              Ein stures Abtippen, das Zeit kostet, Fehler riskiert und in stressigen Wochen auch
-              mal liegen bleibt.
-            </p>
+        <div class="prose prose--wide">
 
-            <h2>Was ich zuerst erkannt habe: die Struktur</h2>
-            <p>
-              Beide Mail-Typen sehen verschieden aus, haben aber jeweils einen festen Aufbau. Genau
-              das habe ich mir zuerst angeschaut — welches Feld steht wo, in welchen Schreibweisen
-              kommen Namen, Telefonnummern und Adressen an? Aus dieser Beobachtung ergab sich der
-              Plan fast von selbst: pro Kanal ein eigenes kleines Ausleseprogramm, danach ein
-              gemeinsamer Schritt, der die Angaben in eine einheitliche Form bringt. Den Plan gebe
-              ich vor; die Umsetzung schreibt die KI dann Block für Block.
-            </p>
+          <p>
+            Diese Fallstudie zeigt, wie aus einem wiederkehrenden Kopiervorgang eine testbare
+            Automatisierung wurde: vom ersten Parser über die GraphQL-Übergabe ins CRM bis zu
+            einem ergänzenden Google-Kontakte-Sync für Telefonnummern auf dem Smartphone.
+          </p>
 
-            <h2>Der Trick: erst zeigen, was passieren würde — dann erst tun</h2>
-            <p>
-              Das Herzstück ist eine einfache Regel: nichts ins CRM schreiben, bevor man gesehen
-              hat, was geschrieben würde. Dafür gibt es einen <em>Dry-Run</em> — einen Probelauf,
-              der vollständig anzeigt, welcher Kontakt, welches Projekt und welcher Vermerk entstehen
-              würden, aber noch nichts wirklich anlegt. Auch das war eine Stelle, an der ich die KI
-              zurückpfeifen musste:
-            </p>
-            <div class="exchange">
-              <span class="exchange-label">So lief das wirklich · schreiben oder erst zeigen?</span>
-              <div class="turn turn-me">
-                <span class="turn-who">Ich</span>
-                <p>Aus der ausgelesenen Mail sollen im CRM ein Kontakt, ein Projekt und ein Vermerk entstehen.</p>
-              </div>
-              <div class="turn turn-ai">
-                <span class="turn-who">KI</span>
-                <p>Klar, ich rufe direkt die Anlage-Funktionen auf: Kontakt anlegen, Projekt anlegen, Vermerk anlegen. Läuft in einem Durchgang.</p>
-              </div>
-              <div class="turn turn-me turn-push">
-                <span class="turn-who">Ich</span>
-                <p>Auf keinen Fall gleich schreiben. Das landet in einem echten CRM — wenn dein Parser eine Zeile falsch versteht, habe ich hunderte kaputte Kontakte drin und kriege die nicht mehr sauber raus. Bau zuerst einen Probelauf: Er soll <em>ausgeben</em>, was er anlegen würde, und sonst nichts tun. Erst ein zweiter, ausdrücklicher Schalter schreibt wirklich.</p>
-              </div>
-              <div class="turn turn-ai">
-                <span class="turn-who">KI</span>
-                <p>Verstanden. Standardmäßig nur Vorschau, das echte Anlegen hinter einem eigenen Schalter.</p>
-              </div>
-            </div>
-            <p>
-              Vor dem Anlegen prüft der Ablauf zusätzlich die Pflichtfelder — unvollständige Leads
-              fallen auf, statt halb im CRM zu landen. Und pro Lead entstehen Kontakt, Projekt und
-              Eintrag in fester Reihenfolge, damit nichts halb Angelegtes zurückbleibt, wenn
-              zwischendrin etwas hakt. Beim Schreiben ins CRM habe ich bewusst dieselben Muster
-              genutzt wie in der <a href="crm-sync.html">CRM-Sync-Bibliothek</a>, statt sie neu zu
-              erfinden.
-            </p>
+          <h2>1. Leads kommen nicht dort an, wo gearbeitet wird</h2>
+          <p>
+            Für den Vertrieb ist ein neuer Lead erst dann wirklich nutzbar, wenn er im CRM
+            steht. Die Anfrage selbst entsteht aber oft an einer anderen Stelle:
+          </p>
+          <ul>
+            <li>ein Interessent füllt ein Kontaktformular aus</li>
+            <li>ein Partnerportal vermittelt eine Anfrage</li>
+            <li>ein System verschickt daraus automatisch eine E-Mail</li>
+            <li>ein Mitarbeiter kopiert die Angaben anschließend ins CRM</li>
+          </ul>
+          <p>
+            Der letzte Schritt war der störende Teil. Er war nicht fachlich anspruchsvoll,
+            aber häufig, monoton und fehleranfällig. Schon eine einzelne Anfrage enthält
+            mehrere Felder: Name, Telefonnummer, E-Mail-Adresse, Adresse, Ort und eine
+            Projektbeschreibung. Wenn diese Angaben von Hand übertragen werden, entstehen
+            leicht kleine Fehler: eine vergessene Ziffer, ein vertauschtes Feld, eine nicht
+            übernommene Nachricht oder ein Lead, der im Postfach liegen bleibt.
+          </p>
+          <p>
+            Das Ziel war deshalb nicht nur „Lies eine E-Mail aus.“ Sondern:
+          </p>
+          <blockquote>
+            Lege aus einer neuen Lead-Mail den passenden Arbeitsvorgang im CRM an.
+          </blockquote>
 
-            <h2>So baust du das selbst nach</h2>
-            <ol class="flow">
-              <li>
-                <strong>Den Aufbau der Eingänge anschauen.</strong> Öffne ein paar Beispiele je
-                Kanal und notier, welches Feld wo steht.
-              </li>
-              <li>
-                <strong>Pro Kanal auslesen, dann vereinheitlichen.</strong> Ein kleines Programm je
-                Kanal, danach ein gemeinsamer Schritt, der alles in dieselbe Form bringt.
-              </li>
-              <li>
-                <strong>Immer zuerst den Probelauf.</strong> Erst anzeigen lassen, was entstehen
-                würde. Echtes Schreiben nur hinter einem eigenen, bewussten Schalter.
-              </li>
-              <li>
-                <strong>Pflichtfelder prüfen.</strong> Unvollständige Einträge aussortieren, bevor
-                irgendetwas angelegt wird.
-              </li>
-            </ol>
+          <h2>2. E-Mails sind oft strukturierter, als sie aussehen</h2>
+          <p>
+            Automatische Lead-Mails sehen für Menschen wie normale Nachrichten aus. Für ein
+            Programm sind sie aber häufig gut auslesbar, weil sie immer nach demselben Muster
+            aufgebaut sind. Eine Website-Anfrage kann zum Beispiel so aussehen:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Eine Formular-Mail — so kommt sie an</span>
+            <pre><code>Vorname: Max
+Nachname: Mustermann
+Postleitzahl: 12345
+Ort: Musterstadt
+E-Mail: max@example.test
+Telefonnummer: 01234 567890
+Nachricht: Ich interessiere mich für eine Photovoltaikanlage.</code></pre>
+          </div>
+          <p>
+            Die Bezeichnungen links vom Doppelpunkt sind die Feldnamen. Der Text rechts davon
+            ist der Wert. Python muss daraus keine Bedeutung erraten. Es kann Zeile für Zeile
+            prüfen:
+          </p>
+          <ol class="flow">
+            <li><strong>Feldname erkennen</strong> — steht links vom Doppelpunkt.</li>
+            <li><strong>Wert dahinter lesen</strong> — der Text rechts davon.</li>
+            <li><strong>In ein Lead-Objekt übertragen</strong> — Feld für Feld.</li>
+          </ol>
+          <p>
+            Bei einer anderen Quelle war das Format anders. Dort kam die Nachricht als
+            HTML-Mail mit Tabelle. Die zweite Tabellenzeile enthielt Name, Adresse und
+            Kontaktdaten. Das fachliche Problem war also nicht nur <em>„Wie finde ich eine
+            Telefonnummer in einem Text?“</em>, sondern:
+          </p>
+          <blockquote>
+            Wie erkenne ich, aus welcher Quelle die Mail stammt, und wende dann die passende
+            Ausleselogik an?
+          </blockquote>
 
-            <h2>Was sich übertragen lässt</h2>
+          <h2>3. Der Einstieg mit KI</h2>
+          <p>
+            Am Anfang stand kein fertiges Automatisierungskonzept, sondern eine kleine,
+            überprüfbare Frage. Ich musste zuerst verstehen, wie Python E-Mails aus einem
+            Postfach lädt, wie sich Text- und HTML-Bestandteile unterscheiden und wie daraus
+            später ein CRM-Aufruf wird. Statt der KI den Auftrag „Baue mir eine komplette
+            Lead-Automatisierung.“ zu geben, begann ich mit einem kleineren Schritt:
+          </p>
+          <div class="prompt">
+            <span class="prompt-label">Beispiel-Prompt · erster Mailparser</span>
             <p>
-              „Erst zeigen, dann schreiben" ist kein Detail dieses Projekts, sondern ein Prinzip.
-              Derselbe Probelauf-Gedanke steckt im Lohnabrechnungs-Versand und im
-              Google-Kontakte-Sync. Und die Idee, fremde Eingaben erst in eine einheitliche Form zu
-              bringen, taucht überall auf, wo Daten aus fremder Hand kommen.
+              „Ich bekomme regelmäßig Lead-E-Mails mit Feldern wie <code>Vorname:</code>,
+              <code>Nachname:</code>, <code>Telefonnummer:</code> und <code>Nachricht:</code>.
+              Zeig mir in Python eine kleine Funktion, die solche Schlüssel-Wert-Zeilen aus
+              einer E-Mail extrahiert und als Dictionary zurückgibt. Erkläre mir nur die
+              groben Schritte.“
             </p>
           </div>
+          <p>
+            Echte Zugangsdaten, reale Kundendaten und produktive Mailinhalte habe ich dafür
+            nicht in den Chat kopiert. Für die Entwicklung reichen Platzhalter und
+            anonymisierte Muster. Die KI half vor allem beim Einstieg in die Bibliotheken und
+            beim Übersetzen der Dokumentation in kleine Codebausteine. Ob der Code wirklich
+            passte, ließ sich nur an synthetischen oder lokal kontrollierten Beispielmails
+            prüfen.
+          </p>
 
-          <aside>
-            <ul class="fact-list">
-              <li><strong>Was du hier lernst</strong>Kanäle einzeln auslesen, Eingaben in eine Form bringen, immer erst der Probelauf, in fester Reihenfolge anlegen</li>
-              <li><strong>Verwandt mit</strong><a href="crm-sync.html">CRM-Sync-Bibliothek</a> (gleiche Muster fürs Schreiben)</li>
-              <li><strong>Kernideen</strong>ein Ausleseprogramm je Kanal · vereinheitlichen · Probelauf vor jedem Schreiben</li>
-            </ul>
-            <p class="note">
-              <strong>Öffentliches Repo:</strong> Demo mit synthetischen Lead-Mails und
-              IMAP-Dry-Run. Echte Mails und Zugänge bleiben privat.
-            </p>
-            <div class="repo-links">
-              <a class="btn btn-primary" href="https://github.com/lygonian/auto-leads" rel="noopener">Code auf GitHub</a>
-            </div>
-          </aside>
+          <h2>4. Zwei Mailformate, ein Lead-Objekt</h2>
+          <p>
+            Der erste technische Baustein war ein gemeinsames Datenmodell. Unabhängig davon,
+            aus welcher Quelle ein Lead kommt, soll das Programm am Ende dieselbe Struktur
+            verwenden:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Das gemeinsame Lead-Objekt</span>
+            <pre><code>Quelle · Datum
+Vorname · Nachname · Titel
+Straße · Postleitzahl · Ort
+E-Mail · Telefon
+Nachricht · Betreff · Message-ID</code></pre>
+          </div>
+          <p>
+            Diese Struktur ist wichtig, weil die späteren Schritte nicht mehr wissen müssen,
+            wie die ursprüngliche E-Mail aussah. Das Lead-Objekt funktioniert wie ein
+            einheitlicher Aufnahmebogen: Egal, über welchen Kanal eine Anfrage hereinkommt —
+            danach steht jede Angabe an derselben Stelle.
+          </p>
+          <p>Der Parser für Website-Mails liest Schlüssel-Wert-Zeilen aus:</p>
+          <div class="codeblock">
+            <span class="codeblock-label">Formular-Mail → Lead-Objekt</span>
+            <pre><code>fields = _parse_key_value_lines(text)
+
+lead = Lead(
+    source=WEBSITE_SOURCE,
+    first_name=fields.get("Vorname", ""),
+    last_name=fields.get("Nachname", ""),
+    postal_code=fields.get("Postleitzahl", ""),
+    city=fields.get("Ort", ""),
+    email=fields.get("E-Mail", ""),
+    phone=fields.get("Telefonnummer", ""),
+    partner_notes=fields.get("Nachricht", ""),
+)</code></pre>
+          </div>
+          <p>
+            Der Parser für Partnerportal-Mails arbeitet anders. Er liest eine HTML-Tabelle,
+            nimmt die relevanten Zellen aus der zweiten Zeile und trennt daraus Name, Adresse
+            und Kontaktinformationen. Vereinfacht:
+          </p>
+          <ol class="flow">
+            <li><strong>HTML-Mail laden</strong></li>
+            <li><strong>Tabelle finden</strong></li>
+            <li><strong>Zweite Datenzeile lesen</strong></li>
+            <li><strong>Name, Adresse und Kontaktspalte zerlegen</strong></li>
+            <li><strong>Lead-Objekt erzeugen</strong></li>
+          </ol>
+          <p>
+            Auch Namen brauchen eigene Regeln. Titel wie <code>Dr.</code> sollen getrennt
+            gespeichert werden, Namenspartikel wie <code>von</code> bleiben beim Nachnamen.
+            Neue Quellen lassen sich später ergänzen, indem ein weiterer Parser wieder
+            dasselbe Lead-Objekt zurückgibt.
+          </p>
+
+          <h2>5. Erst prüfen, dann ins CRM schreiben</h2>
+          <p>
+            Die ersten Parser funktionierten schnell — solange eine Mail genau dem erwarteten
+            Muster entsprach. Genau darin lag die Schwäche: Eine unvollständige oder anders
+            aufgebaute Mail hätte sonst einen halben Kontakt ins CRM geschrieben, ohne dass
+            es jemand bemerkt.
+          </p>
+          <p>
+            Automatisierung ist nur dann hilfreich, wenn sie nicht still falsche Datensätze
+            erzeugt. Bevor ein CRM-Aufruf gestartet wird, prüft der Workflow deshalb die
+            Mindestanforderungen:
+          </p>
+          <ul>
+            <li>Ist eine Quelle vorhanden?</li>
+            <li>Gibt es mindestens ein Namensfeld?</li>
+            <li>Gibt es eine E-Mail-Adresse oder Telefonnummer?</li>
+            <li>Konnte der Parser die Mail einem bekannten Format zuordnen?</li>
+          </ul>
+          <p>
+            Wenn ein Lead diese Prüfung nicht besteht, wird kein CRM-Kontakt angelegt.
+            Stattdessen entsteht ein Ergebnis mit Fehlermeldung. Im öffentlichen Paket ist
+            dieser Ablauf bewusst sichtbar gehalten:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Ungültige Leads stoppen — sichtbar, nicht still</span>
+            <pre><code>validation_errors = lead.validation_errors()
+if validation_errors:
+    results.append(
+        LeadProcessingResult(
+            lead=lead,
+            error="; ".join(validation_errors),
+        )
+    )
+    continue</code></pre>
+          </div>
+          <p>
+            Der Workflow bricht dadurch nicht bei der ersten fehlerhaften Mail komplett ab.
+            Er kann mehrere Nachrichten verarbeiten und pro Lead festhalten, ob daraus ein
+            CRM-Vorgang entstanden ist oder warum nicht.
+          </p>
+          <p>
+            Eine wichtige Grenze bleibt bewusst sichtbar: Eine produktive Dubletten- oder
+            Idempotenzstrategie muss zum echten CRM passen. Dafür können zum Beispiel
+            Message-ID, Telefonnummer, E-Mail-Adresse oder eine externe Lead-ID verwendet
+            werden.
+          </p>
+
+          <h2>6. Kontakt, Projekt und Logbuch gehören zusammen</h2>
+          <p>
+            Im CRM reicht ein Kontakt allein nicht aus. Der Mitarbeiter braucht nicht nur die
+            Person, sondern auch den Vorgang, der bearbeitet werden soll. Deshalb ist die
+            Reihenfolge wichtig:
+          </p>
+          <ol class="flow">
+            <li><strong>Kontakt erstellen</strong></li>
+            <li><strong>Kontakt-ID erhalten</strong></li>
+            <li><strong>Projekt mit dieser Kontakt-ID erstellen</strong></li>
+            <li><strong>Optional die Nachricht als Logbuch speichern</strong></li>
+          </ol>
+          <p>Im Code sieht der Kern des Workflows deshalb so aus:</p>
+          <div class="codeblock">
+            <span class="codeblock-label">Der Kern des Workflows</span>
+            <pre><code>contact_id = crm_client.create_contact(lead)
+project_id = crm_client.create_project(contact_id, lead)
+
+if add_logbook_entries and lead.partner_notes:
+    logbook_id = crm_client.create_logbook_entry(
+        project_id,
+        lead.partner_notes,
+    )</code></pre>
+          </div>
+          <p>
+            Die Kontakt-ID ist die Verbindung zwischen Person und Projekt. Ohne sie kann das
+            Projekt nicht sauber dem Kunden zugeordnet werden. Die GraphQL-Aufrufe folgen
+            dabei denselben Grundmustern wie beim
+            <a href="crm-sync.html">CRM-Sync</a>: Anfrage senden, Fehler laut machen, Antwort
+            prüfen. Ein fehlgeschlagener Aufruf darf nicht still als Erfolg durchgehen.
+          </p>
+          <p>
+            Bei Website-Anfragen ist außerdem die Nachricht des Interessenten wichtig. Sie
+            enthält oft den eigentlichen Kontext, zum Beispiel wann ein Rückruf passt oder
+            worum es bei der Anfrage genau geht. Im CRM ist dieser Freitext als
+            Logbucheintrag oder Notiz besser aufgehoben als in einem normalen Kontaktfeld.
+          </p>
+
+          <h2>7. Das Postfach bleibt Eingang, nicht Arbeitsplatz</h2>
+          <p>
+            Der technische Ablauf beginnt weiterhin im E-Mail-Postfach. Das Programm
+            verbindet sich per IMAP — dem Standardprotokoll, über das Programme ein Postfach
+            lesen können —, sucht nach ungelesenen Nachrichten bestimmter Quellen und lädt
+            diese Mails zur Verarbeitung. Der Arbeitsort verschiebt sich aber:
+          </p>
+          <ul>
+            <li><strong>Postfach</strong> — nur noch Eingangskanal.</li>
+            <li><strong>CRM</strong> — Kontakt, Projekt, Bearbeitungsstatus, Notiz.</li>
+          </ul>
+          <p>
+            Das Postfach ist damit nur noch der Briefkasten. Gearbeitet wird am
+            Schreibtisch — im CRM. Nach der Verarbeitung kann eine Mail als gelesen markiert
+            werden. Damit ist klar: Die Anfrage wurde technisch übernommen und muss nicht
+            noch einmal aus dem Postfach heraus bearbeitet werden.
+          </p>
+          <p>
+            Wichtig ist dabei, den CRM-Workflow mitzudenken. Ein automatisch angelegter Lead
+            sollte nicht irgendwo im System verschwinden, sondern in einem klaren
+            Einstiegsschritt landen, zum Beispiel „Erster Kontakt“ oder „Termin vereinbaren“.
+            Die Automatisierung ersetzt also nicht die Kundenkommunikation. Sie sorgt dafür,
+            dass die Anfrage dort ankommt, wo das Team ohnehin arbeitet.
+          </p>
+
+          <h2>8. Vom privaten Notebook zum öffentlichen Paket</h2>
+          <p>
+            Die erste private Version entstand als Notebook- und Skript-Automation für ein
+            reales Postfach und eine produktive CRM-API. Für die öffentliche Version durfte
+            davon nichts Sensibles übernommen werden: keine echten Mailadressen, keine
+            Passwörter, keine API-Schlüssel, keine produktiven Endpunkte, keine echten
+            Lead-Inhalte. Deshalb wurde aus dem Notebook ein kleines Python-Paket mit
+            getrennten Modulen:
+          </p>
+          <ul>
+            <li><code>parsers.py</code> — E-Mails und Namen auslesen</li>
+            <li><code>mailbox.py</code> — ungelesene Mails per IMAP suchen</li>
+            <li><code>crm.py</code> — GraphQL-Payloads und CRM-Clients</li>
+            <li><code>workflow.py</code> — Validierung und Ablauf</li>
+            <li><code>__main__.py</code> — CLI mit Demo und Live-/Dry-Run-Modus</li>
+          </ul>
+          <p>
+            Die öffentliche Version enthält synthetische <code>.eml</code>-Dateien. Sie sehen
+            strukturell aus wie echte Lead-Mails, enthalten aber nur Beispielwerte und
+            reservierte Beispiel-Domains. Dadurch lässt sich der Ablauf demonstrieren, ohne
+            ein echtes Postfach oder CRM zu berühren:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Demo ohne echtes Postfach</span>
+            <pre><code>python -m auto_leads demo
+python -m auto_leads demo --json</code></pre>
+          </div>
+          <p>
+            Parser sind empfindlich gegen kleine Formatänderungen. Deshalb enthält die
+            öffentliche Version Tests für Mails ohne passende Tabelle, fehlende optionale
+            Formularfelder, Namen mit Titel, Namen mit Partikeln, ungültige Leads und den
+            CRM-Workflow ohne echte API-Aufrufe.
+          </p>
+
+          <h2>9. Telefonnummern müssen auch auf das Smartphone</h2>
+          <p>
+            Nachdem Leads im CRM angelegt waren, blieb ein praktisches Problem: Der erste
+            Kontakt passiert häufig telefonisch. Dafür braucht der Mitarbeiter die Nummer
+            nicht nur im CRM, sondern auch auf dem Smartphone. Daraus entstand ein
+            ergänzender Google-Kontakte-Sync. Im privaten Ablauf kamen die Kontaktdaten aus
+            dem bestehenden CRM-Datenbestand. Die öffentliche Version beginnt bewusst bei
+            einer CSV-Datei, damit sie ohne interne Systeme reproduzierbar bleibt.
+          </p>
+          <ol class="flow">
+            <li><strong>Kontakt-CSV laden</strong></li>
+            <li><strong>Gelöschte Kontakte entfernen</strong></li>
+            <li><strong>Telefonnummern normalisieren</strong></li>
+            <li><strong>Interne Duplikate entfernen</strong></li>
+            <li><strong>Bestehende Google-Kontakte laden</strong></li>
+            <li><strong>Neue Kontakte bestimmen</strong></li>
+            <li><strong>People-API-Payloads vorbereiten</strong></li>
+          </ol>
+          <p>
+            Der wichtigste Teil ist die Duplikatvermeidung. Ein Kontakt gilt nur dann als
+            neu, wenn keiner seiner erkennbaren Identifier — Mobiltelefon, Festnetznummer,
+            E-Mail-Adresse, Name oder Quell-ID — bereits in Google vorkommt. Die
+            Telefonnummern werden zusätzlich normalisiert, damit unterschiedliche
+            Schreibweisen nicht als unterschiedliche Personen behandelt werden:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Drei Schreibweisen, eine Nummer</span>
+            <pre><code>0171 1234567
++49 171 1234567
+0049 171 1234567</code></pre>
+          </div>
+          <p>
+            Der Google-Sync plant standardmäßig nur, welche Kontakte erstellt würden. Ein
+            echter Schreiblauf braucht bewusst den Schalter <code>--create</code>. Das
+            schützt vor versehentlichen Massenimporten in ein produktives Kontaktbuch.
+          </p>
+
+          <h2>10. Das Ergebnis und was sich daraus übertragen lässt</h2>
+          <p>Der vollständige Ablauf sieht so aus:</p>
+          <ol>
+            <li>Ein Interessent füllt ein Formular aus oder kommt über ein Partnerportal.</li>
+            <li>Das Quellsystem verschickt eine standardisierte E-Mail.</li>
+            <li>Python lädt ungelesene Lead-Mails aus dem Postfach.</li>
+            <li>Der passende Parser erzeugt ein einheitliches Lead-Objekt.</li>
+            <li>Der Workflow prüft, ob die Mindestdaten vorhanden sind.</li>
+            <li>Das CRM erhält einen Kontakt.</li>
+            <li>Das CRM erhält ein Projekt mit Bezug zu diesem Kontakt.</li>
+            <li>Eine Website-Nachricht wird optional als Logbucheintrag übernommen.</li>
+            <li>Die Mail kann als gelesen markiert werden.</li>
+            <li>Ein ergänzender Sync kann Telefonnummern für Google Kontakte vorbereiten.</li>
+            <li>Der Mitarbeiter arbeitet den Vorgang im CRM und bei Bedarf direkt vom Smartphone aus weiter.</li>
+          </ol>
+          <p>
+            Dadurch entfällt die manuelle Übertragung zwischen E-Mail, CRM und Telefon.
+            Gleichzeitig bleibt die fachliche Arbeit beim Menschen: Der Mitarbeiter
+            entscheidet, wie er mit dem Interessenten spricht, welches Angebot sinnvoll ist
+            und wie der Vorgang weitergeführt wird.
+          </p>
+          <p>
+            Der wichtigste Schritt war nicht der einzelne Parser. Entscheidend war, den Weg
+            eines Leads vollständig zu betrachten:
+          </p>
+          <ol class="flow">
+            <li><strong>Wo entsteht die Anfrage?</strong></li>
+            <li><strong>In welcher Form kommt sie an?</strong></li>
+            <li><strong>Welche Daten sind zuverlässig erkennbar?</strong></li>
+            <li><strong>Wo soll das Team damit arbeiten?</strong></li>
+            <li><strong>Wann darf automatisch geschrieben werden?</strong></li>
+            <li><strong>Wann muss der Vorgang sichtbar stoppen?</strong></li>
+          </ol>
+          <p>
+            Viele Geschäftsprozesse enthalten solche Übergänge: Daten entstehen in einem
+            System, werden per E-Mail verschickt und anschließend von Hand in ein anderes
+            System übertragen. Wenn die E-Mails regelmäßig aufgebaut sind und das Zielsystem
+            eine API besitzt, lässt sich daraus oft ein sauberer Workflow bauen:
+            standardisierten Eingang erkennen, Daten in eine gemeinsame Struktur bringen,
+            fachliche Mindestregeln prüfen, erst danach ins Zielsystem schreiben — und Demo,
+            Tests und Dry-Run als Sicherheitsnetz behalten. So wird aus einer einzelnen
+            Automatisierung nicht nur ein schnelleres Kopieren, sondern ein robusterer
+            Arbeitsprozess.
+          </p>
+
         </div>
       </div>
     </section>

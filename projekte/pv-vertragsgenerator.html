@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PV-Vertragsgenerator — Fallstudie — Samet Kurt</title>
-  <meta name="description" content="Fallstudie: Aus einem manuellen Abtipp-Prozess wird ein Datenproblem. Wie aus PDF-Parsing, CRM-Daten und deterministischem Formular-Mapping eine App für Fachnutzer entsteht.">
+  <meta name="description" content="Fallstudie: Wie aus Kundendaten, Angebots-PDF und einer ausfüllbaren Vertragsvorlage ein Kaufvertrags-Generator wird — von LibreOffice-Formularfeldern über eindeutige Feldnamen bis zur internen Anwendung für Kollegen.">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -29,171 +29,335 @@
     <section class="page-hero">
       <div class="container">
         <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / PV-Vertragsgenerator</p>
-        <p class="eyebrow">Endprodukt der Kette · Desktop-App</p>
-        <h1>PV-Vertragsgenerator</h1>
-        <p class="lead">
-          Das sichtbare Ende der Kette: Aus den aufbereiteten Daten wird ein Werkzeug, das
-          Fachkollegen selbst bedienen. Der Schlüssel war eine Umdeutung — ein Vertrag, der
-          Position für Position abgetippt wurde, ist kein Schreibproblem, sondern ein
-          Datenextraktionsproblem. Genau so habe ich es behandelt.
-        </p>
-        <div class="meta-grid">
-          <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
-          <div class="meta-item"><strong>Kontext</strong>Mittelständisches Energie-/PV-Unternehmen</div>
-          <div class="meta-item"><strong>Stack</strong>Python, pandas, pdfplumber, pdfrw, Tkinter</div>
-          <div class="meta-item"><strong>Status</strong>Produktiv im Einsatz</div>
+        <div class="split">
+          <div>
+            <p class="eyebrow">Endprodukt der Kette · Interne Anwendung</p>
+            <h1>Von der Angebotsnummer zum fertigen Kaufvertrag</h1>
+            <p class="lead">
+              Zu jedem Verkauf einer Photovoltaikanlage gehört ein Kaufvertrag. Die
+              Kundendaten, Komponenten und Preise darin standen längst in unseren Systemen.
+              Trotzdem mussten sie für jeden neuen Vertrag erneut von Hand übertragen werden.
+              Das kostete Zeit und verursachte unnötige Übertragungsfehler. Mein Ziel war
+              deshalb einfach: eine Angebotsnummer eingeben — und einen vollständig
+              ausgefüllten Kaufvertrag erhalten.
+            </p>
+          </div>
+          <aside>
+            <ul class="fact-list">
+              <li><strong>Ausgangslage</strong>Kundendaten, Komponenten und Preise lagen bereits in den Systemen, wurden aber für jeden Kaufvertrag erneut von Hand übertragen.</li>
+              <li><strong>Erster Versuch</strong>Eine ausfüllbare PDF-Vorlage in LibreOffice und ein Python-Notebook, das die Formularfelder befüllt.</li>
+              <li><strong>Entscheidende Verbesserung</strong>Eindeutige Feldnamen, die Angebotsnummer als gemeinsamer Schlüssel — und der Umbau des Notebooks in eine Anwendung, die Kollegen selbst bedienen.</li>
+              <li><strong>Ergebnis</strong>Eine Angebotsnummer genügt, und der vollständig ausgefüllte Kaufvertrag liegt als eindeutig benannte PDF bereit.</li>
+              <li><strong>Technik</strong>Python · pandas · pdfplumber · Tkinter · LibreOffice</li>
+            </ul>
+            <p class="note">
+              <strong>Öffentliche Version:</strong> Offline-Demo mit synthetischen
+              Beispieldaten und Demo-Oberfläche. Echte Verträge, Vorlagen und Zugänge
+              bleiben privat.
+            </p>
+            <div class="repo-links">
+              <a class="btn btn-primary" href="https://github.com/lygonian/pv-contract-generator" rel="noopener">Code auf GitHub</a>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="split">
-          <div class="prose">
-            <h2>Das Problem: derselbe Vertrag, jedes Mal von Hand</h2>
-            <p>
-              Für jeden Kaufvertrag mussten Angaben aus drei Quellen von Hand zusammengetragen
-              werden: die Kundendaten aus dem CRM, die verkauften Komponenten aus dem Angebots-PDF
-              und die Vertragsvorlage. Jedes Abtippen ist eine Gelegenheit für einen Fehler — und
-              der Ablauf hing an den wenigen Leuten, die wussten, welche Angabe wohin gehört.
-            </p>
+        <div class="prose prose--wide">
 
-            <h2>Die Umdeutung, mit der alles anfing</h2>
-            <p>
-              Der wichtigste Schritt war ein Gedanke, kein Code: Das hier ist gar keine
-              Schreibaufgabe, sondern ein Datenproblem. Alle Angaben existieren schon irgendwo — sie
-              müssen nur zuverlässig herausgelöst und an die richtige Stelle gesetzt werden. Diese
-              Umdeutung ist meine Arbeit; sie entscheidet über den ganzen Rest. Die KI kann sie mir
-              nicht abnehmen, denn dafür muss man das Geschäft dahinter verstehen, nicht den Code.
-            </p>
+          <p>
+            Diese Fallstudie zeigt, wie aus einer wiederkehrenden Abtipp-Aufgabe Schritt für
+            Schritt eine interne Anwendung wurde: von der ersten ausfüllbaren PDF über einen
+            technischen Fehler, der das ganze Vorhaben blockierte, bis zu einem Werkzeug, das
+            Kollegen ohne Python-Kenntnisse bedienen.
+          </p>
 
-            <h2>Warum die drei Quellen nicht dieselbe Sprache sprechen</h2>
-            <p>
-              Im Angebots-PDF stehen dieselben Komponenten in wechselnden Schreibweisen; die
-              Kundendaten kommen als einfache Tabelle (CSV-Export) aus der eigenen
-              <a href="crm-sync.html">CRM-Sync-Bibliothek</a> — deshalb steht dieses Projekt am
-              <em>Ende</em> der Kette, nicht am Anfang; und die Vorlage erwartet jeden Wert an einer
-              ganz bestimmten Stelle. Vor dem Bauen stand deshalb wieder eine Bestandsaufnahme:
-              Welche Komponenten tauchen überhaupt auf — Module, Wechselrichter, Speicher,
-              Wallboxen — und in welchen Schreibweisen? Daraus wurden die Erkennungsmuster.
-            </p>
+          <h2>1. Die Angaben waren längst da</h2>
+          <p>
+            In einem Kaufvertrag stehen nicht nur die rechtlichen Vereinbarungen, sondern auch
+            Kundendaten, Angebotsdaten, Komponenten und Preise. Alle diese Informationen waren
+            bereits in unseren Systemen vorhanden — im CRM, im Angebot, in den Projektdaten.
+            Trotzdem wurden sie für jeden neuen Vertrag erneut von Hand übertragen. Jedes
+            Abtippen kostete Zeit und war eine Gelegenheit für einen Übertragungsfehler.
+          </p>
+          <p>
+            Die Aufgabe war damit keine Schreibaufgabe, sondern ein Datenproblem: Die Angaben
+            mussten nur zuverlässig aus den vorhandenen Quellen herausgelöst und an die
+            richtige Stelle im Vertrag gesetzt werden.
+          </p>
 
-            <h2>Die Basis: PDF rein, Tabelle rein, über die Angebotsnummer verheiraten</h2>
+          <h2>2. Ein Vertrag, den ein Programm ausfüllen kann</h2>
+          <p>
+            Damit ein Programm Daten in einen Vertrag eintragen kann, braucht die PDF
+            Formularfelder. Der bestehende Kaufvertrag war jedoch nur ein normales Dokument.
+            Kostenpflichtige Programme wie Adobe Acrobat hätten das Problem lösen können —
+            nach mehreren Gesprächen mit ChatGPT fand ich aber eine kostenlose Alternative:
+            LibreOffice Writer. Dort übertrug ich den Kaufvertrag und ergänzte Textfelder,
+            Dropdownlisten und Kontrollkästchen.
+          </p>
+          <p>
+            Da ich vorher noch nie mit PDF-Formularen gearbeitet hatte, ließ ich mir die
+            einzelnen Schritte erklären. Das funktionierte zunächst nur eingeschränkt: Die
+            beschriebenen Menüs und Schaltflächen waren in meiner LibreOffice-Version
+            teilweise anders angeordnet. Reine Textanleitungen halfen deshalb wenig. Die
+            praktische Lösung: Screenshots der geöffneten Oberfläche direkt in den Chat
+            einfügen. Dadurch konnte die KI anhand meiner tatsächlichen Ansicht erklären,
+            welche Schaltfläche ich anklicken musste.
+          </p>
+          <div class="prompt">
+            <span class="prompt-label">Beispiel-Prompt · Screenshot statt Beschreibung</span>
             <p>
-              Das Grundgerüst habe ich selbst gelegt: PDF-Text einlesen, Tabelle laden, beides über
-              die Angebotsnummer zusammenbringen. Auf diesem Rahmen habe ich die kniffligen Teile
-              einzeln an die KI gegeben — allen voran das Erkennen der Komponenten. Dabei war mir
-              eines wichtig: Ich muss jedes Ergebnis nachprüfen können, statt dem Programm blind zu
-              glauben.
-            </p>
-            <div class="prompt">
-              <span class="prompt-label">Beispiel-Prompt · erkennen und den Fund belegen</span>
-              <p>
-                „Anbei eine Funktion, die den Text eines Angebots-PDF liefert. Schreib eine Funktion,
-                die daraus die Komponenten erkennt — Module, Wechselrichter, Speicher, Wallbox. Die
-                Bezeichnungen schwanken, hier sind Beispielzeilen je Kategorie. Nutz nachgiebige
-                Muster statt fixer Wörter, und gib zu jedem Fund die Original-Textzeile mit zurück,
-                damit ich die Erkennung prüfen kann. Zeig mir zuerst deine Muster."
-              </p>
-            </div>
-
-            <h2>Wo die KI auf dem brüchigen Weg beharrte</h2>
-            <p>
-              Beim Befüllen der Vorlage wollte die KI den naheliegenden Weg gehen — der später
-              garantiert kaputtgeht. Da mussten wir ein paar Runden drehen:
-            </p>
-            <div class="exchange">
-              <span class="exchange-label">So lief das wirklich · Werte in die Vorlage schreiben</span>
-              <div class="turn turn-me">
-                <span class="turn-who">Ich</span>
-                <p>Die erkannten Werte sollen in die Vertragsvorlage — an die richtigen Stellen im PDF.</p>
-              </div>
-              <div class="turn turn-ai">
-                <span class="turn-who">KI</span>
-                <p>Ich setze den Text an feste Koordinaten auf der Seite: Kundenname bei x/y hier, Leistung dort. Dann sitzt jeder Wert genau an seinem Platz.</p>
-              </div>
-              <div class="turn turn-me turn-push">
-                <span class="turn-who">Ich</span>
-                <p>Und was passiert, wenn jemand die Vorlage einmal um eine Zeile verschiebt? Dann rutscht mit deinen Koordinaten <em>alles</em> daneben, und keiner merkt es sofort. Das ist mir zu brüchig. Die Vorlage hat benannte Formularfelder — nutz die. Schreib „Kundenname" ins Feld „Kundenname", nicht an Position x/y. Dann ist es egal, wie die Seite aussieht.</p>
-              </div>
-              <div class="turn turn-ai">
-                <span class="turn-who">KI</span>
-                <p>Stimmt, das ist unabhängig vom Layout. Ich fülle die benannten Felder direkt und lasse die Koordinaten ganz weg.</p>
-              </div>
-            </div>
-            <p>
-              Die KI griff zur ersten Lösung, die funktioniert. Ich musste die zweite Frage stellen —
-              „und was, wenn sich die Vorlage ändert?" —, weil ich weiß, dass Vorlagen sich immer
-              ändern. Solche Vorausahnung ist genau das, was ich einbringe.
-            </p>
-
-            <h2>Deterministisch statt kreativ</h2>
-            <p>
-              Das Befüllen ist bewusst <em>deterministisch</em> — ein sperriges Wort für etwas
-              Einfaches: Gleiche Angebotsnummer rein, exakt derselbe Vertrag raus, jedes Mal. Nichts
-              wird „frei formuliert". Prüfen lässt sich das, indem man denselben Fall zweimal erzeugt
-              und die Ergebnisse vergleicht. Bei der Komponentenerkennung hilft die mitgelieferte
-              Original-Textzeile: Man sieht auf einen Blick, ob ein Fund wirklich in die erkannte
-              Kategorie gehört.
-            </p>
-
-            <h2>Das Sicherheitsnetz — und die Verpackung für Fachnutzer</h2>
-            <p>
-              Weil das Werkzeug ohne Entwickler laufen soll, gehört mehr dazu als der Code: eine
-              schlichte Oberfläche, in der eine Angebotsnummer genügt, dazu eine Anleitung zur
-              Installation und Übergabe sowie ein Sicherheitskonzept. In der produktiven Version
-              liegen Zugangsdaten im geschützten Speicher des Betriebssystems — nie im Code — und die
-              App ist als eigenständiges Programm für Windows und macOS verpackt.
-            </p>
-
-            <h2>So baust du das selbst nach</h2>
-            <ol class="flow">
-              <li>
-                <strong>Die Aufgabe umdeuten.</strong> Frag dich: Existieren die Angaben schon
-                irgendwo? Dann ist es kein Schreib-, sondern ein Datenproblem — herauslösen und
-                zusammensetzen.
-              </li>
-              <li>
-                <strong>Die Quellen inventarisieren.</strong> Schau nach, in welchen Schreibweisen
-                die Angaben vorkommen, und leite daraus nachgiebige Erkennungsmuster ab.
-              </li>
-              <li>
-                <strong>Das Gerüst selbst legen.</strong> Quellen einlesen und über einen
-                gemeinsamen Schlüssel (hier die Angebotsnummer) verbinden.
-              </li>
-              <li>
-                <strong>Erkennung prüfbar bauen.</strong> Zu jedem Fund die Original-Textzeile
-                mitliefern lassen, damit du kontrollieren kannst statt zu glauben.
-              </li>
-              <li>
-                <strong>In benannte Felder schreiben, nicht an Positionen.</strong> Nutz die
-                Formularfelder der Vorlage — dann übersteht das Befüllen jede Layout-Änderung.
-              </li>
-            </ol>
-
-            <h2>Was sich auf andere Projekte übertragen lässt</h2>
-            <p>
-              Die wichtigste Lehre ist die Umdeutung am Anfang: Viele „Schreibaufgaben" sind in
-              Wahrheit Datenprobleme — die Angaben sind schon da, sie müssen nur verlässlich
-              herausgelöst und zusammengesetzt werden. Und „immer dasselbe Ergebnis bei derselben
-              Eingabe" ist überall ein gutes Ziel, wo etwas nachvollziehbar und wiederholbar sein muss.
+              „Hier ist ein Screenshot meines LibreOffice-Fensters. Ich möchte in dieses
+              Dokument ein Textfeld einfügen, das ein Python-Skript später befüllen kann.
+              Welche Schaltfläche muss ich in genau dieser Ansicht anklicken?"
             </p>
           </div>
+          <p>
+            Nach mehreren Durchläufen konnte ich aus dem Kaufvertrag eine ausfüllbare PDF
+            erstellen und LibreOffice sicher für diese Aufgabe verwenden.
+          </p>
 
-          <aside>
-            <ul class="fact-list">
-              <li><strong>Was du hier lernst</strong>Ein Schreibproblem als Datenproblem erkennen, die Erkennung prüfbar bauen, immer dasselbe Ergebnis erzeugen, ein Werkzeug für Nicht-Entwickler verpacken</li>
-              <li><strong>Baut auf</strong><a href="crm-sync.html">CRM-Sync-Bibliothek</a> als Datenquelle</li>
-              <li><strong>Besonderheit</strong>Übergabe-Anleitung und Sicherheitskonzept als Teil des Produkts</li>
-            </ul>
-            <p class="note">
-              <strong>Öffentliches Repo:</strong> Offline-Demo mit synthetischen Beispieldaten
-              und Demo-Oberfläche. Echte Verträge, Vorlagen und Zugänge bleiben privat.
-            </p>
-            <div class="repo-links">
-              <a class="btn btn-primary" href="https://github.com/lygonian/pv-contract-generator" rel="noopener">Code auf GitHub</a>
-            </div>
-          </aside>
+          <h2>3. Der erste technische Fehler: fast alle Felder hießen gleich</h2>
+          <p>
+            Anschließend las ich die PDF mit Python ein — den Code dafür entwickelte ich
+            gemeinsam mit ChatGPT. Zunächst wollte ich nur prüfen, wie die Formularfelder
+            intern aufgebaut sind. Dabei fiel auf: Nahezu alle Felder trugen denselben Namen.
+          </p>
+          <p>
+            Für einen Menschen waren die Felder anhand ihrer Position unterscheidbar. Für ein
+            Programm waren sie praktisch identisch. Das ist wie ein Regal voller Aktenordner,
+            die alle nur „Ordner" heißen: Wer davorsteht, erkennt am Platz im Regal, was
+            wohin gehört — wer nur die Beschriftungen kennt, ist verloren. Der Code konnte
+            deshalb nicht erkennen, welches Feld für den Vornamen, die Adresse oder die
+            Anlagenleistung vorgesehen war.
+          </p>
+          <p>
+            Ich wechselte zurück zu LibreOffice und vergab für jedes Formularfeld einen
+            eindeutigen Namen — für Textfelder ebenso wie für Dropdownlisten und
+            Kontrollkästchen. Ein Feld hieß nun nicht mehr nur <code>Textfeld</code>,
+            sondern sinngemäß:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Eindeutige Feldnamen statt „Textfeld"</span>
+            <pre><code>kunde_vorname
+kunde_nachname
+kunde_strasse
+angebot_gesamtpreis
+anlage_speicher_vorhanden</code></pre>
+          </div>
+          <p>
+            Danach konnte Python die Formularstruktur sauber auslesen. Aus einer
+            unübersichtlichen PDF wurde eine eindeutige Datenstruktur — die Grundlage für die
+            gesamte weitere Automatisierung.
+          </p>
+
+          <h2>4. Die Angebotsnummer verbindet die Systeme</h2>
+          <p>
+            Als zentralen Schlüssel verwendete ich die Angebotsnummer. Sie funktioniert wie
+            ein Aktenzeichen, unter dem alle Unterlagen eines Vorgangs zusammenlaufen:
+            Angebot, Kunde und Kaufvertrag hängen an derselben Nummer. Statt einen Kunden
+            über Name, Adresse oder andere möglicherweise uneinheitliche Angaben zu suchen,
+            reicht ein einzelner eindeutiger Wert. Der Ablauf wurde dadurch eindeutig:
+          </p>
+          <ol class="flow">
+            <li><strong>Angebotsnummer eingeben</strong></li>
+            <li><strong>Angebot im Datenbestand suchen</strong></li>
+            <li><strong>Kunden- und Angebotsdaten laden</strong></li>
+            <li><strong>Daten den passenden PDF-Feldern zuordnen</strong></li>
+            <li><strong>Kaufvertrag ausfüllen</strong></li>
+            <li><strong>PDF mit eindeutigem Dateinamen speichern</strong></li>
+          </ol>
+
+          <h2>5. Zusammenführen heißt bereinigen</h2>
+          <p>
+            Der Generator ist nicht nur ein PDF-Füllskript. Im Hintergrund werden mehrere
+            Datenquellen zusammengeführt, bevor überhaupt ein Vertragsfeld beschrieben wird:
+            Aus den Dokumentdaten kommen Angebotsnummer, Angebotswert und Mehrwertsteuer, aus
+            den Kontaktdaten Name, Telefonnummer, E-Mail-Adresse und Anschrift, aus den
+            Projektdaten die Projektnummer. Die lokalen Tabellen stammen aus der
+            <a href="crm-sync.html">CRM-Sync-Bibliothek</a> — deshalb steht dieses Projekt am
+            Ende der Kette. Verknüpft wird über interne IDs, nicht über Namen oder Adressen:
+            Namen können unterschiedlich geschrieben sein, eine ID gehört eindeutig zu ihrem
+            Datensatz.
+          </p>
+          <p>Dabei werden kleine Datenprobleme direkt abgefangen:</p>
+          <ul>
+            <li>Postleitzahlen werden immer als Text behandelt, damit führende Nullen nicht verloren gehen.</li>
+            <li>Alte CSV-Artefakte wie <code>12345.0</code> werden wieder zu <code>12345</code> bereinigt.</li>
+            <li>Vierstellige Postleitzahlen werden mit einer führenden Null auf fünf Stellen gebracht.</li>
+            <li>Fehlt die Mobilnummer, verwendet der Code ersatzweise die Festnetznummer.</li>
+            <li>Textwerte werden nach dem Zusammenführen getrimmt, damit unsichtbare Leerzeichen keine falschen Verträge erzeugen.</li>
+          </ul>
+          <p>
+            Wird die Angebotsnummer nicht gefunden, bricht der Prozess mit einer
+            verständlichen Meldung ab und fordert dazu auf, die lokalen Daten zu
+            aktualisieren. Der Generator rät nicht, welcher Datensatz gemeint sein könnte.
+          </p>
+
+          <h2>6. Das Angebots-PDF wird gelesen, nicht geraten</h2>
+          <p>
+            Ein Teil der Anlageninformationen liegt nicht als saubere Tabelle vor, sondern im
+            Angebots-PDF. Der Code holt deshalb mit der Bibliothek <code>pdfplumber</code>
+            den reinen Text aus dem PDF und sucht darin nach festen Mustern: Anzahl und
+            Leistung der PV-Module, Hersteller und Modell von Modulen und Wechselrichter,
+            Batteriespeicher, Wallbox, Zählerschrank und Ansprechpartner. Die
+            Anlagenleistung wird aus den Moduldaten berechnet:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Berechnung der Anlagenleistung</span>
+            <pre><code>Anlagenleistung in kWp = Modulanzahl × Modulleistung in W ÷ 1000</code></pre>
+          </div>
+          <p>
+            Deutsche Kommaschreibweisen wie <code>10,5 kW</code> werden dabei so
+            vereinheitlicht, dass Python sie als Zahl verarbeiten kann. Für optionale
+            Komponenten gilt eine bewusste Regel: Speicher, Wallbox und Zählerschrank stehen
+            zunächst auf <code>nein</code>. Erst wenn der passende Text im Angebots-PDF
+            gefunden wird, setzt der Code den Wert auf <code>ja</code>. Unklare Funde bleiben
+            leer. So werden keine Vertragsbestandteile erfunden, nur weil sie wahrscheinlich
+            wären.
+          </p>
+
+          <h2>7. Vom erkannten Wert zum Formularfeld</h2>
+          <p>
+            Nach der Datenaufbereitung erzeugt der Code eine feste Zuordnung zwischen den
+            berechneten Werten und den Formularfeldnamen der Vorlage: Der Kundenname wird im
+            Format „Nachname, Vorname" eingetragen, das aktuelle Datum im deutschen Format,
+            die Anschrift wird in Straße, Hausnummer, PLZ und Ort aufgeteilt. Der
+            Wechselrichter ist als Pflichtkomponente markiert; Speicher, Wallbox und
+            Zählerschrank werden nur angehakt, wenn die Angebotsauswertung sie erkannt hat.
+          </p>
+          <p>
+            Kontrollkästchen werden dabei nicht als Text, sondern mit den PDF-Formularwerten
+            gesetzt:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Kontrollkästchen sprechen PDF, nicht Deutsch</span>
+            <pre><code>anlage_speicher_vorhanden = "Yes"   # Haken gesetzt
+anlage_wallbox_vorhanden  = "Off"   # bleibt leer</code></pre>
+          </div>
+          <p>
+            Textfelder schreibt der Code in die AcroForm-Felder — so heißen die
+            Formularfelder im PDF-Standard — und setzt die PDF so, dass die Werte beim Öffnen
+            sichtbar angezeigt werden. Einige Felder bleiben absichtlich leer, etwa die
+            Bankverbindung: Diese Angaben sollen weiterhin manuell geprüft und ergänzt
+            werden, statt sie ungeprüft aus anderen Quellen zu übernehmen.
+          </p>
+
+          <h2>8. Vom Notebook zur Anwendung für Kollegen</h2>
+          <p>
+            Die erste funktionierende Version lief als Notebook in Visual Studio Code: Ich
+            öffnete es, änderte die Angebotsnummer und führte die Schritte aus. Für mich war
+            das ausreichend — für andere Mitarbeitende ungeeignet. Das System sollte auch
+            dann funktionieren, wenn jemand weder Python noch Visual Studio Code kennt, und
+            unabhängig von mir nutzbar bleiben.
+          </p>
+          <p>
+            Ich gab Claude Code deshalb die Aufgabe, das Notebook in eine einfache interne
+            Anwendung umzuwandeln. Die fachliche Entwicklung übernahm die KI dabei nicht: Die
+            Datenstruktur, die Feldlogik und der funktionierende Python-Code waren bereits
+            vorhanden. Sie half vor allem dabei, daraus eine bedienbare Oberfläche zu bauen
+            und die Nutzung zu dokumentieren. Die Oberfläche blieb bewusst auf wenige
+            Funktionen begrenzt: Angebotsnummer eingeben, Kaufvertrag erstellen,
+            Vertragsvorlage austauschen, Datenbestand aktualisieren, API-Schlüssel
+            speichern, Dokumentation öffnen.
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/kv-ersteller-app.png" alt="Oberfläche der internen Anwendung: ein Eingabefeld für die Angebotsnummer, ein Button „KV erstellen", ein Button „Daten aktualisieren" und eine Statuszeile">
+            <figcaption>
+              <span class="fig-label"><span class="fig-num">Abb. 1</span>Die Anwendung für Fachnutzer</span>
+              Eine Angebotsnummer genügt — die Anwendung lädt die Daten, füllt die Vorlage
+              und speichert den fertigen Kaufvertrag.
+            </figcaption>
+          </figure>
+          <p>
+            Auch die Betriebslogik zog mit um: Beim Start prüft die Anwendung, ob API-Zugang,
+            lokale Daten und Vertragsvorlage vorhanden sind. Die Aktualisierung arbeitet
+            inkrementell — es werden nicht jedes Mal alle Datensätze neu geladen, sondern vor
+            allem neue oder geänderte Einträge anhand ihrer Änderungszeitpunkte übernommen.
+            Der API-Schlüssel steht nicht im Code, sondern liegt im geschützten
+            Anmeldedaten-Speicher des Betriebssystems. So konnten Kolleginnen und Kollegen
+            mit der Anwendung arbeiten, ohne Pfade, Schlüssel oder Python-Dateien anfassen zu
+            müssen.
+          </p>
+
+          <h2>9. Die erste funktionierende Version war nicht die endgültige</h2>
+          <p>
+            Der Kaufvertrag wurde später rechtlich und inhaltlich mehrfach angepasst. Dadurch
+            änderten sich auch Formularfelder, Bezeichnungen und Zuordnungen — und jede
+            Änderung an der Vorlage konnte den Code brechen. Wenn ein Formularfeld umbenannt
+            oder entfernt wurde, musste geprüft werden, ob die automatische Zuordnung
+            weiterhin funktionierte. Deshalb gehörten feste Kontrollen zum Ablauf:
+          </p>
+          <ul>
+            <li>Jedes Formularfeld erhält einen eindeutigen Namen.</li>
+            <li>Neue Vertragsversionen werden zunächst mit Testdaten ausgefüllt.</li>
+            <li>Pflichtfelder werden auf fehlende Werte geprüft.</li>
+            <li>Optionale Komponenten werden nur übernommen, wenn sie eindeutig im Angebot erkannt werden.</li>
+            <li>Postleitzahlen, Telefonnummern und Anschriften werden auf typische CSV-Fehler geprüft.</li>
+            <li>Vor dem Versand wird der fertige Vertrag manuell kontrolliert.</li>
+          </ul>
+          <p>
+            Diese Kontrollen sind wichtig, weil ein technisch erfolgreich erzeugtes PDF
+            trotzdem fachlich falsch sein kann. Ein Programm erkennt nicht automatisch, ob
+            ein Preis plausibel ist oder eine Vertragsoption zum konkreten Angebot passt.
+          </p>
+
+          <h2>10. Bewusst keine automatische E-Mail</h2>
+          <p>
+            Technisch wäre es möglich gewesen, den fertigen Vertrag direkt an den Kunden zu
+            senden. Darauf habe ich bewusst verzichtet. Zwischen der automatischen Erstellung
+            und dem Versand bleibt eine kurze manuelle Prüfung: Erst wenn Kundendaten,
+            Preise, Komponenten und Vertragsoptionen stimmen, geht der Vertrag raus.
+          </p>
+          <p>
+            Für den Versand erstellte ich stattdessen eine E-Mail-Vorlage im CRM-System, die
+            ich anhand häufig gestellter Kundenfragen mehrfach überarbeitet habe. Die E-Mail
+            enthält damit bereits die Informationen, die Kunden nach Erhalt des Vertrags
+            normalerweise zusätzlich anfragen. Der Prozess ist weitgehend automatisiert, ohne
+            die letzte fachliche Kontrolle zu entfernen — nach der Prüfung ist der Vertrag
+            mit wenigen Klicks versendet.
+          </p>
+
+          <h2>11. Wie KI in diesem Projekt eingesetzt wurde</h2>
+          <p>
+            KI half an vielen Stellen: bei der Suche nach einer kostenlosen Lösung für
+            ausfüllbare PDFs, bei der Bedienung von LibreOffice anhand von Screenshots, beim
+            Python-Code zum Auslesen und Befüllen der PDF, bei den Erkennungsmustern für
+            Module, Wechselrichter, Speicher und Wallbox und schließlich bei der Umwandlung
+            des Notebooks in eine Anwendung samt Dokumentation.
+          </p>
+          <p>
+            Entscheidend war dabei, die Aufgabe in kleine überprüfbare Schritte zu zerlegen.
+            Eine allgemeine Aufforderung wie „Automatisiere unsere Kaufverträge" wäre zu
+            ungenau gewesen — ich hätte das Ergebnis nicht beurteilen können. Stattdessen
+            wurde immer nur der nächste konkrete Schritt bearbeitet: PDF auslesen, Feldnamen
+            prüfen, Daten abrufen, Felder zuordnen, Datei speichern und zuletzt eine
+            Oberfläche ergänzen.
+          </p>
+
+          <h2>12. Was sich übernehmen lässt</h2>
+          <p>
+            Heute gibt ein Mitarbeiter lediglich die Angebotsnummer ein. Im Hintergrund
+            werden CSV-Daten bereinigt, CRM-Datensätze über IDs verbunden, das Angebots-PDF
+            ausgewertet, Anlagenwerte berechnet und PDF-Kontrollkästchen korrekt gesetzt —
+            sichtbar bleibt davon nur ein kurzer, verständlicher Ablauf. Für ähnliche
+            Automatisierungen sind vor allem sechs Punkte wichtig:
+          </p>
+          <ol class="flow">
+            <li><strong>Mit einem kleinen funktionierenden Kern beginnen.</strong> Zuerst muss der Ablauf funktionieren — eine schöne Oberfläche ist erst danach sinnvoll.</li>
+            <li><strong>Dokumente für Maschinen lesbar machen.</strong> Formularfelder brauchen eindeutige Namen. Was für Menschen anhand der Position klar ist, ist für ein Programm nicht automatisch eindeutig.</li>
+            <li><strong>Einen stabilen Schlüssel verwenden.</strong> Eine Angebots-, Projekt- oder Kundennummer verbindet Datenquellen zuverlässiger als Namen oder Adressen.</li>
+            <li><strong>Datenqualität als Teil der Automatisierung behandeln.</strong> Postleitzahlen, Leerzeichen und Dezimaltrennzeichen wirken klein, entscheiden aber, ob ein erzeugter Vertrag brauchbar ist.</li>
+            <li><strong>Änderungen an Vorlagen mitdenken.</strong> Wenn sich das Dokument ändert, kann die Automatisierung brechen — Vorlage und Code gemeinsam testen.</li>
+            <li><strong>Die letzte fachliche Kontrolle behalten.</strong> Automatisierung soll Tipparbeit reduzieren, nicht Entscheidungen übernehmen, bei denen rechtliche oder finanzielle Fehler entstehen können.</li>
+          </ol>
+          <p>
+            Die Datengrundlage dafür liefert die <a href="crm-sync.html">CRM-Sync-Bibliothek</a> —
+            dort beginnt die Kette, die hier in einem fertigen Werkzeug endet.
+          </p>
+
         </div>
       </div>
     </section>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Samet Kurt — So entstehen Systeme mit Python und KI</title>
-  <meta name="description" content="Eine offene Werkstatt: An echten Projekten zeige ich, wie aus einem operativen Problem Schritt für Schritt ein funktionierendes, prüfbares System mit Python und KI wird.">
+  <meta name="description" content="Eine offene Werkstatt: Fallstudien aus dem operativen Alltag — vom CRM-Sync bis zum PV-Vertragsgenerator — Schritt für Schritt erklärt, mit klarer Arbeitsteilung zwischen Mensch und KI.">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -30,17 +30,17 @@
       <div class="container">
         <div class="hero-main">
           <p class="eyebrow">Offene Werkstatt · Python &amp; KI</p>
-          <h1>So entsteht aus einem unklaren Problem ein System, das läuft.</h1>
+          <h1>So entsteht aus einem unklaren Problem ein System.</h1>
           <p class="lead">
             Diese Seite ist kein Schaukasten fertiger Software, sondern eine Werkstatt.
-            An echten Projekten aus meiner Arbeit zeige ich, wie man ein unübersichtliches
-            operatives Problem Schritt für Schritt zerlegt und mit KI zu einer funktionierenden,
-            prüfbaren Lösung führt — von der ersten Zeile selbst geschriebenem Code bis zu
-            den Validierungen, die verhindern, dass etwas Falsches produktiv geht.
+            In Fallstudien aus meiner Arbeit zeige ich, wie ich ein unübersichtliches
+            operatives Problem Schritt für Schritt zerlege und mit KI zu einer funktionierenden,
+            prüfbaren Lösung führe — vom ersten kleinen Abruf bis zu den Prüfungen, die
+            verhindern, dass etwas Falsches produktiv geht.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="projekte.html">Projekte als Fallstudien</a>
-            <a class="btn btn-ghost" href="#methode">So gehe ich vor</a>
+            <a class="btn btn-primary" href="#ablauf">So gehe ich vor</a>
+            <a class="btn btn-ghost" href="#fallstudien">Zu den Fallstudien</a>
           </div>
         </div>
 
@@ -64,7 +64,7 @@
       </div>
     </section>
 
-    <section class="section" id="methode">
+    <section class="section" id="ablauf">
       <div class="container">
         <div class="section-head">
           <p class="eyebrow">Die Methode</p>
@@ -94,8 +94,9 @@
           </li>
           <li>
             <strong>Reale Formate und Ausnahmen durcharbeiten.</strong> Die eigentliche Arbeit
-            steckt in den Sonderfällen: fremde PDF-Layouts, Teilzahlungen, fehlende Felder.
-            Diese Fälle nehme ich einzeln auf, statt sie zu ignorieren.
+            steckt in den Sonderfällen: unterschiedliche Mailquellen, Schreibweisen von
+            Rechnungsnummern, geänderte Vorlagen, fehlende Felder. Diese Fälle nehme ich
+            einzeln auf, statt sie zu ignorieren.
           </li>
           <li>
             <strong>Bei Bedarf verwerfen und neu bauen.</strong> Wenn ein Ansatz sich festfährt,
@@ -154,89 +155,69 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="fallstudien">
       <div class="container">
         <div class="section-head">
           <p class="eyebrow">Fallstudien</p>
-          <h2>Am besten sieht man das an echten Projekten</h2>
+          <h2>Aus der Werkstatt: die Fallstudien</h2>
           <p>
             Die Projekte stammen aus dem laufenden Betrieb eines mittelständischen
-            Energie-/PV-Unternehmens und bauen aufeinander auf: eine gemeinsame Datenschicht
-            versorgt Pipelines, die Pipelines versorgen operative Werkzeuge. Der beste Einstieg
-            ist der CRM-Sync — das Fundament, an dem sich Datenstrukturen gut lernen lassen.
+            Energie-/PV-Unternehmens und bauen aufeinander auf: Erst macht der CRM-Sync
+            die Daten zugänglich, darauf entstehen Workflows für Leads und Zahlungen —
+            und Werkzeuge, die Fachkollegen ohne Entwicklungsumgebung bedienen.
+            Jede Fallstudie erzählt den Weg dorthin, nicht nur das Ergebnis. Die
+            Sammlung wächst weiter — hier steht der Einstieg, die vollständige
+            Übersicht führt weiter zu allen Projekten.
           </p>
         </div>
 
-        <div class="cluster-flow">
-          <div class="cluster-step">
-            <strong>1 · Datenfundament</strong>
-            <span>Der CRM-Sync holt die Daten aus dem Fremdsystem und legt sie sauber ab — die Basis, auf der alles Weitere aufsetzt.</span>
-          </div>
-          <div class="cluster-step">
-            <strong>2 · Finanzdaten &amp; Controlling</strong>
-            <span>Auf dieser Basis: Rechnungen parsen, Zahlungen abgleichen, Kosten und Ergebnis je Gewerk sichtbar machen.</span>
-          </div>
-          <div class="cluster-step">
-            <strong>3 · Operative Werkzeuge</strong>
-            <span>Aus den aufbereiteten Daten entstehen Endprodukte — etwa eine App, die aus einer Angebotsnummer einen Vertrag erzeugt.</span>
-          </div>
-          <div class="cluster-step">
-            <strong>4 · Analysen</strong>
-            <span>Wenn Entscheidungen Zahlen brauchen: Markt-, Wetter- und Betriebsdaten verschneiden und auswerten.</span>
-          </div>
-        </div>
-
-        <div class="card-grid" style="margin-top: 28px;">
-          <div class="card card--lg" data-cat="fundament" data-reveal>
-            <p class="eyebrow">Startpunkt · Datenfundament</p>
+        <div class="feature-grid">
+          <article class="feature feature--flagship" data-cat="fundament" data-reveal>
+            <div class="feature-kicker">
+              <p class="eyebrow">Datenfundament</p>
+              <span class="badge">Startpunkt</span>
+            </div>
             <h3>CRM-Sync-Bibliothek</h3>
             <p>
-              Der beste Einstieg, um zu sehen, wie so ein System entsteht: Wie erschließt man
-              eine schlecht dokumentierte Schnittstelle? Wie merkt sich ein Sync, was sich
-              geändert hat? Wie schreibt man so, dass ein Lauf jederzeit wiederholbar ist?
-              Auf dieser Bibliothek bauen mehrere andere Projekte auf.
+              Der beste Einstieg: Kontakte, Projekte, Termine und Dokumente stecken bereits
+              in der CRM-Software — sie mussten nur strukturiert erreichbar werden. Die
+              Fallstudie führt vom ersten API-Abruf in Python bis zur wiederverwendbaren
+              Sync-Bibliothek, die nur noch neue und veränderte Datensätze vollständig lädt.
+              Auf dieser Grundlage bauen die anderen Projekte auf.
             </p>
             <div class="card-tags">
-              <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span>
+              <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span><span class="tag">requests</span>
             </div>
             <div class="card-cta">
               <a href="projekte/crm-sync.html">Zur Fallstudie</a>
+              <a href="https://github.com/lygonian/hero-syncs" rel="noopener">Code auf GitHub</a>
             </div>
-          </div>
-          <div class="card" data-cat="finanzen" data-reveal>
-            <p class="eyebrow">Baut darauf auf · Pipeline</p>
-            <h3>Rechnungs-Pipeline</h3>
-            <p>
-              Sechs Lieferanten, sechs Rechnungsformate. Ein gutes Beispiel dafür, dass die
-              eigentliche Arbeit nicht das Programmieren ist, sondern die Inventur: jedes Muster
-              verstehen, bevor daraus ein sicherer Datenfluss wird.
-            </p>
-            <div class="card-tags">
-              <span class="tag">Python</span><span class="tag">pdfplumber</span><span class="tag">pandas</span>
-            </div>
-            <div class="card-cta">
-              <a href="projekte/rechnungs-pipeline.html">Zur Fallstudie</a>
-            </div>
-          </div>
-          <div class="card" data-cat="werkzeug" data-reveal>
-            <p class="eyebrow">Baut darauf auf · Desktop-App</p>
-            <h3>PV-Vertragsgenerator</h3>
-            <p>
-              Das Endprodukt der Kette: Ein Vertrag, der bisher Position für Position abgetippt
-              wurde, wird als Datenproblem behandelt. Aus einer Angebotsnummer entsteht ein
-              fertig ausgefüllter Vertrag als PDF — bedienbar ohne Entwicklungsumgebung.
-            </p>
-            <div class="card-tags">
-              <span class="tag">Python</span><span class="tag">pdfplumber</span><span class="tag">Tkinter</span>
-            </div>
-            <div class="card-cta">
-              <a href="projekte/pv-vertragsgenerator.html">Zur Fallstudie</a>
-            </div>
-          </div>
+          </article>
         </div>
 
+        <ul class="fact-list">
+          <li>
+            <strong>Baut auf dem Sync auf · Automatisierung</strong>
+            <a href="projekte/lead-automation.html">Lead-Automation</a> — Lead-Mails werden
+            erkannt, je nach Quelle ausgelesen und erst nach Validierung als Kontakt,
+            Projekt und Notiz im CRM angelegt.
+          </li>
+          <li>
+            <strong>Baut auf dem Sync auf · Pipeline</strong>
+            <a href="projekte/rechnungs-pipeline.html">Rechnungs-Pipeline</a> — Zahlungseingänge
+            abrufen, Rechnungsnummern erkennen, gegen den Rechnungsbestand prüfen und verbuchen;
+            unklare Fälle stoppen sichtbar in einer Prüfliste.
+          </li>
+          <li>
+            <strong>Endprodukt der Kette · Desktop-App</strong>
+            <a href="projekte/pv-vertragsgenerator.html">PV-Vertragsgenerator</a> — Angebotsnummer
+            eingeben, vollständig ausgefüllten Kaufvertrag als PDF erhalten; bedienbar ohne
+            Entwicklungsumgebung.
+          </li>
+        </ul>
+
         <div class="hero-actions">
-          <a class="btn btn-ghost" href="projekte.html">Alle Projekte ansehen</a>
+          <a class="btn btn-primary" href="projekte.html">Alle Projekte ansehen</a>
         </div>
       </div>
     </section>
@@ -244,73 +225,34 @@
     <section class="section section-alt">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">In der Praxis</p>
-          <h2>So eine Anweisung ist selten ein Treffer — es ist ein Gespräch</h2>
-          <p>
-            Ein sauberer Prompt, eine perfekte Antwort — so läuft es fast nie. Meistens ist es ein
-            Hin und Her, manchmal ein Streit: Die KI nimmt eine Abkürzung, ich hole sie zurück,
-            wir drehen eine Runde. Sie ist nicht der Denker, sondern der Übersetzer meiner
-            Gedanken — und wenn mein Gedanke unklar ist oder sie ihn zu bequem auslegt, kommt
-            Unsinn heraus. Ein Ausschnitt aus dem CRM-Sync:
-          </p>
-        </div>
-        <div class="exchange">
-          <span class="exchange-label">So lief das wirklich · nur das Neue holen</span>
-          <div class="turn turn-me">
-            <span class="turn-who">Ich</span>
-            <p>Ich will beim nächsten Lauf nur die Datensätze, die sich seit dem letzten Mal geändert haben. Bau mir die Erkennung.</p>
-          </div>
-          <div class="turn turn-ai">
-            <span class="turn-who">KI</span>
-            <p>Kein Problem. Ich filtere direkt am Server: „gib mir alles, was sich seit Zeitpunkt X geändert hat". Eine Zeile, fertig.</p>
-          </div>
-          <div class="turn turn-me turn-push">
-            <span class="turn-who">Ich</span>
-            <p>Nein — und du hörst mir nicht zu. Während der Lauf läuft, ändern sich weiter Datensätze; dein einmaliger Filter lässt genau die durchrutschen. Ich will, dass sich der Lauf so lange wiederholt, bis ein Durchgang <em>nichts Neues</em> mehr findet. Erst dann fehlt garantiert nichts.</p>
-          </div>
-        </div>
-        <p style="max-width: 68ch;">
-          Und selbst das perfekte Gespräch macht noch kein System. Was ein Skript verlässlich
-          macht, sind die Prüfungen und Sicherheitsnetze drumherum — und die Logik dafür kommt von
-          mir. Auf den Projektseiten steht jeweils, welche das waren und warum.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="projekte.html">Zu den Fallstudien</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
           <p class="eyebrow">Kurz zu mir</p>
-          <h2>Wer hier schreibt</h2>
+          <h2>Biochemiker, autodidaktischer Entwickler, Prozessbauer</h2>
           <p>
-            Ich bin Biochemiker und habe mir das Programmieren autodidaktisch beigebracht. In
-            einem mittelständischen Energie-/PV-Unternehmen habe ich daraus eigenständig eine
-            Automatisierungs- und Datenlandschaft aufgebaut — die Projekte auf dieser Seite.
-            Meine Methode stammt aus dem Labor: erst beobachten, dann strukturieren, dann
-            automatisieren, und nichts glauben, was sich nicht reproduzieren lässt.
+            Mein Zugang kommt aus dem Labor: beobachten, strukturieren, reproduzierbar machen.
+            Diese Haltung passt überraschend gut zu operativer Automatisierung. Ein Ergebnis
+            zählt erst dann, wenn es sich prüfen, wiederholen und erklären lässt.
           </p>
         </div>
         <div class="hero-actions">
           <a class="btn btn-ghost" href="ueber-mich.html">Mehr über mich</a>
+          <a class="btn btn-ghost" href="ki-workflow.html">KI-Workflow</a>
         </div>
       </div>
     </section>
 
     <section class="section-dark">
       <div class="container">
-        <p class="eyebrow">Mitlesen &amp; Kontakt</p>
-        <h2>Der Code steht offen, Fragen sind willkommen</h2>
+        <p class="eyebrow">Repos &amp; Kontakt</p>
+        <h2>Die öffentlichen Versionen sind bewusst nachvollziehbar gebaut</h2>
         <p>
-          Zu jedem Projekt gibt es ein öffentliches Repository mit synthetischen Demo-Daten —
-          zum Nachlesen, Nachbauen oder Auseinandernehmen. Wer über ein ähnliches Vorhaben
-          sprechen möchte, erreicht mich am schnellsten über LinkedIn.
+          Zu jeder Fallstudie gibt es ein bereinigtes Repository mit synthetischen Daten.
+          Die Repositories zeigen Struktur, Tests und Demo-Abläufe, ohne produktive Systeme
+          oder sensible Informationen offenzulegen.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn-Profil</a>
+          <a class="btn btn-primary" href="projekte.html">Projektübersicht</a>
           <a class="btn btn-ghost" href="https://github.com/lygonian" rel="noopener">GitHub</a>
+          <a class="btn btn-ghost" href="kontakt.html">Kontakt</a>
         </div>
       </div>
     </section>

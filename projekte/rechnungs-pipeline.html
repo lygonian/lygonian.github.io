@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rechnungs-Pipeline — Fallstudie — Samet Kurt</title>
-  <meta name="description" content="Fallstudie: sechs Lieferanten, sechs PDF-Formate. Wie „Inventur vor Struktur" aus fremden Layouts einen sicheren Datenfluss macht — mit Parserprofilen, Summenprüfung und Skip-Ledger.">
+  <meta name="description" content="Fallstudie: Zahlungseingänge automatisch prüfen, verbuchen und bestätigen — Qonto-Transaktionen abrufen, Rechnungsnummern im Verwendungszweck erkennen, gegen HERO-Rechnungen abgleichen, per Browser-Automatisierung verbuchen und Zahlungsbestätigungen versenden.">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -29,174 +29,38 @@
     <section class="page-hero">
       <div class="container">
         <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / Rechnungs-Pipeline</p>
-        <p class="eyebrow">Baut auf dem Sync auf · Pipeline</p>
-        <h1>Rechnungs-Pipeline für Lieferantenrechnungen</h1>
-        <p class="lead">
-          Sechs Lieferanten, sechs Rechnungsformate. Das Musterbeispiel für einen Satz, der sich
-          durch meine Arbeit zieht: Die eigentliche Arbeit ist nicht das Programmieren, sondern
-          die Inventur — jedes Muster verstehen, bevor daraus ein wiederholbar sicherer Datenfluss wird.
-        </p>
-        <div class="meta-grid">
-          <div class="meta-item"><strong>Rolle</strong>Konzeption &amp; Umsetzung, eigenständig</div>
-          <div class="meta-item"><strong>Kontext</strong>Mittelständisches Energie-/PV-Unternehmen</div>
-          <div class="meta-item"><strong>Stack</strong>Python, pandas, pdfplumber, openpyxl</div>
-          <div class="meta-item"><strong>Status</strong>Produktiv im Einsatz</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
         <div class="split">
-          <div class="prose">
-            <h2>Das Problem: sechs Lieferanten, sechs Formate</h2>
-            <p>
-              Eingangsrechnungen kamen von sechs Lieferanten — jede in einem völlig anderen
-              PDF-Layout, manche per Mail, manche von Hand abgelegt. Wer wissen wollte, was
-              eigentlich eingekauft wurde, musste jede Rechnung einzeln öffnen. Eine geordnete
-              Übersicht, Position für Position, gab es nicht.
-            </p>
-
-            <h2>Warum PDFs so gemein sind</h2>
-            <p>
-              Ein PDF sieht aus wie ein sauberes Dokument, ist innen aber ein Durcheinander:
-              Positionen stehen mal hier, mal da, Tabellen sind unterschiedlich gesetzt, und
-              dieselbe Angabe heißt bei jedem Lieferanten anders. Ein Ausleseprogramm, das bei
-              Rechnung A klappt, scheitert an B. Dazu kommt: Jeden Monat kommen neue Belege dazu.
-              Das Ganze darf also nicht einmal laufen, sondern immer wieder — ohne dass ein Beleg
-              versehentlich doppelt gezählt wird.
-            </p>
-
-            <h2>Der Satz, der dieses Projekt trägt</h2>
-            <p>
-              Die eigentliche Arbeit ist nicht das Programmieren, sondern das Verstehen. Und dieses
-              Verstehen ist meins — es lässt sich an keine KI abgeben. Ich schaue mir jedes Format
-              genau an und erkenne das Muster dahinter. Die Umsetzung in Code lasse ich dann Block
-              für Block schreiben; selbst tippe ich fast nichts mehr. Die KI ist schnell im
-              Übersetzen, aber sie kennt diese sechs Rechnungen nicht — das muss ich ihr beibringen.
-            </p>
-
-            <h2>Inventur: erst alles anschauen, dann bauen</h2>
-            <p>
-              Bevor eine Zeile entstand, habe ich für jeden Lieferanten aufgeschrieben: Wo steht
-              die Rechnungsnummer, wo das Datum, wo die einzelnen Posten, wo die Summe? Welche
-              Sonderfälle gibt es — Rabattzeilen, Zwischensummen, ein Seitenumbruch mitten in der
-              Tabelle? Diese Bestandsaufnahme ist die Denkarbeit. Steht sie, ist der Code fast nur
-              noch das Aufschreiben dessen, was ich schon weiß.
-            </p>
-
-            <h2>Ein Bauplan je Format</h2>
-            <p>
-              Zuerst habe ich selbst eine gemeinsame Form festgelegt: Egal von welchem Lieferanten —
-              jedes Ausleseprogramm bekommt ein PDF hinein und gibt dieselbe geordnete Liste an
-              Posten zurück. Diese Form (Fachleute sagen <em>Schnittstelle</em>) ist der Rahmen. Erst
-              danach lasse ich die KI je Lieferant so ein Programm bauen — eines nach dem anderen,
-              ohne dass es den Rest anfasst.
-            </p>
-            <div class="prompt">
-              <span class="prompt-label">Beispiel-Prompt · ein Format nach Vorlage</span>
-              <p>
-                „Hier ist die gemeinsame Form und ein fertiges Ausleseprogramm für Lieferant A als
-                Vorbild. Bau nach demselben Muster eines für Lieferant B. Die Posten beginnen nach
-                der Zeile ‚Pos. Bezeichnung Menge Preis' und enden vor ‚Zwischensumme'. Halte dich
-                an die vorgegebene Rückgabe und erfinde keine Felder. Zeig mir zuerst, wie du die
-                Zeilen mit Posten erkennen willst."
-              </p>
-            </div>
-
-            <h2>Wo ich die KI ausbremsen musste</h2>
-            <p>
-              Anfangs wollte die KI unbedingt clever sein — ein einziges Programm für alle sechs
-              Formate. Das klingt gut und wird zur Falle. So ging das Gespräch:
-            </p>
-            <div class="exchange">
-              <span class="exchange-label">So lief das wirklich · ein Programm oder sechs?</span>
-              <div class="turn turn-me">
-                <span class="turn-who">Ich</span>
-                <p>Wir haben sechs Rechnungsformate. Ich brauche etwas, das aus jedem die Posten herausliest.</p>
-              </div>
-              <div class="turn turn-ai">
-                <span class="turn-who">KI</span>
-                <p>Am elegantesten ist ein einziges, universelles Programm mit ein paar Wenn-dann-Regeln, das alle sechs Formate erkennt. Dann hast du nur eine Datei zu pflegen.</p>
-              </div>
-              <div class="turn turn-me turn-push">
-                <span class="turn-who">Ich</span>
-                <p>Nein — genau das habe ich schon mal gebaut und wieder eingerissen. Mit jedem neuen Format wird dieses eine Programm unübersichtlicher, und eine Änderung für Lieferant C zerschießt plötzlich die Erkennung bei A. Ich will das Gegenteil: ein <em>eigenes</em> kleines Programm pro Format, alle mit derselben gemeinsamen Form. Ein neuer Lieferant heißt dann: ein neues kleines Programm — und der Rest bleibt unangetastet.</p>
-              </div>
-              <div class="turn turn-ai">
-                <span class="turn-who">KI</span>
-                <p>Klar, das ist robuster. Dann definiere ich die gemeinsame Rückgabe einmal und baue je Lieferant ein getrenntes Ausleseprogramm dagegen.</p>
-              </div>
-            </div>
-            <p>
-              Die KI optimiert auf „elegant" und „wenig Dateien". Ich optimiere darauf, dass mir in
-              einem halben Jahr nicht das ganze Haus einstürzt, wenn ein Lieferant sein Layout
-              ändert. Diese Erfahrung kann sie nicht haben — ich schon.
-            </p>
-
-            <h2>Die eine Prüfung, die fast alle Fehler fängt</h2>
-            <p>
-              Jede Auslese muss sich beweisen: Ich addiere die herausgelesenen Posten und vergleiche
-              die Summe mit dem Betrag, der unten auf der Rechnung steht. Passt beides nicht
-              zusammen, wird der Beleg zur Kontrolle markiert — statt still eine falsche Zahl in die
-              Auswertung zu tragen. Diese einzige Prüfung fängt den Großteil aller Auslesefehler ab.
-            </p>
-
-            <h2>Das Sicherheitsnetz</h2>
-            <p>
-              Eine mitlaufende Liste merkt sich, welche Belege schon verarbeitet wurden. Dadurch
-              darf die Verarbeitung jederzeit erneut laufen, ohne etwas doppelt zu zählen. Pro Beleg
-              entstehen ein Eintrag in der Übersicht und die einzelnen Posten als Tabelle, die das
-              nachgelagerte <a href="gewerke-controlling.html">Gewerke-Controlling</a> direkt
-              weiterverwendet.
-            </p>
-
-            <h2>So baust du das selbst nach</h2>
-            <ol class="flow">
-              <li>
-                <strong>Jedes Format einmal in Ruhe anschauen.</strong> Öffne von jedem Absender
-                eine Rechnung und notier: Wo stehen Nummer, Datum, Posten, Summe? Welche
-                Sonderfälle gibt es?
-              </li>
-              <li>
-                <strong>Die gemeinsame Form festlegen.</strong> Entscheide, welche Felder am Ende
-                jede Rechnung liefern soll — für alle Absender gleich. Das ist dein Rahmen.
-              </li>
-              <li>
-                <strong>Pro Absender ein kleines Programm bauen lassen.</strong> Immer eines nach
-                dem anderen, immer gegen dieselbe Form, mit einem fertigen als Vorbild.
-              </li>
-              <li>
-                <strong>Gegen die Summe prüfen.</strong> Lass die Posten aufaddieren und mit dem
-                Rechnungsbetrag vergleichen. Weicht es ab, markieren statt durchwinken.
-              </li>
-              <li>
-                <strong>Erledigte Belege merken.</strong> Führ eine Liste der schon verarbeiteten
-                Belege, damit ein erneuter Lauf nichts doppelt zählt.
-              </li>
-            </ol>
-
-            <h2>Was sich auf andere Projekte übertragen lässt</h2>
-            <p>
-              „Ein kleines Programm je Format, eine gemeinsame Form darüber" trägt überall, wo
-              fremde Formate zusammenkommen — die <a href="lead-automation.html">Lead-Automation</a>
-              nutzt genau dieselbe Idee für ihre Mail-Kanäle. Und die Summenprüfung ist ein gutes
-              Beispiel für eine Kontrolle, die ein Ergebnis nicht nur liefert, sondern auch belegt.
+          <div>
+            <p class="eyebrow">Baut auf dem Sync auf · Pipeline</p>
+            <h1>Vom Zahlungseingang zur bestätigten Rechnung</h1>
+            <p class="lead">
+              „Ist die Zahlung des Kunden schon eingegangen?" Diese Frage bedeutete bisher:
+              Bankkonto prüfen, die passende Rechnung suchen, die Zahlung von Hand in der
+              Buchhaltung eintragen und dem Kunden eine Bestätigung schicken. Jeder Vorgang
+              dauerte nur Minuten — bei vielen Rechnungen wurde daraus trotzdem ein erheblicher
+              Zeitaufwand. Ich habe daraus eine Pipeline gebaut, die Zahlungseingänge vom
+              Qonto-Konto abruft, Rechnungsnummern im Verwendungszweck erkennt, jede Zahlung
+              gegen den HERO-Rechnungsbestand prüft, sie verbucht und die Bestätigung
+              verschickt. Kein Schritt läuft dabei blind: Unklare Fälle stoppen und landen in
+              einer manuellen Prüfliste.
             </p>
           </div>
-
           <aside>
             <ul class="fact-list">
-              <li><strong>Was du hier lernst</strong>Ein fremdes Format erst verstehen, dann bauen; ein kleines Programm je Format; jede Auslese gegen eine Summe prüfen; erledigte Belege merken</li>
-              <li><strong>Liefert an</strong><a href="gewerke-controlling.html">Gewerke-Controlling</a> als vorgelagerte Quelle</li>
-              <li><strong>Kernideen</strong>ein Ausleseprogramm je Lieferant · Liste erledigter Belege · Summenprüfung</li>
+              <li><strong>Ausgangslage</strong>Zahlungseingänge mussten von Hand geprüft, der passenden Rechnung zugeordnet, in der Buchhaltung eingetragen und dem Kunden bestätigt werden.</li>
+              <li><strong>Erster Versuch</strong>Ein Parser las die Benachrichtigungsmails der alten Bank aus — das funktionierte, hing aber am Aufbau einer E-Mail statt am Konto selbst.</li>
+              <li><strong>Entscheidende Verbesserung</strong>Wechsel auf eine Bank mit API, Abgleich gegen einen vor jedem Lauf aktualisierten HERO-Rechnungsbestand und ein Archiv, das jede verarbeitete Transaktion kennt.</li>
+              <li><strong>Ergebnis</strong>Eindeutige Zahlungen werden automatisch zugeordnet, in HERO verbucht, per E-Mail bestätigt und archiviert. Unklare Fälle gehen in die manuelle Prüfliste.</li>
+              <li><strong>Technik</strong>Python · pandas · Qonto-API · GraphQL · Selenium · SMTP/IMAP · Streamlit</li>
             </ul>
             <p class="note">
-              <strong>Öffentliches Repo:</strong> Demo mit synthetischen Belegen je Profil.
-              Echte Rechnungen, Bankdaten und die Postfach-Automatisierung bleiben privat.
+              <strong>Öffentliche Version:</strong> Das Repo zeigt den Kern der Pipeline —
+              Rechnungsnummern aus Freitext erkennen, Zahlungen zuordnen, Teil- und
+              Sammelzahlungen berechnen — mit synthetischen Daten und Tests. Bankanbindung,
+              HERO-Verbuchung und Mailversand bleiben privat.
             </p>
             <div class="repo-links">
-              <a class="btn btn-primary" href="https://github.com/lygonian/rechnungsparser-haendler" rel="noopener">Code auf GitHub</a>
+              <a class="btn btn-primary" href="https://github.com/lygonian/debitoren-matching" rel="noopener">Code auf GitHub</a>
             </div>
           </aside>
         </div>
@@ -205,9 +69,470 @@
 
     <section class="section">
       <div class="container">
+        <div class="prose prose--wide">
+
+          <p>
+            Diese Fallstudie zeigt, wie aus einer wiederkehrenden Backoffice-Frage ein
+            kontrollierter Ablauf wurde: vom ersten E-Mail-Parser über die Bank-API und die
+            Abgleichlogik bis zur Browser-Automatisierung, die Zahlungen in HERO einträgt —
+            mit klaren Stopppunkten überall dort, wo ein Fehler teurer wäre als Handarbeit.
+          </p>
+
+          <h2>1. Der ganze Ablauf sollte automatisch laufen — nicht nur ein Teil</h2>
+          <p>
+            Das Ziel war nicht nur, Kontobewegungen einzulesen. Der gesamte Weg einer Zahlung
+            sollte automatisiert werden:
+          </p>
+          <ol class="flow">
+            <li><strong>Aktuelle Rechnungen aus HERO laden</strong></li>
+            <li><strong>Neue Zahlungseingänge aus Qonto abrufen</strong></li>
+            <li><strong>Rechnungsnummern aus dem Verwendungszweck erkennen</strong></li>
+            <li><strong>Zahlungen mit Rechnungen und früheren Zahlungen abgleichen</strong></li>
+            <li><strong>Korrekte Zahlungen in HERO verbuchen</strong></li>
+            <li><strong>Dem Kunden eine passende Zahlungsbestätigung senden</strong></li>
+            <li><strong>Alle bearbeiteten Vorgänge archivieren</strong></li>
+          </ol>
+          <p>
+            Dabei durfte kein Schritt blind ausgeführt werden. Eine falsch zugeordnete oder
+            doppelt verbuchte Zahlung wäre problematischer gewesen als die bisherige manuelle
+            Arbeit.
+          </p>
+
+          <h2>2. Der erste Ansatz: Zahlungsdaten aus E-Mails lesen</h2>
+          <p>
+            Unser früheres Geschäftskonto lief über Finom. Für meinen Anwendungsfall stand
+            dort keine geeignete API zur Verfügung. Die KI schlug deshalb vor, die
+            Benachrichtigungsmails über neue Zahlungseingänge auszulesen. Diese E-Mails hatten
+            einen weitgehend festen Aufbau und ließen sich mit einem Parser verarbeiten —
+            einem kleinen Programm, das Text nach festen Feldern absucht:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Wonach der Mail-Parser suchte</span>
+            <pre><code>Betrag:
+Absender:
+Verwendungszweck:
+Buchungsdatum:</code></pre>
+          </div>
+          <p>
+            Das funktionierte grundsätzlich — war aber keine gute dauerhafte Lösung. Eine
+            Benachrichtigungsmail enthält nur die Informationen, die der Anbieter dort
+            einfügt, und schon eine kleine Änderung am Mailformat kann den Parser unbemerkt
+            beschädigen. Die Automatisierung hing damit am Aufbau einer E-Mail statt am
+            Bankkonto selbst.
+          </p>
+
+          <h2>3. Der Wechsel auf eine Bank mit API</h2>
+          <p>
+            Später wechselten wir zu Qonto. Dort lassen sich die Transaktionen direkt über
+            eine API abrufen. Das Programm baut eine Qonto-Session mit API-Zugangsdaten auf,
+            ermittelt das zu verwendende Bankkonto und lädt die Transaktionen seitenweise.
+            Der tägliche Lauf betrachtet nur die neuesten Einträge und verarbeitet daraus
+            ausschließlich Gutschriften:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Nur eingehende Zahlungen</span>
+            <pre><code>side == "credit"</code></pre>
+          </div>
+          <p>Für jede Gutschrift werden die Angaben übernommen, die später für die Zuordnung gebraucht werden:</p>
+          <ul>
+            <li><code>settled_at</code> — Eingangsdatum der Zahlung</li>
+            <li><code>reference</code> — Verwendungszweck für die Rechnungsnummern-Erkennung</li>
+            <li><code>amount</code> — Überweisungsbetrag</li>
+            <li><code>label</code> — Absender beziehungsweise Kontobezeichnung</li>
+            <li><code>id</code> — eindeutige Qonto-Transaktions-ID</li>
+          </ul>
+          <p>
+            Die API liefert allerdings nicht automatisch nur neue Zahlungen. Es bestand also
+            die Gefahr, dass bereits bearbeitete Zahlungseingänge beim nächsten Durchlauf
+            erneut verarbeitet werden. Als Schutz gibt es ein Archiv in
+            <code>processed_transactions.csv</code>: Darin steht jede bearbeitete Transaktion
+            mit ihrer eindeutigen <code>qonto_id</code>. Vor jedem Lauf prüft das Programm:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Die Frage vor jeder Verarbeitung</span>
+            <pre><code>Ist diese qonto_id bereits im Archiv vorhanden?</code></pre>
+          </div>
+          <p>
+            Nur unbekannte Transaktionen werden weiterverarbeitet. Erst nach Verbuchung,
+            Mailversand oder bewusster manueller Einordnung wandert eine Transaktion ins
+            Archiv. Das macht den Prozess idempotent: Ein Lauf kann jederzeit erneut starten,
+            ohne dieselbe Zahlung doppelt zu bearbeiten. Das Archiv funktioniert wie eine
+            Abhakliste — was bereits einen Haken hat, wird nicht noch einmal angefasst.
+          </p>
+
+          <h2>4. Der Rechnungsbestand aus HERO</h2>
+          <p>
+            Damit Zahlungen nicht nur anhand einer Nummer, sondern gegen echte Rechnungsdaten
+            geprüft werden, baut die Pipeline vor dem Abgleich einen aktuellen
+            Rechnungsbestand auf. Dafür nutzt sie die HERO-GraphQL-API — denselben
+            Programmzugang, den schon der <a href="crm-sync.html">CRM-Sync</a> verwendet —
+            und synchronisiert drei Datenbereiche:
+          </p>
+          <ul>
+            <li><strong>Kontakte</strong> — Name, E-Mail-Adresse, Kundennummer, Telefonnummer</li>
+            <li><strong>Dokumente</strong> — Rechnungsnummer, Status, Bruttowert, Link zur Rechnung</li>
+            <li><strong>Projekte</strong> — Projektnummer und Projektzuordnung</li>
+          </ul>
+          <p>
+            Der Sync ist inkrementell: Bekannte Einträge werden über ihre ID und das
+            Änderungsdatum verglichen, nur Neues oder Geändertes wird nachgeladen. Aus den
+            Dokumenten übernimmt der Code anschließend nur echte, gültige Rechnungen:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Filterregeln für gültige Rechnungen</span>
+            <pre><code>localized_type enthält "Rechnung"
+localized_type ist nicht "Stornorechnung"
+status_code ist nicht 0, 1000 oder 600
+
+brutto = value + vat</code></pre>
+          </div>
+          <p>
+            Danach werden Rechnungen, Kontakte und Projekte zusammengeführt. So entsteht
+            <code>rechnungen.csv</code> — mit Rechnungsnummer, Bruttobetrag, Link zur
+            Rechnung, Kundenname, E-Mail-Adresse, Kunden- und Projektnummer. Die Pipeline
+            arbeitet damit nicht gegen eine alte Exportdatei, sondern gegen einen vor jedem
+            Lauf aktualisierten Bestand.
+          </p>
+
+          <h2>5. Rechnungsnummern aus unterschiedlichen Verwendungszwecken erkennen</h2>
+          <p>
+            Viele Kunden wussten nicht genau, was sie in den Verwendungszweck schreiben
+            sollten. Deshalb ergänzten wir auf unseren Rechnungen eine eindeutige Anweisung —
+            danach trugen nahezu alle Kunden die Rechnungsnummer ein. Die Schreibweise war
+            trotzdem alles andere als einheitlich:
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/rechnungsnummer.png" alt="Screenshot der Zahlungsanweisung auf einer Rechnung mit dem Hinweis, die Rechnungsnummer im Verwendungszweck anzugeben">
+            <figcaption>
+              <span class="fig-label"><span class="fig-num">Abb. 1</span>Die Anweisung auf der Rechnung</span>
+              Ein klarer Hinweis auf der Rechnung sorgte dafür, dass fast alle Kunden die
+              Rechnungsnummer in den Verwendungszweck schrieben.
+            </figcaption>
+          </figure>
+          <div class="codeblock">
+            <span class="codeblock-label">Ein Betrag, viele Schreibweisen</span>
+            <pre><code>RE-260123
+re 260123
+Rechnung RE260123
+Rechnung Nr. 260123
+Rg. 260123
+RE-260123 und 260124
+RE-260139, 260138, 260137</code></pre>
+          </div>
+          <p>
+            Eine einfache Textsuche reichte dafür nicht. Der finale Code nutzt einen
+            regulären Ausdruck — ein präzises Suchmuster für Text —, der verschiedene
+            deutsche Bezeichnungen für Rechnungen erkennt: <code>Rechnung</code>,
+            <code>Rechnungsnummer</code>, <code>ReNr</code>, <code>Rg</code>,
+            <code>Teilrechnung</code>, <code>Schlussrechnung</code>, <code>RE-</code> und
+            weitere. Dazu kommt eine Fortsetzungslogik für Aufzählungen: Wurde zuerst eine
+            echte Rechnungsnummer erkannt, werden auch nackte Folgezahlen hinter
+            Trennzeichen wie Komma, <code>&amp;</code>, <code>+</code> oder „und" übernommen.
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Aufzählungen und Normalisierung</span>
+            <pre><code>"RE-260139, 260138, 260137"
+  -&gt; ["RE-260139", "RE-260138", "RE-260137"]
+
+"Rechnung Nr. 260123"  -&gt;  "RE-260123"
+"re 260123"            -&gt;  "RE-260123"</code></pre>
+          </div>
+          <p>
+            Vollständig unklare oder fehlende Rechnungsnummern werden nicht geraten — sie
+            landen in einer manuellen Prüftabelle. Entwickelt habe ich das Suchmuster mit der
+            KI, aber immer anhand konkreter Beispiele:
+          </p>
+          <div class="prompt">
+            <span class="prompt-label">Beispiel-Prompt · Rechnungsnummern erkennen</span>
+            <p>
+              „Hier sind Beispiele für Verwendungszwecke aus Überweisungen:
+              <code>RE-260123</code>, <code>Rechnung Nr. 260123</code>,
+              <code>Rg. 260123</code>, <code>RE-260139, 260138, 260137</code>.
+              Schreib mir eine Python-Funktion, die alle enthaltenen Rechnungsnummern
+              findet und in die Form RE-XXXXXX bringt. Rate nichts: Wenn keine Nummer
+              sicher erkennbar ist, gib eine leere Liste zurück. Erkläre mir das
+              Suchmuster Stück für Stück."
+            </p>
+          </div>
+
+          <h2>6. Matching: nur Treffer, die in HERO wirklich existieren</h2>
+          <p>Nach der Erkennung gibt es zwei Wege:</p>
+          <ul>
+            <li>Zahlungen <strong>ohne</strong> erkannte Rechnungsnummer gehen direkt in die manuelle Prüftabelle <code>df_manuell</code>.</li>
+            <li>Zahlungen <strong>mit</strong> Rechnungsnummer werden gegen <code>rechnungen.csv</code> gematcht.</li>
+          </ul>
+          <p>
+            Eine Überweisung mit drei Rechnungsnummern wird dafür zunächst in drei Prüfzeilen
+            aufgeteilt. Damit der Überweisungsbetrag dadurch nicht versehentlich verdreifacht
+            wird, setzt der Code bei Duplikaten derselben <code>qonto_id</code> den Betrag
+            vorerst auf <code>0,00</code> — die eigentliche Aufteilung passiert erst in der
+            Saldenberechnung. Das Matching selbst ist ein Merge, ein Zusammenführen zweier
+            Tabellen über eine gemeinsame Spalte:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Die Abgleichbedingung</span>
+            <pre><code>erkannte rechnungsnummer == rechnungsnummer_og aus HERO</code></pre>
+          </div>
+          <p>
+            Nur Treffer, die in HERO wirklich existieren, laufen automatisch weiter. Nummern,
+            die zwar im Verwendungszweck stehen, aber im Bestand nicht gefunden werden, landen
+            ebenfalls in <code>df_manuell</code>. Dort lassen sich Fälle korrigieren: Wer eine
+            Rechnungsnummer nachträgt, dessen Eingabe wird über die <code>qonto_id</code>
+            wieder der ursprünglichen Zahlung zugeordnet — und der Matching-Schritt kann
+            erneut laufen.
+          </p>
+
+          <h2>7. Neue Zahlungen, alte Zahlungen, offene Beträge</h2>
+          <p>
+            Eine gefundene Rechnungsnummer bedeutet noch nicht, dass die Zahlung korrekt oder
+            vollständig ist. Die Pipeline berechnet deshalb für jede Rechnung:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Die Grundformel</span>
+            <pre><code>zahlung_gesamt = zahlung_neu + zahlung_alt
+betrag_offen   = brutto - zahlung_gesamt</code></pre>
+          </div>
+          <p>
+            <code>zahlung_neu</code> ist die Summe der aktuell zugeordneten Zahlungen,
+            <code>zahlung_alt</code> die Summe früher archivierter Zahlungen zu derselben
+            Rechnung. Das Archiv ist damit nicht nur eine Liste erledigter Vorgänge, sondern
+            auch die Grundlage für Teilzahlungen: Hat ein Kunde früher bereits 5.000&nbsp;Euro
+            bezahlt und überweist jetzt weitere 3.000&nbsp;Euro, fließt die frühere Zahlung
+            als <code>zahlung_alt</code> in die Rechnung ein. Alle Beträge werden als Zahlen
+            eingelesen, fehlerhafte Werte auf <code>0,00</code> gesetzt und die Ergebnisse
+            auf zwei Nachkommastellen gerundet.
+          </p>
+
+          <h2>8. Sammelüberweisungen: verteilen, ohne zu raten</h2>
+          <p>Ein besonders fehleranfälliger Fall sind Überweisungen für mehrere Rechnungen auf einmal:</p>
+          <div class="codeblock">
+            <span class="codeblock-label">Eine Zahlung, drei Rechnungen</span>
+            <pre><code>Verwendungszweck: RE-260139, 260138, 260137
+Betrag:           12.000,00 Euro</code></pre>
+          </div>
+          <p>
+            Die Pipeline verteilt diesen Betrag weder gleichmäßig noch blind vollständig auf
+            jede Rechnung. Stattdessen wird chronologisch und restbetragsbasiert verteilt:
+            Für jede Rechnung wird zuerst der offene Rest berechnet, dann läuft der Code die
+            Rechnungen nacheinander durch:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Die Verteilregel</span>
+            <pre><code>rest_offen = brutto - historische Zahlungen
+zuteilung  = min(restbetrag_der_transaktion, rest_offen_der_rechnung)</code></pre>
+          </div>
+          <p>
+            Das Prinzip ist wie beim Einschenken aus einem Krug: Jedes Glas wird höchstens
+            bis zum Rand gefüllt, der Rest wandert ins nächste. Die Zuteilung wird nie
+            negativ, und Zeilen, die aus einer Sammelzahlung keinen Betrag erhalten, werden
+            entfernt — so taucht keine Rechnung mit <code>0,00&nbsp;Euro</code> künstlich als
+            bezahlt auf. Einzelzahlungen behandelt der Code bewusst anders: Bei nur einer
+            Rechnungsnummer bleibt der originale Überweisungsbetrag erhalten. Dadurch sieht
+            man sofort, ob der Kunde zu wenig oder zu viel überwiesen hat.
+          </p>
+
+          <h2>9. Stopppunkte: Vor dem Verbuchen wird geprüft, nicht gehofft</h2>
+          <p>
+            Nach dem Abgleich stehen zwei Tabellen bereit: <code>df_final</code> mit
+            automatisch zugeordneten Zahlungen, die verbucht werden können, und
+            <code>df_manuell</code> mit allem, was keine erkennbare oder passende
+            Rechnungsnummer hat. Zusätzlich markiert die Oberfläche problematische Fälle:
+          </p>
+          <ul>
+            <li><code>betrag_offen &lt; 0</code> — Überzahlung, der Betrag muss geprüft werden</li>
+            <li>keine gültige E-Mail-Adresse — die Bestätigung kann nicht sicher versendet werden</li>
+            <li><code>hero_eintrag</code> beginnt mit <code>fehler:</code> — der Eintrag in HERO ist fehlgeschlagen</li>
+            <li><code>gesendet</code> beginnt mit <code>fehler:</code> — der Mailversand ist fehlgeschlagen</li>
+          </ul>
+          <p>
+            Vor dem Verbuchen muss aktiv bestätigt werden, dass Rechnungsnummern, Beträge und
+            E-Mail-Adressen geprüft wurden. Die Automatisierung ist kein unsichtbarer
+            Hintergrundprozess, sondern eine kontrollierte Verarbeitung mit klaren
+            Stopppunkten.
+          </p>
+
+          <h2>10. Verbuchen in HERO: eine Browser-Automatisierung, kein Crawler</h2>
+          <p>
+            HERO stellt zwar eine API für viele Daten bereit — Zahlungseingänge ließen sich
+            darüber aber nicht eintragen. Dafür brauchte ich keinen Webcrawler, der Webseiten
+            besucht und Inhalte sammelt, sondern eine Browser-Automatisierung: Technisch
+            läuft das über Selenium, ein Werkzeug, das einen echten Browser fernsteuert. Der
+            Code öffnet Chrome, meldet sich bei HERO an, prüft nach dem Login, dass der
+            Browser nicht mehr auf der Login-Seite steht, und arbeitet dann die geprüfte
+            Tabelle ab:
+          </p>
+          <ol class="flow">
+            <li><strong>Rechnung über ihren Link öffnen</strong></li>
+            <li><strong>Zahlungsbereich aufrufen</strong></li>
+            <li><strong>Betrag eintragen</strong></li>
+            <li><strong>Zahlungsdatum im Kalender auswählen</strong></li>
+            <li><strong>Buchung speichern</strong></li>
+            <li><strong>Erfolg kontrollieren</strong></li>
+          </ol>
+
+          <h2>11. Abbruch statt falscher Buchung</h2>
+          <p>
+            Die Automatisierung darf nicht einfach weiterklicken, wenn sich die Oberfläche
+            anders verhält als erwartet. Vor und nach jedem wichtigen Schritt werden deshalb
+            Bedingungen geprüft:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Die Kontrollfragen der Automatisierung</span>
+            <pre><code>Ist der Login erfolgreich?
+Lässt sich die Rechnungsseite öffnen?
+Ist der Button zum Zahlungseintrag vorhanden?
+Ist das Zahlungsmodal sichtbar?
+Ist das Betragsfeld vorhanden?
+Lässt sich das Datum auswählen?
+Verschwindet das Modal nach dem Speichern?</code></pre>
+          </div>
+          <p>
+            Schlägt ein Schritt fehl, wird die Zeile nicht als erfolgreich markiert. Der Code
+            versucht den Eintrag einmal automatisch erneut; danach erhält die Zeile einen
+            Status wie <code>fehler: TimeoutException …</code>. Erfolgreiche Zeilen bleiben
+            als <code>erfolgreich</code> markiert — bei einem erneuten Versuch werden nur
+            noch fehlgeschlagene Zeilen verarbeitet. So wird verhindert, dass bereits
+            eingetragene Zahlungen erneut gebucht werden. Und solange es HERO- oder
+            Mailfehler gibt, wird der Durchlauf nicht automatisch archiviert: Erst wenn alles
+            erfolgreich war oder der Nutzer bewusst bestätigt, dass die Fehler manuell
+            erledigt wurden, wird das Archiv aktualisiert.
+          </p>
+
+          <h2>12. Die Zahlungsbestätigung an den Kunden</h2>
+          <p>
+            Erst nach erfolgreicher Prüfung und HERO-Verbuchung entsteht eine E-Mail an den
+            Kunden — mit Kundenname, Rechnungsnummer, Rechnungsbetrag, Zahlungsbetrag und,
+            falls noch etwas offen ist, dem Restbetrag. Bei vollständiger Zahlung enthält die
+            Mail den Hinweis, dass der offene Betrag beglichen wurde; bei Teilzahlung wird
+            der verbleibende Rest ausgewiesen.
+          </p>
+          <p>
+            Wichtig ist die Reihenfolge: Die Mail wird nur für Rechnungen gesendet, deren
+            HERO-Eintrag erfolgreich war. Fehlt eine erfolgreiche HERO-Zeile, erhält die
+            Gruppe den Status <code>übersprungen (hero-fehler)</code>. Mehrere Teilzahlungen
+            derselben Rechnung innerhalb eines Laufs werden zu einer Bestätigung
+            zusammengefasst — eine Mail pro Rechnungsnummer, nicht eine pro Tabellenzeile.
+            Der Versand läuft per SMTP, dem üblichen Weg, über den Programme E-Mails
+            verschicken. Zusätzlich legt der Code die gesendete Nachricht per IMAP — dem
+            Protokoll, mit dem Programme ein Postfach lesen und beschreiben — im
+            Gesendet-Ordner ab, damit die Kommunikation im Postfach nachvollziehbar bleibt.
+          </p>
+
+          <h2>13. Das Archiv ist das Gedächtnis der Pipeline</h2>
+          <p>
+            Am Ende werden <code>df_final</code> und die weiterhin manuellen Zeilen in
+            <code>processed_transactions.csv</code> geschrieben. Vor jeder Änderung entsteht
+            automatisch ein Backup:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Backup vor jeder Archivänderung</span>
+            <pre><code>processed_transactions_backup_YYYYMMDD_HHMMSS.csv</code></pre>
+          </div>
+          <p>
+            Danach werden neue und bestehende Zeilen zusammengeführt, Duplikate entfernt und
+            die Einträge nach Eingangsdatum sortiert. Dass auch manuell zu prüfende Zahlungen
+            archiviert werden, ist bewusst so gelöst: Eine Zahlung ohne passende
+            Rechnungsnummer soll beim nächsten Lauf nicht wieder als neu auftauchen — sie
+            bleibt im Archiv sichtbar, aber ohne erfolgreichen HERO- und Mailstatus.
+            Zusätzlich lässt sich die komplette Qonto-Historie nachladen, etwa bei der
+            Ersteinrichtung. Diese Nachtragung bucht nichts in HERO und verschickt keine
+            E-Mails — sie ergänzt nur historische Zahlungen, damit spätere Salden korrekt
+            berechnet werden.
+          </p>
+
+          <h2>14. Nutzbar gemacht mit Streamlit</h2>
+          <p>
+            Zum Schluss wurde die Pipeline für alle nutzbar gemacht — mit Streamlit, einem
+            Python-Werkzeug, das aus Skripten eine bedienbare Oberfläche im Browser macht.
+            Aus den ursprünglichen Notebooks entstand eine App mit drei Klicks:
+          </p>
+          <ol class="flow">
+            <li><strong>Daten laden</strong> — Rechnungen aus HERO, neue Zahlungseingänge aus Qonto.</li>
+            <li><strong>Zuordnen &amp; Berechnen</strong> — Matching und offene Restbeträge, beliebig oft wiederholbar.</li>
+            <li><strong>Verbuchen &amp; Versenden</strong> — HERO-Eintrag, Zahlungsbestätigungen, Archivierung.</li>
+          </ol>
+          <figure class="figure">
+            <img src="../assets/img/zahlungs-app.png" alt="Streamlit-Oberfläche der Zahlungs-App mit den drei Arbeitsschritten Daten laden, Zuordnen und Berechnen sowie Verbuchen und Versenden">
+            <figcaption>
+              <span class="fig-label"><span class="fig-num">Abb. 2</span>Die App im Browser</span>
+              Drei Schritte statt Notebooks: Die Oberfläche führt durch Laden, Zuordnen und
+              Verbuchen — und gibt jeden Schritt erst frei, wenn der vorherige erledigt ist.
+            </figcaption>
+          </figure>
+          <p>
+            Die App enthält einen Setup-Assistenten für Zugangsdaten, Verbindungstests für
+            Qonto, HERO und E-Mail, bearbeitbare Tabellen für Korrekturen, eine
+            E-Mail-Vorschau, einen Testmodus und eine Archivansicht. Niemand muss mehr den
+            Python-Code öffnen: Mitarbeitende bedienen den Prozess im Browser, prüfen die
+            kritischen Tabellen und starten die Automatisierung erst, wenn Rechnungsnummern,
+            Beträge und E-Mail-Adressen stimmen.
+          </p>
+
+          <h2>15. Wie die KI eingesetzt wurde</h2>
+          <p>
+            Die KI hat nicht den gesamten Prozess auf einmal erstellt. Ich zerlegte die
+            Aufgabe in einzelne Probleme:
+          </p>
+          <ol>
+            <li>Zahlungsdaten aus den Benachrichtigungsmails der alten Bank lesen</li>
+            <li>Später Qonto-Transaktionen über die API abrufen</li>
+            <li>Bereits verarbeitete Transaktionen über die <code>qonto_id</code> ausschließen</li>
+            <li>Rechnungen, Kontakte und Projekte aus HERO synchronisieren</li>
+            <li>Rechnungsnummern aus unzuverlässigen Verwendungszwecken erkennen</li>
+            <li>Teilzahlungen und Sammelüberweisungen berechnen</li>
+            <li>Unklare Fälle in eine manuelle Prüfliste verschieben</li>
+            <li>HERO über den Browser bedienen</li>
+            <li>Bestätigungsmails aus geprüften Daten erstellen</li>
+            <li>Den Zustand sicher archivieren</li>
+          </ol>
+          <p>
+            Für jeden Schritt stellte ich Beispiele bereit und testete die erzeugte Logik mit
+            historischen Daten. Fehler führten nicht dazu, dass der gesamte Code neu
+            geschrieben wurde — stattdessen wurde der jeweilige Schritt erweitert. So
+            entstand die Automatisierung aus mehreren kleinen, überprüfbaren Bausteinen.
+          </p>
+
+          <h2>16. Das Ergebnis — und was sich übertragen lässt</h2>
+          <p>Eindeutige Zahlungseingänge werden heute:</p>
+          <ul>
+            <li>über die Qonto-API erkannt,</li>
+            <li>über die <code>qonto_id</code> gegen bereits Verarbeitetes geprüft,</li>
+            <li>anhand der Rechnungsnummer zugeordnet,</li>
+            <li>mit HERO-Rechnungen und früheren Zahlungen abgeglichen,</li>
+            <li>bei Sammelzahlungen auf mehrere Rechnungen verteilt,</li>
+            <li>in HERO verbucht, per E-Mail bestätigt und im Archiv dokumentiert.</li>
+          </ul>
+          <p>
+            Unklare Zahlungen werden weiterhin manuell geprüft. Der entscheidende Teil war
+            deshalb nicht das automatische Klicken, sondern die Prüfungen zwischen den
+            Schritten: Ohne Rechnungsbestand, Archiv, Betragsabgleich, Restbetragslogik und
+            kontrollierte Abbrüche hätte die Automatisierung zwar schneller gearbeitet — aber
+            auch Fehler schneller verbreitet. Dasselbe Prinzip trägt die
+            <a href="lead-automation.html">Lead-Automation</a>: Fehler laut machen, statt
+            still falsche Daten zu erzeugen.
+          </p>
+          <p>
+            Wer eine vergleichbare Automatisierung baut, sollte nicht mit der Oberfläche
+            beginnen, sondern mit den Daten und ihren eindeutigen Kennzeichen. Für
+            Zahlungseingänge sind das vor allem: eine eindeutige Transaktions-ID, ein
+            aktueller Rechnungsbestand, klare Regeln für Rechnungsnummern, eine Liste bereits
+            verarbeiteter Vorgänge, eine manuelle Prüfliste für Ausnahmen, ein
+            nachvollziehbarer Status pro Schritt, Backups vor Archivänderungen — und ein
+            Abbruchmechanismus bei unerwarteten Zuständen. Eine gute Automatisierung
+            verarbeitet nicht jeden Fall zwanghaft automatisch. Sie erkennt zuverlässig,
+            welche Fälle sicher bearbeitet werden können und welche weiterhin einen Menschen
+            brauchen.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
         <div class="page-nav">
           <a href="../projekte.html">← Alle Projekte</a>
-          <a href="gewerke-controlling.html">Nächste Fallstudie: Gewerke-Controlling →</a>
+          <a href="pv-vertragsgenerator.html">Nächste Fallstudie: PV-Vertragsgenerator →</a>
         </div>
       </div>
     </section>
