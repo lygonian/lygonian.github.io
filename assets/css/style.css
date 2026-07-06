@@ -576,6 +576,31 @@ img { max-width: 100%; height: auto; }
 .feature--row.feature--flagship .feature-body > p { color: rgba(245, 245, 242, 0.82); max-width: 62ch; }
 .feature--row .card-tags { padding-top: 0; }
 
+/* Forschungsfelder: eine Karte pro Zeile, Text/Titel links, Bild rechts */
+.feature--research {
+  grid-column: span 6;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+}
+.feature--research .research-text { display: flex; flex-direction: column; }
+.feature--research .research-text > p:not(.eyebrow) {
+  color: var(--ink-2);
+  font-family: var(--serif);
+  line-height: 1.55;
+}
+.feature--research .card-tags { margin: 8px 0 16px; padding-top: 0; }
+.feature--research .card-cta { margin-top: auto; }
+.feature--research .research-figure {
+  margin: 0;
+  border: var(--bw) solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--paper-raise);
+}
+.feature--research .research-figure img { display: block; width: 100%; height: auto; }
+
 /* Flaggschiff: volle Breite, dunkel, führende Typografie */
 .feature--flagship {
   grid-column: span 6;
@@ -1318,6 +1343,7 @@ aside .note { margin-top: 14px; }
   .feature,
   .feature--third { grid-column: span 6; }
   .feature--row { grid-template-columns: 1fr; gap: 16px; }
+  .feature--research { grid-template-columns: 1fr; gap: 24px; }
   .feature--backbone { grid-template-columns: 1fr; }
   .feature--backbone .backbone-tag {
     border-left: 0;

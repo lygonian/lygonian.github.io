@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membranprotein-Biophysik &amp; FRET — Forschungsfeld I — Samet Kurt</title>
+  <meta name="description" content="Forschungsfeld I: Membranprotein-Biophysik und synthetische Membransysteme. FRET-basierte Sensoren für interfacial macromolecular crowding in Liposomen und Nanodiscs — Theorie, Methoden und was ich in der Bachelorarbeit (Kedrov-Gruppe, HHU) konkret gemacht habe.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="../index.html">Start</a>
+        <a href="../projekte.html">Projekte</a>
+        <a href="../ueber-mich.html">Über mich</a>
+        <a href="../ki-workflow.html">KI-Workflow</a>
+        <a href="../forschung.html" aria-current="true">Forschung</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../forschung.html">Forschung</a> / Membranprotein-Biophysik</p>
+        <div class="split">
+          <div>
+            <p class="eyebrow">Forschungsfeld I · Biophysik</p>
+            <h1>Crowding an Membranen sichtbar machen</h1>
+            <p class="lead">
+              Der Kern meines biophysikalischen Profils: Membran- und membranassoziierte
+              Proteinkonstrukte exprimieren, reinigen und in definierte Modellmembranen
+              einsetzen — und mit Fluoreszenz messen, was direkt an der Membranoberfläche
+              passiert. In der Bachelorarbeit ging es darum, molekulares Gedränge
+              (<em>interfacial macromolecular crowding</em>) an Membraninterfaces per FRET
+              messbar zu machen.
+            </p>
+          </div>
+          <aside>
+            <ul class="fact-list">
+              <li><strong>Zeitraum</strong>02/2019 – 08/2019 (Bachelorarbeit)</li>
+              <li><strong>Institution</strong>HHU Düsseldorf, Department of Biochemistry — AG Synthetic Membrane Systems</li>
+              <li><strong>Betreuung</strong>Jun.-Prof. Dr. Alexej Kedrov (Erstprüfer) · Prof. Dr. Claus A. M. Seidel (Zweitprüfer) · Dipl.-Ing. Maryna Löwe</li>
+              <li><strong>Note der Arbeit</strong>1,7</li>
+              <li><strong>Methoden</strong>FRET-Spektroskopie · Liposomen · Nanodiscs · Proteinexpression &amp; -reinigung · SEC · Ni-NTA · SDS-PAGE · Klonierung</li>
+            </ul>
+            <div class="repo-links">
+              <a class="btn btn-primary" href="../pdf/bachelor_thesis.pdf" rel="noopener">Bachelorarbeit (PDF)</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="prose prose--wide">
+
+          <figure class="figure">
+            <img src="../assets/img/forschung-membran.svg" alt="Schema eines FRET-Experiments an einer Lipiddoppelschicht: Donor- und Akzeptor-Fluorophor mit Energietransfer, ein eingebettetes Membranprotein und ein Liposom">
+            <figcaption>
+              Das Grundprinzip: Ein Donor- und ein Akzeptor-Fluorophor sitzen an einem
+              membranverankerten Konstrukt. Wie viel Energie der Donor auf den Akzeptor
+              überträgt (FRET), hängt vom Abstand ab — und damit davon, wie dicht es an der
+              Membranoberfläche zugeht.
+            </figcaption>
+          </figure>
+
+          <h2>Der wissenschaftliche Hintergrund</h2>
+          <p>
+            In einer Zelle ist es voll. Proteine, Lipide und gelöste Makromoleküle drängen
+            sich dicht an dicht, besonders unmittelbar an Membranoberflächen. Dieses Gedränge
+            — <em>macromolecular crowding</em> — ist kein Nebeneffekt, sondern beeinflusst,
+            wie Proteine falten, binden und miteinander reagieren. Direkt an der
+            Grenzfläche zwischen Membran und Wasser (dem <em>interface</em>) ist dieser Effekt
+            besonders schwer zu messen, weil man ein Werkzeug braucht, das genau dort, in
+            wenigen Nanometern Abstand, empfindlich ist.
+          </p>
+          <p>
+            Genau das leistet <strong>FRET</strong> (Förster-Resonanzenergietransfer). Zwei
+            Fluorophore — ein Donor und ein Akzeptor — tauschen Energie strahlungsfrei aus,
+            und zwar umso stärker, je näher sie beieinander liegen. FRET wirkt dadurch wie ein
+            molekulares Lineal im Nanometerbereich. Verändert sich die Umgebung an der
+            Membran, ändert sich der effektive Abstand oder die Ausrichtung der Fluorophore —
+            und das Verhältnis der beiden Fluoreszenzsignale verschiebt sich messbar.
+          </p>
+          <p>
+            Um solche Effekte kontrolliert zu untersuchen, reicht die komplexe echte Zelle
+            nicht. Man braucht <strong>synthetische Membransysteme</strong> mit bekannter
+            Zusammensetzung:
+          </p>
+          <ul>
+            <li><strong>Liposomen</strong> — künstliche Membranbläschen, in die sich Proteine einbauen lassen.</li>
+            <li><strong>Nanodiscs</strong> — kleine, von einem Gerüstprotein (MSP) stabilisierte Membranscheiben, die einzelne Membranproteine in einer definierten Lipidumgebung präsentieren.</li>
+            <li><strong>Membranverankerte Sensoren</strong> — Konstrukte wie SecE-SpyCatcher, die das FRET-Paar gezielt an die Membran koppeln.</li>
+          </ul>
+
+          <h2>Was ich dort gemacht habe</h2>
+          <p>
+            Meine Aufgabe war es, FRET-basierte Sensoren für dieses Crowding zu
+            charakterisieren — von der Herstellung der Proteine bis zur eigentlichen Messung.
+            Das umfasste die gesamte Kette:
+          </p>
+          <ol class="flow">
+            <li><strong>Konstrukte herstellen</strong> — Expression in <em>E. coli</em> und Reinigung mehrerer sensorischer und membranverankerter Konstrukte, darunter FRET-Sensoren, SecE-SpyCatcher, das Gerüstprotein MSP sowie EmrE-basierte Varianten.</li>
+            <li><strong>In Modellmembranen einsetzen</strong> — Rekonstitution von SecE-SpyCatcher in Proteoliposomen und Nanodiscs, damit die Sensoren in einer definierten Membranumgebung sitzen.</li>
+            <li><strong>Crowding auslösen und messen</strong> — FRET-basierte Auswertung der Crowding-Effekte, unter anderem nach Zugabe von PEG5000 als Crowding-Agens, über Fluoreszenz-Emissionsspektren und das Verhältnis der Donor-/Akzeptor-Signale.</li>
+            <li><strong>Sauber abgrenzen</strong> — systematisches Screening der FRET-Konstrukte, um freie von gebundenen Sensoren zu unterscheiden — nur so lässt sich das Signal richtig interpretieren.</li>
+          </ol>
+          <p>
+            Ein roter Faden dabei war <strong>Troubleshooting und Protokolloptimierung</strong>.
+            Proteinreinigung und Rekonstitution habe ich nicht nach Vorschrift abgearbeitet,
+            sondern dort nachgeschärft, wo Ausbeute oder Reinheit nicht stimmten.
+          </p>
+
+          <div class="note">
+            <strong>Beispiel für die Arbeitsweise:</strong> Bei Klonierung und Transformation
+            habe ich nicht einfach die Standardzeiten übernommen, sondern ein eigenes
+            Vergleichsexperiment aufgesetzt, die Inkubationszeiten halbiert und das Ergebnis
+            datengestützt präsentiert. Eine kleine Entscheidung — aber genau die Art
+            evidenzbasiertes Arbeiten, die ich heute auf Daten und Prozesse übertrage.
+          </div>
+
+          <h2>Schlüsselmethoden</h2>
+          <p>
+            Die Arbeit war methodisch breit und verband Molekularbiologie, Proteinbiochemie
+            und Biophysik:
+          </p>
+          <ul>
+            <li><strong>Fluoreszenz &amp; Biophysik:</strong> FRET-Spektroskopie, Fluoreszenz-Emissionsspektren, YFP/CFP-Ratio-Auswertung.</li>
+            <li><strong>Modellsysteme:</strong> Liposomen, Proteoliposomen, Nanodiscs, PEG5000-induziertes Crowding.</li>
+            <li><strong>Proteinbiochemie:</strong> E.-coli-Expression, Ni-NTA-Affinitätsreinigung, Größenausschlusschromatographie (ÄKTA/SEC), DDM-Solubilisierung, Ultrazentrifugation.</li>
+            <li><strong>Molekularbiologie:</strong> PCR, Gibson Assembly, Transformation, Sequenzierung.</li>
+            <li><strong>Analytik:</strong> SDS-PAGE, Coomassie, Fluoreszenzgel-Analyse.</li>
+          </ul>
+
+          <h2>Das Methodenfundament davor</h2>
+          <p>
+            Vorbereitet wurde diese Arbeit durch ein Forschungspraktikum am Lehrstuhl für
+            Biochemie (Lutz Schmitt, 07–10/2020), in dem ich die <strong>lösliche Domäne von
+            Akt1</strong> kloniert, exprimiert und aufgereinigt habe. Das klingt nach einem
+            Nebenschauplatz, war aber das proteinbiochemische Handwerk — Klonierung, heterologe
+            Expression, Chromatographie —, auf dem die biophysikalische Arbeit überhaupt erst
+            aufsetzen konnte.
+          </p>
+
+          <h2>Warum das hier steht</h2>
+          <p>
+            Dieses Feld zeigt, woher meine Arbeitsweise kommt: ein Signal erst dann glauben,
+            wenn Kontrollen und Abgrenzungen stimmen, und Protokolle nicht als gegeben
+            hinnehmen, sondern messbar verbessern. Dieselbe Haltung steckt heute in meinen
+            <a href="../projekte.html">Daten- und Automatisierungsprojekten</a> — nur ist das
+            Messsystem dort eine Pipeline statt eines Spektrometers.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="page-nav">
+          <a href="../forschung.html">← Alle Forschungsfelder</a>
+          <a href="redox-neurobiochemie.html">Forschungsfeld II: Redox- &amp; Neurobiochemie →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/lygonian" rel="noopener">GitHub</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../assets/js/atlas.js" defer></script>
+</body>
+</html>

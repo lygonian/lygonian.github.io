@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" role="img" aria-label="Schematische Darstellung eines FRET-Experiments an einer Lipiddoppelschicht: Donor- und Akzeptor-Fluorophor mit Energietransfer, eingebettetes Membranprotein und ein Liposom.">
+  <defs>
+    <pattern id="lipids" width="22" height="72" patternUnits="userSpaceOnUse">
+      <circle cx="11" cy="9" r="6" fill="#7cc4c9"/>
+      <line x1="11" y1="15" x2="11" y2="33" stroke="#7cc4c9" stroke-width="2"/>
+      <line x1="11" y1="57" x2="11" y2="39" stroke="#0f5a60" stroke-width="2"/>
+      <circle cx="11" cy="63" r="6" fill="#0f5a60"/>
+    </pattern>
+    <style>
+      .lab { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 15px; font-weight: 600; letter-spacing: .06em; fill: #656b70; }
+      .lab-a { fill: #0b464b; }
+    </style>
+  </defs>
+
+  <rect width="600" height="420" fill="#ffffff"/>
+  <rect x="20" y="20" width="560" height="380" rx="8" fill="#f7faf9"/>
+
+  <!-- Liposom oben links -->
+  <circle cx="118" cy="112" r="52" fill="none" stroke="#7cc4c9" stroke-width="10" opacity="0.55"/>
+  <circle cx="118" cy="112" r="40" fill="none" stroke="#0f5a60" stroke-width="4" opacity="0.35"/>
+  <text x="118" y="196" text-anchor="middle" class="lab">LIPOSOM</text>
+
+  <!-- Bilayer -->
+  <rect x="70" y="252" width="460" height="72" fill="url(#lipids)"/>
+
+  <!-- Eingebettetes Membranprotein -->
+  <rect x="250" y="236" width="96" height="104" rx="18" fill="#e7f0f0" stroke="#0f5a60" stroke-width="3"/>
+
+  <!-- Donor / Akzeptor mit FRET-Transfer -->
+  <circle cx="276" cy="262" r="13" fill="#7cc4c9" stroke="#0b464b" stroke-width="2.5"/>
+  <circle cx="320" cy="262" r="13" fill="#9a6a43" stroke="#6e4a2d" stroke-width="2.5"/>
+  <path d="M289 258 q15 -18 18 0" fill="none" stroke="#9a6a43" stroke-width="2.5" stroke-dasharray="4 4"/>
+  <path d="M300 236 l6 -9 l6 9" fill="none" stroke="#9a6a43" stroke-width="2.5"/>
+  <text x="298" y="360" text-anchor="middle" class="lab lab-a">FRET</text>
+
+  <!-- Beschriftung Membran -->
+  <text x="470" y="300" text-anchor="end" class="lab">MEMBRAN</text>
+  <line x1="480" y1="288" x2="500" y2="270" stroke="#656b70" stroke-width="1.5"/>
+</svg>
