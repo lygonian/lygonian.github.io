@@ -1,36 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
 /* ==========================================================================
-   Portfolio Samet Kurt — Designsystem „Analytische Ruhe"
-   Ruhe, Präzision, Hierarchie, Substanz. Sehr helles Neutralgrau als Grund,
-   fast-schwarzes Blaugrau für Text, ein tiefes Petrol als einziger Akzent,
-   stumpfes Kupfer nur als seltener Marker. Keine Dekoration ohne Funktion.
+   Portfolio Samet Kurt — Designsystem „Technisch-editorial"
+   Rein weißer Seitenhintergrund, ein zusammenhängender fast-schwarzer
+   Kopfbereich (Header + Hero), ein tiefes Petrol als primäre Akzentfarbe,
+   wenige kontrollierte Pastellflächen (blau, lila, mint), stumpfes Kupfer nur
+   als seltener Marker. Kein zusätzliches kräftiges Standardblau. Hierarchie
+   über Weißraum, Typografie und Flächen — Rahmen und Farbe sind sekundär.
    Statisch, ohne Build-Schritt.
    ========================================================================== */
 
 :root {
   /* --- Flächen ------------------------------------------------------------- */
-  --paper: #f5f5f2;          /* ruhiges, sehr helles Neutralgrau (Grundfläche) */
-  --paper-raise: #ffffff;    /* reine, erhöhte Fläche (Karten, Panels) */
-  --paper-sink: #edede9;     /* abgesenkte Fläche (alternierende Sektionen) */
-  --night: #14181b;          /* fast-schwarzes Blaugrau (dunkle Flächen) */
-  --night-2: #1b2023;        /* zweite dunkle Stufe (Footer) */
+  --paper: #ffffff;          /* rein weißer Seitenhintergrund */
+  --paper-raise: #ffffff;    /* erhöhte Fläche (Karten, Panels) */
+  --paper-sink: #f4f7f9;     /* sehr helle, kühle Fläche für alternierende Sektionen */
+  --night: #0b0d12;          /* fast schwarz — Header, Hero, dunkle Sektionen */
+  --night-2: #14181d;        /* zweite dunkle Stufe (Footer) */
 
   /* --- Text --------------------------------------------------------------- */
-  --ink: #1b2023;            /* Haupttext */
-  --ink-2: #474d52;          /* gedämpfter Text */
-  --ink-3: #656b70;          /* feiner Text / Metadaten (AA auf paper) */
+  --ink: #18202b;            /* Haupttext */
+  --ink-2: #3c4654;          /* gedämpfter Text */
+  --ink-3: #5f6977;          /* feiner Text / Metadaten (AA auf weiß) */
 
-  /* --- Akzent (genau einer) & seltener Sekundärmarker --------------------- */
-  --accent: #0f5a60;         /* tiefes Petrol — Charakterfarbe */
-  --accent-deep: #0b464b;    /* dunklere Stufe (Text/Hover, AA auf paper) */
+  /* --- Akzent (Petrol) & seltener Sekundärmarker ------------------------- */
+  --accent: #0f5a60;         /* tiefes Petrol — primäre Akzentfarbe */
+  --accent-deep: #0b464b;    /* dunklere Stufe (Text/Hover, AA auf weiß) */
   --accent-lite: #7cc4c9;    /* auf dunklem Grund lesbar */
-  --accent-wash: #e7f0f0;    /* sehr helle Tint-Fläche */
+  --accent-wash: #e7f0f0;    /* sehr helle Petrol-Tint-Fläche (= Pastellblau) */
   --copper: #9a6a43;         /* stumpfes Kupfer — nur winzige Marker */
 
+  /* --- Pastellflächen (fest, sehr hell, kontrastsicher) ------------------ */
+  --pastel-blue: #e7f0f0;    /* häufigste helle Pastellfläche */
+  --pastel-lilac: #f0edff;   /* sparsam zur Unterscheidung größerer Bereiche */
+  --pastel-mint: #edf7f3;    /* sparsam zur Unterscheidung größerer Bereiche */
+
   /* --- Linien ------------------------------------------------------------- */
-  --line: #e4e4de;           /* Haarlinie */
-  --line-strong: #d4d4cd;    /* stärkere Trennung */
+  --line: #dce5ec;           /* Haarlinie */
+  --line-strong: #c4d2dc;    /* stärkere Trennung */
 
   /* --- Typografie --------------------------------------------------------- */
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -47,10 +54,11 @@
   --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px;
 
   /* --- Maße --------------------------------------------------------------- */
-  --container: 1100px;
+  --container: 1200px;
   --bw: 1px;
-  --r-sm: 3px;
-  --r-md: 6px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;   /* Projektkarten */
 }
 
 /* --------------------------------------------------------------------------
@@ -165,10 +173,8 @@ img { max-width: 100%; height: auto; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(245, 245, 242, 0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: var(--bw) solid var(--line);
+  background: var(--night);
+  border-bottom: var(--bw) solid rgba(255, 255, 255, 0.08);
 }
 
 .site-header .container {
@@ -186,13 +192,13 @@ img { max-width: 100%; height: auto; }
   font-weight: 600;
   font-size: 1.05rem;
   letter-spacing: -0.01em;
-  color: var(--ink);
+  color: #fff;
 }
 
 .brand:hover,
-.brand:focus-visible { color: var(--ink); text-decoration: none; }
+.brand:focus-visible { color: #fff; text-decoration: none; }
 
-.brand-dot { color: var(--copper); }
+.brand-dot { color: var(--accent-lite); }
 
 .site-nav {
   display: flex;
@@ -202,7 +208,7 @@ img { max-width: 100%; height: auto; }
 
 .site-nav a {
   position: relative;
-  color: var(--ink-2);
+  color: rgba(255, 255, 255, 0.72);
   font-family: var(--sans);
   font-size: 0.92rem;
   font-weight: 500;
@@ -212,13 +218,13 @@ img { max-width: 100%; height: auto; }
 
 .site-nav a:hover,
 .site-nav a:focus-visible {
-  color: var(--accent-deep);
+  color: #fff;
   text-decoration: none;
 }
 
 .site-nav a[aria-current="page"],
 .site-nav a[aria-current="true"] {
-  color: var(--ink);
+  color: #fff;
   text-decoration: none;
 }
 
@@ -229,7 +235,13 @@ img { max-width: 100%; height: auto; }
   left: 12px;
   right: 12px;
   bottom: 2px;
-  border-top: 1px solid var(--accent);
+  border-top: 2px solid var(--accent-lite);
+}
+
+/* Auf dunklem Header hellen Fokusrahmen zeigen */
+.site-header a:focus-visible {
+  outline: 2px solid var(--accent-lite);
+  outline-offset: 2px;
 }
 
 /* --------------------------------------------------------------------------
@@ -278,21 +290,10 @@ img { max-width: 100%; height: auto; }
 }
 
 /* --------------------------------------------------------------------------
-   Hero — eine dominante Spalte, ruhige Prozess-Ebene darunter
+   Heroes — dunkler Kopfbereich, der sich optisch mit dem Header verbindet.
+   Drei Größen nach Seitentyp: .hero-intro (Startseite, groß),
+   .hero (normale Unterseite, kompakt), .page-hero (Projekt-/Detailseite, mittel).
    -------------------------------------------------------------------------- */
-
-.hero {
-  padding: clamp(52px, 8vw, 108px) 0 clamp(40px, 6vw, 72px);
-  border-bottom: var(--bw) solid var(--line);
-}
-
-.hero h1 {
-  font-size: var(--fs-hero);
-  max-width: 18ch;
-  margin-bottom: 0.4em;
-}
-
-.hero .lead { max-width: 56ch; }
 
 .lead {
   font-family: var(--serif);
@@ -309,46 +310,79 @@ img { max-width: 100%; height: auto; }
   margin-top: var(--s6);
 }
 
-/* --------------------------------------------------------------------------
-   Intro-Hero — dunkel, reiner Text. Hierarchie durch Typografie.
-   -------------------------------------------------------------------------- */
-
-.hero-intro {
+/* Gemeinsame dunkle Kopf-Basis für alle Hero-Varianten */
+.hero-intro,
+.hero,
+.page-hero {
   background: var(--night);
   color: var(--paper);
-  padding: clamp(48px, 7vw, 96px) 0 clamp(44px, 6vw, 84px);
-  border-bottom: var(--bw) solid var(--night);
+  border-bottom: none;
 }
 
-.hero-intro-text { max-width: 64ch; }
+.hero-intro .eyebrow,
+.hero .eyebrow,
+.page-hero .eyebrow { color: rgba(255, 255, 255, 0.62); }
+.hero-intro .eyebrow::before,
+.hero .eyebrow::before,
+.page-hero .eyebrow::before { border-color: var(--accent-lite); }
 
-.hero-intro .eyebrow { color: rgba(245, 245, 242, 0.62); margin-bottom: var(--s5); }
-.hero-intro .eyebrow::before { border-color: var(--accent-lite); }
+.hero-intro h1,
+.hero h1,
+.page-hero h1 { color: #fff; }
 
-.hero-intro h1 {
+.hero-intro .lead,
+.hero .lead,
+.page-hero .lead { color: rgba(255, 255, 255, 0.82); }
+
+/* Ghost-Buttons und Textlinks auf dunklem Hero */
+.hero-intro .btn-ghost,
+.hero .btn-ghost,
+.page-hero .btn-ghost {
+  border-color: rgba(255, 255, 255, 0.28);
   color: #fff;
-  font-size: clamp(2.1rem, 3.9vw, 3.3rem);
-  line-height: 1.12;
-  max-width: 26ch;
-  margin-bottom: 0.5em;
-}
-
-.hero-intro .lead {
-  color: rgba(245, 245, 242, 0.82);
-  max-width: 54ch;
-}
-
-.hero-intro .hero-actions { margin-top: var(--s6); }
-
-.hero-intro .btn-ghost {
-  border-color: rgba(245, 245, 242, 0.28);
-  color: var(--paper);
+  background: transparent;
 }
 .hero-intro .btn-ghost:hover,
-.hero-intro .btn-ghost:focus-visible {
+.hero-intro .btn-ghost:focus-visible,
+.hero .btn-ghost:hover,
+.hero .btn-ghost:focus-visible,
+.page-hero .btn-ghost:hover,
+.page-hero .btn-ghost:focus-visible {
   border-color: var(--accent-lite);
   color: #fff;
 }
+
+.hero-intro a:focus-visible,
+.hero a:focus-visible,
+.page-hero a:focus-visible {
+  outline: 2px solid var(--accent-lite);
+  outline-offset: 2px;
+}
+
+/* Startseite: großer Hero */
+.hero-intro {
+  padding: clamp(56px, 8vw, 104px) 0 clamp(48px, 7vw, 88px);
+}
+.hero-intro-text { max-width: 64ch; }
+.hero-intro .eyebrow { margin-bottom: var(--s5); }
+.hero-intro h1 {
+  font-size: var(--fs-hero);
+  line-height: 1.08;
+  max-width: 20ch;
+  margin-bottom: 0.45em;
+}
+.hero-intro .lead { max-width: 54ch; }
+
+/* Normale Unterseite: kompakter Hero */
+.hero {
+  padding: clamp(44px, 6vw, 76px) 0 clamp(36px, 5vw, 56px);
+}
+.hero h1 {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  max-width: 20ch;
+  margin-bottom: 0.4em;
+}
+.hero .lead { max-width: 60ch; }
 
 /* --------------------------------------------------------------------------
    Sektionen — Hierarchie durch Fläche und Typografie, nicht durch Dekor
@@ -361,6 +395,14 @@ img { max-width: 100%; height: auto; }
   border-top: var(--bw) solid var(--line);
   border-bottom: var(--bw) solid var(--line);
 }
+
+/* Helle Petrol-Pastellfläche für einen hervorgehobenen Abschnitt */
+.section-pastel {
+  background: var(--pastel-blue);
+  border-top: var(--bw) solid var(--line);
+  border-bottom: var(--bw) solid var(--line);
+}
+.section-lilac { background: var(--pastel-lilac); }
 
 .section-head {
   max-width: 64ch;
@@ -456,6 +498,144 @@ img { max-width: 100%; height: auto; }
 .card-cta a::after { content: " →"; }
 
 /* --------------------------------------------------------------------------
+   Projektkarten — das Bild füllt die ganze Karte, Text mit dunklem Verlauf
+   darüber. Standardkarte einspaltig; wichtige Projekte spannen zwei Spalten.
+   -------------------------------------------------------------------------- */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(340px, 46vw, 420px);
+  border: var(--bw) solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px -18px rgba(15, 30, 45, 0.4);
+}
+
+.project-card.is-clickable { cursor: pointer; }
+
+/* Bild als vollflächiger Hintergrund */
+.project-card-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--night);
+}
+
+.project-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dunkler Verlauf von unten für sicheren Textkontrast */
+.project-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(9, 12, 18, 0.96) 0%,
+    rgba(9, 12, 18, 0.86) 42%,
+    rgba(9, 12, 18, 0.52) 74%,
+    rgba(9, 12, 18, 0.14) 100%
+  );
+}
+
+.project-card-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(24px, 3.2vw, 32px);
+}
+
+.project-card .eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 3px rgba(9, 12, 18, 0.55);
+}
+.project-card .eyebrow::before { border-color: var(--accent-lite); }
+
+.project-card h3 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.35rem, 1.9vw, 1.5rem);
+  line-height: 1.25;
+  text-shadow: 0 1px 3px rgba(9, 12, 18, 0.45);
+}
+
+.project-card-body > p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.94);
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  text-shadow: 0 1px 3px rgba(9, 12, 18, 0.45);
+}
+
+/* Beschreibung auf kleinen Karten begrenzen, damit die Karte ruhig bleibt */
+.project-card:not(.project-card--wide) .project-card-body > p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.project-card .card-tags { margin: 2px 0 0; padding-top: 0; gap: 8px; }
+.project-card .tag {
+  background: rgba(9, 12, 18, 0.45);
+  border-color: rgba(255, 255, 255, 0.38);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 9px;
+}
+
+.project-card-link {
+  margin-top: 6px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--accent-lite);
+}
+.project-card-link::after { content: " →"; }
+
+/* Wichtiges Projekt (Bewässerung): volle Breite (zwei Spalten), höher,
+   Verlauf von links, Text auf der linken Hälfte. */
+.project-card--wide {
+  grid-column: 1 / -1;
+  min-height: clamp(340px, 38vw, 420px);
+}
+
+.project-card--wide .project-card-media::after {
+  background: linear-gradient(
+    90deg,
+    rgba(9, 12, 18, 0.92) 0%,
+    rgba(9, 12, 18, 0.78) 42%,
+    rgba(9, 12, 18, 0.28) 100%
+  );
+}
+
+.project-card--wide .project-card-body { max-width: 48ch; }
+.project-card--wide h3 { font-size: clamp(1.5rem, 2.4vw, 2.1rem); }
+
+/* --------------------------------------------------------------------------
    Feature-Grid — Hierarchie: Flaggschiff führt, Fundament als Band
    -------------------------------------------------------------------------- */
 
@@ -513,8 +693,6 @@ img { max-width: 100%; height: auto; }
   font-family: var(--serif);
   line-height: 1.55;
 }
-.feature--row.feature--flagship .feature-body > p { color: #fff; max-width: 62ch; }
-.feature--row.feature--flagship h3 { font-size: clamp(1.5rem, 2.4vw, 2.1rem); max-width: none; }
 .feature--row .card-tags { padding-top: 0; }
 
 /* Forschungsfelder: Titel links, Text rechts, breite Abbildung voll darunter */
@@ -547,23 +725,6 @@ img { max-width: 100%; height: auto; }
   border-top: var(--bw) solid var(--line);
   padding: 10px 14px 12px;
 }
-
-/* Flaggschiff: volle Breite, dunkel, führende Typografie */
-.feature--flagship {
-  grid-column: span 6;
-  background: var(--night);
-  border-color: var(--night);
-  border-top-color: var(--accent);
-  padding: clamp(30px, 3.6vw, 46px);
-}
-.feature--flagship h3 { color: #fff; font-size: clamp(1.9rem, 3.2vw, 2.8rem); max-width: 18ch; }
-.feature--flagship > p { color: #fff; max-width: 62ch; }
-.feature--flagship .eyebrow { color: #fff; }
-.feature--flagship .eyebrow::before { border-color: var(--accent-lite); }
-.feature--flagship .tag { color: #fff; border-color: rgba(255, 255, 255, 0.2); }
-.feature--flagship .card-cta { border-top-color: rgba(255, 255, 255, 0.14); }
-.feature--flagship .card-cta a { color: var(--accent-lite); }
-.feature--flagship:hover { box-shadow: 0 12px 40px -20px rgba(0, 0, 0, 0.6); }
 
 /* --------------------------------------------------------------------------
    Zweispalter, Prosa, Faktenliste
@@ -653,9 +814,9 @@ img { max-width: 100%; height: auto; }
    Projekt-Detailseiten
    -------------------------------------------------------------------------- */
 
+/* Projekt-/Detailseite: mittlerer Hero */
 .page-hero {
-  padding: clamp(46px, 6vw, 78px) 0 clamp(30px, 5vw, 52px);
-  border-bottom: var(--bw) solid var(--line);
+  padding: clamp(40px, 6vw, 72px) 0 clamp(36px, 5vw, 56px);
 }
 
 .page-hero h1 { font-size: var(--fs-h1); }
@@ -665,12 +826,55 @@ img { max-width: 100%; height: auto; }
   font-family: var(--mono);
   font-size: 0.76rem;
   letter-spacing: 0.03em;
-  color: var(--ink-3);
+  color: rgba(255, 255, 255, 0.55);
   margin-bottom: 22px;
 }
 
-.breadcrumb a { color: var(--ink-3); }
-.breadcrumb a:hover { color: var(--accent-deep); }
+.breadcrumb a { color: rgba(255, 255, 255, 0.55); }
+.breadcrumb a:hover { color: #fff; }
+
+/* Skill-Badges — kompakte technische Labels unter der Hero-Einleitung.
+   Dichte an technische GitHub-Badges angelehnt, aber eigene Gestaltung. */
+.project-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: var(--s5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border: var(--bw) solid rgba(124, 196, 201, 0.35);
+  border-radius: 5px;
+  background: rgba(15, 90, 96, 0.38);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Hero-Fuß: Hinweis zur öffentlichen Version + Repository-Verweis */
+.hero-meta {
+  margin-top: var(--s6);
+}
+
+.hero-meta .repo-links { margin-top: 0; }
+
+.hero-note {
+  margin: 14px 0 0;
+  max-width: 62ch;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.hero-note strong { color: #fff; font-weight: 600; }
 
 /* Nummerierter Ablauf — hier ist die Nummer inhaltlich (Reihenfolge) */
 .flow {
@@ -925,13 +1129,18 @@ aside .note { margin-top: 14px; }
 }
 .fig-credit { color: var(--ink-3); font-style: italic; }
 
-/* Inhaltsverzeichnis — anklickbare Kapitelübersicht */
+/* Inhaltsverzeichnis — anklickbare Kapitelübersicht, helle Pastellfläche */
 .toc {
   margin: 1.6em 0;
-  background: var(--paper-raise);
-  border: var(--bw) solid var(--line-strong);
+  background: var(--pastel-blue);
+  border: var(--bw) solid transparent;
   border-radius: var(--r-md);
-  padding: 18px 22px 20px;
+  padding: 20px 24px 22px;
+}
+
+.toc ol {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 28px;
 }
 
 .toc-label {
@@ -983,17 +1192,20 @@ aside .note { margin-top: 14px; }
 
 .toc a:hover { color: var(--accent-deep); border-bottom-color: var(--accent); }
 
-/* Originalzitat aus dem Projektverlauf — Chatnachricht oder Messwert */
+/* Originalzitat aus dem Projektverlauf — redaktionelle Komponente:
+   helle Pastellfläche, schmale Petrol-Linie links, keine Dekozeichen */
 .quote {
-  margin: 1.5em 0;
-  padding: 4px 0 4px 22px;
-  border-left: 2px solid var(--copper);
+  margin: 1.6em 0;
+  padding: 16px 22px 16px 22px;
+  background: var(--pastel-blue);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
 }
 
 .quote p {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 1.08rem;
+  font-size: 1.16rem;
   line-height: 1.6;
   color: var(--ink);
   margin: 0 0 8px;
@@ -1003,7 +1215,7 @@ aside .note { margin-top: 14px; }
   display: block;
   font-family: var(--sans);
   font-style: normal;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--ink-3);
 }
 
@@ -1181,6 +1393,11 @@ aside .note { margin-top: 14px; }
   .split { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 700px) {
+  .project-grid { grid-template-columns: 1fr; }
+  .toc ol { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 680px) {
   body { font-size: 1rem; }
 
@@ -1191,8 +1408,7 @@ aside .note { margin-top: 14px; }
   }
   .site-nav { gap: 0; margin: 0 -12px; }
 
-  .feature,
-  .feature--flagship { grid-column: 1 / -1; }
+  .feature { grid-column: 1 / -1; }
 
   .card, .feature { padding: 22px 22px 18px; }
 }

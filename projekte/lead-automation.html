@@ -29,39 +29,36 @@
     <section class="page-hero">
       <div class="container">
         <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / Lead-Automation</p>
-        <div class="split">
-          <div>
-            <p class="eyebrow">Fallstudie · E-Mail-Automatisierung</p>
-            <h1>Vom E-Mail-Lead zum CRM-Vorgang</h1>
-            <p class="lead">
-              Neue Anfragen kamen nicht direkt im CRM an, sondern als E-Mail: aus einem
-              Partnerportal oder aus dem Kontaktformular der eigenen Website. In beiden
-              Fällen enthielten die Nachrichten bereits Namen, Telefonnummern, Adressen und
-              Projektinformationen. Trotzdem mussten Mitarbeiter diese Angaben von Hand aus
-              dem Postfach kopieren und im CRM neu anlegen. Ich habe daraus einen
-              Python-Workflow gebaut, der ungelesene Lead-Mails erkennt, das passende
-              Mailformat ausliest, die Daten normalisiert und anschließend Kontakt, Projekt
-              und Notiz im CRM vorbereitet oder anlegt.
-            </p>
+        <p class="eyebrow">Fallstudie · E-Mail-Automatisierung</p>
+        <h1>Vom E-Mail-Lead zum CRM-Vorgang</h1>
+        <p class="lead">
+          Neue Anfragen kamen nicht direkt im CRM an, sondern als E-Mail: aus einem
+          Partnerportal oder aus dem Kontaktformular der eigenen Website. In beiden
+          Fällen enthielten die Nachrichten bereits Namen, Telefonnummern, Adressen und
+          Projektinformationen. Trotzdem mussten Mitarbeiter diese Angaben von Hand aus
+          dem Postfach kopieren und im CRM neu anlegen. Ich habe daraus einen
+          Python-Workflow gebaut, der ungelesene Lead-Mails erkennt, das passende
+          Mailformat ausliest, die Daten normalisiert und anschließend Kontakt, Projekt
+          und Notiz im CRM vorbereitet oder anlegt.
+        </p>
+        <ul class="project-skills">
+          <li class="skill-badge">Python</li>
+          <li class="skill-badge">IMAP</li>
+          <li class="skill-badge">BeautifulSoup</li>
+          <li class="skill-badge">GraphQL</li>
+          <li class="skill-badge">pytest</li>
+          <li class="skill-badge">Google People API</li>
+        </ul>
+        <div class="hero-meta">
+          <div class="repo-links">
+            <a class="btn btn-primary" href="https://github.com/lygonian/auto-leads" rel="noopener">Code auf GitHub</a>
+            <a class="btn btn-ghost" href="https://github.com/lygonian/google-contacts-sync" rel="noopener">Google-Kontakte-Sync</a>
           </div>
-          <aside>
-            <ul class="fact-list">
-              <li><strong>Ausgangslage</strong>Lead-Daten kamen regelmäßig per E-Mail an und mussten von Hand ins CRM übertragen werden.</li>
-              <li><strong>Erster Versuch</strong>Ein Python-Parser las die gleichbleibenden Felder aus einer Lead-Mail aus und überführte sie in eine gemeinsame Datenstruktur.</li>
-              <li><strong>Entscheidende Verbesserung</strong>Unterschiedliche Quellen werden getrennt behandelt: HTML-Tabellenmails eines Partnerportals und Schlüssel-Wert-Mails des Website-Formulars.</li>
-              <li><strong>Ergebnis</strong>Aus einer E-Mail entstehen ein CRM-Kontakt und das zugehörige Projekt. Freitextnachrichten können als Logbucheintrag übernommen werden.</li>
-              <li><strong>Technik</strong>Python · IMAP · BeautifulSoup · GraphQL · pytest · Google People API</li>
-            </ul>
-            <p class="note">
-              <strong>Öffentliche Version:</strong> Bereinigtes Python-Paket mit synthetischen
-              Beispielmails, Demo-Client und Tests — ohne echte Mailadressen, Zugangsdaten
-              oder Kundendaten.
-            </p>
-            <div class="repo-links">
-              <a class="btn btn-primary" href="https://github.com/lygonian/auto-leads" rel="noopener">Code auf GitHub</a>
-              <a class="btn btn-ghost" href="https://github.com/lygonian/google-contacts-sync" rel="noopener">Google-Kontakte-Sync</a>
-            </div>
-          </aside>
+          <p class="hero-note">
+            <strong>Öffentliche Version:</strong> Bereinigtes Python-Paket mit synthetischen
+            Beispielmails, Demo-Client und Tests — ohne echte Mailadressen, Zugangsdaten
+            oder Kundendaten.
+          </p>
         </div>
       </div>
     </section>

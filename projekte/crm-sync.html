@@ -29,35 +29,32 @@
     <section class="page-hero">
       <div class="container">
         <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / CRM-Sync-Bibliothek</p>
-        <div class="split">
-          <div>
-            <p class="eyebrow">Fallstudie · Datenzugriff</p>
-            <h1>Vom CRM-Formular zur Datengrundlage</h1>
-            <p class="lead">
-              Analysen und Automatisierungen brauchen Daten. In meinem Fall mussten diese
-              Daten nicht erst gesammelt werden: Kontakte, Projekte, Termine und Dokumente
-              lagen bereits in unserer CRM-Software HERO. Mitarbeiter hatten sie über Monate
-              und Jahre in einzelne Formulare eingetragen. Ich musste nur einen Weg finden,
-              sie nicht mehr Datensatz für Datensatz anzuklicken, sondern strukturiert
-              abzurufen.
-            </p>
+        <p class="eyebrow">Fallstudie · Datenzugriff</p>
+        <h1>Vom CRM-Formular zur Datengrundlage</h1>
+        <p class="lead">
+          Analysen und Automatisierungen brauchen Daten. In meinem Fall mussten diese
+          Daten nicht erst gesammelt werden: Kontakte, Projekte, Termine und Dokumente
+          lagen bereits in unserer CRM-Software HERO. Mitarbeiter hatten sie über Monate
+          und Jahre in einzelne Formulare eingetragen. Ich musste nur einen Weg finden,
+          sie nicht mehr Datensatz für Datensatz anzuklicken, sondern strukturiert
+          abzurufen.
+        </p>
+        <ul class="project-skills">
+          <li class="skill-badge">Python</li>
+          <li class="skill-badge">GraphQL</li>
+          <li class="skill-badge">pandas</li>
+          <li class="skill-badge">requests</li>
+          <li class="skill-badge">REST-API</li>
+          <li class="skill-badge">Inkrementeller Sync</li>
+        </ul>
+        <div class="hero-meta">
+          <div class="repo-links">
+            <a class="btn btn-primary" href="https://github.com/lygonian/hero-syncs" rel="noopener">Code auf GitHub</a>
           </div>
-          <aside>
-            <ul class="fact-list">
-              <li><strong>Ausgangslage</strong>Kontakte, Projekte, Termine und Dokumente lagen im CRM, aber nur über einzelne Masken und Ansichten erreichbar.</li>
-              <li><strong>Erster Versuch</strong>Eine kleine Python-Abfrage bewies, dass sich die Daten über die API abrufen und als Tabelle darstellen lassen.</li>
-              <li><strong>Entscheidende Verbesserung</strong>Statt bei jedem Lauf alles neu zu laden, prüft der Sync zuerst nur IDs und Änderungszeiten — vollständig geladen wird nur, was neu oder verändert ist.</li>
-              <li><strong>Ergebnis</strong>Eine Datenarchitektur für alle weiteren Analysen und Automatisierungen.</li>
-              <li><strong>Technik</strong>Python · GraphQL · pandas · requests</li>
-            </ul>
-            <p class="note">
-              <strong>Öffentliche Version:</strong> Demo-Client mit synthetischen Daten,
-              ohne Zugangsdaten, Kundendaten oder interne API-Details.
-            </p>
-            <div class="repo-links">
-              <a class="btn btn-primary" href="https://github.com/lygonian/hero-syncs" rel="noopener">Code auf GitHub</a>
-            </div>
-          </aside>
+          <p class="hero-note">
+            <strong>Öffentliche Version:</strong> Demo-Client mit synthetischen Daten,
+            ohne Zugangsdaten, Kundendaten oder interne API-Details.
+          </p>
         </div>
       </div>
     </section>

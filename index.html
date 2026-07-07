@@ -51,75 +51,143 @@
 
     <section class="section" id="projekte">
       <div class="container">
-        <h2>Projekte</h2>
-        <div class="prose">
+        <div class="section-head">
+          <p class="eyebrow">Ausgewählte Projekte</p>
+          <h2>Vom realen Problem zur funktionierenden Lösung</h2>
           <p>
-            Die bisher veröffentlichten Fallstudien stammen vor allem aus dem operativen
-            Unternehmensalltag: CRM-Synchronisation, Lead-Erfassung, Zahlungsabgleich und
-            Dokumenterzeugung. Sie zeigen nicht nur das Ergebnis, sondern den tatsächlichen Weg
-            dorthin: Ausgangslage, erste Ansätze, Schwächen, Entscheidungen und die Lösung, die
-            am Ende tragfähig war.
-          </p>
-          <p>
-            Inzwischen wird die Sammlung breiter: Das erste Projekt außerhalb der Software —
-            eine selbstgebaute Bewässerungsanlage mit ESP32 — ist nach demselben Prinzip
-            dokumentiert, mit allen Fehlversuchen und Kurswechseln. Weitere Themen aus Technik,
-            Handwerk und Alltag folgen.
+            Jede Fallstudie zeigt nicht nur das Ergebnis, sondern den Weg dorthin — mit
+            Fehlversuchen, Entscheidungen und der Lösung, die am Ende tragfähig war.
           </p>
         </div>
-        <p class="section-link"><a href="projekte.html">Zur Projektübersicht</a></p>
+        <div class="project-grid">
+
+          <article class="project-card project-card--wide" data-reveal>
+            <div class="project-card-media">
+              <img src="assets/img/bewaesserung-platine.jpg" alt="Fertig gelötete Lochrasterplatine mit vielen blauen Schraubklemmen, mehreren MOSFETs, einem ESP32-S3-Board und blauen Verbindungsdrähten">
+            </div>
+            <div class="project-card-body">
+              <p class="eyebrow">Elektronik &amp; Mikrocontroller</p>
+              <h3>Eine Bewässerungsanlage für die Zimmerpflanzen bauen</h3>
+              <p>
+                Aus zu vielen Pflanzen wurde ein Gerät aus Pumpen, Sensoren, einem ESP32 und
+                einer Weboberfläche — dokumentiert mit Löten, verpolten Bauteilen und
+                Kurswechseln.
+              </p>
+              <div class="card-tags">
+                <span class="tag">ESP32</span><span class="tag">Löten</span><span class="tag">Sensorik</span><span class="tag">Webserver</span>
+              </div>
+              <a class="project-card-link" href="projekte/bewaesserung.html">Zum Projekt</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-reveal>
+            <div class="project-card-media">
+              <img src="assets/img/crm-sync.png" alt="Screenshot einer CRM-Oberfläche: links ein Kontaktformular, rechts eine Tabelle synchronisierter Kontakte mit Beispieldaten">
+            </div>
+            <div class="project-card-body">
+              <p class="eyebrow">Datenzugriff · Python</p>
+              <h3>CRM-Daten automatisch abrufen und aktuell halten</h3>
+              <p>
+                Vom ersten API-Abruf bis zur wiederverwendbaren Sync-Bibliothek, die nur neue
+                und veränderte Datensätze vollständig lädt.
+              </p>
+              <div class="card-tags">
+                <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span>
+              </div>
+              <a class="project-card-link" href="projekte/crm-sync.html">Zur Fallstudie</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-reveal>
+            <div class="project-card-media">
+              <img src="assets/img/zahlungs-app.png" alt="Screenshot der Zahlungsbestätigungs-App mit den drei Schritten Daten laden, Zuordnen & Berechnen sowie Verbuchen & Versenden">
+            </div>
+            <div class="project-card-body">
+              <p class="eyebrow">Zahlungsabgleich · Pipeline</p>
+              <h3>Zahlungseingänge automatisch Rechnungen zuordnen</h3>
+              <p>
+                Zahlungen abrufen, Rechnungsnummern erkennen, prüfen und verbuchen — unklare
+                Fälle stoppen sichtbar statt blind durchzulaufen.
+              </p>
+              <div class="card-tags">
+                <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">Qonto-API</span>
+              </div>
+              <a class="project-card-link" href="projekte/rechnungs-pipeline.html">Zur Fallstudie</a>
+            </div>
+          </article>
+
+        </div>
+        <p class="section-link"><a href="projekte.html">Alle Projekte ansehen</a></p>
       </div>
     </section>
 
-    <section class="section section-alt" id="ki-workflow">
+    <section class="section section-pastel" id="ki-workflow">
       <div class="container">
-        <h2>KI-Workflow</h2>
-        <div class="prose">
+        <div class="section-head">
+          <p class="eyebrow">KI-Workflow</p>
+          <h2>Wie ich mit KI ein Thema erschließe und etwas daraus baue</h2>
           <p>
-            Unter KI-Workflow sammle ich die Arbeitsweisen, die sich über einzelne Projekte
-            hinweg bewährt haben: Projekte sinnvoll anlegen, KI personalisieren, Kontext
-            aufbauen, gute Prompts entwickeln, Ergebnisse prüfen und mit Iterationen arbeiten,
-            statt auf einen perfekten ersten Versuch zu hoffen.
-          </p>
-          <p>
-            Dieser Bereich ist im Aufbau und soll nach und nach zu einer praktischen Anleitung
-            für den produktiven Umgang mit KI werden.
+            Über einzelne Projekte hinweg hat sich dieselbe Arbeitsweise bewährt: klein
+            anfangen, im Dialog entwickeln, prüfen statt vertrauen.
           </p>
         </div>
-        <p class="section-link"><a href="ki-workflow.html">Zum KI-Workflow</a></p>
+        <ol class="flow">
+          <li><strong>Klein anfangen und selbst verstehen.</strong> Erst ein eigenes Bild vom
+            Problem, bevor die KI eine Lösung liefern soll.</li>
+          <li><strong>Im Gespräch entwickeln.</strong> Varianten durchspielen, Einwände einholen
+            — die Entscheidung bleibt bei mir.</li>
+          <li><strong>Prüfen und festhalten.</strong> Nichts gilt als richtig, weil die KI es
+            vorschlägt; geprüft wird an konkreten Beispielen.</li>
+        </ol>
+        <p class="section-link"><a href="ki-workflow.html">Zum vollständigen KI-Workflow</a></p>
       </div>
     </section>
 
     <section class="section" id="forschung">
       <div class="container">
-        <h2>Forschung</h2>
-        <div class="prose">
-          <p>
-            Mein ursprünglicher Hintergrund liegt in der Biochemie. Die Website enthält deshalb
-            auch einen eigenen Bereich zu meinen Forschungsthemen: Membranbiophysik, Redox- und
-            Neurobiochemie sowie Neuroimmunologie.
-          </p>
-          <p>
-            Die Forschung ist hier kein dekorativer Lebenslaufanhang, sondern ein eigenständiger
-            Teil meines Profils und meiner Interessen.
-          </p>
+        <div class="split">
+          <div class="prose">
+            <h2>Forschung</h2>
+            <p>
+              Mein ursprünglicher Hintergrund liegt in der Biochemie: Membranbiophysik, Redox-
+              und Neurobiochemie sowie Neuroimmunologie. Das ist hier kein dekorativer
+              Lebenslaufanhang, sondern ein eigenständiger Teil meines Profils.
+            </p>
+            <p class="section-link"><a href="forschung.html">Zur Forschungsseite</a></p>
+          </div>
+          <figure class="figure">
+            <img src="assets/img/forschung-membran.png" alt="Schema FRET-basierter Crowding-Sensoren: lösliche und membranverankerte Konstrukte aus CFP-Donor, YFP-Akzeptor und flexiblen Linkern, die Crowding an der Membrangrenzfläche über die FRET-Effizienz auslesen">
+            <figcaption>
+              <span class="fig-label">Abbildung 1</span> — FRET-basierte Crowding-Sensoren aus
+              meiner biophysikalischen Arbeit.
+              <span class="fig-credit">Eigene Darstellung.</span>
+            </figcaption>
+          </figure>
         </div>
-        <p class="section-link"><a href="forschung.html">Zur Forschungsseite</a></p>
       </div>
     </section>
 
     <section class="section section-alt" id="ueber-mich">
       <div class="container">
-        <h2>Kurz zu mir</h2>
-        <div class="prose">
-          <p>
-            Ich komme ursprünglich aus der Forschung und arbeite heute im operativen Umfeld an
-            Daten, Automatisierung und internen Werkzeugen. Vieles, was ich inzwischen in
-            Software, Prozessen und anderen Fachgebieten umsetze, habe ich mir projektbezogen
-            erarbeitet — zunehmend mit KI als Lern- und Arbeitswerkzeug.
-          </p>
+        <div class="split">
+          <div class="prose">
+            <h2>Kurz zu mir</h2>
+            <p>
+              Ich bin Biochemiker und habe mir das meiste, was ich heute technisch mache, selbst
+              beigebracht. Vieles, was ich inzwischen in Software, Prozessen und anderen
+              Fachgebieten umsetze, habe ich mir projektbezogen erarbeitet — zunehmend mit KI als
+              Lern- und Arbeitswerkzeug.
+            </p>
+            <p class="section-link"><a href="ueber-mich.html">Mehr über mich</a></p>
+          </div>
+          <aside>
+            <ul class="fact-list">
+              <li><strong>Ausbildung</strong>M.Sc. Biochemie</li>
+              <li><strong>Zertifizierung</strong>XDi Certified Data Scientist (2024)</li>
+              <li><strong>Schwerpunkt</strong>Datenpipelines, Automatisierung und Werkzeuge mit Python &amp; KI</li>
+            </ul>
+          </aside>
         </div>
-        <p class="section-link"><a href="ueber-mich.html">Mehr über mich</a></p>
       </div>
     </section>
 

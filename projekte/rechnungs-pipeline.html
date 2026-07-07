@@ -29,40 +29,38 @@
     <section class="page-hero">
       <div class="container">
         <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / Rechnungs-Pipeline</p>
-        <div class="split">
-          <div>
-            <p class="eyebrow">Fallstudie · Zahlungsabgleich</p>
-            <h1>Vom Zahlungseingang zur bestätigten Rechnung</h1>
-            <p class="lead">
-              „Ist die Zahlung des Kunden schon eingegangen?" Diese Frage bedeutete bisher:
-              Bankkonto prüfen, die passende Rechnung suchen, die Zahlung von Hand in der
-              Buchhaltung eintragen und dem Kunden eine Bestätigung schicken. Jeder Vorgang
-              dauerte nur Minuten — bei vielen Rechnungen wurde daraus trotzdem ein erheblicher
-              Zeitaufwand. Ich habe daraus eine Pipeline gebaut, die Zahlungseingänge vom
-              Qonto-Konto abruft, Rechnungsnummern im Verwendungszweck erkennt, jede Zahlung
-              gegen den HERO-Rechnungsbestand prüft, sie verbucht und die Bestätigung
-              verschickt. Kein Schritt läuft dabei blind: Unklare Fälle stoppen und landen in
-              einer manuellen Prüfliste.
-            </p>
+        <p class="eyebrow">Fallstudie · Zahlungsabgleich</p>
+        <h1>Vom Zahlungseingang zur bestätigten Rechnung</h1>
+        <p class="lead">
+          „Ist die Zahlung des Kunden schon eingegangen?" Diese Frage bedeutete bisher:
+          Bankkonto prüfen, die passende Rechnung suchen, die Zahlung von Hand in der
+          Buchhaltung eintragen und dem Kunden eine Bestätigung schicken. Jeder Vorgang
+          dauerte nur Minuten — bei vielen Rechnungen wurde daraus trotzdem ein erheblicher
+          Zeitaufwand. Ich habe daraus eine Pipeline gebaut, die Zahlungseingänge vom
+          Qonto-Konto abruft, Rechnungsnummern im Verwendungszweck erkennt, jede Zahlung
+          gegen den HERO-Rechnungsbestand prüft, sie verbucht und die Bestätigung
+          verschickt. Kein Schritt läuft dabei blind: Unklare Fälle stoppen und landen in
+          einer manuellen Prüfliste.
+        </p>
+        <ul class="project-skills">
+          <li class="skill-badge">Python</li>
+          <li class="skill-badge">pandas</li>
+          <li class="skill-badge">Qonto-API</li>
+          <li class="skill-badge">GraphQL</li>
+          <li class="skill-badge">Selenium</li>
+          <li class="skill-badge">SMTP/IMAP</li>
+          <li class="skill-badge">Streamlit</li>
+        </ul>
+        <div class="hero-meta">
+          <div class="repo-links">
+            <a class="btn btn-primary" href="https://github.com/lygonian/debitoren-matching" rel="noopener">Code auf GitHub</a>
           </div>
-          <aside>
-            <ul class="fact-list">
-              <li><strong>Ausgangslage</strong>Zahlungseingänge mussten von Hand geprüft, der passenden Rechnung zugeordnet, in der Buchhaltung eingetragen und dem Kunden bestätigt werden.</li>
-              <li><strong>Erster Versuch</strong>Ein Parser las die Benachrichtigungsmails der alten Bank aus — das funktionierte, hing aber am Aufbau einer E-Mail statt am Konto selbst.</li>
-              <li><strong>Entscheidende Verbesserung</strong>Wechsel auf eine Bank mit API, Abgleich gegen einen vor jedem Lauf aktualisierten HERO-Rechnungsbestand und ein Archiv, das jede verarbeitete Transaktion kennt.</li>
-              <li><strong>Ergebnis</strong>Eindeutige Zahlungen werden automatisch zugeordnet, in HERO verbucht, per E-Mail bestätigt und archiviert. Unklare Fälle gehen in die manuelle Prüfliste.</li>
-              <li><strong>Technik</strong>Python · pandas · Qonto-API · GraphQL · Selenium · SMTP/IMAP · Streamlit</li>
-            </ul>
-            <p class="note">
-              <strong>Öffentliche Version:</strong> Das Repo zeigt den Kern der Pipeline —
-              Rechnungsnummern aus Freitext erkennen, Zahlungen zuordnen, Teil- und
-              Sammelzahlungen berechnen — mit synthetischen Daten und Tests. Bankanbindung,
-              HERO-Verbuchung und Mailversand bleiben privat.
-            </p>
-            <div class="repo-links">
-              <a class="btn btn-primary" href="https://github.com/lygonian/debitoren-matching" rel="noopener">Code auf GitHub</a>
-            </div>
-          </aside>
+          <p class="hero-note">
+            <strong>Öffentliche Version:</strong> Das Repo zeigt den Kern der Pipeline —
+            Rechnungsnummern aus Freitext erkennen, Zahlungen zuordnen, Teil- und
+            Sammelzahlungen berechnen — mit synthetischen Daten und Tests. Bankanbindung,
+            HERO-Verbuchung und Mailversand bleiben privat.
+          </p>
         </div>
       </div>
     </section>

@@ -29,7 +29,7 @@
   // Führt einen Klick auf die Kartenfläche auf den primären Link der Karte.
   // Echte Links/Buttons behalten ihr eigenes Ziel; Tastaturnutzer folgen wie
   // bisher den sichtbaren Links. Ohne JS bleibt alles normal bedienbar.
-  var cards = [].slice.call(document.querySelectorAll(".card, .feature"));
+  var cards = [].slice.call(document.querySelectorAll(".card, .feature, .project-card"));
   cards.forEach(function (card) {
     var primary = card.querySelector(".card-cta a[href], a[href]");
     if (!primary) return;

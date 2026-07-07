@@ -28,149 +28,108 @@
 
     <section class="page-hero">
       <div class="container">
-        <div class="split">
-          <div>
-            <p class="eyebrow">Projekte als Fallstudien</p>
-            <h1>Projekte, die den Weg vom realen Problem zur funktionierenden Lösung zeigen</h1>
-            <p class="lead">
-              Die Projektseiten sind als nachvollziehbare Arbeitsprotokolle geschrieben:
-              Ausgangslage, erster kleiner Test, Stolperstellen, Entscheidungen und die
-              Prüfungen, die aus einem ersten Versuch etwas Belastbares machen. Bislang
-              stammen sie überwiegend aus dem Arbeitsalltag; das erste Projekt außerhalb davon
-              — eine selbstgebaute Bewässerungsanlage — ist inzwischen dazugekommen, weitere
-              Themen folgen.
-            </p>
-          </div>
-          <aside>
-            <ul class="fact-list">
-              <li><strong>Eigenständig</strong>Jede Fallstudie steht für sich und ist ohne die anderen lesbar.</li>
-              <li><strong>Format</strong>Arbeitsprotokoll: Ausgangslage, Entscheidungen, Stolperstellen, Prüfung.</li>
-              <li><strong>Code</strong>Zu jedem Projekt gehört ein öffentliches GitHub-Repository.</li>
-              <li><strong>Wächst</strong>Weitere Projekte kommen laufend dazu.</li>
-            </ul>
-          </aside>
-        </div>
+        <p class="eyebrow">Projekte</p>
+        <h1>Fallstudien vom realen Problem zur funktionierenden Lösung</h1>
+        <p class="lead">
+          Als nachvollziehbare Arbeitsprotokolle geschrieben: Ausgangslage, erster Test,
+          Stolperstellen, Entscheidungen und die Prüfungen, die aus einem Versuch etwas
+          Belastbares machen. Jede Fallstudie steht für sich.
+        </p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="feature-grid">
+        <div class="project-grid">
 
-          <article class="feature feature--row feature--flagship" data-reveal>
-            <div class="feature-head">
-              <div class="feature-kicker">
-                <p class="eyebrow">Elektronik &amp; Mikrocontroller</p>
-              </div>
+          <article class="project-card project-card--wide" data-reveal>
+            <div class="project-card-media">
+              <img src="assets/img/bewaesserung-platine.jpg" alt="Fertig gelötete Lochrasterplatine mit vielen blauen Schraubklemmen, mehreren MOSFETs, einem ESP32-S3-Board, einem Spannungswandler und blauen Verbindungsdrähten">
+            </div>
+            <div class="project-card-body">
+              <p class="eyebrow">Elektronik &amp; Mikrocontroller</p>
               <h3>Eine Bewässerungsanlage für die Zimmerpflanzen bauen</h3>
-            </div>
-            <div class="feature-body">
               <p>
-                Aus zu vielen Pflanzen und lästigem Gießen wurde ein Gerät aus Pumpen, Schläuchen,
-                Feuchtesensoren, einem ESP32 und einer Weboberfläche. Das Projektprotokoll zeigt den
-                ganzen, chaotischen Weg: Löten, verpolte Bauteile, gescheiterte Ultraschallmessung,
-                unplausible Rohwerte und die Entscheidungen, die daraus wurden.
+                Aus zu vielen Pflanzen wurde ein Gerät aus Pumpen, Schläuchen, Feuchtesensoren,
+                einem ESP32 und einer Weboberfläche — dokumentiert mit Löten, verpolten Bauteilen,
+                gescheiterter Ultraschallmessung und den Entscheidungen, die daraus wurden.
               </p>
               <div class="card-tags">
-                <span class="tag">ESP32-S3</span><span class="tag">C++/Arduino</span><span class="tag">Löten</span><span class="tag">MOSFETs</span><span class="tag">Webserver</span>
+                <span class="tag">ESP32-S3</span><span class="tag">Löten</span><span class="tag">Sensorik</span><span class="tag">Webserver</span>
               </div>
-              <div class="card-cta">
-                <a href="projekte/bewaesserung.html">Zum Projekt</a>
-                <a href="https://github.com/lygonian/esp32-bewaesserung" rel="noopener">Code auf GitHub</a>
-              </div>
+              <a class="project-card-link" href="projekte/bewaesserung.html">Zum Projekt</a>
             </div>
           </article>
 
-          <article class="feature feature--row feature--flagship" data-reveal>
-            <div class="feature-head">
-              <div class="feature-kicker">
-                <p class="eyebrow">Datenzugriff · Python-Bibliothek</p>
-              </div>
+          <article class="project-card" data-reveal>
+            <div class="project-card-media">
+              <img src="assets/img/crm-sync.png" alt="Screenshot einer CRM-Oberfläche: links ein Kontaktformular, rechts eine Tabelle synchronisierter Kontakte mit Beispieldaten">
+            </div>
+            <div class="project-card-body">
+              <p class="eyebrow">Datenzugriff · Python</p>
               <h3>CRM-Daten automatisch abrufen und aktuell halten</h3>
-            </div>
-            <div class="feature-body">
               <p>
-                Wo stecken die Daten, die täglich in die Firmensoftware eingetragen werden,
-                und wie holt man sie per API heraus? Die Fallstudie führt vom ersten Abruf in
-                Python bis zur wiederverwendbaren Sync-Bibliothek, die nur neue und veränderte
-                Datensätze vollständig lädt.
+                Vom ersten Abruf in Python bis zur wiederverwendbaren Sync-Bibliothek, die nur
+                neue und veränderte Datensätze vollständig lädt.
               </p>
               <div class="card-tags">
-                <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span><span class="tag">requests</span>
+                <span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span>
               </div>
-              <div class="card-cta">
-                <a href="projekte/crm-sync.html">Zur Fallstudie</a>
-                <a href="https://github.com/lygonian/hero-syncs" rel="noopener">Code auf GitHub</a>
-              </div>
+              <a class="project-card-link" href="projekte/crm-sync.html">Zur Fallstudie</a>
             </div>
           </article>
 
-          <article class="feature feature--row feature--flagship" data-reveal>
-            <div class="feature-head">
-              <div class="feature-kicker">
-                <p class="eyebrow">E-Mail-Automatisierung</p>
-              </div>
+          <article class="project-card" data-reveal>
+            <div class="project-card-media">
+              <img src="assets/img/lead-automation.png" alt="Zwei Bildschirme nebeneinander: links eine Lead-Anfrage per E-Mail, rechts die daraus automatisch angelegten CRM-Einträge — Kontakt, Projekt und Notiz">
+            </div>
+            <div class="project-card-body">
+              <p class="eyebrow">E-Mail-Automatisierung</p>
               <h3>E-Mail-Anfragen automatisch ins CRM übertragen</h3>
-            </div>
-            <div class="feature-body">
               <p>
-                Lead-Mails aus einem Partnerportal und dem Website-Formular werden per IMAP
-                geladen, je nach Quelle geparst, in ein gemeinsames Lead-Objekt überführt und
-                erst nach Validierung als Kontakt, Projekt und Notiz im CRM vorbereitet.
+                Lead-Mails werden per IMAP geladen, je nach Quelle geparst, in ein gemeinsames
+                Objekt überführt und erst nach Validierung im CRM angelegt.
               </p>
               <div class="card-tags">
-                <span class="tag">Python</span><span class="tag">IMAP</span><span class="tag">BeautifulSoup</span><span class="tag">GraphQL</span>
+                <span class="tag">Python</span><span class="tag">IMAP</span><span class="tag">GraphQL</span>
               </div>
-              <div class="card-cta">
-                <a href="projekte/lead-automation.html">Zur Fallstudie</a>
-                <a href="https://github.com/lygonian/auto-leads" rel="noopener">Code auf GitHub</a>
-              </div>
+              <a class="project-card-link" href="projekte/lead-automation.html">Zur Fallstudie</a>
             </div>
           </article>
 
-          <article class="feature feature--row feature--flagship" data-reveal>
-            <div class="feature-head">
-              <div class="feature-kicker">
-                <p class="eyebrow">Zahlungsabgleich · Pipeline</p>
-              </div>
-              <h3>Zahlungseingänge automatisch Rechnungen zuordnen und verbuchen</h3>
+          <article class="project-card" data-reveal>
+            <div class="project-card-media">
+              <img src="assets/img/zahlungs-app.png" alt="Screenshot der Zahlungsbestätigungs-App mit den drei Schritten Daten laden, Zuordnen & Berechnen sowie Verbuchen & Versenden">
             </div>
-            <div class="feature-body">
+            <div class="project-card-body">
+              <p class="eyebrow">Zahlungsabgleich · Pipeline</p>
+              <h3>Zahlungseingänge automatisch Rechnungen zuordnen</h3>
               <p>
-                Zahlungseingänge werden aus Qonto abgerufen, Rechnungsnummern aus dem
-                Verwendungszweck erkannt, gegen den aktuellen HERO-Rechnungsbestand geprüft,
-                in HERO verbucht und per E-Mail bestätigt. Unklare Fälle stoppen sichtbar.
+                Zahlungen abrufen, Rechnungsnummern im Verwendungszweck erkennen, gegen den
+                Rechnungsbestand prüfen und verbuchen — unklare Fälle stoppen sichtbar.
               </p>
               <div class="card-tags">
-                <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">Qonto-API</span><span class="tag">Selenium</span>
+                <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">Qonto-API</span>
               </div>
-              <div class="card-cta">
-                <a href="projekte/rechnungs-pipeline.html">Zur Fallstudie</a>
-                <a href="https://github.com/lygonian/debitoren-matching" rel="noopener">Code auf GitHub</a>
-              </div>
+              <a class="project-card-link" href="projekte/rechnungs-pipeline.html">Zur Fallstudie</a>
             </div>
           </article>
 
-          <article class="feature feature--row feature--flagship" data-reveal>
-            <div class="feature-head">
-              <div class="feature-kicker">
-                <p class="eyebrow">Desktop-App</p>
-              </div>
+          <article class="project-card" data-reveal>
+            <div class="project-card-media">
+              <img src="assets/img/kv-ersteller-app.png" alt="Screenshot der Desktop-App „Kaufvertrag Ersteller“: Eingabefeld für die Angebotsnummer und Buttons zum Erstellen und Aktualisieren">
+            </div>
+            <div class="project-card-body">
+              <p class="eyebrow">Desktop-App</p>
               <h3>Kaufverträge automatisch aus dem Angebot erstellen</h3>
-            </div>
-            <div class="feature-body">
               <p>
                 Aus Kundendaten, Angebots-PDF und Vertragsvorlage wird ein Werkzeug für
-                Fachnutzer. Die Fallstudie zeigt, warum der Vertrag als Datenproblem behandelt
-                wird und warum benannte Formularfelder robuster sind als feste Koordinaten.
+                Fachnutzer — mit benannten Formularfeldern statt fester Koordinaten.
               </p>
               <div class="card-tags">
-                <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">pdfplumber</span><span class="tag">pdfrw</span><span class="tag">Tkinter</span>
+                <span class="tag">Python</span><span class="tag">pdfplumber</span><span class="tag">Tkinter</span>
               </div>
-              <div class="card-cta">
-                <a href="projekte/pv-vertragsgenerator.html">Zur Fallstudie</a>
-                <a href="https://github.com/lygonian/pv-contract-generator" rel="noopener">Code auf GitHub</a>
-              </div>
+              <a class="project-card-link" href="projekte/pv-vertragsgenerator.html">Zur Fallstudie</a>
             </div>
           </article>
 
