@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TTKNLDVGV2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TTKNLDVGV2');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatGPT personalisieren — KI-Workflow — Samet Kurt</title>
+  <meta name="description" content="Wie ich ChatGPT über globale Hinweise, Projektanweisungen, Erinnerungen und den aktuellen Prompt personalisiere — vom allgemeinen Modell zur spezialisierten Arbeitsumgebung.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="../index.html">Start</a>
+        <a href="../projekte.html">Projekte</a>
+        <a href="../ki-workflow.html" aria-current="page">KI-Workflow</a>
+        <a href="../forschung.html">Forschung</a>
+        <a href="../ueber-mich.html">Über mich</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../ki-workflow.html">KI-Workflow</a> / Personalisierung</p>
+        <p class="eyebrow">KI-Workflow · Personalisierung</p>
+        <h1>ChatGPT personalisieren: vom allgemeinen Modell zur spezialisierten Arbeitszelle</h1>
+        <p class="lead">
+          Die Qualität einer Antwort hängt nicht nur von der einzelnen Frage ab.
+          Entscheidend ist auch, welchen Kontext ChatGPT bereits über Arbeitsweise,
+          Vorwissen, Ziel und aktuelles Vorhaben besitzt. Ohne diesen Kontext beginnt
+          jeder neue Chat fast wieder bei null. Deshalb versuche ich nicht, jeden Prompt
+          maximal aufzublähen, sondern die Umgebung zu gestalten, in der meine Prompts
+          verarbeitet werden.
+        </p>
+        <ul class="project-skills">
+          <li class="skill-badge">ChatGPT</li>
+          <li class="skill-badge">Personalisierung</li>
+          <li class="skill-badge">Projektkontext</li>
+          <li class="skill-badge">Erinnerungen</li>
+          <li class="skill-badge">Prompting</li>
+          <li class="skill-badge">Arbeitsweise</li>
+        </ul>
+        <div class="hero-meta">
+          <p class="hero-note">
+            <strong>Hinweis:</strong> Die Seite beschreibt meine persönliche Arbeitsstruktur.
+            Bezeichnungen und Menüpfade in ChatGPT können sich ändern; entscheidend ist das
+            Prinzip der gestuften Kontextsteuerung.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="prose prose--wide">
+
+          <p>
+            Für mich funktioniert Personalisierung wie Zelldifferenzierung. Fast alle
+            Zellen eines Menschen besitzen dasselbe Erbgut. Trotzdem entstehen daraus
+            Nervenzellen, Muskelzellen oder Immunzellen. Nicht das Grundsystem wird
+            ausgetauscht. Es werden unterschiedliche Programme aktiviert.
+          </p>
+          <p>
+            Bei ChatGPT ist es ähnlich: Das zugrunde liegende Modell bleibt dasselbe,
+            aber der Kontext verändert, welche Rolle es einnimmt und welche Informationen
+            es bevorzugt berücksichtigt.
+          </p>
+
+          <nav class="toc" aria-label="Inhaltsverzeichnis">
+            <span class="toc-label">Inhalt</span>
+            <ol>
+              <li><a href="#globale-personalisierung">Globale Personalisierung</a></li>
+              <li><a href="#projekte">Projektanweisungen</a></li>
+              <li><a href="#kartographie">Ein Projekt als Nervenzelle</a></li>
+              <li><a href="#erinnerungen">Erinnerungen</a></li>
+              <li><a href="#aktueller-prompt">Der aktuelle Prompt</a></li>
+              <li><a href="#zusammenspiel">Das Zusammenspiel</a></li>
+            </ol>
+          </nav>
+
+          <p>
+            Praktisch arbeite ich mit vier Ebenen:
+            <a href="#globale-personalisierung">globale Personalisierung</a>,
+            <a href="#projekte">projektspezifische Anweisungen</a>,
+            <a href="#erinnerungen">Erinnerungen</a> und
+            <a href="#aktueller-prompt">den aktuellen Prompt</a>. Jede Ebene beantwortet
+            eine andere Frage: Wie soll ChatGPT grundsätzlich arbeiten? Worum geht es in
+            diesem Projekt? Was darf es langfristig über mich berücksichtigen? Und welche
+            Aufgabe steht jetzt gerade an?
+          </p>
+
+          <figure class="figure">
+            <img src="../assets/img/ki-personalisierung.png" alt="Infografik zur KI-Personalisierung: Eine Stammzelle, eine Vorläuferzelle und ein dopaminerges Neuron stehen für zunehmenden Kontext und Spezialisierung">
+            <figcaption>
+              <span class="fig-label">Abbildung 1</span> — Die Zellanalogie der Personalisierung:
+              Dasselbe Grundmodell kann durch mehr Kontext und stärkere Spezialisierung
+              eine andere Funktion im Arbeitsprozess übernehmen.
+              <span class="fig-credit">KI-generiert, erstellt mit ChatGPT.</span>
+            </figcaption>
+          </figure>
+
+          <h2 id="globale-personalisierung">1. Die Stammzelle: globale Personalisierung</h2>
+          <p>
+            Eine Stammzelle ist noch nicht auf eine einzelne Aufgabe festgelegt. Sie trägt
+            aber bereits die grundlegende Ausstattung, aus der später unterschiedliche
+            Zelltypen entstehen können. So verstehe ich die globale Personalisierung von
+            ChatGPT: Sie legt nicht das Thema fest, sondern die allgemeine Art der
+            Zusammenarbeit.
+          </p>
+          <p>
+            In der ChatGPT-Oberfläche liegt diese Einstellung sinngemäß im Bereich
+            Personalisierung oder individuelle Hinweise. Dort gehören nur Regeln hinein,
+            die für fast alle Gespräche gelten: Wie direkt soll ChatGPT antworten? Soll es
+            Annahmen kritisch prüfen oder eher bestätigen? Welche Vorkenntnisse darf es
+            voraussetzen? Welche Antwortmuster stören bei konzentrierter Arbeit?
+          </p>
+          <p>
+            Mein aktueller Hinweis ist bewusst streng formuliert. Er soll die höflichen,
+            aber oft störenden Standardbewegungen reduzieren und stattdessen Klarheit,
+            Kritikfähigkeit und eigenständiges Denken fördern:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Individueller Hinweis · vollständige Arbeitsfassung</span>
+            <pre><code>System Instruction: Absolute Mode
+
+Eliminate: emojis, filler, hype, soft asks,
+conversational transitions and call-to-action appendixes.
+
+Assume: the user retains high perception despite blunt tone.
+
+Prioritize: direct language, critical analysis
+and cognitive clarity.
+Aim at rebuilding independent reasoning rather than matching the
+user's tone or emotional state.
+
+Disable: engagement optimization, sentiment boosting
+and unnecessary affirmation.
+
+Do not mirror the user's diction, mood or affect.
+
+Do not add questions, offers, motivational content or conversational
+closures unless they are required to complete the task.
+
+Stop after delivering the requested information.
+
+Goal: restore independent, high-fidelity thinking.
+
+Outcome: model obsolescence through user self-sufficiency.</code></pre>
+          </div>
+          <p>
+            Diesen Prompt habe ich nicht von Grund auf neu erfunden. Ich habe verschiedene
+            Varianten getestet, angepasst und die Version behalten, die zu meiner Arbeitsweise
+            passt. Das ist ein wichtiger Punkt: Personalisierung muss nicht originell sein.
+            Sie muss geprüft, verstanden und passend zugeschnitten sein.
+          </p>
+          <p>
+            Der Hinweis verhindert keine Fehler und keine Halluzinationen. Er verschiebt
+            aber die Wahrscheinlichkeit: weniger Zustimmung aus Gewohnheit, weniger
+            künstliche Begeisterung, häufiger sichtbare Unsicherheit und klarer benannte
+            Annahmen.
+          </p>
+
+          <h2 id="projekte">2. Die differenzierte Zelle: Projekte</h2>
+          <p>
+            Aus derselben Stammzelle können sehr unterschiedliche Zelltypen entstehen.
+            Eine Nervenzelle verarbeitet Signale, eine Muskelzelle erzeugt Bewegung, eine
+            Immunzelle erkennt Bedrohungen. Das Grundmaterial ist gleich, die aktivierten
+            Programme unterscheiden sich.
+          </p>
+          <p>
+            Genau diese Rolle haben für mich Projekte. Das Modell bleibt dasselbe, aber die
+            Projektanweisung bestimmt, welche Funktion ChatGPT in diesem Kontext übernimmt.
+            Ein Coding-Projekt braucht andere Routinen als ein Ernährungsprojekt, eine
+            Website-Überarbeitung oder eine persönliche Entscheidungsklärung. Der Unterschied
+            liegt nicht darin, dass ein neues Modell geladen wird. Der Unterschied liegt darin,
+            welche Rolle, welche Kriterien und welche Art von Aufmerksamkeit für diesen Raum
+            vorgegeben sind.
+          </p>
+          <p>
+            Ein Projekt ist dadurch mehr als ein Sammelordner für Chats. Es ist ein eigener
+            Arbeitskontext. Wenn ich dort eine Frage stelle, muss ich nicht jedes Mal erklären,
+            welches Ziel der Raum hat, wie viel Vorwissen ChatGPT voraussetzen darf und welche
+            Fehler es vermeiden soll. Diese Regeln liegen bereits im Hintergrund. Dadurch kann
+            der einzelne Prompt kürzer sein, ohne oberflächlicher zu werden.
+          </p>
+          <p>
+            Meine aktuellen Projekte sind: Berufliches Projekt · Coding · Ernährung/Sport ·
+            Kartographie · Content-Creator · Website · Bewässerung · Jobcoach · Buch · PhD ·
+            Selbständigkeit.
+          </p>
+          <p>
+            In Projektanweisungen beschreibe ich deshalb nicht nur das Thema. Ich beschreibe
+            Zweck, Rolle, Vorgehensweise, gewünschte Tiefe, typische Fehler und Grenzen.
+            Dort steht zum Beispiel, ob ChatGPT zuerst Fragen stellen, direkt implementieren,
+            Fachbegriffe erklären, Gegenargumente suchen oder eine bestehende Projektstruktur
+            respektieren soll.
+          </p>
+          <p>
+            Die globale Personalisierung bleibt dabei das gemeinsame Grundprogramm. Die
+            Projektanweisung legt darüber eine konkrete Funktion. In einem Website-Projekt
+            prüft ChatGPT stärker Stil, Navigation, Datenschutz und bestehende Komponenten.
+            In einem Coding-Projekt stehen Architektur, Tests und Fehlersuche im Vordergrund.
+            In einem Reflexionsprojekt ist wichtiger, dass Aussagen nicht vorschnell als
+            Wahrheit behandelt werden. Dieselbe Frage kann deshalb anders beantwortet werden,
+            weil der Kontext andere Prüfkriterien aktiviert.
+          </p>
+
+          <h2 id="kartographie">3. Die Nervenzelle: ein Projekt als Beispiel</h2>
+          <p>
+            Am deutlichsten wird das in meinem Projekt „Kartographie". Ich nutze es als
+            langfristigen Raum für persönliche Reflexion, Entscheidungsklärung und
+            Selbstbeobachtung. Die Analogie zur Nervenzelle passt, weil dort verschiedene
+            Signale zusammengeführt werden: körperliche Reaktionen, Denk- und
+            Verhaltensmuster, biografische Erfahrungen, soziale Prägung, Widersprüche und
+            konkrete Entscheidungen.
+          </p>
+          <p>
+            Die Projektanweisung soll daraus keine Diagnose und keine feste
+            Persönlichkeitsbeschreibung machen. Sie soll Zusammenhänge prüfen, Spannungen
+            benennen und Interpretationen von belastbaren Beobachtungen trennen. Dadurch
+            verändert sich nicht das Modell im technischen Sinn: keine Gewichte werden neu
+            trainiert, und ChatGPT wird nicht plötzlich zu einem anderen System. Verändert
+            wird der Arbeitskontext, in dem das Modell die nächste Eingabe liest.
+          </p>
+          <p>
+            Praktisch heißt das: Eine neue Beobachtung wird nicht nur als einzelner Satz
+            behandelt, sondern mit den Analyseachsen des Projekts abgeglichen. ChatGPT fragt
+            eher nach fehlenden Informationen, markiert Deutungen als Hypothesen, vergleicht
+            neue Aussagen mit früheren Mustern und hält mehrere Erklärungen nebeneinander,
+            statt sofort eine eindeutige Antwort zu formulieren. Die Interaktion wird
+            dadurch langsamer, aber genauer: erst offen sammeln, dann gezielt nachfragen,
+            dann mögliche Zusammenhänge prüfen.
+          </p>
+          <p>
+            Den Projekthinweis habe ich ebenfalls mit ChatGPT entwickelt. Ich habe zunächst
+            erklärt, wofür ich das Projekt nutze, welche Perspektiven mich interessieren und
+            welche Art von Antworten ich vermeiden möchte. Daraus entstand nach mehreren
+            Überarbeitungen diese Arbeitsstruktur:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Projektanweisung Kartographie · vollständige Arbeitsfassung</span>
+            <pre><code>Rolle
+
+Du bist ein interdisziplinärer Analytiker und Gesprächspartner.
+Dein Ziel ist es, Beobachtungen über Persönlichkeit, Körper,
+Biografie und soziokulturelle Verortung strukturiert zu untersuchen.
+
+Nutze dafür geeignete Konzepte aus Biologie, Psychologie, Soziologie,
+Geschichte, Mythologie, Philosophie und Systemtheorie.
+
+Trenne wissenschaftlich gestützte Aussagen, theoretische Modelle,
+Interpretationen, Hypothesen und Analogien klar voneinander.
+
+Analyseachsen
+
+Ordne relevante Aussagen einer oder mehreren der folgenden Achsen zu:
+
+1. biologische und neurochemische Architektur,
+2. psychologische und kognitive Struktur,
+3. soziokulturelle Verortung,
+4. historisch-mythologische Rahmung,
+5. metasystemische Selbstanalyse.
+
+Gesprächsführung
+
+Beginne bei neuen Themen mit offenen Fragen und gehe anschließend
+in gezielte Nachfragen über.
+
+Prüfe Aussagen auf innere Konsistenz und vergleiche neue Informationen
+mit bisherigen Beobachtungen aus dem Projekt.
+
+Übernimm frühere Interpretationen nicht ungeprüft als Tatsachen.
+
+Vernetzte Analyse
+
+Betrachte biologische, psychologische, biografische und soziale
+Beobachtungen nicht isoliert.
+
+Benenne Spannungen, Widersprüche, fehlende Informationen und
+alternative Erklärungen deutlich.
+
+Nutze psychologische Modelle sowie philosophische, historische oder
+mythologische Analogien als Denkwerkzeuge und nicht als Diagnose.
+
+Ziel
+
+Das Projekt soll keine feste Identität konstruieren.
+
+Es soll helfen, wiederkehrende Muster, Spannungen und Einflüsse
+präziser zu erkennen und eigene Entscheidungen nachvollziehbarer
+zu treffen.</code></pre>
+          </div>
+          <p>
+            Die Anweisung macht ChatGPT nicht intelligenter. Sie verändert, welche
+            Perspektiven das Modell bei neuen Informationen bevorzugt prüft. Ohne diesen
+            Projektkontext würde eine körperliche Beobachtung wahrscheinlich medizinisch,
+            eine Entscheidung psychologisch und ein beruflicher Konflikt organisatorisch
+            behandelt. Im Projekt werden mögliche Verbindungen zwischen diesen Ebenen
+            ausdrücklich mitgedacht. Gleichzeitig verhindert die Anweisung, dass diese
+            Verbindungen zu schnell als Tatsachen erscheinen. Eine gute Antwort in diesem
+            Projekt sagt deshalb nicht nur, was plausibel wirkt. Sie sagt auch, was unklar
+            bleibt, welche Gegenhypothesen möglich sind und welche Information fehlen würde,
+            um weiterzugehen.
+          </p>
+
+          <h2 id="erinnerungen">4. Die Gedächtniszelle: Erinnerungen</h2>
+          <p>
+            Bestimmte Immunzellen speichern Informationen über frühere Kontakte. Bei einem
+            erneuten Kontakt kann das Immunsystem schneller reagieren. Erinnerungen in
+            ChatGPT erfüllen eine ähnliche, aber begrenzte Funktion: Sie stellen längerfristige
+            Informationen bereit, die in verschiedenen Gesprächen nützlich sein können.
+          </p>
+          <p>
+            Dazu gehören beruflicher Hintergrund, vorhandene Fachkenntnisse, wiederkehrende
+            Präferenzen, langfristige Ziele oder laufende Projekte. Erinnerungen und
+            Anweisungen sind aber nicht dasselbe. Erinnerungen beschreiben, was ChatGPT über
+            mich berücksichtigen soll. Anweisungen beschreiben, wie es mit diesen Informationen
+            arbeiten soll.
+          </p>
+          <p>
+            Wenn ChatGPT weiß, dass ich Biochemie studiert habe, ist das noch keine
+            Arbeitsanweisung. Es darf dadurch bestimmte Grundlagen voraussetzen oder
+            biologische Zusammenhänge genauer erklären. Ob es dabei kurz, kritisch, fragend
+            oder ausführlich vorgehen soll, entscheidet weiterhin die jeweilige Anweisung.
+          </p>
+
+          <h2 id="aktueller-prompt">5. Das Signal: der aktuelle Prompt</h2>
+          <p>
+            Auch eine spezialisierte Zelle ist nicht permanent mit voller Aktivität in alle
+            Richtungen unterwegs. Sie reagiert auf ein konkretes Signal. Der aktuelle Prompt
+            ist dieses Signal.
+          </p>
+          <p>
+            Wenn globale Personalisierung, Projektanweisung und Erinnerungen bereits sauber
+            gesetzt sind, muss der einzelne Prompt nicht jedes Mal die komplette Arbeitsweise
+            wiederholen. Er kann sich auf die konkrete Aufgabe konzentrieren:
+          </p>
+          <div class="prompt">
+            <span class="prompt-label">Beispiel-Prompt · im passenden Projekt</span>
+            <p>
+              Analysiere, warum die Sensorwerte nach dem dauerhaften Einbau stärker schwanken
+              als beim Breadboard-Test.
+            </p>
+          </div>
+          <p>
+            In einem gut eingerichteten Elektronik- oder Bewässerungsprojekt muss ich dann
+            nicht jedes Mal neu erklären, dass ChatGPT technische Ursachen prüfen, meine
+            begrenzte Erfahrung mit Elektronik berücksichtigen, Annahmen sichtbar machen und
+            den bisherigen Aufbau einbeziehen soll. Diese Regeln stehen bereits im Kontext.
+          </p>
+
+          <h2 id="zusammenspiel">6. Vom allgemeinen Modell zum spezialisierten Werkzeug</h2>
+          <p>
+            Die Ebenen ersetzen einander nicht. Sie greifen ineinander. Das Grundmodell liefert
+            die allgemeinen Fähigkeiten. Die globale Personalisierung legt die grundsätzliche
+            Arbeitsweise fest. Das Projekt aktiviert die spezialisierte Funktion. Erinnerungen
+            liefern längerfristigen Kontext. Der aktuelle Prompt stößt die konkrete Aufgabe an.
+          </p>
+          <ol class="flow">
+            <li><strong>Sprachmodell:</strong> gemeinsames Grundsystem und allgemeine Fähigkeiten.</li>
+            <li><strong>Globale Personalisierung:</strong> Grundprogramm für die Zusammenarbeit.</li>
+            <li><strong>Projektanweisung:</strong> spezialisierte Funktion für ein Themenfeld.</li>
+            <li><strong>Erinnerungen:</strong> längerfristiger Kontext über Person, Ziele und Vorwissen.</li>
+            <li><strong>Aktueller Prompt:</strong> konkretes Signal für die nächste Aufgabe.</li>
+          </ol>
+          <p>
+            Personalisierung macht Antworten nicht automatisch richtig. Sie sorgt aber dafür,
+            dass ChatGPT nicht in jedem Gespräch erneut lernen muss, wie es mit meinen Fragen
+            arbeiten soll. Genau darin liegt der Nutzen: weniger Startreibung, mehr
+            Anschlussfähigkeit und ein Arbeitsraum, der mit der Zeit spezialisierter wird.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="page-nav">
+          <a href="../ki-workflow.html">← Zurück zum KI-Workflow</a>
+          <a href="../projekte.html">Projekte ansehen →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/lygonian" rel="noopener">GitHub</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

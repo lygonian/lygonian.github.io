@@ -1,6 +1,7 @@
 # Portfolio — Samet Kurt
 
-Persönliches Portfolio: Prozessautomatisierung, Datenpipelines und operative Werkzeuge, gebaut mit Python und KI-gestützter Entwicklung.
+Persönliches Portfolio darüber, wie mit KI neue Themen erschlossen und daraus funktionierende
+Projekte, Werkzeuge und Anleitungen gebaut werden.
 
 **Live:** https://lygonian.github.io
 
@@ -13,6 +14,7 @@ index.html            Startseite
 projekte.html         Projektübersicht
 ueber-mich.html       Über mich / Arbeitsweise
 ki-workflow.html      KI-Workflow / How-to
+ki-workflow/          Vertiefende KI-Workflow-Seiten
 forschung.html        Akademischer Hintergrund
 kontakt.html          Kontakt
 projekte/             Detailseiten der Hauptprojekte
