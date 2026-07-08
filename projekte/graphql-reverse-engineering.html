@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TTKNLDVGV2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TTKNLDVGV2');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reverse Engineering einer GraphQL-API (HERO-Software) — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Fallstudie: Wie ich die kaum dokumentierte GraphQL-API der HERO-Software per Introspection entschlüsselt habe — vom rohen Schema über rekursive Typauflösung bis zur automatisch erzeugten Query und dem vollständigen Kontaktexport mit Python und pandas.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="../index.html">Start</a>
+        <a href="../projekte.html" aria-current="page">Projekte</a>
+        <a href="../ki-workflow.html">KI-Workflow</a>
+        <a href="../forschung.html">Forschung</a>
+        <a href="../ueber-mich.html">Über mich</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../projekte.html">Projekte</a> / GraphQL-Reverse-Engineering</p>
+        <p class="eyebrow">Fallstudie · API-Analyse</p>
+        <h1>Eine API verstehen, die kaum erklärt wurde</h1>
+        <p class="lead">
+          Mein erster Kontakt mit einer Programmierschnittstelle führte direkt zu GraphQL.
+          Ich wollte Kontaktdaten aus unserer CRM-Software HERO abrufen, hatte bis dahin
+          aber weder mit APIs noch mit GraphQL gearbeitet. Die Dokumentation zeigte nur
+          wenige Beispielabfragen — welche Abfragen, Parameter und Felder es wirklich gibt,
+          stand nirgends. Die Lösung: die Schnittstelle nicht länger über einzelne Beispiele
+          erraten, sondern die API sich selbst beschreiben lassen.
+        </p>
+        <ul class="project-skills">
+          <li class="skill-badge">GraphQL</li>
+          <li class="skill-badge">Introspection</li>
+          <li class="skill-badge">Python</li>
+          <li class="skill-badge">pandas</li>
+          <li class="skill-badge">requests</li>
+          <li class="skill-badge">Rekursion</li>
+          <li class="skill-badge">Pagination</li>
+        </ul>
+        <div class="hero-meta">
+          <div class="repo-links">
+            <a class="btn btn-primary" href="https://github.com/lygonian/graphql-api-reverse-engineering" rel="noopener">Code auf GitHub</a>
+          </div>
+          <p class="hero-note">
+            <strong>Öffentliche Version:</strong> Tutorial-Projekt mit synthetischem Schema
+            und Mock-Daten — ohne echte API, Zugangsdaten oder Kontakte.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="prose prose--wide">
+
+          <p>
+            Diese Fallstudie zeigt den Weg im Detail: vom ersten Rätselraten über die
+            Introspection-Abfrage, mit der sich eine GraphQL-API selbst dokumentiert, bis zu
+            einem kleinen Generator, der aus den Schema-Metadaten fertige Query-Strukturen
+            ableitet. Sie zeigt außerdem, wie sich die Zusammenarbeit mit ChatGPT damals
+            anfühlte — vor Werkzeugen wie Codex und Claude Code, als jeder Codeausschnitt
+            noch von Hand in den Chat kopiert werden musste.
+          </p>
+
+          <nav class="toc" aria-label="Inhaltsverzeichnis">
+            <span class="toc-label">Inhalt</span>
+            <ol>
+              <li><a href="#doku">Die Dokumentation reichte nicht aus</a></li>
+              <li><a href="#graphql">Was GraphQL anders macht</a></li>
+              <li><a href="#introspection">Die API nach ihrem eigenen Aufbau fragen</a></li>
+              <li><a href="#schema">Das rohe Schema lesbar machen</a></li>
+              <li><a href="#einstiegspunkte">Die verfügbaren Abfragen finden</a></li>
+              <li><a href="#typen">Parameter und GraphQL-Typen entschlüsseln</a></li>
+              <li><a href="#rueckgabetyp">Den tatsächlichen Rückgabetyp bestimmen</a></li>
+              <li><a href="#generator">Aus Metadaten eine Query erzeugen</a></li>
+              <li><a href="#abruf">Die erste echte Kontaktabfrage</a></li>
+              <li><a href="#pagination">Mehr als 50 Datensätze abrufen</a></li>
+              <li><a href="#chat-workflow">Arbeiten mit ChatGPT vor Codex und Claude Code</a></li>
+              <li><a href="#uebertragbar">Was andere übernehmen können</a></li>
+            </ol>
+          </nav>
+
+          <figure class="figure">
+            <img src="../assets/img/graphql-reverse-engineering.jpg" alt="Schaubild: Clients wie Web-App, Mobile-App und eigenes Skript senden eine GraphQL-Query an einen zentralen Endpunkt; das Schema mit Query, Mutation und Typen liegt dahinter, die Introspection macht die Struktur sichtbar">
+            <figcaption>
+              <span class="fig-label">Abbildung 1</span> — Das Prinzip des Projekts als
+              Schaubild: Verschiedene Clients sprechen denselben GraphQL-Endpunkt an, und
+              über die Introspection lässt sich das dahinterliegende Schema — Queries,
+              Mutations, Typen und Felder — vollständig abfragen.
+              <span class="fig-credit">KI-generiert, erstellt mit ChatGPT.</span>
+            </figcaption>
+          </figure>
+
+          <h2 id="doku">1. Die Dokumentation reichte nicht aus</h2>
+          <p>
+            Die Oberfläche von HERO war mir aus dem Arbeitsalltag bekannt. Dort konnte ich
+            Kontakte, Projekte, Termine und Dokumente öffnen und bearbeiten. Hinter dieser
+            Oberfläche musste also bereits ein strukturiertes Datenmodell existieren. Die
+            API-Dokumentation zeigte davon jedoch nur einzelne Ausschnitte — etwa eine
+            Kontaktabfrage mit einigen ausgewählten Feldern:
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/graphql-doku-kontakte.png" alt="Ausschnitt aus der API-Dokumentation: unter der Überschrift „Kontakte auflisten“ steht eine kurze GraphQL-Beispielquery mit id, Namen, E-Mail, Telefonnummer und Adresse">
+            <figcaption>
+              <span class="fig-label">Abbildung 2</span> — Eine der wenigen Beispielabfragen
+              aus der damaligen API-Dokumentation: Sie zeigt, wie eine GraphQL-Query
+              grundsätzlich aussieht, aber nicht, welche weiteren Felder, Filter oder
+              Objekte existieren.
+              <span class="fig-credit">Screenshot aus der öffentlichen HERO-API-Dokumentation.</span>
+            </figcaption>
+          </figure>
+          <p>
+            Diese Abfrage beantwortet eine konkrete Frage: Gib mir Kontakte mit ID, Name,
+            E-Mail und Adresse. Sie beantwortet aber nicht die viel wichtigere Frage:
+            <em>Welche weiteren Fragen darf ich der API überhaupt stellen?</em> Ich konnte
+            Beispiele verändern, Felder ergänzen und auf Fehlermeldungen reagieren — aber
+            das blieb ein Blindflug. Bei jedem Versuch musste ich raten, ob ein Feld nun
+            <code>phone</code>, <code>phone_number</code>, <code>mobile</code> oder
+            <code>phone_mobile</code> heißt.
+          </p>
+          <div class="quote">
+            <p>„Die Dokumentation zeigt nur wenige Beispielabfragen. Woher soll ich wissen, welche Felder ein Kontakt wirklich besitzt?"</p>
+            <span class="quote-src">Eigene Chatnachricht an ChatGPT, sinngemäß rekonstruiert</span>
+          </div>
+          <p>
+            Die Antwort war der entscheidende Hinweis: Bei einer GraphQL-API kann das Schema
+            häufig über die sogenannte <strong>Introspection</strong> abgefragt werden. Dabei
+            fragt man die API nicht nach Kontakten, sondern nach ihrer eigenen Struktur —
+            man fragt also die API per API, welche API-Abfragen überhaupt möglich sind. Die
+            Antwort ist allerdings umfangreich und stark verschachtelt und muss anschließend
+            aufbereitet werden. Genau das wurde der Kern dieses Projekts.
+          </p>
+
+          <h2 id="graphql">2. Was GraphQL anders macht</h2>
+          <p>
+            Bei einer klassischen REST-API gibt es häufig verschiedene Adressen für
+            verschiedene Ressourcen: <code>/contacts</code>, <code>/projects</code>,
+            <code>/calendar-events</code>. GraphQL arbeitet dagegen meist mit einem einzigen
+            zentralen Endpunkt. Welche Daten zurückkommen, bestimmt nicht die URL, sondern
+            die Query im Request — der Client beschreibt selbst, welche Informationen er
+            benötigt:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Der Client bestimmt die Felder</span>
+            <pre><code>query {
+  contacts(last: 5) {
+    id
+    full_name
+    email
+  }
+}</code></pre>
+          </div>
+          <p>
+            Die Antwort enthält anschließend genau diese Felder — nicht mehr und nicht
+            weniger. Das ist flexibel, setzt aber voraus, dass man die Namen und Strukturen
+            kennt. Ohne vollständige Dokumentation fehlt genau dieses Wissen.
+          </p>
+          <p>
+            Dafür besitzt GraphQL ein eingebautes Metasystem: die Introspection. Über
+            besondere Abfragen wie <code>__schema</code> und <code>__type</code> liefert die
+            API Informationen über sich selbst — verfügbare Queries und Mutations,
+            Objekttypen, Eingabeparameter, Rückgabetypen, verschachtelte Felder, Pflichtfelder
+            und Enums. Die Introspection ist dabei keine Umgehung der API, sondern ein
+            vorgesehener Bestandteil von GraphQL.
+          </p>
+
+          <h2 id="introspection">3. Die API nach ihrem eigenen Aufbau fragen</h2>
+          <p>
+            Für den ersten vollständigen Schemaabruf verwendete ich die Python-Bibliotheken
+            <code>gql</code> und <code>graphql-core</code>. Die Zugangsdaten lagen nicht im
+            Notebook, sondern in einer getrennten <code>config.py</code> — dadurch konnte ich
+            das Notebook später bearbeiten oder veröffentlichen, ohne versehentlich den
+            echten API-Schlüssel mitzuliefern:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">config.py — Platzhalter statt echter Zugangsdaten</span>
+            <pre><code>API_URL = "https://api.example.com/graphql"
+API_SCHLUESSEL = "DEIN_API_SCHLUESSEL"</code></pre>
+          </div>
+          <div class="codeblock">
+            <span class="codeblock-label">Verbindung und Schemaabruf</span>
+            <pre><code>from gql import Client, gql
+from gql.transport.requests import RequestsHTTPTransport
+from graphql import get_introspection_query
+
+from config import API_URL, API_SCHLUESSEL
+
+
+transport = RequestsHTTPTransport(
+    url=API_URL,
+    headers={"Authorization": f"Bearer {API_SCHLUESSEL}"},
+    retries=3,
+)
+
+client = Client(
+    transport=transport,
+    fetch_schema_from_transport=False,
+)
+
+introspection_result = client.execute(
+    gql(get_introspection_query(descriptions=True))
+)</code></pre>
+          </div>
+          <p>
+            Der <code>RequestsHTTPTransport</code> übernimmt die HTTP-Verbindung, in den
+            Headern wird der API-Schlüssel übergeben. Die Option
+            <code>fetch_schema_from_transport=False</code> verhindert, dass der Client schon
+            beim Start selbstständig das Schema lädt — ich wollte diesen Schritt bewusst
+            kontrollieren und das Ergebnis anschließend untersuchen.
+            <code>get_introspection_query()</code> erzeugt eine standardisierte Abfrage, die
+            das Schema anfordert. Die API antwortet mit einer großen JSON-Struktur; die
+            Typen liegen unter <code>introspection_result["__schema"]["types"]</code>.
+          </p>
+          <div class="quote">
+            <p>„Die Anfrage funktioniert, aber die Antwort ist riesig. Ich sehe verschachtelte Dictionaries, Listen und überall ofType. Das ist keine Dokumentation, mit der ich arbeiten kann."</p>
+            <span class="quote-src">Eigene Chatnachricht an ChatGPT, sinngemäß rekonstruiert</span>
+          </div>
+          <p>
+            Der Rat dazu: die Introspection zunächst als Rohdaten betrachten und die Liste
+            unter <code>__schema.types</code> in einen Pandas-DataFrame laden. Das Schema
+            ist selbst ein Datensatz und lässt sich genauso analysieren wie andere
+            strukturierte Daten. Das war für mich der verständlichere Zugang: Ich musste
+            GraphQL nicht sofort vollständig begreifen, sondern konnte zunächst das tun, was
+            ich aus Python und Datenanalyse bereits kannte — JSON-Strukturen in Tabellen
+            überführen und schrittweise auseinandernehmen.
+          </p>
+
+          <h2 id="schema">4. Das rohe Schema lesbar machen</h2>
+          <p>Aus der Typenliste wurde zunächst ein einfacher DataFrame:</p>
+          <div class="codeblock">
+            <pre><code>import pandas as pd
+
+types = introspection_result["__schema"]["types"]
+
+df_types = pd.DataFrame(types)</code></pre>
+          </div>
+          <p>
+            Jede Zeile war jetzt ein Typ des Schemas mit seiner Art (<code>kind</code>),
+            seinem Namen und — bei Objekttypen — einer Liste von Feldern. Damit war noch
+            keine Kontaktabfrage dokumentiert, aber zum ersten Mal wurde sichtbar, aus
+            welchen Arten von Bausteinen die API besteht:
+          </p>
+          <ul>
+            <li><strong><code>OBJECT</code></strong> — ein strukturierter Datentyp mit eigenen Feldern, etwa <code>Customer</code>, <code>User</code> oder <code>CalendarEvent</code>.</li>
+            <li><strong><code>SCALAR</code></strong> — ein einfacher Wert wie <code>String</code>, <code>Int</code>, <code>Boolean</code> oder <code>DateTime</code>.</li>
+            <li><strong><code>ENUM</code></strong> — eine begrenzte Auswahl erlaubter Werte; ein Feld darf dann nicht irgendeinen Text enthalten, sondern nur einen der definierten Werte.</li>
+            <li><strong><code>INPUT_OBJECT</code></strong> — eine strukturierte Eingabe, etwa für Filter.</li>
+            <li><strong><code>LIST</code> und <code>NON_NULL</code></strong> — keine eigentlichen Geschäftstypen, sondern Verpackungen anderer Typen: aus <code>Customer</code> wird <code>[Customer]</code> (Liste) oder <code>Customer!</code> (Pflichtwert).</li>
+          </ul>
+          <p>
+            Bereits diese erste Tabelle zeigte etwas, das aus der offiziellen Dokumentation
+            nicht hervorging: Die API bestand nicht nur aus Kontakten. Das Schema enthielt
+            zahlreiche weitere Objekte und Einstiegspunkte. Das Problem verschob sich damit —
+            die Informationen waren vorhanden, ich musste sie nur noch aus der
+            verschachtelten Struktur lösen.
+          </p>
+
+          <h2 id="einstiegspunkte">5. Die verfügbaren Abfragen finden</h2>
+          <p>
+            Lesende Abfragen beginnen in GraphQL an einem sogenannten Query-Roottyp. Sein
+            Name musste nicht geraten werden — er stand direkt im Schema:
+          </p>
+          <div class="codeblock">
+            <pre><code>schema = introspection_result["__schema"]
+
+query_root = schema["queryType"]["name"]
+mutation_root = schema.get("mutationType", {}).get("name")</code></pre>
+          </div>
+          <p>
+            Die eigentlichen Felder eines Objekttyps lagen aber weiterhin als Liste innerhalb
+            einer einzelnen Tabellenzelle. Drei DataFrame-Operationen lösten das auf:
+            <code>explode()</code> machte aus der Feldliste eine Zeile pro Feld, ein Filter
+            behielt nur echte Feld-Dictionaries, und <code>apply(pd.Series)</code> zerlegte
+            diese Dictionaries in einzelne Spalten:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Verschachtelte Felder in Zeilen und Spalten auflösen</span>
+            <pre><code>df_exploded = df_types.explode("fields")
+
+df_fields = df_exploded[
+    df_exploded["fields"].apply(lambda v: isinstance(v, dict))
+].reset_index(drop=True)
+
+df_fields = pd.concat(
+    [
+        df_fields[["operation", "kind", "name"]],
+        df_fields["fields"].apply(pd.Series),
+    ],
+    axis=1,
+)</code></pre>
+          </div>
+          <p>
+            Damit konnte ich erstmals sämtliche Einstiegspunkte der API als normale Tabelle
+            filtern. Dort tauchten neben <code>contacts</code> unter anderem
+            <code>user</code>, <code>company</code>, <code>countries</code>,
+            <code>notifications</code> und <code>calendar_events</code> auf. Das war der
+            erste wirklich brauchbare Ersatz für die fehlende Dokumentation: statt einzelner
+            Beispiele eine durchsuchbare Übersicht der verfügbaren Abfragen.
+          </p>
+          <p>
+            Was hier allgemein übertragbar ist: Viele technische Probleme wirken zunächst wie
+            ein Programmierproblem. Tatsächlich fehlt häufig nur eine geeignete Darstellung.
+            Die Introspection-Antwort war vollständig, aber für Menschen kaum lesbar — drei
+            einfache Operationen machten daraus eine analysierbare Struktur:
+          </p>
+          <ol class="flow">
+            <li><strong>Äußere Liste als Tabelle laden</strong> — <code>pd.DataFrame(...)</code></li>
+            <li><strong>Eingebettete Listen in Zeilen aufteilen</strong> — <code>explode(...)</code></li>
+            <li><strong>Eingebettete Dictionaries in Spalten auflösen</strong> — <code>apply(pd.Series)</code></li>
+          </ol>
+
+          <h2 id="typen">6. Parameter und GraphQL-Typen entschlüsseln</h2>
+          <p>
+            Nachdem klar war, dass es eine Abfrage namens <code>contacts</code> gibt, musste
+            ich herausfinden, wie sie verwendet wird. Jedes Query-Feld besitzt im Schema ein
+            Feld <code>args</code> mit den erlaubten Argumenten. Für <code>contacts</code>
+            enthielt es unter anderem <code>orderBy</code>, <code>first</code>,
+            <code>last</code>, <code>offset</code>, <code>ids</code>, <code>category</code>,
+            <code>search</code> und <code>show_deleted</code>. Damit war erstmals eindeutig
+            geklärt, welche Filter tatsächlich existieren.
+          </p>
+          <p>
+            Die Typinformationen waren jedoch erneut verschachtelt. Eine Liste von Integern
+            sah im JSON zum Beispiel so aus:
+          </p>
+          <div class="codeblock">
+            <pre><code>{
+    "kind": "LIST",
+    "name": None,
+    "ofType": {
+        "kind": "SCALAR",
+        "name": "Int",
+        "ofType": None
+    }
+}</code></pre>
+          </div>
+          <p>Der eigentliche Typname stand also nicht immer auf der ersten Ebene.</p>
+          <div class="quote">
+            <p>„Bei einigen Parametern steht unter name einfach None. Bedeutet das, dass der Typ nicht dokumentiert ist?"</p>
+            <span class="quote-src">Eigene Chatnachricht an ChatGPT, sinngemäß rekonstruiert</span>
+          </div>
+          <p>
+            Die Erklärung: <code>LIST</code> und <code>NON_NULL</code> sind Wrapper — der
+            eigentliche Typ liegt jeweils in <code>ofType</code>, und dort kann wieder ein
+            Wrapper liegen. Die Struktur muss deshalb rekursiv entpackt werden: Eine Funktion
+            ruft sich selbst so lange erneut auf, bis sie einen benannten Typ erreicht.
+            Daraus entstand diese kleine Hilfsfunktion:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Rekursive Typauflösung</span>
+            <pre><code>def gql_type_str(type_info):
+    if type_info.get("kind") == "NON_NULL":
+        return f"{gql_type_str(type_info['ofType'])}!"
+
+    if type_info.get("kind") == "LIST":
+        return f"[{gql_type_str(type_info['ofType'])}]"
+
+    return type_info.get("name")</code></pre>
+          </div>
+          <p>
+            Der Code wirkt klein, für mein Verständnis von GraphQL war er aber entscheidend.
+            Zum ersten Mal wurde klar, dass Ausdrücke wie <code>[Int!]!</code> keine
+            willkürliche Syntax sind, sondern ineinander verschachtelte Regeln:
+            <code>Int</code> ist ein Integer, <code>Int!</code> darf nicht leer sein,
+            <code>[Int!]</code> ist eine Liste solcher Integer, und bei <code>[Int!]!</code>
+            darf auch die Liste selbst nicht fehlen. Angewendet auf alle Argumente entstand
+            eine Übersicht, die die Dokumentation nie geliefert hatte — inklusive
+            Standardwerten wie <code>orderBy = "id"</code>, <code>last = 50</code> und
+            <code>offset = 0</code>. Diese drei Werte wurden später noch wichtig.
+          </p>
+
+          <h2 id="rueckgabetyp">7. Den tatsächlichen Rückgabetyp bestimmen</h2>
+          <p>
+            Die Eingabeparameter erklärten, wie ich <code>contacts</code> aufrufen kann. Noch
+            offen war, was genau zurückkommt. Auch hier war der Typ verpackt — eine Liste von
+            <code>Customer</code>-Objekten. Zum Entpacken genügte eine zweite rekursive
+            Funktion:
+          </p>
+          <div class="codeblock">
+            <pre><code>def unwrap(type_info):
+    if type_info and type_info.get("kind") in {"NON_NULL", "LIST"}:
+        return unwrap(type_info["ofType"])
+
+    return type_info.get("name")</code></pre>
+          </div>
+          <p>
+            Mit dem Ergebnis <code>Customer</code> konnte ich im Schema alle Felder suchen,
+            die zu diesem Typ gehören. Dabei unterschied ich zwei Arten:
+          </p>
+          <ul>
+            <li><strong>Einfache Felder</strong> — direkt abfragbare Werte wie <code>id</code>, <code>first_name</code>, <code>last_name</code>, <code>email</code>, <code>phone_mobile</code>, <code>created</code> oder <code>modified</code>.</li>
+            <li><strong>Komplexe Felder</strong> — Felder, die weitere Objekte enthalten. Ein <code>address</code>-Feld allein wäre ungültig; GraphQL verlangt dann eine konkrete Auswahl von Unterfeldern wie <code>street</code>, <code>zip</code> und <code>city</code>.</li>
+          </ul>
+          <p>
+            Für die erste funktionierende Abfrage beschränkte ich mich bewusst auf einfache
+            Felder. Das war keine technische Einschränkung, sondern eine Lernentscheidung:
+            erst einen stabilen Abruf bauen, danach Verschachtelungen ergänzen.
+          </p>
+
+          <h2 id="generator">8. Aus Metadaten eine Query erzeugen</h2>
+          <p>
+            Namen, Typen, Standardwerte und Argumente lagen jetzt als DataFrame vor — die
+            Query musste ich also nicht mehr von Hand schreiben. Aus jeder Argumentzeile wie
+            <code>last | Int | 50</code> ließ sich eine Variablendefinition wie
+            <code>$last: Int = 50</code> zusammensetzen, und aus den einfachen
+            Rückgabefeldern der Auswahlblock. Alle Bausteine zusammen ergaben ein
+            Query-Skelett:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Query-Skelett aus Schema-Bausteinen</span>
+            <pre><code>query_skeleton = f"""
+query{var_defs_str} {{
+  {query_to_extract}{arg_pass_str} {{
+    {simple_fields_str}
+  }}
+}}
+"""</code></pre>
+          </div>
+          <p>
+            Das Ergebnis war keine hart codierte Kontaktabfrage mehr. Dasselbe Verfahren
+            funktionierte auch für andere Einstiegspunkte: Ein Test mit
+            <code>calendar_events</code> erzeugte automatisch eine Abfrage mit Parametern wie
+            <code>$start: DateTime</code> und <code>$end: DateTime</code> und Rückgabefeldern
+            wie <code>title</code>, <code>start</code> und <code>end</code>. Damit hatte ich
+            nicht nur eine einzelne API-Abfrage gebaut, sondern einen kleinen Generator, der
+            aus dem Schema erste Query-Strukturen ableitet.
+          </p>
+
+          <h2 id="abruf">9. Die erste echte Kontaktabfrage</h2>
+          <p>
+            Das generierte Query-Skelett erklärte die GraphQL-Seite. Für einen echten
+            Datenabruf fehlten noch der HTTP-Request, die Fehlerbehandlung und die Umwandlung
+            in einen DataFrame. An dieser Stelle nutzte ich ChatGPT erneut — diesmal mit
+            einer eng begrenzten Aufgabe:
+          </p>
+          <div class="prompt">
+            <span class="prompt-label">Beispiel-Prompt · vom Query-Skelett zum Skript</span>
+            <p>
+              „Ich habe diesen generierten GraphQL-Query. Erstelle daraus ein vollständiges
+              Python-Skript mit <code>requests.post()</code>, Authorization-Header,
+              Fehlerbehandlung und Ausgabe als Pandas-DataFrame. <code>API_URL</code> und
+              <code>API_SCHLUESSEL</code> liegen bereits in einer <code>config.py</code>."
+            </p>
+          </div>
+          <p>
+            Dieser Unterschied war wichtig: Ich übergab eine bereits untersuchte Query und
+            einen klar definierten nächsten Schritt — dadurch konnte ich die Antwort
+            wesentlich besser prüfen. Die fertige Abfrage enthielt alle Parameter aus dem Schema und deutlich
+            mehr Felder, als die Dokumentation je gezeigt hatte:
+          </p>
+          <figure class="figure">
+            <img src="../assets/img/graphql-eigene-query.png" alt="Die eigene vollständige GraphQL-Query im Editor, zweispaltig dargestellt: links die Variablendefinitionen und Parameter, rechts die lange Liste der Kontaktfelder inklusive verschachteltem address-Block">
+            <figcaption>
+              <span class="fig-label">Abbildung 3</span> — Die fertige Kontakt-Query aus dem
+              eigenen Notebook: alle acht Parameter aus dem Schema und die vollständige
+              Feldliste inklusive verschachteltem <code>address</code>-Block — der Kontrast
+              zur Beispielabfrage aus Abbildung 2. Das Original ist ein langer schmaler
+              Screenshot, hier zweispaltig montiert.
+              <span class="fig-credit">Eigene Darstellung.</span>
+            </figcaption>
+          </figure>
+          <p>
+            Ein Detail der Fehlerbehandlung ist typisch für GraphQL: Ein HTTP-Status 200
+            bedeutet nicht automatisch, dass die Query erfolgreich war — GraphQL-Fehler
+            stehen innerhalb der JSON-Antwort. Deshalb prüfte das Skript beide Ebenen:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Fehler auf zwei Ebenen prüfen</span>
+            <pre><code>response = requests.post(
+    API_URL,
+    headers=headers,
+    json={"query": query},
+    timeout=30,
+)
+
+response.raise_for_status()
+
+payload = response.json()
+
+if "errors" in payload:
+    raise RuntimeError(f"GraphQL-Fehler: {payload['errors']}")
+
+contacts_df = pd.json_normalize(payload["data"]["contacts"])</code></pre>
+          </div>
+          <p>Damit war der erste vollständige Weg aufgebaut:</p>
+          <ol class="flow">
+            <li><strong>GraphQL-Schema</strong> — per Introspection abgerufen und analysiert.</li>
+            <li><strong>Query-Struktur</strong> — aus den Schema-Metadaten erzeugt.</li>
+            <li><strong>HTTP-Anfrage</strong> — mit Fehlerprüfung auf beiden Ebenen.</li>
+            <li><strong>Pandas-DataFrame</strong> — die Kontakte als auswertbare Tabelle.</li>
+          </ol>
+          <p>
+            Die API war zu diesem Zeitpunkt noch nicht vollständig dokumentiert. Sie war aber
+            keine Blackbox mehr.
+          </p>
+
+          <h2 id="pagination">10. Mehr als 50 Datensätze abrufen</h2>
+          <p>
+            Die erste Abfrage lieferte standardmäßig 50 Kontakte. Für Tests reichte das, für
+            einen vollständigen Export nicht. Im Schema hatte ich bereits die beiden
+            entscheidenden Parameter gefunden: <code>last</code> bestimmte die Größe eines
+            Datenblocks, <code>offset</code> gab an, wie viele Datensätze vorher übersprungen
+            werden — Block eins beginnt bei 0, Block zwei bei 50, Block drei bei 100. Die
+            Dokumentation erklärte allerdings nicht, wann das Ende erreicht ist. Also
+            verwendete ich das Verhalten der API selbst als Abbruchsignal: Sobald eine Seite
+            keine Kontakte mehr enthält, sind alle Datensätze geladen.
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Seitenweise laden, bis eine Seite leer bleibt</span>
+            <pre><code>all_contacts = []
+offset = 0
+page_size = 50
+
+while True:
+    variables = {"last": page_size, "offset": offset}
+
+    payload = graphql_abruf(query, variables)
+    batch = payload["data"]["contacts"]
+
+    if not batch:
+        break
+
+    all_contacts.extend(batch)
+    offset += page_size
+
+df_all = pd.json_normalize(all_contacts)</code></pre>
+          </div>
+          <p>
+            Der Export als CSV nutzte die Kodierung <code>utf-8-sig</code> — bewusst, damit
+            Umlaute beim Öffnen der Datei in Excel zuverlässig dargestellt werden.
+          </p>
+          <div class="deadend">
+            <p>
+              <strong>Eine kleine, aber lehrreiche Codekorrektur:</strong> In einer frühen
+              Notebook-Version übergab ich versehentlich <code>first</code> statt
+              <code>last</code> als Variable. Der Abruf funktionierte scheinbar trotzdem —
+              weil <code>last</code> in der Query den Standardwert 50 besaß, blieb die
+              übergebene Variable schlicht wirkungslos. Genau solche Fehler sind bei
+              generiertem oder schrittweise verändertem Code gefährlich: Das Ergebnis sieht
+              richtig aus, obwohl eine Variable ins Leere läuft. Funktionierender Code ist
+              nicht automatisch verstandener Code — erst wenn klar ist, welche Variable wo
+              wirkt, lässt sich beurteilen, ob ein Test wirklich das belegt, was er belegen
+              soll.
+            </p>
+          </div>
+
+          <h2 id="chat-workflow">11. Arbeiten mit ChatGPT vor Codex und Claude Code</h2>
+          <p>
+            Dieses Projekt entstand zu einer Zeit, in der ChatGPT noch nicht auf meine
+            lokalen Projektdateien zugreifen konnte. Der typische Ablauf: Code aus dem
+            Notebook kopieren, in den Chat einfügen, Problem beschreiben, Antwort
+            zurückkopieren, lokal ausführen, Fehlermeldung wieder in den Chat kopieren. Am
+            Anfang funktionierte das gut. Mit zunehmender Länge sammelten sich im Chat aber
+            immer mehr Codeversionen, Erklärungen und bereits verworfene Ansätze — irgendwann
+            wusste das Modell nicht mehr zuverlässig, welche Version aktuell war.
+          </p>
+          <div class="quote">
+            <p>„Der Code funktioniert nicht mehr. Du beziehst dich auf eine Variable, die wir vor mehreren Versionen entfernt haben."</p>
+            <span class="quote-src">Eigene Chatnachricht an ChatGPT, sinngemäß rekonstruiert</span>
+          </div>
+          <p>
+            Dieses Problem gehörte genauso zum Projekt wie GraphQL selbst. Ich musste nicht
+            nur lernen, wie eine API funktioniert, sondern auch, wie technische Arbeit mit
+            einem Sprachmodell strukturiert werden muss. Vier Regeln haben sich dabei
+            herausgebildet:
+          </p>
+          <ul>
+            <li><strong>Kleine Aufgaben statt Gesamtauftrag.</strong> Ungeeignet war „Analysiere die gesamte API und baue mir einen vollständigen Export". Besser waren nacheinander kleine Fragen — Schema abrufen, Typenliste in einen DataFrame laden, Wrapper-Typen verstehen, Query erzeugen. Jeder Schritt hatte ein klar sichtbares Ergebnis.</li>
+            <li><strong>Aktuellen Stand außerhalb des Chats sichern.</strong> Funktionierende Zwischenstände gehörten ins Notebook, nicht nur in den Chatverlauf. Der Chat war Arbeitsraum, das Notebook die verbindliche Dokumentation.</li>
+            <li><strong>Nur relevanten Kontext übergeben.</strong> Für die rekursive Typauflösung musste ChatGPT nicht den vollständigen Kontaktabruf kennen. Je kleiner der übergebene Ausschnitt, desto präziser die Antwort.</li>
+            <li><strong>Ergebnisse gegen die API prüfen.</strong> ChatGPT konnte vermuten, wie eine GraphQL-API normalerweise funktioniert. Verbindlich waren nur das tatsächliche Schema, die echte Antwort und die auftretenden Fehlermeldungen. Die KI formulierte Hypothesen — die API entschied, ob sie stimmten.</li>
+          </ul>
+          <p>
+            Heute ist der Ablauf einfacher: Werkzeuge wie Codex und Claude Code greifen
+            direkt auf die Projektdateien zu und sehen selbst, welche Funktionen existieren
+            und wie Dateien zusammenhängen. Viele Kopier- und Erklärschritte entfallen. Die
+            grundlegende Arbeitsweise bleibt aber dieselbe:
+          </p>
+          <ol class="flow">
+            <li><strong>Problem begrenzen</strong></li>
+            <li><strong>Aktuellen Zustand untersuchen</strong></li>
+            <li><strong>Kleinste Änderung vornehmen</strong></li>
+            <li><strong>Ergebnis ausführen und real prüfen</strong></li>
+            <li><strong>Nächsten Schritt ableiten</strong></li>
+          </ol>
+          <p>
+            Ein leistungsfähigeres Werkzeug ersetzt diese Struktur nicht. Es reduziert nur
+            die Reibung zwischen den einzelnen Schritten.
+          </p>
+
+          <h2 id="uebertragbar">12. Was andere übernehmen können</h2>
+          <p>
+            Dieses Projekt ist keine universelle Dokumentation für jede GraphQL-API —
+            Schemas, Authentifizierung und Paging unterscheiden sich von Anbieter zu
+            Anbieter. Der Ablauf lässt sich trotzdem übertragen:
+          </p>
+          <ol class="flow">
+            <li><strong>Prüfen, ob Introspection verfügbar ist</strong> — mit <code>get_introspection_query()</code> das Schema anfragen. Einige Anbieter deaktivieren die Introspection in produktiven Umgebungen; dann bleiben nur Dokumentation, Fehlermeldungen oder offizielle Schema-Dateien.</li>
+            <li><strong>Das Schema als Datensatz behandeln</strong> — die Antwort nicht als verschachteltes JSON lesen, sondern relevante Listen in DataFrames umwandeln und schrittweise normalisieren.</li>
+            <li><strong>Zuerst den Query-Roottyp finden</strong> — seine Felder bilden die lesenden Einstiegspunkte.</li>
+            <li><strong>Eine einzelne Abfrage auswählen</strong> — nicht sofort das gesamte Schema dokumentieren, sondern für eine konkrete Query Argumente, Typen, Standardwerte und Rückgabefelder bestimmen.</li>
+            <li><strong>Mit skalaren Feldern beginnen</strong> — verschachtelte Objekte einzeln ergänzen, wenn der einfache Abruf steht.</li>
+            <li><strong>Den kleinsten echten Abruf testen</strong> — erst wenige Datensätze wie <code>contacts(last: 5)</code>, dann Pagination und vollständige Exporte.</li>
+            <li><strong>Fehler auf zwei Ebenen prüfen</strong> — HTTP-Status und <code>errors</code>-Feld in der JSON-Antwort.</li>
+            <li><strong>Paging empirisch testen</strong> — nicht annehmen, dass <code>first</code>, <code>last</code> oder <code>offset</code> überall gleich funktionieren; mit kleinen Seiten die zurückgegebenen IDs vergleichen, erst danach die Schleife bauen.</li>
+            <li><strong>Eigene Dokumentation parallel aufbauen</strong> — pro Abfrage Rückgabetyp, Parameter, Standardwerte, Felder und Paging-Verhalten festhalten. Diese Notizen werden zur Grundlage aller späteren Skripte.</li>
+          </ol>
+          <p>
+            Aus einer kaum erklärten Schnittstelle entstand so schrittweise eine eigene
+            technische Arbeitsgrundlage: das vollständige Schema, rekursiv aufgelöste Typen,
+            automatisch erzeugte Query-Strukturen und ein vollständiger Kontaktexport. Das
+            Projekt war damit mehr als mein Einstieg in GraphQL — es veränderte meine Art,
+            neue technische Themen zu lernen. Ich musste die API nicht zuerst vollständig
+            theoretisch verstehen. Ich begann mit einem realen System, untersuchte dessen
+            beobachtbares Verhalten und zerlegte es so lange, bis aus einzelnen Antworten ein
+            nachvollziehbares Modell entstand.
+          </p>
+          <p>
+            Und aus der einzelnen Kontaktabfrage wurde später mehr: Auf genau diesem
+            Schema-Wissen bauen die <a href="crm-sync.html">CRM-Sync-Bibliothek</a> und die
+            <a href="lead-automation.html">Lead-Automation</a> auf, die dieselbe API heute
+            produktiv nutzen.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="page-nav">
+          <a href="../projekte.html">← Alle Projekte</a>
+          <a href="crm-sync.html">Nächste Fallstudie: CRM-Sync-Bibliothek →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/lygonian" rel="noopener">GitHub</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
