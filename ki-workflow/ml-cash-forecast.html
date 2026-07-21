@@ -14,6 +14,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bevor ein Modell rechnen darf — ML-Cash-Forecast — Samet Kurt</title>
   <meta name="description" content="Ich habe ChatGPT, Claude, Codex SOL und Fable für einen 8-Wochen-Cash-Forecast orchestriert: von Datenrevision und Feature Engineering bis zum gescheiterten ML-Test und einem erklärbaren Termin-Ledger.">
+  <link rel="canonical" href="https://lygonian.github.io/ki-workflow/ml-cash-forecast.html">
+
+  <!-- Open Graph / LinkedIn: absolute URLs und PNG sind Pflicht, SVG wird nicht gerendert -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Samet Kurt">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:url" content="https://lygonian.github.io/ki-workflow/ml-cash-forecast.html">
+  <meta property="og:title" content="Bevor ein Modell rechnen darf — ein ML-Cash-Forecast, der am Test scheiterte">
+  <meta property="og:description" content="Vier KI-Modelle in getrennten Rollen bauen einen 8-Wochen-Cash-Forecast. Der versiegelte Test stoppte das Modell — geblieben ist ein erklärbarer, regelbasierter Plan B.">
+  <meta property="og:image" content="https://lygonian.github.io/assets/img/ml-forecast-card.png">
+  <meta property="og:image:secure_url" content="https://lygonian.github.io/assets/img/ml-forecast-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prozesslinie von der Frage über Datenvertrag und Modell zu einem STOP-Zeichen und einem regelbasierten Plan B">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bevor ein Modell rechnen darf — ein ML-Cash-Forecast, der am Test scheiterte">
+  <meta name="twitter:description" content="Vier KI-Modelle in getrennten Rollen bauen einen 8-Wochen-Cash-Forecast. Der versiegelte Test stoppte das Modell — geblieben ist ein erklärbarer, regelbasierter Plan B.">
+  <meta name="twitter:image" content="https://lygonian.github.io/assets/img/ml-forecast-card.png">
+
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -88,6 +109,17 @@
             Ende 170 automatisierte Tests haben mir gezeigt, was meine Daten tragen — und
             was nicht.
           </p>
+
+          <figure class="figure">
+            <img src="../assets/img/ml-forecast-card.svg" alt="Abstrakte Prozesslinie mit fünf Stationen: ein Pluszeichen für die betriebliche Frage, ein Dokument für den Datenvertrag, eine Kurve für das Modell, ein braunes STOP-Achteck für den versiegelten Test und ein Listensymbol für den regelbasierten Plan B">
+            <figcaption>
+              <span class="fig-label">Abbildung 1</span> — Der Weg des Projekts in fünf
+              Stationen: von der betrieblichen Frage über den Datenvertrag und das Modell
+              zum versiegelten Test, der STOP sagte — und weiter zum regelbasierten Plan B,
+              der geblieben ist.
+              <span class="fig-credit">Eigene Darstellung.</span>
+            </figcaption>
+          </figure>
 
           <nav class="toc" aria-label="Inhaltsverzeichnis">
             <span class="toc-label">Inhalt</span>
@@ -415,7 +447,7 @@ forecast[h] = level + drift * (maturity_gap + h)</code></pre>
           <figure class="figure">
             <img src="../assets/img/ml-forecast-stop.svg" alt="Balkendiagramm der 8-Wochen-Summen-WAPE: In der Validierung erreicht das Trendmodell 9,8 Prozent und die Baseline 17,8 Prozent. Im versiegelten Test erreicht das Trendmodell 33,2 Prozent und die Baseline 9,9 Prozent. Niedriger ist besser; Ergebnis STOP.">
             <figcaption>
-              <span class="fig-label">Abbildung 1</span> — Im unberührten Test kehrte sich
+              <span class="fig-label">Abbildung 2</span> — Im unberührten Test kehrte sich
               die Reihenfolge vollständig um. Gezeigt ist der gewichtete absolute Fehler
               der Acht-Wochen-Summe; niedriger ist besser.
               <span class="fig-credit">Eigene Darstellung nach den gespeicherten Validierungs- und Testberichten.</span>
