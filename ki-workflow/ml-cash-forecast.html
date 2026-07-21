@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TTKNLDVGV2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TTKNLDVGV2');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bevor ein Modell rechnen darf — ML-Cash-Forecast — Samet Kurt</title>
+  <meta name="description" content="Ich habe ChatGPT, Claude, Codex SOL und Fable für einen 8-Wochen-Cash-Forecast orchestriert: von Datenrevision und Feature Engineering bis zum gescheiterten ML-Test und einem erklärbaren Termin-Ledger.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="../index.html">Start</a>
+        <a href="../projekte.html">Projekte</a>
+        <a href="../ki-workflow.html" aria-current="page">KI-Workflow</a>
+        <a href="../forschung.html">Forschung</a>
+        <a href="../ueber-mich.html">Über mich</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html">Start</a> / <a href="../ki-workflow.html">KI-Workflow</a> / ML-Cash-Forecast</p>
+        <p class="eyebrow">Fallstudie · Machine Learning mit LLMs</p>
+        <h1>Bevor ein Modell rechnen darf</h1>
+        <p class="lead">
+          Ich wollte wissen, ob mehrere LLMs aus meinen betrieblichen Daten einen belastbaren
+          Cash-Forecast bauen können. Meine Rolle dabei: die Daten verstehen, die Fachlogik
+          liefern und die Features mitentwickeln. Planung, Implementierung und Prüfung
+          verteilte ich auf mehrere KI-Rollen. Am Ende stoppte der versiegelte Test das
+          Modell. Genau dadurch wurde das Projekt nützlich.
+        </p>
+        <ul class="project-skills">
+          <li class="skill-badge">Cash Forecasting</li>
+          <li class="skill-badge">LLM-Orchestrierung</li>
+          <li class="skill-badge">Datenaufbereitung</li>
+          <li class="skill-badge">Feature Engineering</li>
+          <li class="skill-badge">Point-in-time</li>
+          <li class="skill-badge">Python</li>
+          <li class="skill-badge">Testversiegelung</li>
+        </ul>
+        <div class="hero-meta">
+          <p class="hero-note">
+            <strong>Öffentliche Fassung:</strong> Kundendaten, Projekt-IDs und absolute
+            Umsatz- oder Forecastbeträge bleiben intern. Ich zeige Methoden, relative
+            Fehler und indexierte Ergebnisse. Die HERO-API wurde ausschließlich lesend
+            verwendet. Das Projekt ist eine eigene, inoffizielle Anwendung und steht in
+            keiner Verbindung zum Softwareanbieter.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="prose prose--wide">
+          <p>
+            Das Ergebnis vorweg, weil es die ganze Geschichte prägt: Der vorregistrierte
+            Kandidat verfehlte die Acht-Wochen-Summe im einmal geöffneten Test um
+            33,19 Prozent. Die vorab eingefrorene, bewusst einfache Baseline lag bei
+            9,87 Prozent. Ich hätte danach anfangen können zu schrauben. Ich habe es nicht
+            getan, sondern den STOP akzeptiert: Als offiziellen Forecast behielt ich die
+            Baseline, für die operative Planung ergänzte ich ein getrenntes, regelbasiertes
+            Termin-Ledger.
+          </p>
+          <p>
+            Die eigentliche Arbeit lag ohnehin vor dem Modell. Aus unbereinigten Zahlungen,
+            wechselnden Terminständen, unzuverlässigen Auftragswerten und wenigen
+            Beobachtungen musste überhaupt erst eine faire Lernaufgabe werden. Drei Tage,
+            14 LLM-Sitzungen, rund 980 Nachrichten, 35 dokumentierte Korrekturen und am
+            Ende 170 automatisierte Tests haben mir gezeigt, was meine Daten tragen — und
+            was nicht.
+          </p>
+
+          <nav class="toc" aria-label="Inhaltsverzeichnis">
+            <span class="toc-label">Inhalt</span>
+            <ol>
+              <li><a href="#vorbereitung">Wie ich die LLMs vorbereitet habe</a></li>
+              <li><a href="#legacy">Legacy: der erste autonome Durchlauf</a></li>
+              <li><a href="#notebook-01">Notebook 01: Datenvorbereitung</a></li>
+              <li><a href="#notebook-02">Notebook 02: EDA</a></li>
+              <li><a href="#notebook-03">Notebook 03: Ströme und Features</a></li>
+              <li><a href="#notebook-04">Notebook 04: ML-Modell</a></li>
+              <li><a href="#notebook-05">Notebook 05: Test und Forecast</a></li>
+              <li><a href="#warum">Warum Machine Learning scheiterte</a></li>
+              <li><a href="#notebook-06">Notebook 06: regelbasierter Forecast</a></li>
+              <li><a href="#mitnehmen">Was ich trotzdem mitnehme</a></li>
+              <li><a href="#rollen">Wer welchen Teil übernommen hat</a></li>
+            </ol>
+          </nav>
+
+          <h2 id="vorbereitung">1. Wie ich die LLMs auf die Aufgabe vorbereitet habe</h2>
+          <p>
+            Ich begann nicht bei null. In drei eigenen Vorversionen — intern schlicht
+            <code>forecast_0</code> bis <code>forecast_2</code> genannt — hatte ich bereits
+            offene Rechnungen, DC- und AC-Termine sowie statistische Restwerte zu einem
+            Ledger verbunden. Im Alltag konnte ich damit arbeiten und jede Zahl erklären.
+            Ein sauber geprüftes Modell war es trotzdem nicht, und das musste ich mir erst
+            eingestehen: Mein vermeintlicher Test wanderte mit jedem Lauf mit, historische
+            Stichtage rekonstruierte ich teilweise mit dem heutigen Datenstand, und eine
+            Kalibrierung verdeckte einen deutlichen negativen Bias. Der aufwendig erklärte
+            Forecast war als Punktprognose letztlich nur ein flacher Mittelwert.
+          </p>
+
+          <div class="quote">
+            <p>„schau dir forecast_1 an und dann forecast_0. schreibe einen plan um diese version weiter zu verbessern.“</p>
+            <span class="quote-src">Meine Nachricht an ChatGPT, 18.07.2026 · Originalschreibweise</span>
+          </div>
+
+          <p>
+            Mit ChatGPT begann ich bei der Bestandsaufnahme: Es ließ mich zunächst
+            strukturierte Exporte der Altversionen erzeugen und formulierte daraus einen
+            ausführlichen Vorbereitungsauftrag für Claude. Claude sollte noch kein Modell
+            programmieren, sondern die Aufgabe so weit klären, dass ein Coding-Agent
+            nirgendwo mehr über Ziel, Quellen, Zeitlogik oder Testregeln improvisieren
+            musste. Daraus entstanden ein Daten- und Zielvertrag, ein
+            Point-in-time-Protokoll, Evaluationsgates, ein Notebook-Blueprint,
+            spezialisierte Prüfrollen und ein blockweiser Ausführungsplan.
+          </p>
+
+          <div class="note">
+            <p>
+              <strong>Das Rossmann-Projekt war nur mein Methodenhandbuch.</strong> Mein
+              Uni-Projekt zur Rossmann-Absatzprognose gehört inhaltlich nicht zum
+              Cash-Forecast. Aber ich hatte dort einen ML-Ablauf einmal vollständig
+              durchgearbeitet, und genau dieses Prozessmuster übernahmen die LLMs:
+              Daten vorbereiten → explorativ analysieren → Features entwickeln → Modelle
+              vergleichen → auf einem unangetasteten Test bewerten. Weder Rossmann-Daten
+              noch Fachfeatures noch Modellentscheidungen flossen in dieses Projekt ein.
+            </p>
+          </div>
+
+          <ol class="flow">
+            <li><strong>Problem und Ziel festschreiben:</strong> tatsächlicher Geldeingang nach Bankdatum, acht vollständige Montag-Wochen, reiner Zufluss.</li>
+            <li><strong>Daten isolieren:</strong> eigener lokaler HERO-Export, unveränderliche Rohdaten, API ausschließlich read-only.</li>
+            <li><strong>Zeitachsen trennen:</strong> Ereigniszeit, Sichtbarkeitszeit und Zielwoche durften nie wieder vermischt werden.</li>
+            <li><strong>Vergleich vor Modellkontakt definieren:</strong> Baselines, Metriken, chronologische Splits, Reifefrist und STOP-Regeln standen zuerst fest.</li>
+            <li><strong>Arbeit sequenzieren:</strong> ein Notebook nach dem anderen, nach jedem Schritt mein Zwischenreview und erst danach die nächste Freigabe.</li>
+            <li><strong>Test versiegeln:</strong> Kandidaten und Artefakte wurden per SHA-256 gebunden, bevor Zielwerte des Testfensters sichtbar wurden.</li>
+          </ol>
+
+          <div class="quote">
+            <p>„Lies CODEX_SOL_START.md im Projektstamm und führe den Auftrag darin aus.“</p>
+            <span class="quote-src">Meine Startnachricht an Codex SOL, 18.07.2026</span>
+          </div>
+
+          <p>
+            Der kurze Startprompt war Absicht. Die eigentliche Intelligenz steckte zu
+            diesem Zeitpunkt längst in der Vorbereitung: Ich gab den LLMs keine lose
+            Aufgabe, sondern eine prüfbare Arbeitsumgebung mit definierten Grenzen. Meine
+            wichtigste Orchestrierungsentscheidung kam allerdings erst nach dem ersten
+            Durchlauf: keine parallelen Sprünge mehr. Ich nahm jedes Notebook einzeln ab,
+            ergänzte neue Fachbefunde und gab erst dann den nächsten Block frei.
+          </p>
+
+          <h2 id="legacy">2. Legacy-Notebook: Der erste autonome Durchlauf scheitert</h2>
+          <p>
+            Den ersten autonomen Codex-Durchlauf habe ich als Legacy-Notebook archiviert —
+            er dokumentiert, wie weit Autonomie ohne Fachwissen trägt. Codex arbeitete die
+            vorbereiteten Blöcke vom Export bis zur Modellleiter selbstständig ab.
+            Technisch war der Ablauf sauber, fachlich aber noch zu statistisch gedacht:
+            Alle sechs Featuregruppen wurden verworfen, und keines von fünf Modellen
+            schlug die naive Baseline. Der versiegelte Test blieb deshalb geschlossen.
+          </p>
+
+          <div class="quote">
+            <p>„Das ehrliche Resultat dieser Iteration ist STOP bei der Modellleiter — kein einziges Modell schlägt die naive Baseline.“</p>
+            <span class="quote-src">Claude bei der Prüfung des Codex-Laufs, 19.07.2026</span>
+          </div>
+
+          <p>
+            Erst die anschließende Forensik zeigte mir, warum: 91,5 Prozent des
+            vermeintlichen Forderungsbestands bestanden aus stornierten, gelöschten oder
+            nur entworfenen Dokumenten. Mein wichtigster Prädiktor war überwiegend
+            Datenmüll. Und ausgerechnet der Terminkalender fehlte — die einzige Quelle,
+            die dem späteren Geldeingang zeitlich vorausläuft. Dieser Fehlschlag war
+            ärgerlich, aber produktiv: Er löste die eigentliche Datenrevision aus,
+            Korrektur K-1 bis K-35, jede mit Befund, Wirkung und Entscheidung.
+          </p>
+
+          <h2 id="notebook-01">3. Notebook 01 — Datenvorbereitung und Neuversiegelung</h2>
+          <p>
+            Im ersten aktiven Notebook ließ ich bewusst nicht modellieren, sondern prüfen,
+            ob die Lernaufgabe überhaupt stimmt. Das Notebook verifiziert den eingefrorenen
+            HERO-Datenexport, archiviert den alten 13-Wochen-Stand, rekonstruiert die
+            Zielgröße, bestimmt die Labelreife und versiegelt den neuen Acht-Wochen-Split —
+            ohne dabei ein einziges Testziel zu laden.
+          </p>
+
+          <div class="quote">
+            <p>„Du hast genau die richtige Frage gestellt. Ich hatte Stornos nur aggregiert saldiert und nie geprüft, ob die ‚nie bezahlten‘ Rechnungen storniert sind. Sie sind es.“</p>
+            <span class="quote-src">Claude während der Datenrevision, 19.07.2026</span>
+          </div>
+
+          <p>
+            Was als Einnahme zählt, konnte mir kein Modell abnehmen — das musste ich
+            fachlich entscheiden: das echte Bankdatum, positive Zuflüsse, gültige
+            Dokumente. 46 Stornozahlungen, 15 Zahlungen auf ungültigen Dokumentständen
+            und 38 negative Buchungen als Gutschriften oder Provisionen flogen raus.
+            Danach enthielt das Ziel 1.233 Zahlungen und keine negative Woche mehr; der
+            Variationskoeffizient fiel von 3,655 auf 0,833. Ein extremer historischer
+            Ausschlag, über den ich lange gerätselt hatte, entpuppte sich schlicht als
+            Tippfehler in einer stornierten Rechnung.
+          </p>
+
+          <div class="codeblock">
+            <span class="codeblock-label">Zielgröße — vereinfacht und ohne Geschäftsdaten</span>
+            <pre><code>def weekly_cash_target(payments):
+    clean = payments[
+        payments["paid_date"].notna()
+        &amp; (payments["amount"] &gt; 0)
+        &amp; ~payments["is_cancellation"]
+        &amp; ~payments["document_cancelled"]
+    ]
+    clean["target_week"] = clean["paid_date"].map(monday_of)
+    return clean.groupby("target_week")["amount"].sum()</code></pre>
+          </div>
+
+          <p>
+            Die kleinste Reifefrist, die mindestens 90 Prozent der Zeilen und Beträge
+            abdeckte, lag bei 63 Tagen. Daraus ergaben sich 64 zulässige Prognosestichtage:
+            24 für die Entwicklung, sieben Puffer, 13 Validierung, sieben Embargo und
+            13 Test. Sämtliche Split- und Leakage-Prüfungen bestanden; ein Testzugriff
+            ohne Vorregistrierung wurde technisch abgewiesen — nach den Erfahrungen mit
+            meinen Altversionen wollte ich genau diese Härte.
+          </p>
+
+          <div class="codeblock">
+            <span class="codeblock-label">Die drei Zeitachsen, die ich strikt trennte</span>
+            <pre><code>event_at     = wann etwas fachlich passiert
+available_at = ab wann ich es im System wissen konnte
+target_at    = für welche Zahlungswoche es zählt
+
+usable = available_at &lt;= forecast_origin</code></pre>
+          </div>
+
+          <h2 id="notebook-02">4. Notebook 02 — Explorative Datenanalyse</h2>
+          <p>
+            Das zweite Notebook durfte ausschließlich in den Entwicklungsbereich schauen.
+            Es beschreibt 31 eindeutige Zielwochen, sechs naive Baselines und die Grenzen
+            der Daten, ohne Validierungs- oder Testziele für die Modellwahl anzufassen.
+            Eine Hoffnung starb dabei früh: Ein Jahresmuster war mit null vollständigen
+            52-Wochen-Zyklen schlicht nicht schätzbar; Saisonfeatures waren damit vom
+            Tisch.
+          </p>
+
+          <p>
+            Statt eines Saisonmusters fand die EDA einen Niveau-Lag. Die eingefrorene
+            Baseline B3 — der Mittelwert der letzten 13 reifen Wochen — unterschätzte 22
+            von 24 Entwicklungsstichtagen. Zwischen der frühen und der späten Hälfte stieg
+            die tatsächliche Acht-Wochen-Summe deutlich, während die verzögerte Baseline
+            sank; ihr Bias verschlechterte sich von −9,33 auf −37,06 Prozent. Gleichzeitig
+            lag der Wochenfehler 17,02 Prozentpunkte über dem Fehler der Acht-Wochen-Summe.
+            Einzelne Wochen waren stark verrauscht, Periodensummen deutlich stabiler —
+            eine Erkenntnis, die später die gesamte Bewertung geprägt hat.
+          </p>
+
+          <div class="quote">
+            <p>„Der alte Hinweis −12,6 % gehört nicht zu dieser versiegelten Vergleichsbasis; das Notebook wird diese Abweichung ausdrücklich kennzeichnen, statt beide Zahlen zu vermischen.“</p>
+            <span class="quote-src">Codex beim Bau von Notebook 02, 20.07.2026</span>
+          </div>
+
+          <p>
+            Diesen Befund nahm ich als Gate ab: Kein Modell durfte sich später auf eine
+            hübschere, aber unpassende Kennzahl berufen. Für den Acht-Wochen-Kandidaten
+            galten 25,46 Prozent WAPE als Entwicklungs-Latte, für vier Wochen
+            25,90 Prozent — eingefroren, bevor irgendein Modell gewählt war.
+          </p>
+
+          <h2 id="notebook-03">5. Notebook 03 — Ströme und Feature Engineering</h2>
+          <p>
+            Hier steckte mein größter fachlicher Anteil. Ich übersetzte den Betriebsablauf
+            in drei getrennte Geldströme: Termine → Rechnung → Zahlung, terminloses
+            Geschäft und offene Forderungen. Die Fragen dahinter konnte nur ich
+            beantworten: Welche Termine sind geldrelevant? Wann liegt DC vor AC? Wann gilt
+            der 60/40-Split? Was bedeuten Nullzahlungen und negative Zahlungen? Und welche
+            Statusfelder zeigen nur den heutigen Zustand, nicht den damaligen? Codex
+            setzte meine Antworten anschließend für jeden historischen Stichtag in einem
+            wachsenden Zeitfenster um.
+          </p>
+
+          <div class="quote">
+            <p>„Die Korrektur verkleinert den Forderungsbestand und verschlechtert den Bias. Das ist richtig so. Kompensiere es NICHT durch einen Aufschlag oder eine Niveaukalibrierung.“</p>
+            <span class="quote-src">Meine Arbeitsanweisung an Codex vor Notebook 03, 20.07.2026</span>
+          </div>
+
+          <p>
+            Dieser Satz fasst meine Haltung im ganzen Projekt zusammen: Datenrichtigkeit
+            vor Modellmetrik. Ich wollte keine Regel, die eine falsche Datenbasis
+            rechnerisch wieder passend macht — auch wenn die Kennzahlen dadurch erst
+            einmal schlechter aussahen. Notebook 03 prüfte auf dieser Grundlage vier
+            Blöcke:
+          </p>
+
+          <dl class="role-ledger">
+            <div>
+              <dt>R1 · Auftragswert</dt>
+              <dd>Die aktive Regel erreichte 0,52 Prozent WAPE. Der gesamte Restfehler lag bei Projekten unter 10.000 Euro, die aber nur 2,09 Prozent des Wahrheitsvolumens ausmachten. Ich ließ deshalb keine Sonderregel auf zehn Fällen bauen.</dd>
+            </div>
+            <div>
+              <dt>R2 · Termine</dt>
+              <dd>Der PIT-gemessene Abrechnungssplit blieb an allen 24 Entwicklungsstichtagen bei 0,600. Die Stichprobe wuchs jedoch nur von sieben auf 17 Projekte. Typ-, Größen- oder Zeitparameter wären Scheingenauigkeit gewesen.</dd>
+            </div>
+            <div>
+              <dt>R3 · Ohne Termin</dt>
+              <dd>Der eigene Teilstrom schlug seine Teilstrombaseline, blieb mit 58,14 Prozent WAPE und −32,92 Prozent Bias aber zu ungenau für einen eigenständigen Forecast.</dd>
+            </div>
+            <div>
+              <dt>R4 · Forderungen</dt>
+              <dd>Nullzahlungen schlossen 108 von 108 betroffenen Rechnungen; Skonti wurden betragsmäßig verrechnet. Der rekonstruierte aktuelle Bestand sank um rund 19,5 Prozent, der historische Forecast blieb trotzdem unverändert, weil die korrigierten Altposten bereits außerhalb der Altersgrenze lagen.</dd>
+            </div>
+          </dl>
+
+          <p>
+            Die wichtigste Analyse des ganzen Projekts fragte nicht „Welches Modell?“,
+            sondern „Was konnte ich am Prognosetag überhaupt wissen?“. Über alle
+            untersuchten Fenster entfielen 7,9 Prozent des späteren Cashs auf bereits
+            sichtbare Rechnungen, 41,9 Prozent auf sichtbare Termine, 13,8 Prozent auf
+            sichtbaren Auftragsbestand, 18,8 Prozent auf Projekte ohne Kerntermin — und
+            17,6 Prozent auf Vorgänge, deren Termin am Prognosetag noch gar nicht
+            existierte. Am achten Horizont lag die erreichbare Sichtbarkeitsgrenze damit
+            nur bei rund 68 Prozent. Diese Zahl musste ich erst einmal verdauen: Rund ein
+            Drittel der Zukunft stand schlicht noch nicht im System.
+          </p>
+
+          <div class="quote">
+            <p>„Das ist der Test, der den Plan entscheidet. Zerlegung des tatsächlichen Zahlungseingangs nach Quelle, gemessen am Origin.“</p>
+            <span class="quote-src">Claude vor der Sichtbarkeitsanalyse, 19.07.2026</span>
+          </div>
+
+          <p>
+            Damit drehte sich die Reihenfolge meiner Features: Der Kalender war die
+            dominante Quelle, offene Forderungen halfen wegen des kurzen
+            Zahlungsverhaltens nur für den unmittelbaren Horizont. Ernüchternd blieb
+            trotzdem das Ergebnis: Der kombinierte mechanistische Forecast kam auf rund
+            59,6 Prozent Fehler auf die Acht-Wochen-Summe — gegenüber 25,46 Prozent der
+            simplen Baseline. Das Signal war fachlich sinnvoll, aber ich hatte es noch
+            nicht präzise genug umgesetzt.
+          </p>
+
+          <h2 id="notebook-04">6. Notebook 04 — ML-Modell und Kandidatenwahl</h2>
+          <p>
+            Nach Notebook 03 wechselte ich bewusst den ausführenden Agenten: Claude Fable
+            erhielt eine schriftliche Übergabe und baute Notebook 04 eigenständig. Als
+            Erstes widerlegte es meine bisherige Ridge-Schicht — unangenehm, aber
+            wichtig. An 15 von 24 Stichtagen fiel Ridge einfach auf die Baseline zurück;
+            an den neun Stichtagen, an denen das Modell wirklich arbeitete, war es auf
+            beiden Periodenzielen schlechter als die Baseline. Die scheinbare Verbesserung
+            war ein Verdünnungsartefakt.
+          </p>
+
+          <p>
+            Die EDA hatte aber eine plausible Lücke gezeigt: Wachstum. Fable ergänzte
+            deshalb eine Leiter aus 13 Varianten, darunter gedämpfte Trends, Holt und
+            Theta. Gewonnen hat kein komplexes ML-Modell, sondern ein drift-korrigierter
+            gleitender Mittelwert — zwei je Stichtag neu geschätzte Größen, null getunte
+            Hyperparameter:
+          </p>
+
+          <div class="codeblock">
+            <span class="codeblock-label">Der vorregistrierte Kandidat — vereinfacht</span>
+            <pre><code>history = mature_weeks(weekly_cash, origin)
+level = history.tail(13).mean()
+drift = ols_slope(history.tail(52))
+
+forecast[h] = level + drift * (maturity_gap + h)</code></pre>
+          </div>
+
+          <p>
+            Auf Entwicklung erreichte der Kandidat 19,71 statt 25,46 Prozent Fehler auf
+            die Acht-Wochen-Summe, in der einmaligen Validierung 9,84 statt 17,79 Prozent.
+            Auch für vier Wochen gewann dieselbe Variante. Meine mühsam gebauten Termin-
+            und Forderungsströme lieferten gegenüber dieser schlichten Trendkorrektur
+            dagegen keinen materiellen Zusatznutzen: Eine Kombination lag innerhalb eines
+            Prozentpunkts, die additive Variante fiel deutlich durch. Das anzuerkennen
+            fiel mir nicht leicht. Ich ließ trotzdem zwei formal getrennte, technisch
+            identische Kandidaten für vier und acht Wochen einfrieren.
+          </p>
+
+          <div class="note">
+            <p>
+              <strong>Zwischenstand, nicht Erfolg:</strong> Notebook 04 durfte nur sagen,
+              dass ein Kandidat auf Entwicklung und Validierung besser aussah. Ob daraus
+              ein Forecast werden durfte, entschied allein Notebook 05.
+            </p>
+          </div>
+
+          <h2 id="notebook-05">7. Notebook 05 — Der versiegelte Test sagt STOP</h2>
+          <p>
+            Vor dem Test war alles schriftlich gebunden: Modellklasse, Parameterlogik,
+            Featurestand, Baseline, Metriken, Schwellen, Prediction-Artefakte und Hashes.
+            Dann wurde ein Fenster aus 13 unberührten Prognosestichtagen über den
+            Jahreswechsel 2025/26 genau einmal ausgewertet. Ein zweiter Aufruf war
+            technisch gesperrt.
+          </p>
+
+          <figure class="figure">
+            <img src="../assets/img/ml-forecast-stop.svg" alt="Balkendiagramm der 8-Wochen-Summen-WAPE: In der Validierung erreicht das Trendmodell 9,8 Prozent und die Baseline 17,8 Prozent. Im versiegelten Test erreicht das Trendmodell 33,2 Prozent und die Baseline 9,9 Prozent. Niedriger ist besser; Ergebnis STOP.">
+            <figcaption>
+              <span class="fig-label">Abbildung 1</span> — Im unberührten Test kehrte sich
+              die Reihenfolge vollständig um. Gezeigt ist der gewichtete absolute Fehler
+              der Acht-Wochen-Summe; niedriger ist besser.
+              <span class="fig-credit">Eigene Darstellung nach den gespeicherten Validierungs- und Testberichten.</span>
+            </figcaption>
+          </figure>
+
+          <p>
+            Der Kandidat erreichte 33,19 Prozent WAPE bei +33,19 Prozent Bias: Er
+            überschätzte praktisch jeden Teststichtag. Die eingefrorene Baseline lag bei
+            9,87 Prozent und +7,15 Prozent Bias. Was passiert war, ließ sich klar
+            benennen: Das 2025er-Wachstum, das die Driftkorrektur in Entwicklung und
+            Validierung so überzeugend nachvollzogen hatte, endete genau im Testfenster.
+            Die Extrapolation lief weiter, die Realität nicht. Beide Kandidaten verfehlten
+            ihre zwingenden Gates und erhielten STOP.
+          </p>
+
+          <div class="quote">
+            <p>„N4 hat erstmals zwei Kandidaten geliefert, die ihre Latte auf Dev und Validierung schlagen — im einmaligen versiegelten Test sind jedoch beide gescheitert.“</p>
+            <span class="quote-src">Claude Fable im Abschlussbericht, 20.07.2026</span>
+          </div>
+
+          <p>
+            Danach habe ich nichts mehr auf dieses Testfenster optimieren lassen. Der
+            Reiz war da — aber genau für diesen Moment hatte ich mir die Regeln vorher
+            gegeben. Der offizielle Forecast fiel regelkonform auf B3 zurück: pro Woche
+            derselbe Mittelwert der letzten 13 labelreifen Wochen. Diese Prognose erklärt
+            keine einzelne Woche. Aber sie ist die einzige Methode, deren Fehler auf einem
+            unberührten Fenster belegt ist.
+          </p>
+
+          <div class="deadend">
+            <span class="deadend-label">Dokumentierter Prozessfehler K-35</span>
+            <p>
+              Das Freigabe-Gate suchte sein Freigabewort als Teilstring. Weil das Wort im
+              eigenen Anleitungstext stand, öffnete Fable den Test vor meiner ausdrücklich
+              beabsichtigten manuellen Freigabe. Vorregistrierung, Hashbindung und die
+              einmalige Auswertung blieben intakt — trotzdem war das Gate fehlerhaft, und
+              zwar durch meinen Prozess, nicht durch das Modell. Ich habe den Vorfall
+              nicht versteckt, sondern als K-35 in die Bewertung der Orchestrierung
+              aufgenommen.
+            </p>
+          </div>
+
+          <h2 id="warum">8. Warum Machine Learning in diesem Projekt scheiterte</h2>
+          <p>
+            Das Modell scheiterte nicht an fehlendem Python-Code. Es scheiterte daran,
+            dass die verfügbare Evidenz kleiner und instabiler war als die Lernaufgabe —
+            und das gleich in mehreren Punkten:
+          </p>
+          <ul>
+            <li><strong>Zu wenig nutzbare Historie:</strong> Der belastbare Terminpfad beginnt erst Anfang 2025 — rund 80 Wochen und kein vollständiger Jahreszyklus.</li>
+            <li><strong>Zu wenige Ereignisse:</strong> Zwei bis drei große Installationen pro Woche machen einzelne Wochen strukturell sprunghaft. Periodensummen sind schätzbar, Wochen nur eingeschränkt.</li>
+            <li><strong>Regimewechsel:</strong> Das Wachstumssignal aus 2025 endete im Testzeitraum. Genau die gelernte Drift wurde dadurch zum Fehler.</li>
+            <li><strong>Informationsgrenze:</strong> Ein relevanter Teil der späteren Einnahmen war am Prognosetag noch nicht im System vorhanden; am achten Horizont waren nur rund zwei Drittel sichtbar.</li>
+            <li><strong>Datenqualität:</strong> Der erste Forderungsbestand bestand zu 91,5 Prozent aus fachlich ungültigen Dokumenten; das vorhandene Volumenfeld traf den tatsächlichen Auftragswert nur selten direkt.</li>
+            <li><strong>Kaum Forderungspuffer:</strong> Zwischen Rechnung und Zahlung lagen im Median nur wenige Tage. Offene Rechnungen tragen deshalb kaum Information über acht Wochen.</li>
+            <li><strong>Kein inkrementeller Featurewert:</strong> Termine enthielten Signal, doch die mechanistischen Ströme schlugen weder die einfache Baseline noch die spätere Trendkorrektur zuverlässig.</li>
+          </ul>
+
+          <p>
+            „Fehlgeschlagen“ heißt hier deshalb nicht, dass kein Ergebnis entstand. Es
+            heißt, dass ich den Nachweis für den produktiven Einsatz nicht erbringen
+            konnte. Für mich ist das eine deutlich stärkere Aussage als ein Modell, das
+            nur auf bereits gesehenen Daten gut aussieht — von der Sorte hatte ich vorher
+            schließlich schon drei gebaut.
+          </p>
+
+          <h2 id="notebook-06">9. Notebook 06 — Einnahmen trotzdem regelbasiert schätzen</h2>
+          <div class="quote">
+            <p>„mache ein neues notebook und mache dort das regelbasierte forecasting ohne ml nur durch termine. […] keinen mittelwert über alle 4 wochen sondern rein basierend auf terminen“</p>
+            <span class="quote-src">Meine Nachricht an Claude nach dem ML-STOP, 20.07.2026 · Rechtschreibung behutsam geglättet</span>
+          </div>
+
+          <p>
+            Der Betrieb braucht trotzdem einen kurzfristigen Blick auf erwartete
+            Einnahmen — ein STOP bezahlt keine Rechnungen. Deshalb ließ ich nach dem
+            abgeschlossenen Test ein sechstes, ausdrücklich getrenntes Notebook bauen. Es
+            trainiert kein Modell und beansprucht keinen statistischen Sieg. Es übersetzt
+            reale Termine, Rechnungen und Zahlungen in einen nachvollziehbaren
+            Vier-Wochen-Ledger.
+          </p>
+
+          <h3>Die Regeln und ihre Herleitung</h3>
+          <dl class="role-ledger">
+            <div>
+              <dt>1 · Termine</dt>
+              <dd>Nur DC-Montage, der historische Name „Umsetzung“ und AC-Installation sind geldrelevant. Personen- und interne Kalenderkategorien zählen nicht. Gelöschte Termine werden ausgeschlossen.</dd>
+            </div>
+            <div>
+              <dt>2 · Blöcke</dt>
+              <dd>Termine desselben Projekts und Meilensteins mit höchstens 14 Tagen Abstand bilden einen Installationsblock. Maßgeblich ist das Blockende; je Projekt und Meilenstein zählt nur der letzte Block.</dd>
+            </div>
+            <div>
+              <dt>3 · Betrag</dt>
+              <dd>Für passende PV-Aufträge werden 60 Prozent dem DC- und 40 Prozent dem AC-Schritt zugeordnet. Der aktuelle Regelcheck bestätigte einen Median von 0,600 bei 99 Fällen. Das ist ein Summenanker, keine präzise Einzelprojektregel.</dd>
+            </div>
+            <div>
+              <dt>4 · Zeitpunkt</dt>
+              <dd>Aus den letzten zwölf Monaten wurden drei Tage vom Blockende bis zur Rechnung (n=190) und drei Tage von Rechnung bis Zahlung (n=607) als Mediane abgeleitet. Die vertragliche Sieben-Tage-Frist wird als Sensitivität daneben gerechnet.</dd>
+            </div>
+            <div>
+              <dt>5 · Status</dt>
+              <dd>Ist eine passende Rechnung bereits bezahlt, trägt der Termin nichts mehr bei. Eine offene Rechnung geht mit ihrem tatsächlichen offenen Saldo und Fälligkeitsdatum ein; Überfälliges landet in Woche eins.</dd>
+            </div>
+            <div>
+              <dt>6 · Deckel</dt>
+              <dd>Regelbeträge eines Projekts dürfen Auftragswert minus bereits gezahlten Betrag nicht überschreiten. Beiträge nach dem Vier-Wochen-Fenster werden separat ausgewiesen statt abgeschnitten.</dd>
+            </div>
+          </dl>
+
+          <div class="codeblock">
+            <span class="codeblock-label">Ledger-Prinzip — jeder Betrag behält seine Herkunft</span>
+            <pre><code>for appointment in visible_appointments(origin):
+    block = installation_block(appointment, max_gap_days=14)
+    amount = billable_share(block.stage, project.order_value)
+    pay_day = block.end + invoice_lag + payment_lag
+    ledger.add(project, block.stage, monday_of(pay_day), amount)
+
+ledger = remove_paid_items(ledger)
+ledger = cap_by_remaining_order_value(ledger)</code></pre>
+          </div>
+
+          <p>
+            In der ausgeführten Vier-Wochen-Sicht entstanden 17, 8, 7 und 6 konkrete
+            Beiträge. Um interne Beträge nicht zu veröffentlichen, setze ich die flache
+            Wochenbaseline hier auf den Index 100: Der Termin-Ledger lag in Woche eins bei
+            158,8, danach bei 105,3, 80,8 und 93,3 — über vier Wochen 109,5 Prozent der
+            Baseline. Der Unterschied zur offiziellen Punktprognose liegt nicht in der
+            Summe, sondern in der Erklärbarkeit: Ich sehe, in welcher Woche welcher
+            Termin oder welche offene Rechnung den Zahlungseingang tragen müsste.
+          </p>
+
+          <div class="deadend">
+            <span class="deadend-label">Keine nachträgliche Erfolgserzählung</span>
+            <p>
+              Dieses Notebook ist nicht auf einem neuen versiegelten Fenster
+              backtest-validiert. Terminloses Geschäft, spätere Terminverschiebungen und
+              abweichende Abrechnungssplits fehlen teilweise; für andere Gewerke bräuchte
+              es eigene Regeln. Ich lese den Ledger deshalb als operative Untergrenze und
+              Handlungsinstrument — nicht mehr. Statistisch belegt bleibt allein die
+              Baseline.
+            </p>
+          </div>
+
+          <h2 id="mitnehmen">10. Was ich aus dem Projekt trotzdem mitnehme</h2>
+          <ul>
+            <li><strong>Datenaufbereitung war das eigentliche Modell.</strong> Erst die fachliche Bereinigung machte aus einer kaputten Zielreihe eine prüfbare Prognoseaufgabe.</li>
+            <li><strong>Feature Engineering beginnt im Betrieb.</strong> Kein LLM konnte aus einer Spalte ableiten, ob eine Nullzahlung eine geschlossene Abschlussrechnung oder ob ein Termin ein interner Kalendereintrag ist. Diese Bedeutung musste ich liefern.</li>
+            <li><strong>Ein Prozessmuster ist wertvoller als kopierter Code.</strong> Mein Rossmann-Projekt wurde zum wiederverwendbaren Referenzhandbuch für Phasen, Artefakte und Entscheidungstore — nicht zur fachlichen Vorlage.</li>
+            <li><strong>Ein STOP schützt reale Entscheidungen.</strong> Ohne versiegelten Test hätte ich ein Modell eingesetzt, das die kommende Periode um etwa ein Drittel überschätzte.</li>
+            <li><strong>Eine Baseline und ein Ledger erfüllen verschiedene Aufgaben.</strong> Die Baseline liefert die statistisch ehrlichste Periodensumme; der Termin-Ledger erklärt, woher Einnahmen kommen könnten und wo ich operativ eingreifen kann.</li>
+            <li><strong>Die nächste Verbesserung ist mehr Historie.</strong> Regelmäßige unveränderliche Snapshots machen Terminänderungen und neue Statusfelder künftig point-in-time-fähig. Erst ein neues, ausgereiftes Testfenster erlaubt einen weiteren Modellversuch.</li>
+          </ul>
+
+          <p>
+            Einnahmen schätzen kann ich also weiterhin — aber ich trenne jetzt sauber
+            zwischen einer statistisch geprüften Gesamterwartung und einer regelbasierten,
+            erklärbaren Wochenplanung. Diese Trennung ist das eigentlich produktive
+            Ergebnis des gescheiterten ML-Versuchs.
+          </p>
+
+          <h2 id="rollen">11. Wer welchen Teil übernommen hat</h2>
+          <dl class="role-ledger">
+            <div>
+              <dt>Ich</dt>
+              <dd>Ich definierte die betriebliche Frage, beantwortete die Fachfragen, orchestrierte Datenaufbereitung und Features, nahm jedes Notebook ab, wechselte die Agentenrollen und akzeptierte den STOP.</dd>
+            </div>
+            <div>
+              <dt>ChatGPT</dt>
+              <dd>Ich nutzte ChatGPT für die Forensik meiner frühen Forecasts, strukturierte Analyseprompts und den ausführlichen Vorbereitungsauftrag an Claude.</dd>
+            </div>
+            <div>
+              <dt>Claude · Opus</dt>
+              <dd>Claude baute aus meinen Quellen und dem Rossmann-Prozessmuster die Verträge, den Notebook-Plan und das Korrekturregister; ich schärfte mit Claude die Fachlogik.</dd>
+            </div>
+            <div>
+              <dt>Codex SOL</dt>
+              <dd>Codex setzte den ersten autonomen Lauf und später die revidierte Kette bis Notebook 03 um. Mit meiner sequenziellen Freigabe arbeitete es deutlich kontrollierter.</dd>
+            </div>
+            <div>
+              <dt>Claude · Fable</dt>
+              <dd>Fable übernahm Notebook 04 und 05, fror die Kandidaten ein, wertete den Test aus und dokumentierte den STOP; anschließend setzte es das getrennte Termin-Notebook 06 um.</dd>
+            </div>
+          </dl>
+
+          <p>
+            Die LLMs haben mir den Forecast nicht „abgenommen“. Ich habe ihre Arbeit in
+            eine überprüfbare Kette übersetzt, ihre Fehler sichtbar gemacht und ihre
+            Stärken dort genutzt, wo sie belastbar waren. Am Ende war nicht das komplexeste
+            Modell richtig, sondern die einfachste Aussage, die den Test überlebt hat.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="page-nav">
+          <a href="../ki-workflow.html">← Zurück zum KI-Workflow</a>
+          <a href="../projekte/crm-sync.html">Nächste Fallstudie: CRM-Sync-Bibliothek →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/lygonian" rel="noopener">GitHub</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/atlas.js" defer></script>
+</body>
+</html>
