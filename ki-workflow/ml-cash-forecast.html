@@ -212,12 +212,13 @@
           <p>
             Was als Einnahme zählt, konnte mir kein Modell abnehmen — das musste ich
             fachlich entscheiden: das echte Bankdatum, positive Zuflüsse, gültige
-            Dokumente. 46 Stornozahlungen, 15 Zahlungen auf ungültigen Dokumentständen
-            und 38 negative Buchungen als Gutschriften oder Provisionen flogen raus.
-            Danach enthielt das Ziel 1.233 Zahlungen und keine negative Woche mehr; der
-            Variationskoeffizient fiel von 3,655 auf 0,833. Ein extremer historischer
-            Ausschlag, über den ich lange gerätselt hatte, entpuppte sich schlicht als
-            Tippfehler in einer stornierten Rechnung.
+            Dokumente. Stornierte Zahlungen, Buchungen auf ungültigen Dokumentständen und
+            negative Posten wie Gutschriften oder Provisionen flogen raus. Betroffen war
+            jeweils nur ein kleiner Teil der Zeilen, die Wirkung auf die Zielreihe war
+            trotzdem erheblich: keine negative Woche mehr, und der Variationskoeffizient
+            fiel von 3,655 auf 0,833. Ein extremer historischer Ausschlag, über den ich
+            lange gerätselt hatte, entpuppte sich schlicht als Tippfehler in einer
+            stornierten Rechnung.
           </p>
 
           <div class="codeblock">
@@ -312,11 +313,11 @@ usable = available_at &lt;= forecast_origin</code></pre>
           <dl class="role-ledger">
             <div>
               <dt>R1 · Auftragswert</dt>
-              <dd>Die aktive Regel erreichte 0,52 Prozent WAPE. Der gesamte Restfehler lag bei Projekten unter 10.000 Euro, die aber nur 2,09 Prozent des Wahrheitsvolumens ausmachten. Ich ließ deshalb keine Sonderregel auf zehn Fällen bauen.</dd>
+              <dd>Die aktive Regel erreichte 0,52 Prozent WAPE. Der gesamte Restfehler steckte in den kleinsten Projekten, die zusammen nur rund zwei Prozent des Wahrheitsvolumens ausmachten. Eine Sonderregel hätte also auf einer Handvoll Ausreißer beruht — die ließ ich bewusst weg.</dd>
             </div>
             <div>
               <dt>R2 · Termine</dt>
-              <dd>Der PIT-gemessene Abrechnungssplit blieb an allen 24 Entwicklungsstichtagen bei 0,600. Die Stichprobe wuchs jedoch nur von sieben auf 17 Projekte. Typ-, Größen- oder Zeitparameter wären Scheingenauigkeit gewesen.</dd>
+              <dd>Der PIT-gemessene Abrechnungssplit blieb an allen 24 Entwicklungsstichtagen stabil bei 0,600. Die zugrunde liegende Stichprobe wuchs über den gesamten Zeitraum aber kaum an. Den Split nach Projekttyp, Größe oder Zeitraum zu differenzieren, wäre reine Scheingenauigkeit gewesen.</dd>
             </div>
             <div>
               <dt>R3 · Ohne Termin</dt>
@@ -324,7 +325,7 @@ usable = available_at &lt;= forecast_origin</code></pre>
             </div>
             <div>
               <dt>R4 · Forderungen</dt>
-              <dd>Nullzahlungen schlossen 108 von 108 betroffenen Rechnungen; Skonti wurden betragsmäßig verrechnet. Der rekonstruierte aktuelle Bestand sank um rund 19,5 Prozent, der historische Forecast blieb trotzdem unverändert, weil die korrigierten Altposten bereits außerhalb der Altersgrenze lagen.</dd>
+              <dd>Nullzahlungen schlossen ausnahmslos jede betroffene Rechnung; Skonti wurden betragsmäßig verrechnet. Der rekonstruierte aktuelle Bestand sank dadurch um rund 19,5 Prozent, der historische Forecast blieb trotzdem unverändert, weil die korrigierten Altposten bereits außerhalb der Altersgrenze lagen.</dd>
             </div>
           </dl>
 
@@ -466,7 +467,7 @@ forecast[h] = level + drift * (maturity_gap + h)</code></pre>
           </p>
           <ul>
             <li><strong>Zu wenig nutzbare Historie:</strong> Der belastbare Terminpfad beginnt erst Anfang 2025 — rund 80 Wochen und kein vollständiger Jahreszyklus.</li>
-            <li><strong>Zu wenige Ereignisse:</strong> Zwei bis drei große Installationen pro Woche machen einzelne Wochen strukturell sprunghaft. Periodensummen sind schätzbar, Wochen nur eingeschränkt.</li>
+            <li><strong>Zu wenige Ereignisse:</strong> Der Zahlungseingang einer Woche hängt an wenigen großen Installationen. Fällt eine davon in die Nachbarwoche, kippt das Wochenbild — die einzelne Woche ist strukturell sprunghaft, während Periodensummen sich ausmitteln und schätzbar bleiben.</li>
             <li><strong>Regimewechsel:</strong> Das Wachstumssignal aus 2025 endete im Testzeitraum. Genau die gelernte Drift wurde dadurch zum Fehler.</li>
             <li><strong>Informationsgrenze:</strong> Ein relevanter Teil der späteren Einnahmen war am Prognosetag noch nicht im System vorhanden; am achten Horizont waren nur rund zwei Drittel sichtbar.</li>
             <li><strong>Datenqualität:</strong> Der erste Forderungsbestand bestand zu 91,5 Prozent aus fachlich ungültigen Dokumenten; das vorhandene Volumenfeld traf den tatsächlichen Auftragswert nur selten direkt.</li>
@@ -509,11 +510,11 @@ forecast[h] = level + drift * (maturity_gap + h)</code></pre>
             </div>
             <div>
               <dt>3 · Betrag</dt>
-              <dd>Für passende PV-Aufträge werden 60 Prozent dem DC- und 40 Prozent dem AC-Schritt zugeordnet. Der aktuelle Regelcheck bestätigte einen Median von 0,600 bei 99 Fällen. Das ist ein Summenanker, keine präzise Einzelprojektregel.</dd>
+              <dd>Für passende PV-Aufträge werden 60 Prozent dem DC- und 40 Prozent dem AC-Schritt zugeordnet. Der Regelcheck bestätigte diesen Split als Median über die geprüften Projekte. Das ist ein Summenanker, keine präzise Einzelprojektregel.</dd>
             </div>
             <div>
               <dt>4 · Zeitpunkt</dt>
-              <dd>Aus den letzten zwölf Monaten wurden drei Tage vom Blockende bis zur Rechnung (n=190) und drei Tage von Rechnung bis Zahlung (n=607) als Mediane abgeleitet. Die vertragliche Sieben-Tage-Frist wird als Sensitivität daneben gerechnet.</dd>
+              <dd>Aus den letzten zwölf Monaten wurden zwei Mediane abgeleitet: wenige Tage vom Blockende bis zur Rechnung und wenige Tage von der Rechnung bis zur Zahlung. Weil beide Wege in der Praxis kürzer sind als die vertragliche Zahlungsfrist, wird diese Frist als Sensitivität danebengerechnet.</dd>
             </div>
             <div>
               <dt>5 · Status</dt>
@@ -538,13 +539,15 @@ ledger = cap_by_remaining_order_value(ledger)</code></pre>
           </div>
 
           <p>
-            In der ausgeführten Vier-Wochen-Sicht entstanden 17, 8, 7 und 6 konkrete
-            Beiträge. Um interne Beträge nicht zu veröffentlichen, setze ich die flache
-            Wochenbaseline hier auf den Index 100: Der Termin-Ledger lag in Woche eins bei
-            158,8, danach bei 105,3, 80,8 und 93,3 — über vier Wochen 109,5 Prozent der
-            Baseline. Der Unterschied zur offiziellen Punktprognose liegt nicht in der
-            Summe, sondern in der Erklärbarkeit: Ich sehe, in welcher Woche welcher
-            Termin oder welche offene Rechnung den Zahlungseingang tragen müsste.
+            In der ausgeführten Vier-Wochen-Sicht steht hinter jeder Woche eine
+            überschaubare Zahl einzeln benannter Beiträge, die vorderste Woche deutlich
+            dichter belegt als die späteren. Um interne Beträge nicht zu veröffentlichen,
+            setze ich die flache Wochenbaseline hier auf den Index 100: Der Termin-Ledger
+            lag in Woche eins bei 158,8, danach bei 105,3, 80,8 und 93,3 — über vier
+            Wochen 109,5 Prozent der Baseline. Der Unterschied zur offiziellen
+            Punktprognose liegt nicht in der Summe, sondern in der Erklärbarkeit: Ich
+            sehe, in welcher Woche welcher Termin oder welche offene Rechnung den
+            Zahlungseingang tragen müsste.
           </p>
 
           <div class="deadend">
