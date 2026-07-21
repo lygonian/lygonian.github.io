@@ -13,7 +13,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bevor ein Modell rechnen darf — ML-Cash-Forecast — Samet Kurt</title>
-  <meta name="description" content="Ein betrieblicher Cash-Forecast, aufgebaut mit ChatGPT, Claude, Codex und Fable: von heuristischen Vorarbeiten über Datenrevision und Point-in-time-Tests bis zum begründeten STOP und einem regelbasierten Plan B.">
+  <meta name="description" content="Ein 8-Wochen-Cash-Forecast als ML-Projekt mit ChatGPT, Claude, Codex SOL und Claude Fable: Datenrevision mit 35 Korrekturen, Point-in-time-Disziplin, versiegelter Test mit STOP — und ein erklärbarer Termin-Ledger als Werkzeug für den Alltag.">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -41,11 +41,12 @@
         <p class="eyebrow">Fallstudie · Forecasting &amp; KI-Orchestrierung</p>
         <h1>Bevor ein Modell rechnen darf</h1>
         <p class="lead">
-          Für die betriebliche Planung brauchte ich einen belastbaren Blick auf die kommenden
-          Zahlungseingänge. Die Veröffentlichung von Codex SOL kam zum passenden Zeitpunkt, um
-          einen neuen Coding-Agenten an genau dieser realen Aufgabe auszuprobieren. Aus ersten
-          Faustregeln wurde ein strukturiertes ML-Projekt mit mehreren KI-Systemen, unabhängigen
-          Reviews und einem versiegelten Test. Das Modell wurde am Ende nicht eingesetzt.
+          Wie viel Geld geht in den nächsten acht Wochen tatsächlich auf dem Konto ein?
+          Diese Frage stellt sich im Betrieb jede Woche neu. Drei Tage lang habe ich sie
+          als ernsthaftes ML-Projekt bearbeitet — mit mehreren KI-Systemen in verteilten
+          Rollen, Datenverträgen, schriftlichen Übergaben und einem versiegelten Test.
+          Das Modell wurde am Ende nicht eingesetzt. Warum genau das das richtige
+          Ergebnis war, zeigt diese Fallstudie.
         </p>
         <ul class="project-skills">
           <li class="skill-badge">Forecasting</li>
@@ -59,9 +60,11 @@
         <div class="hero-meta">
           <p class="hero-note">
             <strong>Code und Daten bleiben intern:</strong> Die Fallstudie zeigt Ablauf,
-            Entscheidungen und Modellgüte. Geldbeträge, Kundeninformationen, interne Mengen und
-            operative Einzeldaten werden nicht veröffentlicht. Die Datenschnittstelle wurde nur
-            lesend verwendet.
+            Entscheidungen und Modellgüte in relativen Fehlerwerten. Geldbeträge, Kunden-
+            und Projektdaten werden nicht veröffentlicht. Die HERO-API wurde ausschließlich
+            lesend verwendet; das Projekt ist eine eigene, inoffizielle Anwendung und steht
+            in keiner Verbindung zum Softwareanbieter — dieser ist für Code,
+            Datenverarbeitung und Ergebnisse dieses Projekts nicht verantwortlich.
           </p>
         </div>
       </div>
@@ -71,99 +74,143 @@
       <div class="container">
         <div class="prose prose--wide">
           <p>
-            Das wichtigste Ergebnis war keine bessere Prognose, sondern eine belastbare
-            Entscheidung gegen das Modell. Eine einfache Vergleichsregel blieb im einmalig
-            geöffneten Test deutlich genauer. Danach entstand ein separates, regelbasiertes
-            Vier-Wochen-Werkzeug für die operative Planung. Es erklärt erwartete Zahlungen aus
-            sichtbaren Terminen, ist aber ausdrücklich kein nachträglich zum Erfolg erklärtes
-            ML-Modell.
+            Das wichtigste Ergebnis war kein besseres Modell, sondern ein belastbares Nein.
+            Im einmalig geöffneten, versiegelten Test verfehlte der vorregistrierte
+            Modellkandidat die Acht-Wochen-Summe um rund 33 Prozent — die eingefrorene,
+            bewusst simple Vergleichsregel nur um rund 10. Beide Kandidaten erhielten STOP.
+            Ausgeliefert wurde die Vergleichsregel, dokumentiert in einer Modellkarte mit
+            allen Grenzen.
           </p>
-
-          <p><strong>Der Projektverlauf in der tatsächlichen Reihenfolge:</strong></p>
-          <ol class="flow">
-            <li><strong>Betrieblicher Bedarf:</strong> Zahlungseingänge für die kommenden Wochen besser planbar machen.</li>
-            <li><strong>Heuristische Vorarbeiten:</strong> drei regelbasierte Versionen mit Rechnungen, Terminen und Projektstufen.</li>
-            <li><strong>Projektvorbereitung:</strong> ChatGPT schärfte den Auftrag; Claude analysierte die Quellen und entwarf Verträge, Gates und Handoffs.</li>
-            <li><strong>Erste Umsetzung:</strong> Codex arbeitete den vorbereiteten Plan ab und stoppte, weil Features und Modelle die einfache Vergleichsregel — die Baseline — nicht schlugen.</li>
-            <li><strong>Revision:</strong> Claude und ich korrigierten Datenbedeutung und Annahmen; Codex setzte die neue Fünf-Notebook-Struktur bis zum Modellschritt um.</li>
-            <li><strong>Abschluss:</strong> Fable baute die letzten Modell- und Testnotebooks; der versiegelte Test endete mit STOP.</li>
-            <li><strong>Plan B:</strong> ein separates Vier-Wochen-Regelwerk aus Terminen und erwarteten Zahlungswegen.</li>
-          </ol>
+          <p>
+            Drei Tage, 14 Terminal-Sitzungen, rund 980 Nachrichten,
+            35 schriftlich belegte Korrekturen, am Ende 170 automatisierte Tests: Dieser
+            Aufwand hat keinen besseren Forecast erzeugt. Er hat etwas Nützlicheres
+            erzeugt — den Beleg, welcher Forecast der richtige ist, wo seine Grenzen
+            liegen und warum.
+          </p>
 
           <nav class="toc" aria-label="Inhaltsverzeichnis">
             <span class="toc-label">Inhalt</span>
             <ol>
-              <li><a href="#bedarf">Die betriebliche Frage kam zuerst</a></li>
-              <li><a href="#vorarbeit">Die ersten Forecasts erklärten viel und prüften zu wenig</a></li>
-              <li><a href="#vorbereitung">Erst den Auftrag bauen, dann das Modell</a></li>
-              <li><a href="#codex">Codex setzte den Plan um — und stoppte vor dem Test</a></li>
-              <li><a href="#revision">Die Datenrevision veränderte Ziel, Features und Horizont</a></li>
-              <li><a href="#fable">Die Validierung überzeugte — der versiegelte Test nicht</a></li>
-              <li><a href="#plan-b">Plan B: vier Wochen direkt aus dem Kalender</a></li>
-              <li><a href="#rollen">Kein System gewann — die Übergaben wurden besser</a></li>
+              <li><a href="#frage">Acht Wochen im Voraus: die Frage hinter dem Projekt</a></li>
+              <li><a href="#vorarbeit">Drei eigene Versuche erklärten viel — und prüften nichts</a></li>
+              <li><a href="#auftrag">Erst der Auftrag, dann der Code</a></li>
+              <li><a href="#codex">Ein Einzeiler startet Codex — der erste Durchlauf endet mit STOP</a></li>
+              <li><a href="#revision">Die Datenrevision: 35 dokumentierte Korrekturen</a></li>
+              <li><a href="#obergrenze">Die wichtigste Analyse: Was war am Prognosetag überhaupt sichtbar?</a></li>
+              <li><a href="#modell">Ein bewusst kleines Modell schlägt die Baseline — in der Validierung</a></li>
+              <li><a href="#stop">Der versiegelte Test wird genau einmal geöffnet: STOP</a></li>
+              <li><a href="#plan-b">Was jetzt läuft: der Termin-Ledger</a></li>
+              <li><a href="#rollen">Wer hat was gemacht</a></li>
+              <li><a href="#lernen">Was übertragbar ist</a></li>
             </ol>
           </nav>
 
-          <h2 id="bedarf">1. Die betriebliche Frage kam zuerst</h2>
+          <h2 id="frage">1. Acht Wochen im Voraus: die Frage hinter dem Projekt</h2>
           <p>
-            Ausgangspunkt war eine praktische Planungsfrage: Welche Zahlungseingänge sind in den
-            kommenden Wochen zu erwarten? Ein Wochenwert allein reicht dafür nicht. Im Alltag ist
-            ebenso wichtig, ob er auf bereits gestellten Rechnungen, geplanten Arbeiten oder nur
-            auf einer statistischen Fortschreibung beruht.
+            In einem Betrieb für Photovoltaik, Speicher und Wallboxen entsteht Liquidität
+            stoßweise: Einzelne Installationstermine tragen jeweils einen spürbaren Teil
+            der Wochensumme — verschiebt sich eine einzige Montage, springt die ganze
+            Woche. Für die Planung reicht ein Bauchgefühl da nicht aus. Die Frage
+            war konkret: Wie viel Geld geht in den nächsten acht Wochen tatsächlich auf
+            dem Konto ein — und worauf beruht diese Erwartung?
           </p>
           <p>
-            Dass Codex SOL gerade veröffentlicht worden war, machte den Zeitpunkt interessant.
-            Die Aufgabe war real, die Daten lagen vor und das Ergebnis ließ sich später gegen
-            tatsächlich eingegangene Zahlungen prüfen. Der Modellvergleich war damit ein Mittel
-            für das Projekt — nicht sein Anlass.
+            Die Datenbasis lag bereit: die Betriebssoftware HERO, deren GraphQL-API ich in
+            <a href="crm-sync.html">früheren Projekten</a> bereits angebunden hatte —
+            hier strikt lesend, über einen technischen Schutz, der Schreibzugriffe von
+            vornherein ausschließt. Die wichtigste Grundsatzentscheidung fiel ganz am
+            Anfang: Prognostiziert wird, wann Geld auf dem Konto ankommt — nach dem echten
+            Bankdatum, das eine <a href="rechnungs-pipeline.html">eigene Zahlungs-Pipeline</a>
+            pflegt. Nicht das Rechnungsdatum, nicht das Erfassungsdatum.
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Die Zielgröße — vereinfacht, ohne echte Daten</span>
+            <pre><code>def monday_of(d: date) -> date:
+    """Jede Zahlung gehört zur Montag-Woche ihres Bankdatums."""
+    return d - timedelta(days=d.weekday())
+
+def weekly_cash_target(payments: pd.DataFrame) -> pd.Series:
+    """Reiner Zufluss: Stornos, stornierte Belege und
+    negative Zeilen (Gutschriften) fliegen raus."""
+    clean = payments[
+        payments["paid_date"].notna()
+        & (payments["amount"] > 0)
+        & ~payments["is_cancellation"]
+        & ~payments["document_cancelled"]
+    ]
+    week = clean["paid_date"].map(monday_of)
+    return clean.groupby(week)["amount"].sum()</code></pre>
+          </div>
+          <p>
+            Dass diese Bereinigung nötig ist, wusste ich zu Projektbeginn noch nicht.
+            Wie viel sie ausmacht, kommt in Abschnitt 5.
           </p>
 
-          <h2 id="vorarbeit">2. Die ersten Forecasts erklärten viel und prüften zu wenig</h2>
+          <h2 id="vorarbeit">2. Drei eigene Versuche erklärten viel — und prüften nichts</h2>
           <p>
-            Vor dem ML-Projekt entstanden drei Forecast-Versionen. Sie kombinierten offene
-            Rechnungen, geplante Montageabschnitte, wahrscheinliche Projektfolgen und einen
-            statistischen Rest. Daraus wurde ein Ledger, also ein Herkunftsverzeichnis: Für jede Woche ließ sich nachvollziehen,
-            aus welcher Rechnung oder welchem Termin ein erwarteter Eingang stammen sollte.
+            Vor dem ML-Projekt hatte ich bereits drei Forecast-Versionen selbst gebaut,
+            mit KI-Hilfe im Alltag. Ihr Kern war ein Ledger, also ein Herkunftsverzeichnis:
+            offene Rechnungen mit geschätzter Einzugswahrscheinlichkeit, Montagetermine mit
+            festen Rechnungsstufen, wahrscheinliche Projektfolgen, ein statistischer Rest.
+            Für operative Gespräche war das nützlich — man sieht pro Woche, aus welcher
+            Rechnung oder welchem Termin Geld kommen müsste.
           </p>
           <p>
-            Für operative Gespräche war das nützlich. Als Prognose war es methodisch nicht sauber.
-            Die spätere Forensik zeigte, dass historische Stichtage teilweise mit dem heutigen
-            Datenstand rekonstruiert wurden. Manuelle Regeln und Korrekturfaktoren waren aus dem
-            vollständigen Bestand abgeleitet. Der vermeintliche Test wanderte mit jedem Lauf mit.
-            Und trotz der ausführlichen Herleitung entsprach der ausgegebene Wochenwert am Ende
-            einer einfachen gleitenden Vergleichsregel.
+            Die spätere forensische Prüfung fand darin die klassischen Anfängerfehler.
+            Es gab keinen versiegelten Test: Der vermeintliche Prüfzeitraum wanderte mit
+            jedem Lauf mit und wurde ständig mitausgewertet. Historische Stichtage waren
+            mit dem heutigen Datenstand rekonstruiert — <code>point_in_time_safe = False</code>
+            stand wörtlich so im Code. Ein Korrekturfaktor kaschierte die systematische
+            Abweichung, statt sie zu beheben: Gegen die echten Zahlen gerechnet lag der
+            Forecast im Schnitt 21 Prozent zu niedrig. Und die aufwendig hergeleitete
+            Wochenzahl war am Ende numerisch identisch mit einem simplen Mittelwert der
+            letzten 13 Wochen.
           </p>
           <div class="deadend">
             <span class="deadend-label">Die entscheidende Trennung</span>
             <p>
-              Ein Ledger kann gut erklären, <em>woher</em> Geld wahrscheinlich kommt. Das belegt
-              noch nicht, dass es die <em>Summe</em> genauer vorhersagt. Im alten Aufbau wurden
-              Erklärung und Prognosegüte zu leicht miteinander verwechselt.
+              Ein Ledger kann gut erklären, <em>woher</em> Geld wahrscheinlich kommt. Das
+              belegt noch nicht, dass er die <em>Summe</em> genauer vorhersagt. In meinen
+              ersten Versuchen habe ich Erklärung und Prognosegüte verwechselt — der ganze
+              Herleitungsaufwand steckte in der Erklärung, die Prognose war ein
+              verkleideter Mittelwert.
             </p>
           </div>
 
-          <h2 id="vorbereitung">3. Erst den Auftrag bauen, dann das Modell</h2>
+          <h2 id="auftrag">3. Erst der Auftrag, dann der Code</h2>
           <p>
-            Der Neustart begann deshalb nicht mit neuem Code. Gemeinsam mit ChatGPT arbeitete ich
-            heraus, welche Fragen vor einer Implementierung beantwortet sein mussten. Daraus
-            entstand ein ausführlicher Auftrag an Claude: Altversuche untersuchen, Datenquellen
-            bewerten, die Zielgröße festlegen und einen Projektordner vorbereiten, den Codex
-            anschließend sequenziell umsetzen konnte.
+            Als Codex SOL erschien, wollte ich den neuen Coding-Agenten an einer realen
+            Aufgabe ausprobieren — und diese Aufgabe lag auf dem Tisch. Der Neustart begann
+            trotzdem nicht mit Code, sondern mit einer Auftragsklärung bei ChatGPT:
           </p>
+          <div class="quote">
+            <p>„schau dir forecast_1 an und dann forecast_0. schreibe einen plan um diese
+            version weiter zu verbessern. […] der plan ist für codex. falls du zunächst
+            output exports von codex braucht, schreibe den prompt damit du die kriegst.
+            ich übergebe den prompt dann"</p>
+            <span class="quote-src">Eigene Chatnachricht an ChatGPT beim Projektstart (Originalschreibweise)</span>
+          </div>
           <p>
-            Claude analysierte die Forecast-Notebooks, die API-Datenlage und ein älteres
-            Rossmann-Übungsprojekt. Rossmann lieferte ausschließlich das Prozessmuster:
+            Aus dieser Runde entstand ein ausführlicher Vorbereitungsauftrag an Claude:
+            die Altversuche forensisch prüfen, die Datenquellen bewerten, die Zielgröße
+            festlegen und einen Projektordner aufbauen, den Codex anschließend sequenziell
+            abarbeiten konnte. Als Prozessmuster diente ein altes Rossmann-Übungsprojekt —
             Datenvorbereitung, explorative Analyse, Feature Engineering (der Bau der
-            Eingangsmerkmale, aus denen ein Modell lernt), Modell und Evaluation — jeweils mit
-            einem Entscheidungstor. Weder Daten noch Geschäftslogik wurden in den
-            Cash-Forecast übernommen.
+            Eingangsmerkmale, aus denen ein Modell lernt), Modell, Evaluation, jeweils mit
+            Entscheidungstor. Übernommen wurde nur diese Handlungsweise, weder Code noch
+            Daten.
           </p>
           <p>
-            Das Ergebnis dieser Phase bestand aus Arbeitsmaterial für die Umsetzung: Daten- und
-            Zielvertrag, Protokoll für zeitlich korrekte Validierung, Promotion-Gates,
-            Notebook-Blueprint, Rollen für unabhängige Prüfungen und ein schriftlicher Handoff.
-            Eine der wichtigsten Festlegungen war, drei verschiedene Zeitpunkte nicht mehr zu
-            vermischen:
+            Das Ergebnis war ein Methodik-Korsett, das die Fehler der Altversuche
+            strukturell unmöglich machen sollte: ein Daten- und Zielvertrag, chronologische
+            Datenaufteilung mit Pufferwochen zwischen Entwicklung, Validierung und Test,
+            eine Labelreife von 63 Tagen (eine Woche gilt erst als fertig beobachtet, wenn
+            Nachbuchungen realistisch abgeschlossen sind), Prüfsummen über alle
+            Zwischenstände und eine schriftliche Vorregistrierung vor der einmaligen
+            Testöffnung. Dazu eine Arbeitsregel, die aus dem ersten Durchlauf noch fehlte:
+            ein Arbeitspaket gleichzeitig, strikt nacheinander. Die wichtigste fachliche
+            Festlegung war, drei Zeitpunkte nie wieder zu vermischen:
           </p>
           <div class="codeblock">
             <span class="codeblock-label">Vereinfachtes Point-in-time-Prinzip</span>
@@ -174,172 +221,306 @@ target_at    = für welche Woche sie zählt
 usable = available_at &lt;= forecast_origin</code></pre>
           </div>
           <p>
-            Für einen historischen Forecast durfte damit nur noch verwendet werden, was am
-            damaligen Stichtag tatsächlich bekannt gewesen wäre. Ein heute sichtbarer Termin oder
-            Status durfte nicht rückwirkend in einen alten Datenstand geraten.
+            Ein Backtest an einem historischen Stichtag darf nur verwenden, was an diesem
+            Stichtag tatsächlich sichtbar war. Ein heute nachgetragener Termin oder ein
+            geänderter Status darf nicht rückwirkend in einen alten Datenstand geraten —
+            genau der Fehler, der die eigenen Versuche wertlos gemacht hatte.
           </p>
 
-          <h2 id="codex">4. Codex setzte den Plan um — und stoppte vor dem Test</h2>
+          <h2 id="codex">4. Ein Einzeiler startet Codex — der erste Durchlauf endet mit STOP</h2>
           <p>
-            Codex baute zunächst einen isolierten, ausschließlich lesenden Datenexport. Danach
-            folgten Zielkonstruktion, Qualitätsprüfungen und chronologische Splits, also eine
-            Aufteilung der Historie strikt entlang der Zeit. Als Maßstab wurde eine einfache
-            Baseline eingefroren — eine feste Vergleichsregel für die erwartete Wochensumme, die
-            jedes Modell erst schlagen muss. Darauf folgten Feature-Ablationen, bei denen
-            Merkmalsgruppen einzeln zu- und abgeschaltet werden, um ihren Beitrag zu messen, und
-            eine gestufte Modellleiter vom einfachen zum komplexeren Modell. Der letzte
-            Testbereich blieb dabei technisch geschlossen.
+            Die eigentliche Startnachricht an Codex war unspektakulär — die ganze Arbeit
+            steckte in den vorbereiteten Dokumenten:
+          </p>
+          <div class="quote">
+            <p>„Lies CODEX_SOL_START.md im Projektstamm und führe den Auftrag darin aus."</p>
+            <span class="quote-src">Eigene Startnachricht an Codex SOL — eine spätere Fortsetzung bestand aus dem einzigen Wort „go"</span>
+          </div>
+          <p>
+            Codex arbeitete die vorbereitete Kette ab: ein eingefrorener, ausschließlich
+            lesender Datenexport, Zielkonstruktion, Qualitätsprüfungen, chronologische
+            Splits, sechs Featuregruppen, fünf Modelle in aufsteigender Komplexität. Der
+            Durchlauf endete am vorletzten Tor — vor Validierung und Test — mit dem vorab
+            definierten STOP: Kein Modell schlug die einfache Baseline verlässlich, alle
+            sechs Featuregruppen wurden abgelehnt.
           </p>
           <p>
-            Der erste Durchlauf endete bereits vor Validierung und Test. Keine der geprüften
-            Featuregruppen und keines der fünf Modelle schlug die einfache Baseline verlässlich.
-            Das war kein technischer Abbruch, sondern das vorab definierte Ergebnis des Gates.
-          </p>
-          <p>
-            Das anschließende Review erklärte, warum mehr Modellierung nicht geholfen hätte. Ein
-            zentrales Feature zum Forderungsbestand enthielt überwiegend ungeeignete Dokumentstände.
-            Gleichzeitig fehlte der Kalender als einzige Datenquelle, die dem späteren
-            Zahlungseingang zeitlich vorausläuft. Der Code hatte das formulierte Problem sauber
-            umgesetzt; die Datenbasis und die fachliche Abbildung waren noch nicht gut genug.
+            Die Nachprüfung erklärte, warum mehr Modellierung nicht geholfen hätte:
+            91,5 Prozent des wichtigsten Features — des Forderungsbestands — bestand aus
+            stornierten, gelöschten oder Entwurfs-Dokumenten, also aus Datenmüll. Das im
+            System hinterlegte Auftragsvolumen war im eigenen Datenbestand kaum gepflegt —
+            es traf den tatsächlichen Wert in 1,6 Prozent der Fälle. Und die einzige Datenquelle, die dem Geldeingang zeitlich vorausläuft —
+            der Terminkalender — kam im Ansatz gar nicht vor. Der Code war nicht das
+            Problem. Die Daten- und Fachbasis war es.
           </p>
 
-          <h2 id="revision">5. Die Datenrevision veränderte Ziel, Features und Horizont</h2>
+          <h2 id="revision">5. Die Datenrevision: 35 dokumentierte Korrekturen</h2>
           <p>
-            Nach diesem STOP überarbeitete ich die Datengrundlage gemeinsam mit Claude. Hier war
-            meine Eingriffstiefe am größten. Spaltennamen beantworteten nicht, wann eine Zahlung
-            fachlich zählt, ob eine gelöschte Kalenderzeile eine Absage oder eine Verschiebung ist
-            und welche Dokumentstände überhaupt einen offenen Anspruch darstellen.
+            Nach diesem STOP habe ich die Datengrundlage gemeinsam mit Claude Zeile für
+            Zeile überarbeitet — jede Korrektur schriftlich belegt in einem Register von
+            K-1 bis K-35. Der größte Befund betraf die Zielgröße selbst: Stornozahlungen
+            und Zahlungen auf stornierte Belege hatten die Wochensummen massiv verzerrt.
+            Nach der Bereinigung fiel der Variationskoeffizient der Wochensummen von 3,7
+            auf 0,8 — vorher war die Zielgröße schlicht kaputt, und kein Modell der Welt
+            hätte das durch Rechnen repariert. Der größte vermeintliche Ausreißer der
+            gesamten Historie entpuppte sich als Tippfehler in einer längst stornierten
+            Rechnung.
           </p>
           <p>
-            Mehrere Regeln änderten sich erst durch diese fachliche Klärung: Die Zielwoche richtet
-            sich nach dem tatsächlichen Zahlungstag. Stornos und andere nicht passende
-            Buchungsarten gehören nicht in denselben Zielstrom. Ein gelöschter Termin kann durch
-            einen neu angelegten Folgetermin ersetzt worden sein. Abrechnungsanteile und
-            Verzögerungen wurden nicht länger als feste Gewissheit behandelt, sondern aus den am
-            jeweiligen Stichtag zulässigen Fällen neu geschätzt.
+            Viele Antworten standen in keiner Spalte, sondern nur im betrieblichen Alltag:
+            Zahlungen über null Euro sind Abschlussrechnungen bereits bezahlter Projekte.
+            Negative Zahlungen sind Gutschriften oder Provisionen — kein Zufluss. Ein
+            gelöschter Termin kann eine Absage sein oder eine Verschiebung mit neu
+            angelegtem Folgetermin. Ohne diese Fachantworten wäre jede Bereinigung Raterei
+            gewesen; mit ihnen wurden aus geratenen Konstanten gemessene Regeln:
           </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Geraten war gestern — Regeln werden je Stichtag gemessen</span>
+            <pre><code>def measure_billing_split(projects, origin) -> float:
+    """Welcher Anteil des Projektwerts wird vor dem
+    Elektrik-Termin fakturiert? Gemessen nur an ausgereiften
+    Projekten, die am Stichtag bereits sichtbar waren."""
+    mature = visible_as_of(projects, origin)
+    mature = mature[mature["ac_date"] &lt;= origin - pd.Timedelta(days=90)]
+    share = mature["invoiced_before_ac"] / mature["order_value"]
+    return share.median()   # Median: Einzelprojekte streuen stark</code></pre>
+          </div>
           <p>
-            Zugleich wurde sichtbar, dass die brauchbare Historie für den terminbasierten Teil zu
-            kurz war: kein vollständiger Jahreszyklus, wenige wirklich unabhängige Zeitblöcke und
-            veränderte Geschäftsphasen. Der Horizont wurde deshalb verkürzt und die Daten neu
-            versiegelt. Codex setzte die ersten drei Stufen der neuen Fünf-Notebook-Struktur um:
-            Datenvorbereitung, EDA sowie Ströme und Features. Die mechanistischen Ströme — Termine,
-            terminloses Geschäft und offene Rechnungen — blieben jedoch hinter der Baseline.
+            Die Messung bestätigte die alte Faustregel im Median erstaunlich genau — aber
+            weniger als die Hälfte der Einzelprojekte lag in einem engen Band darum. Das
+            ist der Unterschied zwischen einer geratenen und einer gemessenen Regel: Man
+            kennt ihre Grenzen. Diese hier taugt für Wochensummen, nicht für die Prognose
+            einzelner Projekte.
           </p>
           <div class="note">
             <p>
               <strong>Meine Rollen wechselten bewusst:</strong> Bei Zieldefinition,
-              Datenbereinigung und Feature Engineering traf ich die fachlichen Entscheidungen.
-              Bei der Modellwahl ließ ich den KI-Systemen mehr methodische Freiheit. Die letzte
-              Entscheidung blieb wieder menschlich: Ist das Ergebnis für die Praxis tragfähig?
+              Datenbereinigung und Fachlogik traf ich die Entscheidungen — hier war meine
+              Eingriffstiefe am größten. Bei der Modellwahl ließ ich den KI-Systemen
+              methodische Freiheit. Die letzte Entscheidung blieb wieder menschlich: Ist
+              das Ergebnis für die Praxis tragfähig?
             </p>
           </div>
 
-          <h2 id="fable">6. Die Validierung überzeugte — der versiegelte Test nicht</h2>
+          <h2 id="obergrenze">6. Die wichtigste Analyse: Was war am Prognosetag überhaupt sichtbar?</h2>
           <p>
-            Nach Datenvorbereitung, EDA und Feature Engineering ging das Projekt per schriftlicher
-            Übergabe an Claude Fable. Fable übernahm die letzten beiden Notebooks: Modellwahl,
-            Vorregistrierung, einmalige Testauswertung und Modellkarte. Codex war an dieser Phase
-            nicht mehr beteiligt.
+            Die eine Analyse, die ich heute an den Anfang jedes Forecast-Vorhabens stellen
+            würde, entstand mitten in der Revision: Zerlege den tatsächlichen Geldeingang
+            der jeweils nächsten acht Wochen danach, was davon am Prognosetag überhaupt in
+            den Daten stand.
+          </p>
+          <ul>
+            <li>Rund <strong>42 Prozent</strong> hing an bereits sichtbaren Montage- und
+              Elektrik-Terminen — die mit Abstand dominante Quelle.</li>
+            <li>Nur rund <strong>8 Prozent</strong> an bereits existierenden Rechnungen:
+              Bei kurzem Zahlungsziel und geringem Zahlungsverzug entsteht kaum
+              Forderungsbestand, den man „abarbeiten“ könnte.</li>
+            <li>Knapp <strong>19 Prozent</strong> kam aus Projekten, die zwar existierten,
+              aber noch keinen Termin hatten.</li>
+            <li>Gut <strong>17 Prozent</strong> war am Prognosetag prinzipiell unsichtbar —
+              die Vorgänge existierten schlicht noch nicht.</li>
+          </ul>
+          <p>
+            Damit war die Obergrenze gemessen: Ein Modell kann auf acht Wochen bestenfalls
+            etwa zwei Drittel des späteren Geldeingangs überhaupt sehen — egal wie gut es
+            ist. Der klassische Forecast aus offenen Posten hat hier fast nichts zu
+            prognostizieren, und der Kalender ist die einzige Domäne, die dem Geld
+            zeitlich vorausläuft. Zugleich zeigte sich, dass die brauchbare terminbasierte
+            Historie erst im Laufe des Jahres 2025 beginnt — rund 80 Wochen, kein
+            vollständiger Jahreszyklus, keine schätzbare Saisonkomponente. Konsequenz: Der
+            Prognosehorizont wurde verkürzt, die Daten wurden neu versiegelt, und der Plan
+            wurde mechanistisch — entlang der echten Kette aus Termin, Rechnung und
+            Zahlung.
+          </p>
+
+          <h2 id="modell">7. Ein bewusst kleines Modell schlägt die Baseline — in der Validierung</h2>
+          <p>
+            Codex setzte die ersten drei Notebooks der neuen Kette um: Datenvorbereitung,
+            explorative Analyse, Ströme und Features. Jedes Notebook startet in einer
+            frischen Session, prüft die Prüfsummen aller Vorgängerartefakte und liest
+            ausschließlich versiegelte Zwischenstände; am Ende sicherten 170 automatisierte
+            Tests die Kette ab. Gemessen wurde durchgehend mit dem WAPE, dem gewichteten
+            absoluten Prozentfehler: Um wie viel Prozent verfehlt die Prognose die
+            tatsächliche Summe? Niedriger ist besser. Das ernüchternde Zwischenergebnis:
+            Die mechanistischen Ströme aus Terminen und Rechnungen erreichten einzeln wie
+            kombiniert rund 58 bis 60 Prozent Fehler auf die Acht-Wochen-Summe — die
+            simple Baseline lag bei rund 25. Das Terminsignal war messbar vorhanden, aber
+            die Umsetzung holte es nicht heraus.
           </p>
           <p>
-            Die kurze Historie sprach gegen ein komplexes Modell. Fable prüfte deshalb unter
-            anderem eine kleine Trendkorrektur auf einem gleitenden Mittel. Auf Entwicklung und
-            Validierung war dieser Kandidat besser als die zuvor eingefrorene Baseline. Erst danach
-            wurden Kandidat, Metriken und Stop-Regeln schriftlich festgelegt und der letzte
-            Datenabschnitt einmalig geöffnet.
+            Für die letzten beiden Notebooks — Modellwahl und versiegelter Test — ging das
+            Projekt per schriftlicher Übergabe an Claude Fable; Codex war ab hier nicht
+            mehr beteiligt. Der EDA-Befund bestimmte die Modellwahl: Das Geschäft war im
+            Entwicklungszeitraum deutlich gewachsen, und eine flache Baseline läuft einem
+            Wachstum systematisch hinterher. Die Antwort war bewusst kein aufwendiges ML,
+            sondern ein drift-korrigiertes gleitendes Mittel — zwei geschätzte Größen,
+            null getunte Stellschrauben:
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Der vorregistrierte Kandidat — komplett</span>
+            <pre><code>def drift_corrected_forecast(weekly_cash, origin, horizon=8):
+    """Niveau = Mittel der letzten 13 reifen Wochen.
+    Drift  = Regressionssteigung über 52 Wochen.
+    Beides je Stichtag frisch geschätzt — kein Blick nach vorn."""
+    history = mature_weeks(weekly_cash, origin)
+    level = history.tail(13).mean()
+    trend = ols_slope(history.tail(52))
+    gap = MATURITY_DAYS // 7   # Reifelücke bis zum Stichtag
+    return [level + trend * (gap + h) for h in range(1, horizon + 1)]</code></pre>
+          </div>
+          <p>
+            Auf den Entwicklungsdaten schlug dieser Kandidat die Baseline mit rund 20 zu
+            25 Prozent Fehler, in der Validierung deutlich mit 9,8 zu 17,8. Erst danach
+            wurden zwei Kandidaten — einer für vier, einer für acht Wochen — schriftlich
+            vorregistriert: Metriken, Schwellen und Stop-Regeln standen fest und waren an
+            Prüfsummen gebunden, bevor irgendjemand die Testdaten sah.
+          </p>
+
+          <h2 id="stop">8. Der versiegelte Test wird genau einmal geöffnet: STOP</h2>
+          <p>
+            Der Test bestand aus 13 unberührten Prognose-Stichtagen über den
+            Jahreswechsel 2025/26. Er wurde genau einmal geöffnet; eine zweite Öffnung
+            lehnt das System technisch ab.
           </p>
 
           <figure class="figure">
             <img src="../assets/img/ml-forecast-stop.svg" alt="Balkendiagramm der 8-Wochen-Summen-WAPE: In der Validierung erreicht das Trendmodell 9,8 Prozent und die Baseline 17,8 Prozent. Im versiegelten Test erreicht das Trendmodell 33,2 Prozent und die Baseline 9,9 Prozent. Niedriger ist besser; Ergebnis STOP.">
             <figcaption>
               <span class="fig-label">Abbildung 1</span> — Die Modellreihenfolge kehrt sich im
-              versiegelten Test um. Gezeigt wird die Abweichung der Acht-Wochen-Summe; niedriger
-              ist besser. Werte gerundet.
+              versiegelten Test um. Gezeigt wird der Fehler der Acht-Wochen-Summe (WAPE);
+              niedriger ist besser. Werte gerundet.
               <span class="fig-credit">Eigene Darstellung nach den gespeicherten Validierungs- und Testberichten.</span>
             </figcaption>
           </figure>
 
           <p>
-            Im versiegelten Test überschätzte die Trendkorrektur systematisch. Das zuvor sichtbare
-            Wachstum setzte sich im Testfenster nicht fort. Die einfache Baseline war dort deutlich
-            genauer. Beide vorregistrierten Kandidaten erhielten deshalb STOP. Es wurde nicht auf
-            denselben Testdaten nachjustiert und kein nachträglich ausgewähltes Geschwistermodell
-            zum Sieger erklärt.
+            Das Ergebnis kehrte die Reihenfolge um: Der Kandidat verfehlte die
+            Acht-Wochen-Summe um 33,2 Prozent — und zwar fast ausschließlich nach oben,
+            auf praktisch jedem Test-Stichtag. Die simple Baseline lag bei 9,9 Prozent.
+            Was war passiert? Das Wachstum von 2025, das die Driftkorrektur auf
+            Entwicklung und Validierung korrekt nachgeführt hatte, kam im Testfenster zum
+            Stillstand. Die Trendfortschreibung lief ins Leere, während das flache Mittel
+            genau dort außergewöhnlich gut war. Das Regimerisiko, das der Auftrag vorab
+            benannt hatte, materialisierte sich exakt. Beide Kandidaten: STOP.
           </p>
           <p>
-            Auch der Prüfprozess selbst lieferte einen Fehlerfall: Das automatische Freigabe-Gate
-            reagierte auf seinen eigenen Anleitungstext und öffnete den Test ohne die beabsichtigte
-            ausdrückliche Freigabe. Vorregistrierung und Auswertung blieben methodisch gebunden;
-            das Gate wurde anschließend auf eine exakte Freigabezeile umgestellt. Dieser Vorfall
-            gehört zur Bewertung der Orchestrierung ebenso wie die Modellmetriken.
+            Danach passierte bewusst — nichts. Kein Nachjustieren auf den Testdaten, keine
+            nachträglich zum Sieger erklärte Modellvariante. Ausgeliefert wurde die
+            Baseline, dokumentiert in einer Modellkarte, die auch die strukturelle Grenze
+            festhält: Die einzelne Woche bleibt bei so kleinen Stückzahlen verrauscht —
+            selbst die beste Methode verfehlt sie im Schnitt um knapp die Hälfte. Seriös
+            prognostizierbar sind hier nur Periodensummen. Jede Weiterarbeit braucht ein
+            neues, unberührtes Testfenster mit neuer Vorregistrierung.
           </p>
-
-          <h2 id="plan-b">7. Plan B: vier Wochen direkt aus dem Kalender</h2>
           <p>
-            Nach dem ML-STOP brauchte der Betrieb weiterhin eine kurzfristige Planung. Deshalb
-            entstand ein sechstes, bewusst getrenntes Notebook: kein ML, kein über vier Wochen
-            geglätteter Durchschnitt, sondern ein regelbasierter Forecast für jede einzelne Woche.
-          </p>
-          <ol class="flow">
-            <li><strong>Relevante Termine auswählen:</strong> Nur Kalenderereignisse verwenden, die zu einer späteren Rechnungsstufe gehören.</li>
-            <li><strong>Zusammengehörige Arbeiten bündeln:</strong> Mehrere Termine desselben Projekts zu einem nachvollziehbaren Arbeitsblock verbinden.</li>
-            <li><strong>Zahlungsweg ableiten:</strong> Aus Arbeitsstand, bereits gestellten Rechnungen und historisch beobachteten Verzögerungen eine erwartete Woche bestimmen.</li>
-            <li><strong>Doppelzählung verhindern:</strong> Bereits bezahlte oder schon anderweitig berücksichtigte Beträge nicht erneut aus einem Termin ableiten.</li>
-            <li><strong>Herkunft erhalten:</strong> Jeder Wochenbeitrag bleibt auf seinen Termin- oder Rechnungsgrund zurückführbar.</li>
-          </ol>
-          <p>
-            Dieses Werkzeug beantwortet die operative Frage besser: Was könnte in welcher Woche
-            eingehen, und worauf beruht diese Erwartung? Seine Grenzen sind ebenso klar. Es erfasst
-            Geschäft ohne passenden Kalendereintrag nur unvollständig und wurde nicht mit einem
-            eigenen versiegelten Backtest validiert. Der statistisch geprüfte Forecast bleibt daher
-            die Baseline; der Termin-Forecast ist ein erklärbares Planungsinstrument daneben.
+            Zur Ehrlichkeit gehört auch ein Prozessvorfall: Das Freigabe-Gate vor der
+            Testöffnung prüfte sein Freigabewort per Teilstring-Suche — und schlug damit
+            auf den eigenen Anleitungstext an. Der Test öffnete sich ohne meine
+            ausdrückliche Freigabe. Vorregistrierung, Artefaktbindung und die einmalige
+            Auswertung selbst blieben davon unberührt; das Gate prüft seit der Korrektur
+            zeilengenau. Der Vorfall steht als Korrektur K-35 im Register — er gehört zur
+            Bewertung der Orchestrierung genauso wie die Modellmetriken.
           </p>
 
-          <h2 id="rollen">8. Kein System gewann — die Übergaben wurden besser</h2>
+          <h2 id="plan-b">9. Was jetzt läuft: der Termin-Ledger</h2>
           <p>
-            Ein Ranking der Systeme lässt sich aus dem Projekt nicht seriös ableiten. Sie
-            bearbeiteten unterschiedliche Aufgaben und übernahmen jeweils den Stand der vorherigen
-            Phase. Fable arbeitete auf Datenverträgen, Revisionen und Code, die vorher mit ChatGPT,
-            Claude und Codex entstanden waren. Der belegbare Vergleich liegt deshalb in den Rollen,
-            nicht in einem Siegerpodest.
+            Der Betrieb braucht trotzdem jede Woche eine kurzfristige Planung. Dafür
+            entstand nach dem STOP ein sechstes, bewusst getrenntes Notebook: kein ML,
+            sondern ein regelbasierter Vier-Wochen-Forecast, der die Erkenntnisse der
+            Revision nutzt — gemessene Rechnungsstufen statt geratener Konstanten,
+            gemessene Verzugsverteilungen statt fester Fristen.
+          </p>
+          <div class="codeblock">
+            <span class="codeblock-label">Der Termin-Ledger — jeder Euro behält seine Quelle</span>
+            <pre><code>def ledger_forecast(origin, open_invoices, appointments, delays):
+    rows = []
+    for inv in visible_as_of(open_invoices, origin).itertuples():
+        week = expected_payment_week(inv.due_date, delays)
+        rows.append(("rechnung_offen", inv.project_id, week, inv.open_amount))
+    for appt in visible_as_of(appointments, origin).itertuples():
+        amount = billable_at_stage(appt)             # gemessene Stufen
+        week = expected_payment_week(
+            appt.week + lead_time(appt.kind), delays  # gemessene Vorläufe
+        )
+        rows.append((f"termin_{appt.kind}", appt.project_id, week, amount))
+    return pd.DataFrame(rows, columns=["quelle", "projekt", "woche", "betrag"])</code></pre>
+          </div>
+          <p>
+            Warum das die richtige Alltagsentscheidung ist, folgt direkt aus der
+            Obergrenzen-Analyse: Der Kalender ist die dominante Informationsquelle, und
+            der Ledger macht sie handlungsfähig. Er zeigt nicht nur, wie viel in einer
+            Woche kommen müsste, sondern woher — welche offene Rechnung, welcher Termin,
+            welches Projekt. Damit kann man nachfassen, Termine schieben oder eine
+            Rechnung rausschicken, statt eine nackte Zahl anzustarren. Die Punktprognose
+            daneben bleibt bewusst das ehrlich naive flache Mittel — dasselbe Niveau, das
+            im versiegelten Test jedes Modell geschlagen hat.
+          </p>
+          <p>
+            Auch die Grenzen sind klar benannt: Der Ledger erfasst Geschäft ohne
+            Kalendereintrag nur unvollständig und hat keinen eigenen versiegelten Backtest.
+            Statistisch belegt ist allein die Baseline; der Ledger ist das erklärbare
+            Planungsinstrument daneben — nicht ein nachträglich zum Erfolg erklärtes
+            Modell.
+          </p>
+
+          <h2 id="rollen">10. Wer hat was gemacht</h2>
+          <p>
+            Ein Ranking der KI-Systeme gibt dieses Projekt nicht her — sie bearbeiteten
+            unterschiedliche Aufgaben und bauten jeweils auf dem Stand der vorherigen
+            Phase auf. Der belegbare Vergleich liegt in den Rollen und darin, was jede
+            Phase geliefert hat:
           </p>
 
           <dl class="role-ledger">
             <div>
               <dt>Ich</dt>
-              <dd>Betriebliche Frage, Datenbedeutung, fachliche Korrekturen, Scope-Entscheidungen und abschließende Beurteilung der Praxistauglichkeit.</dd>
+              <dd>Betriebliche Frage, Fachantworten der Revisionsrunde, Scope-Entscheidungen, Gate-Instanz — und derjenige, der das STOP akzeptiert, statt weiterzutunen.</dd>
             </div>
             <div>
               <dt>ChatGPT</dt>
-              <dd>Analysefragen für die frühen Forecasts schärfen und den ausführlichen Vorbereitungsauftrag für Claude formulieren.</dd>
+              <dd>Auftragsklärung am Anfang: die Analysefragen an die Altversuche schärfen und den ausführlichen Vorbereitungsauftrag für Claude formulieren.</dd>
             </div>
             <div>
               <dt>Claude</dt>
-              <dd>Altversuche forensisch prüfen, Projektarchitektur und Verträge entwerfen, Reviews durchführen und die Datenrevision mit mir ausarbeiten.</dd>
+              <dd>Forensik der Altversuche, Daten- und Zielverträge, Notebook-Bauplan, Reviews — und gemeinsam mit mir das Korrekturregister K-1 bis K-35.</dd>
             </div>
             <div>
               <dt>Codex SOL</dt>
-              <dd>Read-only-Export, Ziel, Splits, Baselines, Features, Modelle und später die revidierten Notebooks bis einschließlich Feature Engineering implementieren und testen.</dd>
+              <dd>Read-only-Export und die komplette erste Kette bis zum ersten STOP; danach die revidierten Notebooks bis einschließlich Feature Engineering — mit der Regel „ein Arbeitspaket, strikt nacheinander“ deutlich zuverlässiger.</dd>
             </div>
             <div>
               <dt>Claude Fable</dt>
-              <dd>Modell- und Testphase abschließen, das STOP dokumentieren und anschließend den getrennten regelbasierten Vier-Wochen-Forecast umsetzen.</dd>
+              <dd>Modellwahl, Vorregistrierung, einmalige Testauswertung und Modellkarte; das STOP dokumentiert und anschließend den getrennten Termin-Ledger umgesetzt.</dd>
             </div>
           </dl>
 
+          <h2 id="lernen">11. Was übertragbar ist</h2>
+          <ul>
+            <li><strong>Der ehrlichste Output eines ML-Projekts kann ein STOP sein.</strong>
+              Der versiegelte Test hat verhindert, dass ich einem Modell vertraue, das die
+              kommenden Wochen um ein Drittel überschätzt hätte — bei Liquiditätsplanung
+              der teuerste denkbare Fehler.</li>
+            <li><strong>Autonome Agenten scheitern selten am Code, meist an der Methodik.</strong>
+              Dasselbe Werkzeug, das ohne Point-in-time-Disziplin Datenmüll verarbeitete,
+              lieferte mit Verträgen, Toren und sequenzieller Arbeitsregel saubere
+              Ergebnisse.</li>
+            <li><strong>Arbeitsteilung zwischen KI-Systemen funktioniert</strong> — mit
+              schriftlichen Übergaben wie zwischen menschlichen Kollegen: eines plant und
+              prüft, eines implementiert, eines übernimmt die heikle Endphase.</li>
+            <li><strong>Domänenwissen ist nicht optional.</strong> Was eine Zahlung über
+              null Euro bedeutet oder ob ein gelöschter Termin eine Absage ist, steht in
+              keiner Spalte — ohne diese Antworten ist jede Bereinigung Raterei.</li>
+            <li><strong>Erst die Sichtbarkeits-Obergrenze messen, dann modellieren.</strong>
+              Wenn ein Drittel des Geldes am Prognosetag prinzipiell unsichtbar ist, kann
+              kein Modell zaubern — das vorher zu wissen, spart Wochen.</li>
+            <li><strong>Bei kleinen, wachsenden Betrieben ist die naive Baseline brutal
+              schwer zu schlagen.</strong> Wenige, große Zahlungen und ein Regimewechsel
+              machen mehr kaputt, als jedes Feature rettet.</li>
+          </ul>
           <p>
-            Für einen nächsten ML-Versuch wären vor allem bessere Voraussetzungen nötig: längere
-            historisierte Kalenderstände, ein vollständigerer Jahreszyklus, ein neues unberührtes
-            Testfenster und eine prospektive Shadow-Auswertung des regelbasierten Forecasts. Mehr
-            Modellkomplexität wäre nicht der erste Schritt.
-          </p>
-          <p>
-            Übertragbar ist vor allem die Reihenfolge: Ziel und Datenbedeutung klären, historische
-            Verfügbarkeit prüfen, eine einfache Baseline einfrieren, KI-Systeme mit schriftlichen
-            Übergaben arbeiten lassen und ein negatives Testergebnis akzeptieren. In diesem Projekt
-            war der belastbare STOP nützlicher als eine scheinbar gute Prognose ohne ehrliche
-            Evaluation.
+            KI hat hier nicht den Forecast automatisiert. Sie hat belegt, welcher Forecast
+            der richtige ist und warum — und zum ersten Mal hält diese Prognose einer
+            ehrlichen Prüfung stand.
           </p>
 
         </div>
