@@ -35,7 +35,7 @@
 
   <main id="main">
 
-    <section class="hero">
+    <section class="page-hero">
       <div class="container">
         <p class="eyebrow">KI-Workflow</p>
         <h1>Mit KI ein Thema erschließen und etwas daraus bauen</h1>
@@ -43,24 +43,35 @@
           KI hilft mir, mich in ein neues Gebiet einzuarbeiten und aus ersten Ideen etwas
           Funktionierendes zu entwickeln — ob Software, ein technisches oder ein ganz
           alltägliches Vorhaben. Sie nimmt mir das Verstehen und Entscheiden nicht ab,
-          aber sie beschleunigt beides erheblich. Hier ist die Arbeitsweise, die sich
-          dafür bewährt hat.
+          aber sie beschleunigt beides erheblich. Hier stehen zuerst die ausgearbeiteten
+          Beispiele, danach die Arbeitsweise dahinter.
         </p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Vertiefung</p>
-          <h2>Wie Kontext aus ChatGPT ein spezialisiertes Werkzeug macht</h2>
-          <p>
-            Neben einzelnen Prompts ist entscheidend, in welcher Umgebung eine Frage
-            verarbeitet wird: globale Hinweise, Projektkontext, Erinnerungen und die
-            aktuelle Aufgabe greifen ineinander.
-          </p>
-        </div>
         <div class="project-grid">
+
+          <article class="project-card project-card--wide" data-reveal>
+            <div class="project-card-media">
+              <img src="assets/img/ml-forecast-card.svg" alt="Abstrakte Prozessgrafik vom betrieblichen Forecast-Bedarf über Datenvertrag und Modelltest mit Stop bis zum regelbasierten Plan B">
+            </div>
+            <div class="project-card-body">
+              <p class="eyebrow">Machine Learning · Forecasting</p>
+              <h3>Bevor ein Modell rechnen darf</h3>
+              <p>
+                Ein 8-Wochen-Cash-Forecast, aufgebaut mit ChatGPT, Claude, Codex und Fable
+                in getrennten Rollen. Datenrevision und versiegelter Test führten zum STOP —
+                und zu einem erklärbaren Termin-Ledger für den Alltag.
+              </p>
+              <div class="card-tags">
+                <span class="tag">Forecasting</span><span class="tag">KI-Orchestrierung</span><span class="tag">Point-in-time</span>
+              </div>
+              <a class="project-card-link" href="ki-workflow/ml-cash-forecast.html">Zur Fallstudie</a>
+            </div>
+          </article>
+
           <article class="project-card project-card--wide" data-reveal>
             <div class="project-card-media">
               <img src="assets/img/ki-personalisierung.png" alt="Infografik zur KI-Personalisierung: Stammzelle, Vorläuferzelle und dopaminerges Neuron zeigen zunehmenden Kontext und Spezialisierung">
@@ -79,6 +90,7 @@
               <a class="project-card-link" href="ki-workflow/personalisierung.html">Zur Vertiefung</a>
             </div>
           </article>
+
         </div>
       </div>
     </section>
@@ -157,55 +169,20 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section-dark">
       <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Fallstudie</p>
-          <h2>Wie weit der Workflow trägt: mehrere LLMs an einem ML-Projekt</h2>
-          <p>
-            Die bisher ausführlichste Anwendung dieser Arbeitsweise: ChatGPT, Claude,
-            Codex und Fable bauten in getrennten Rollen einen Cash-Forecast — mit
-            Datenrevision, versiegeltem Test und einem Modell, das am Ende gestoppt wurde.
-          </p>
-        </div>
-        <div class="project-grid">
-          <article class="project-card project-card--wide" data-reveal>
-            <div class="project-card-media">
-              <img src="assets/img/ml-forecast-card.svg" alt="Abstrakte Prozessgrafik vom betrieblichen Forecast-Bedarf über Datenvertrag und Modelltest mit Stop bis zum regelbasierten Plan B">
-            </div>
-            <div class="project-card-body">
-              <p class="eyebrow">Machine Learning · Forecasting</p>
-              <h3>Bevor ein Modell rechnen darf</h3>
-              <p>
-                Ein 8-Wochen-Cash-Forecast, aufgebaut mit ChatGPT, Claude, Codex und Fable.
-                Datenrevision und versiegelter Test führten zum STOP — und zu einem
-                erklärbaren Termin-Ledger für den Alltag.
-              </p>
-              <div class="card-tags">
-                <span class="tag">Forecasting</span><span class="tag">KI-Orchestrierung</span><span class="tag">Point-in-time</span>
-              </div>
-              <a class="project-card-link" href="ki-workflow/ml-cash-forecast.html">Zur Fallstudie</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">In der Praxis</p>
-          <h2>Woran man das sieht</h2>
-          <p>
-            Die Handschrift dieses Workflows steckt in jedem Projekt: dokumentierte
-            Parserprofile in der <a href="projekte/rechnungs-pipeline.html">Rechnungs-Pipeline</a>,
-            benannte Formularfelder im <a href="projekte/pv-vertragsgenerator.html">PV-Vertragsgenerator</a>,
-            Dry-Run-Modi in der <a href="projekte/lead-automation.html">Lead-Automation</a> —
-            Systeme, die prüfbar sind, statt nur zu funktionieren.
-          </p>
-        </div>
+        <p class="eyebrow">In der Praxis</p>
+        <h2>Woran man das sieht</h2>
+        <p>
+          Die Handschrift dieses Workflows steckt in jedem Projekt: dokumentierte
+          Parserprofile in der <a href="projekte/rechnungs-pipeline.html">Rechnungs-Pipeline</a>,
+          benannte Formularfelder im <a href="projekte/pv-vertragsgenerator.html">PV-Vertragsgenerator</a>,
+          Dry-Run-Modi in der <a href="projekte/lead-automation.html">Lead-Automation</a> —
+          Systeme, die prüfbar sind, statt nur zu funktionieren.
+        </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="projekte.html">Alle Projekte ansehen</a>
+          <a class="btn btn-ghost" href="ueber-mich.html">Über mich</a>
         </div>
       </div>
     </section>
