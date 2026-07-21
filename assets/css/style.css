@@ -917,6 +917,36 @@ img { max-width: 100%; height: auto; }
 
 .flow + .project-grid { margin-top: 24px; }
 
+/* Rollenverteilung in arbeitsteiligen Projekten — tabellarisch, ohne Kartenraster */
+.role-ledger {
+  margin: 1.5em 0;
+  border-top: var(--bw) solid var(--line-strong);
+}
+
+.role-ledger > div {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.28fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: var(--bw) solid var(--line);
+}
+
+.role-ledger dt {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent-deep);
+}
+
+.role-ledger dd {
+  margin: 0;
+  color: var(--ink-2);
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
 /* Hinweiskasten */
 .note {
   background: var(--accent-wash);
@@ -1408,11 +1438,21 @@ aside .note { margin-top: 14px; }
     align-items: flex-start;
     gap: 10px;
   }
-  .site-nav { gap: 0; margin: 0 -12px; }
+  .site-nav {
+    width: calc(100% + 24px);
+    max-width: calc(100% + 24px);
+    gap: 0;
+    margin: 0 -12px;
+  }
 
   .feature { grid-column: 1 / -1; }
 
   .card, .feature { padding: 22px 22px 18px; }
+
+  .role-ledger > div {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

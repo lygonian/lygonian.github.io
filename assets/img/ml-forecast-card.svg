@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Vom betrieblichen Forecast-Bedarf zum geprüften Plan B</title>
+  <desc id="desc">Eine abstrahierte Prozesslinie verbindet die Stationen Frage, Datenvertrag, Modell, Test mit Stop und einen regelbasierten Plan B.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0d12"/>
+      <stop offset="1" stop-color="#173036"/>
+    </linearGradient>
+    <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+      <path d="M100 0H0V100" fill="none" stroke="#ffffff" stroke-opacity=".045"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <path d="M0 760C280 690 510 850 790 760s470-220 810-130v370H0Z" fill="#0f5a60" fill-opacity=".16"/>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <path d="M110 180h350M110 225h235" stroke="#7cc4c9" stroke-opacity=".42" stroke-width="12" stroke-linecap="round"/>
+    <line x1="180" y1="430" x2="1420" y2="430" stroke="#7cc4c9" stroke-opacity=".55" stroke-width="5"/>
+
+    <g text-anchor="middle">
+      <g transform="translate(190 430)">
+        <circle r="70" fill="#0f5a60" stroke="#7cc4c9" stroke-width="5"/>
+        <path d="M-24-2h48M0-26v48" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(500 430)">
+        <circle r="70" fill="#16242a" stroke="#7cc4c9" stroke-width="5"/>
+        <path d="M-28-30h56v60h-56zM-16-14h32M-16 0h32M-16 14h22" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(810 430)">
+        <circle r="70" fill="#16242a" stroke="#7cc4c9" stroke-width="5"/>
+        <path d="M-35 24-9-12 10 7 37-32" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g transform="translate(1120 430)">
+        <path d="M-64-27-27-64H27L64-27V27L27 64H-27L-64 27Z" fill="#9a6a43" stroke="#e7c4a7" stroke-width="5"/>
+        <text y="10" fill="#ffffff" font-size="28" font-weight="700">STOP</text>
+      </g>
+      <g transform="translate(1410 430)">
+        <circle r="70" fill="#0f5a60" stroke="#7cc4c9" stroke-width="5"/>
+        <path d="M-34 20h68M-34-2h46M-34-24h24" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+      </g>
+    </g>
+  </g>
+</svg>
