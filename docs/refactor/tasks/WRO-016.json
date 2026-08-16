@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "WRO-016",
+  "title": "Remove residual KI route and category inventory",
+  "status": "completed",
+  "mode": "cleanup_after_user_direction",
+  "primary_agent": "orchestrator",
+  "consulted_agents": [],
+  "reviewers": ["orchestrator_semantics_accessibility_review", "orchestrator_visual_integration_review"],
+  "objective": "Leave no public KI-specific page, path, navigation target, asset, or current design-contract inventory after the approved removal of KI-Basics.",
+  "scope": ["move the retained Cash-Forecast out of ki-workflow into the existing project route family", "remove the empty ki-workflow directory", "update current website, README, control-plane, project instructions, and design inventory references", "resolve REC-013"],
+  "non_goals": ["change Cash-Forecast content or its Datenanalyse classification", "rewrite historical completed-task or decision records", "responsive changes", "new visual direction"],
+  "depends_on": ["WRO-015", "user cleanup direction 2026-08-15"],
+  "contract_reads": ["navigation", "information_architecture", "color.ui", "background-artwork", "html_semantics.ready_scope", "accessibility.ready_scope"],
+  "contract_changes_requested": [],
+  "write_files": ["index.html", "datenanalyse.html", "projekte/cash_forecast.html", "ki-workflow/ml_cash_forecast_fallstudie.html", "README.md", "docs/refactor/design-contracts.yaml", "docs/refactor/website-state.yaml", "../AGENTS.md", "../DESIGN.md"],
+  "write_domains": ["information_architecture.route_cleanup", "navigation.links", "content.case_route", "orchestration.state", "orchestration.contracts", "project.instructions", "design.authority"],
+  "exclusive_leases": ["WRO-016-residual-ki-cleanup"],
+  "deliverables": ["no ki-workflow directory", "Cash-Forecast reachable in projekte/", "no current KI-Basics category or design inventory reference", "resolved REC-013"],
+  "acceptance_checks": ["no public path or internal link contains ki_basics or ki-workflow", "all local href/src targets resolve", "all retained pages keep one main and one h1", "HTML, JSON, and YAML parse", "no current Design or instruction inventory names KI-Basics"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "The retained Cash-Forecast now lives in projekte/cash_forecast.html, and no public KI-Basics page, ki-workflow directory, or active design inventory remains.",
+    "files_removed": ["ki-workflow/"],
+    "checks": ["no public route or local link contains ki_basics or ki-workflow", "all local href/src targets resolve", "all retained pages retain one main and one h1", "HTML, JSON, and YAML parse", "project instructions and Design no longer inventory KI-Basics"],
+    "reviews": {
+      "orchestrator_semantics_accessibility_review": "pass: all 20 retained pages have six navigation links, one main, one h1, and resolvable local href/src targets.",
+      "orchestrator_visual_integration_review": "pass: Cash-Forecast at its new project URL retains the Datenanalyse active state and desktop rendering at 1440 by 1200."
+    },
+    "commit": null,
+    "pushed": false
+  }
+}

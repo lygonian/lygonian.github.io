@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "WRO-013",
+  "title": "Rebalance the homepage tree crown and trunk",
+  "status": "completed",
+  "mode": "implementation_reopen",
+  "primary_agent": "orchestrator",
+  "consulted_agents": [],
+  "reviewers": ["orchestrator_accessibility_review", "orchestrator_visual_integration_review"],
+  "objective": "Preserve the approved open space at the top of the homepage while making the canopy read as a fuller, contoured crown above a visually lower trunk.",
+  "scope": ["homepage desktop canopy geometry", "homepage desktop trunk start geometry", "canopy fill and contour treatment", "upper-hero visual integration"],
+  "non_goals": ["hero copy or typography", "content layout", "connector route", "cave and root geometry", "subpage artwork", "breakpoints", "tablet or smartphone changes", "new ambient motion"],
+  "depends_on": ["WRO-012", "user visual feedback 2026-08-15"],
+  "contract_reads": ["color.artwork", "layout", "background-artwork", "visual-effects", "layers", "motion.ready_scope", "accessibility.ready_scope"],
+  "contract_changes_requested": [],
+  "write_files": ["index.html", "assets/css/style.css"],
+  "write_domains": ["artwork.home_tree_canopy", "artwork.home_tree_trunk", "visual.effects.home_canopy"],
+  "exclusive_leases": ["WRO-013-home-tree-top"],
+  "deliverables": ["lower trunk start", "fuller multi-layer canopy", "clear canopy contours", "desktop before-and-after screenshots"],
+  "acceptance_checks": ["existing top gap remains", "canopy reads above rather than level with the trunk", "trunk still connects continuously to its lower geometry", "canopy gains visible volume without reducing hero readability", "route and content layers remain unchanged", "no media-query edits", "reduced-motion behavior remains valid", "desktop screenshot reviewed at 2048 by 942"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "The approved upper gap is preserved while eight overlapping organic crown volumes and eight internal contours give the canopy more mass; the visible trunk now begins lower and tapers into the unchanged lower trunk, cave, and root geometry.",
+    "files_changed": ["index.html", "assets/css/style.css"],
+    "checks": ["git diff --check", "JSON, YAML, and HTML parser checks", "13 media queries unchanged", "Firefox 2048x942 upper-home screenshot", "Firefox 1440x5000 full-home screenshot", "route, content, cave, and root geometry visually unchanged below the scoped junction", "existing reduced-motion rule still disables canopy animation"],
+    "reviews": {
+      "orchestrator_accessibility_review": "pass: primary and secondary hero text remain clearly legible over the stronger but low-opacity canopy",
+      "orchestrator_visual_integration_review": "pass: crown now reads above the lower trunk and the full-page tree remains continuous"
+    },
+    "known_deferred": ["tablet and smartphone artwork cropping", "ambient-motion WCAG 2.2.2 classification", "nonlocal browser and assistive-technology matrix"],
+    "commit": null,
+    "pushed": false
+  }
+}

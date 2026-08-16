@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "WRO-010",
+  "title": "Stabilize accepted desktop foundation roles",
+  "status": "completed",
+  "mode": "implementation",
+  "primary_agent": "foundation-systems",
+  "consulted_agents": ["layout-responsive", "components-interaction"],
+  "reviewers": ["architecture-cleanup", "visual-integration"],
+  "objective": "Implement the accepted semantic token, typography, spacing, and container foundation for desktop without changing responsive rules or artwork ownership.",
+  "scope": ["semantic aliases", "six typography roles and Body Large modifier", "spacing defaults", "page/read/component/artwork measures", "UI/category token consumption"],
+  "non_goals": ["component redesign", "HTML changes", "JavaScript changes", "artwork changes", "breakpoint or mobile/tablet changes", "cleanup deletion"],
+  "depends_on": ["WRO-009"],
+  "contract_reads": ["design_tokens", "typography", "color.ui", "spacing", "containers", "layout"],
+  "contract_changes_requested": [],
+  "write_files": ["assets/css/style.css"],
+  "write_domains": ["foundation.tokens", "foundation.typography", "foundation.spacing", "foundation.containers"],
+  "exclusive_leases": ["WRO-010-foundation-style"],
+  "deliverables": ["alias-first foundation migration", "computed-style parity evidence", "desktop screenshot matrix", "Atlas geometry check"],
+  "acceptance_checks": ["no media-query edits", "no new Cascade Layers", "Body Large remains a Body modifier", "context modes override variables rather than properties where migrated", "all four desktop families render", "Atlas route/tree/link geometry remains valid"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "Accepted desktop foundation implemented alias-first in style.css with semantic category, typography, spacing, and measure roles.",
+    "files_changed": ["assets/css/style.css"],
+    "checks": ["git diff --check", "custom-property cycle scan", "13 media queries unchanged", "four desktop families rendered", "Atlas route/expertise/tree geometry", "deterministic computed-style snapshot"],
+    "reviews": {"architecture_cleanup": "pass", "visual_integration": "pass"},
+    "commit": null,
+    "pushed": false
+  }
+}

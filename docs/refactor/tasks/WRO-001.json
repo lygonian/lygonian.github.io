@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "WRO-001",
+  "title": "Bootstrap the website refactoring orchestrator",
+  "status": "completed",
+  "mode": "bootstrap",
+  "primary_agent": "orchestrator",
+  "consulted_agents": ["foundation-systems", "layout-responsive", "components-interaction", "visual-system", "semantics-accessibility", "content-ia", "architecture-cleanup"],
+  "reviewers": ["visual-integration", "orchestrator"],
+  "objective": "Create a minimal native Codex control plane and repository-derived initial state without changing production website files.",
+  "scope": ["repository safety", "read-only discovery", "custom agent configuration", "control plane", "protocol", "initial backlog", "GitHub PR template"],
+  "non_goals": ["website redesign", "HTML/CSS/JS implementation", "dependency installation", "publishing"],
+  "depends_on": [],
+  "contract_reads": ["all provisional bootstrap contracts"],
+  "contract_changes_requested": [],
+  "write_files": [".gitignore", "AGENTS.md", ".codex/agents/", "docs/refactor/", ".github/pull_request_template.md"],
+  "write_domains": ["orchestration.scaffolding", "orchestration.state", "orchestration.protocol"],
+  "exclusive_leases": ["control-plane-permanent"],
+  "deliverables": ["eight specialist agents", "machine-readable control plane", "repository analysis", "dependency graph", "task backlog", "latest report"],
+  "acceptance_checks": ["TOML parses", "YAML parses", "JSON parses", "no production website diff introduced", "git status reviewed", "Typography and Color full review scope", "visual-integration read-only"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": "main", "worktree": null, "commit": null, "pushed": false},
+  "result": {"summary": "Bootstrap files created on the existing dirty worktree; no branch, worktree, commit, push, dependency, or production change made.", "checks": ["manual repository audit", "schema parsing", "diff and status review"]}
+}

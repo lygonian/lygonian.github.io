@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "WRO-023",
+  "title": "Replace legacy agent control plane",
+  "status": "completed",
+  "mode": "system_migration",
+  "primary_agent": "orchestrator",
+  "consulted_agents": [],
+  "reviewers": ["orchestrator_configuration_review"],
+  "objective": "Replace the flat project-specific agent roster with the reusable Conductor and team hierarchy approved by the user.",
+  "scope": ["project agent definitions", "website orchestration rules", "legacy control-plane status"],
+  "non_goals": ["production website changes", "DESIGN.md changes", "push", "publication"],
+  "depends_on": ["WRO-022", "user instruction 2026-08-15"],
+  "contract_reads": [],
+  "contract_changes_requested": [],
+  "write_files": [".codex/agents/*.toml", "AGENTS.md", "docs/refactor/tasks/WRO-023.json"],
+  "write_domains": ["orchestration.agent_system"],
+  "exclusive_leases": ["WRO-023-agent-system"],
+  "deliverables": ["26 active reusable agents", "four team hierarchies", "autonomous Conductor rules", "historical legacy control plane"],
+  "acceptance_checks": ["all active TOML files parse", "agent names are unique", "design sources and active files match", "legacy agent definitions are absent", "review roles are read-only", "no production website or DESIGN.md file changes"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "The approved reusable Conductor hierarchy replaces the legacy flat roster. The WRO control plane is retained only as historical evidence and is no longer required for new work.",
+    "files_changed": [".codex/agents/*.toml", "AGENTS.md", "docs/refactor/tasks/WRO-023.json"],
+    "checks": ["TOML schema and uniqueness validation", "source hash comparison", "project-coupling scan", "git diff --check", "scope check"],
+    "reviews": {"orchestrator_configuration_review": "pass"},
+    "known_deferred": ["the already-running Codex session must be restarted before it reloads project-scoped agent definitions"],
+    "commit": null,
+    "pushed": false
+  }
+}

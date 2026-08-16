@@ -1,0 +1,19 @@
+schema_version: 1
+id: WRO-DEC-001
+status: resolved
+topic: contract_authority
+context:
+  - "DESIGN.md names index.html as the binding design reference."
+  - "The new orchestrator mandate says existing code is not design authority."
+options:
+  - id: A
+    summary: "Accepted design-contracts.yaml becomes operative contract truth; DESIGN.md remains user-owned design intent and index.html becomes evidence."
+  - id: B
+    summary: "index.html remains binding; contracts may only describe it."
+recommendation: A
+impact: "Determines whether later refactoring may deliberately depart from the current homepage."
+owner: orchestrator
+resolution:
+  selected: A
+  basis: "User confirmation on 2026-08-15."
+  resolved_at: "2026-08-15"

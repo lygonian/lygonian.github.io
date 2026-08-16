@@ -1,0 +1,19 @@
+schema_version: 1
+id: WRO-DEC-006
+status: resolved
+topic: homepage_research_path
+context:
+  - "The homepage CTA says Forschung ansehen but currently targets KI-Basics, which is not a legitimate research destination."
+  - "Research remains structurally under Über mich in either option."
+options:
+  - id: A
+    summary: "Link directly to forschung/index.html and keep Über mich as the active parent section."
+  - id: B
+    summary: "Link to ueber_mich.html and rename the CTA so the profile-first path is explicit."
+recommendation: A
+impact: "Controls the homepage research CTA label/destination and the directness of the research journey; KI-Basics is excluded."
+owner: content-ia
+resolution:
+  selected: A
+  basis: "User confirmed the recommended decision package on 2026-08-15."
+  resolved_at: "2026-08-15"

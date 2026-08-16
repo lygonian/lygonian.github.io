@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "WRO-012",
+  "title": "Implement accepted desktop artwork direction",
+  "status": "completed",
+  "mode": "implementation",
+  "primary_agent": "visual-system",
+  "consulted_agents": ["foundation-systems", "layout-responsive", "content-ia"],
+  "reviewers": ["semantics-accessibility", "visual-integration"],
+  "objective": "Finish the accepted desktop visual world: motif-bound category overlays, a global connector with local activation segments, and a continuous microscopic research space beginning on the profile page.",
+  "scope": ["homepage connector", "Private Projects route segment", "shared reduced subpage world", "six category motif overlays", "profile-to-research scale transition", "continuous microscopic research world", "semantic layer stack", "effect-role consolidation needed by the artwork"],
+  "non_goals": ["responsive cropping", "mobile/tablet changes", "content rewriting", "component redesign", "ambient-motion expansion", "architecture cleanup", "logo redesign"],
+  "depends_on": ["WRO-011"],
+  "contract_reads": ["color.artwork", "layout", "background-artwork", "visual-effects", "layers", "motion.ready_scope", "accessibility.ready_scope", "information_architecture"],
+  "contract_changes_requested": [],
+  "write_files": ["assets/css/style.css", "assets/js/atlas.js", "assets/img/subpage-biome.svg", "index.html", "ueber_mich.html", "forschung/index.html", "forschung/membran_biophysik.html", "forschung/neuroimmunologie.html", "forschung/redox_neurobiochemie.html"],
+  "write_domains": ["artwork.home_route", "artwork.subpage_world", "artwork.category_motifs", "artwork.research_microscopic", "visual.effects", "visual.layers"],
+  "exclusive_leases": ["WRO-012-desktop-artwork"],
+  "deliverables": ["accepted artwork direction", "route activation mapping", "research visual continuity", "desktop screenshot matrix"],
+  "acceptance_checks": ["global connector outside activated regions", "all six categories represented including Private Projects", "category washes are motif-bound", "research UI remains profile-colored while artwork is microscopic", "content/focus/navigation remain above artwork", "no breakpoint edits", "reduced-motion behavior remains valid"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "Accepted desktop artwork direction implemented with a neutral global connector, six locally mapped category activations, six motif-bound subpage overlays, and a continuous microscopic research world beginning after a clear profile-world transition.",
+    "files_changed": ["assets/css/style.css", "assets/js/atlas.js", "assets/img/subpage-biome.svg", "index.html", "ueber_mich.html", "forschung/index.html", "forschung/membran_biophysik.html", "forschung/neuroimmunologie.html", "forschung/redox_neurobiochemie.html"],
+    "checks": ["CSS, SVG, YAML, and JSON parsers", "git diff --check", "23-page structure and 409 local-reference scan", "six unique route activations including Private Projects", "four continuous research-world pages", "13 media queries unchanged", "Firefox desktop screenshot matrix", "Firefox no-JavaScript and reduced-motion states", "computed Figure surface-role verification"],
+    "reviews": {"semantics_accessibility": "pass", "visual_integration": "pass_after_profile_transition_fix"},
+    "known_deferred": ["responsive cropping and REC-012", "ambient-motion WCAG 2.2.2 classification", "nonlocal browser and assistive-technology matrix"],
+    "commit": null,
+    "pushed": false
+  }
+}

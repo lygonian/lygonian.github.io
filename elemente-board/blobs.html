@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blob-Labor · Elemente-Board · Samet Kurt</title>
+  <meta name="description" content="Isolierte Formstudie für zwölf zellartige Blob-Ableitungen und ihre Organell-Artworks im Elemente-Board von Samet Kurt.">
+  <link rel="stylesheet" href="board.css">
+  <link rel="stylesheet" href="blobs.css">
+  <style>
+    /* Lokale Labor-Overrides: Diese Studien bleiben bewusst in blobs.html isoliert. */
+    .blob-board-page {
+      --bg: #050908;
+    }
+
+    .current-route-blob::before,
+    .cell-blob::before {
+      content: none;
+    }
+
+    .blob-stage--tab,
+    .blob-stage--project {
+      min-height: 430px;
+      background:
+        radial-gradient(circle at 82% 52%, rgba(84, 197, 150, .12), transparent 25%),
+        linear-gradient(108deg, rgba(84, 197, 150, .035), transparent 42%),
+        #07100d;
+    }
+
+    .blob-stage--project {
+      background:
+        radial-gradient(circle at 83% 50%, rgba(84, 197, 150, .11), transparent 24%),
+        linear-gradient(112deg, rgba(84, 197, 150, .025), transparent 45%),
+        #050b09;
+    }
+
+    .reference-cluster {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      width: max-content;
+      display: grid;
+      grid-template-columns: 340px 32px 258px;
+      align-items: center;
+      transform: translate(-50%, -50%);
+    }
+
+    .reference-cluster--project {
+      grid-template-columns: 350px 32px 276px 120px;
+    }
+
+    .reference-copy {
+      position: relative;
+      z-index: 1;
+      min-height: 128px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 28px 28px 28px 20px;
+      color: var(--text-2);
+      background:
+        linear-gradient(270deg, rgba(84, 197, 150, .075), transparent 78%),
+        var(--surface);
+      border-right: 1px solid var(--automation);
+      text-align: right;
+    }
+
+    .reference-cluster--project .reference-copy {
+      min-height: 166px;
+      padding-left: 18px;
+    }
+
+    .reference-copy p {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .reference-category {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      margin: 0 0 14px;
+      color: var(--automation);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .02em;
+    }
+
+    .reference-category::before {
+      content: "";
+      width: 20px;
+      height: 9px;
+      border: 1px solid var(--automation);
+      border-radius: 58% 42% 62% 38%;
+      transform: rotate(-16deg);
+    }
+
+    .reference-connector {
+      position: relative;
+      z-index: 0;
+      height: 1px;
+      background: var(--automation);
+      opacity: .86;
+    }
+
+    .reference-blob {
+      width: 258px;
+      min-height: 188px;
+      display: grid;
+      place-items: center;
+      padding: 42px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 48% 46%, rgba(84, 197, 150, .055), transparent 62%),
+        var(--surface);
+      border: 1px solid color-mix(in srgb, var(--automation) 70%, var(--line));
+      border-radius: 47% 53% 51% 49% / 55% 47% 53% 45%;
+      font-size: 21px;
+      font-weight: 500;
+      line-height: 1.1;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 180ms ease, border-color 180ms ease;
+    }
+
+    .reference-cluster--project .reference-blob {
+      width: 276px;
+      min-height: 200px;
+      border-radius: 52% 48% 49% 51% / 46% 54% 48% 52%;
+    }
+
+    .reference-blob::before {
+      content: none;
+    }
+
+    .reference-blob:hover,
+    .reference-blob:active {
+      color: var(--text);
+      background-color: var(--surface-hi);
+      border-color: var(--interaction);
+      text-decoration: none;
+    }
+
+    .reference-blob:focus-visible {
+      outline: 3px solid var(--interaction-hi);
+      outline-offset: 5px;
+    }
+
+    .reference-blob-label {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .reference-blob-logo {
+      position: absolute;
+      right: calc(50% + 64px);
+      width: 20px;
+      height: 9px;
+      border: 1px solid var(--automation);
+      border-radius: 58% 42% 62% 38%;
+      transform: rotate(-16deg);
+    }
+
+    .cell-blob--heading {
+      --route-accent: var(--contact);
+      min-height: 190px;
+      gap: 10px;
+      isolation: isolate;
+      overflow: visible;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      filter: drop-shadow(0 0 18px color-mix(in srgb, var(--route-accent) 13%, transparent));
+    }
+
+    .cell-blob--heading::before {
+      content: none;
+    }
+
+    .route-heading-cell {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      color: var(--route-accent);
+      pointer-events: none;
+    }
+
+    .route-heading-cell .route-heading-envelope {
+      fill: color-mix(in srgb, var(--route-accent) 8%, var(--surface));
+      stroke: currentColor;
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .route-heading-cell .route-heading-inner,
+    .route-heading-cell .route-heading-lamella,
+    .route-heading-cell .route-heading-granum rect {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .route-heading-cell .route-heading-inner { opacity: .26; }
+    .route-heading-cell .route-heading-lamella { opacity: .22; }
+
+    .route-heading-cell .route-heading-granum rect {
+      fill: color-mix(in srgb, var(--route-accent) 8%, transparent);
+      opacity: .32;
+    }
+
+    .cell-blob--heading > :not(.route-heading-cell) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cell-blob--property {
+      --blob-accent: var(--automation);
+      background:
+        radial-gradient(circle at 50% 34%, color-mix(in srgb, var(--blob-accent) 10%, transparent), transparent 62%),
+        var(--surface);
+      border-color: color-mix(in srgb, var(--blob-accent) 58%, var(--line));
+    }
+
+    .cell-blob--property .property-category-mark {
+      background: var(--blob-accent);
+    }
+
+    .reference-tail {
+      position: relative;
+      z-index: 0;
+      width: 120px;
+      height: 150px;
+      overflow: visible;
+      color: var(--automation);
+    }
+
+    .reference-tail path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .reference-tail path:last-of-type { opacity: .58; }
+
+    .reference-tail circle {
+      fill: currentColor;
+      filter: drop-shadow(0 0 6px currentColor);
+    }
+
+    .blob-stage--artwork {
+      min-height: 470px;
+      background:
+        radial-gradient(circle at 50% 50%, var(--artwork-glow, rgba(84, 197, 150, .10)), transparent 31%),
+        linear-gradient(132deg, rgba(255, 255, 255, .015), transparent 45%),
+        #070d0b;
+    }
+
+    .blob-stage--artwork-analysis {
+      --artwork-glow: rgba(92, 192, 230, .11);
+    }
+
+    .blob-stage--artwork-start {
+      --artwork-glow: rgba(116, 163, 78, .10);
+    }
+
+    .blob-stage--artwork-private {
+      --artwork-glow: rgba(122, 136, 178, .11);
+    }
+
+    .blob-stage--artwork-profile {
+      --artwork-glow: rgba(204, 150, 83, .10);
+    }
+
+    .blob-stage--artwork-contact {
+      --artwork-glow: rgba(235, 212, 154, .11);
+    }
+
+    .artwork-blob {
+      --organelle-color: var(--automation);
+      position: relative;
+      z-index: 2;
+      width: 430px;
+      min-height: 290px;
+      display: grid;
+      place-items: center;
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--organelle-color) 7%, transparent), transparent 64%),
+        var(--surface);
+      border: 1px solid color-mix(in srgb, var(--organelle-color) 58%, var(--line));
+      border-radius: 51% 49% 46% 54% / 54% 47% 53% 46%;
+    }
+
+    .artwork-blob--start {
+      /* Atmosphärische Startseitenfarbe aus der Landschaft; Start ist keine Rubrik. */
+      --organelle-color: #74a34e;
+      border-radius: 48% 52% 54% 46% / 53% 46% 54% 47%;
+    }
+
+    .artwork-blob--automation {
+      --organelle-color: var(--automation);
+      border-radius: 52% 48% 47% 53% / 48% 55% 45% 52%;
+    }
+
+    .artwork-blob--profile {
+      --organelle-color: var(--profile);
+      border-radius: 47% 53% 52% 48% / 56% 45% 55% 44%;
+    }
+
+    .artwork-blob--analysis {
+      --organelle-color: var(--analysis);
+      border-radius: 55% 45% 48% 52% / 45% 55% 47% 53%;
+    }
+
+    .artwork-blob--private {
+      --organelle-color: var(--private);
+      border-radius: 52% 48% 45% 55% / 57% 44% 56% 43%;
+    }
+
+    .artwork-blob--contact {
+      --organelle-color: var(--contact);
+      border-radius: 46% 54% 53% 47% / 51% 57% 43% 49%;
+    }
+
+    .organelle-art {
+      --organelle-x: 50%;
+      --organelle-y: 50%;
+      --organelle-rotation: 0deg;
+      position: absolute;
+      z-index: 0;
+      top: var(--organelle-y);
+      left: var(--organelle-x);
+      width: 40.8%;
+      height: auto;
+      overflow: visible;
+      color: var(--organelle-color);
+      opacity: .56;
+      filter: drop-shadow(0 5px 10px color-mix(in srgb, currentColor 12%, transparent));
+      transform: translate(-50%, -50%) rotate(var(--organelle-rotation));
+    }
+
+    /* Uhrfolge der sechs Reiter-Organellen. Das Zentrum jedes Artworks liegt
+       auf dem halben Radius zwischen Blobmitte und sicherer Innenkontur. */
+    .artwork-blob--start .organelle-art {
+      --organelle-x: calc(71.6506% - 5.2px);
+      --organelle-y: calc(37.5% + 3px);
+      --organelle-rotation: -4deg;
+    }
+
+    .artwork-blob--automation .organelle-art {
+      --organelle-x: calc(71.6506% - 5.2px);
+      --organelle-y: calc(62.5% - 3px);
+      --organelle-rotation: -2deg;
+      width: 47.6%;
+      opacity: .68;
+    }
+
+    .artwork-blob--analysis .organelle-art {
+      --organelle-x: 50%;
+      --organelle-y: calc(75% - 6px);
+      --organelle-rotation: 2deg;
+      width: 47.6%;
+      opacity: .68;
+    }
+
+    .artwork-blob--private .organelle-art {
+      --organelle-x: calc(28.3494% + 5.2px);
+      --organelle-y: calc(62.5% - 3px);
+      --organelle-rotation: -2deg;
+      opacity: .52;
+    }
+
+    .artwork-blob--profile .organelle-art {
+      --organelle-x: calc(28.3494% + 5.2px);
+      --organelle-y: calc(37.5% + 3px);
+      --organelle-rotation: 2deg;
+      opacity: .54;
+    }
+
+    .artwork-blob--contact .organelle-art {
+      --organelle-x: 50%;
+      --organelle-y: calc(25% + 6px);
+      --organelle-rotation: -2deg;
+      opacity: .54;
+    }
+
+    .artwork-title {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      width: max-content;
+      max-width: 75%;
+      color: var(--text);
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -.025em;
+      line-height: 1.08;
+      text-align: center;
+      text-shadow: 0 2px 12px var(--bg), 0 0 18px var(--bg);
+      transform: translate(-50%, -50%);
+    }
+
+    .artwork-blob--private .artwork-title { max-width: 160px; }
+
+    .organelle-art .organelle-shell {
+      fill: color-mix(in srgb, currentColor 30%, var(--surface));
+      stroke: color-mix(in srgb, currentColor 88%, var(--text));
+      stroke-width: 2.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .organelle-art .organelle-inner {
+      fill: color-mix(in srgb, currentColor 15%, var(--surface));
+      stroke: color-mix(in srgb, currentColor 65%, var(--text-2));
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .organelle-art .organelle-lumen {
+      fill: color-mix(in srgb, currentColor 40%, var(--surface));
+      stroke: color-mix(in srgb, currentColor 78%, var(--text));
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .organelle-art .organelle-highlight {
+      fill: none;
+      stroke: color-mix(in srgb, currentColor 38%, var(--text));
+      stroke-width: 1.2;
+      stroke-linecap: round;
+      opacity: .86;
+    }
+
+    .organelle-art .organelle-line,
+    .organelle-art .organelle-fine {
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .organelle-art .organelle-line {
+      stroke-width: 2.4;
+      opacity: .92;
+    }
+
+    .organelle-art .organelle-fine {
+      stroke-width: 1.35;
+      opacity: .70;
+    }
+
+    .organelle-art .organelle-dot {
+      fill: currentColor;
+      stroke: color-mix(in srgb, currentColor 62%, var(--text));
+      stroke-width: .55;
+      opacity: .92;
+    }
+
+    .artwork-caption {
+      position: absolute;
+      right: 34px;
+      bottom: 26px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reference-blob { transition: none; }
+    }
+
+    @media (max-width: 1199px) {
+      .reference-cluster {
+        width: calc(100% - 28px);
+        grid-template-columns: minmax(0, 1fr) 24px minmax(200px, 258px);
+      }
+
+      .reference-cluster--project {
+        width: max-content;
+        grid-template-columns: 350px 32px 276px 120px;
+        transform: translate(-50%, -50%) scale(.92);
+      }
+
+      .reference-blob,
+      .reference-tail { width: 100%; }
+
+      .reference-blob {
+        min-height: 174px;
+        padding: 28px 22px;
+      }
+
+      .reference-cluster--project .reference-blob {
+        width: 276px;
+        min-height: 200px;
+        padding: 42px;
+      }
+
+      .reference-cluster--project .reference-tail { width: 120px; }
+
+      .reference-cluster--project .reference-copy p { font-size: 19px; }
+
+      .reference-cluster--project .reference-category { font-size: 13px; }
+    }
+
+    @media (max-width: 1120px) {
+      .reference-cluster--project {
+        transform: translate(-50%, -50%) scale(.82);
+      }
+    }
+
+    @media (max-width: 1050px) {
+      .reference-cluster--project {
+        transform: translate(-50%, -50%) scale(.70);
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .reference-cluster--project {
+        transform: translate(-50%, -50%) scale(.63);
+      }
+    }
+  </style>
+</head>
+<body class="blob-board-page">
+  <a class="skip-link" href="#blob-lab">Direkt zu den Blob-Studien</a>
+
+  <header class="board-header blob-board-header">
+    <div class="board-brand">
+      <span class="board-brand-mark" aria-hidden="true"></span>
+      <span><strong>Blob-Labor</strong><small>isolierte Formstudie · Desktop</small></span>
+    </div>
+    <nav class="blob-board-nav" aria-label="Elemente-Board">
+      <span>12 Studien</span>
+      <a class="board-button" href="startseite.html">Startseiten-Elemente</a>
+      <a class="board-button" href="index.html">Gesamtes Board</a>
+    </nav>
+  </header>
+
+  <main id="blob-lab" class="blob-lab">
+    <section class="blob-lab-intro" aria-labelledby="blob-lab-title">
+      <p class="overline">Arbeitsfläche · Formfamilie 01</p>
+      <h1 id="blob-lab-title">Vom aktuellen Routen-Blob zur ruhigen Zellfamilie.</h1>
+      <p>Zwölf aufeinander aufbauende Studien trennen Grundform, Überschrift, Reiter, Projekt, Eigenschaft, sechs Reiter-Organell-Artworks und den Chloroplasten der Routenüberschrift. Die Startseite bleibt dabei unverändert.</p>
+    </section>
+
+    <div class="blob-scope-note">
+      <strong>Abgrenzung</strong>
+      <span>Nur Entwurfsstand im Elemente-Board. Die zellartige Form ist eine gemeinsame organische Grammatik und aktiviert für sich allein noch nicht die Forschungswelt.</span>
+    </div>
+
+    <section class="blob-studies" aria-label="Zwölf Blob-Ableitungen">
+      <article class="blob-study" id="blob-01">
+        <header class="blob-study-head">
+          <p><span>01</span> Basis-Template</p>
+          <h2>Aktueller Routen-Blob</h2>
+          <p>Der bestehende HS-09 bleibt der Ausgangspunkt. Der zusätzliche Innenring entfällt bereits auf dieser ersten Blob-Ebene.</p>
+        </header>
+        <div class="blob-stage blob-stage--current">
+          <span class="blob-route-axis" aria-hidden="true"></span>
+          <span class="blob-current-status">Membran · ringlos</span>
+          <a class="current-route-blob" href="../automation.html">
+            <span class="current-route-mark" aria-hidden="true"></span>
+            <span>Automation</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-02">
+        <header class="blob-study-head">
+          <p><span>02</span> Formstudie</p>
+          <h2>Saubere Zellbasis</h2>
+          <p>Weniger Glow und eine einzelne ruhige Membran bilden das gemeinsame Ausgangsmaterial. Ein dekorativer Innenring entfällt.</p>
+        </header>
+        <div class="blob-stage">
+          <div class="cell-blob cell-blob--base" aria-label="Minimalistische zellartige Grundform">
+            <span class="cell-blob-node" aria-hidden="true"></span>
+            <span class="cell-blob-label">Zellbasis</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-03">
+        <header class="blob-study-head">
+          <p><span>03</span> Ableitung</p>
+          <h2>Routenüberschrift</h2>
+          <p>Eine ruhige Chloroplast-Form mit integrierter Doppelhülle und seitlicher Binnenzeichnung trägt nur die zentrale Abschnittsüberschrift. Sie zeigt keine Link-Affordance.</p>
+        </header>
+        <div class="blob-stage blob-stage--route-heading">
+          <div class="cell-blob cell-blob--heading">
+            <svg class="route-heading-cell" viewBox="0 0 390 190" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <path class="route-heading-envelope" d="M22 101C18 54 67 23 151 16c91-7 183 11 210 54 29 46-8 88-89 103-88 17-191 3-231-33-13-12-18-25-19-39Z"/>
+              <path class="route-heading-inner" d="M34 101C31 62 74 35 154 28c85-7 169 9 195 47 25 38-10 73-81 86-82 15-177 3-216-29-11-9-17-20-18-31Z"/>
+              <g class="route-heading-granum">
+                <rect x="55" y="72" width="41" height="6" rx="3"/>
+                <rect x="52" y="81" width="47" height="6" rx="3"/>
+                <rect x="56" y="90" width="39" height="6" rx="3"/>
+                <rect x="291" y="104" width="42" height="6" rx="3"/>
+                <rect x="288" y="113" width="48" height="6" rx="3"/>
+                <rect x="293" y="122" width="38" height="6" rx="3"/>
+              </g>
+              <path class="route-heading-lamella" d="M99 84c16-4 26-10 38-17M96 96c17 5 28 11 40 20M288 116c-18 1-29 7-42 16"/>
+            </svg>
+            <h3>Digitale DNA</h3>
+          </div>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-04">
+        <header class="blob-study-head">
+          <p><span>04</span> Ableitung</p>
+          <h2>Reiter-Verlinkung mit Textbaustein</h2>
+          <p>Die nicht verlinkte Aussage steht als Bio-Glas-Karte links. Eine einzelne Linie führt zum ringlosen Automation-Blob rechts.</p>
+        </header>
+        <div class="blob-stage blob-stage--tab">
+          <div class="reference-cluster">
+            <div class="reference-copy" id="tab-summary">
+              <p>Wiederkehrende Arbeit in kontrollierte Abläufe überführen, ohne unklare Fälle zu verstecken.</p>
+            </div>
+            <span class="reference-connector" aria-hidden="true"></span>
+            <a class="cell-blob reference-blob" href="../automation.html" aria-describedby="tab-summary">
+              <span class="reference-blob-label">
+                <span class="reference-blob-logo" aria-hidden="true"></span>
+                <span>Automation</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-05">
+        <header class="blob-study-head">
+          <p><span>05</span> Ableitung</p>
+          <h2>Verlinkte Projektkarte</h2>
+          <p>Kategorie und Kurzbeschreibung stehen links in der Karte. Der Projekttitel bleibt als einziges Element im verlinkten Blob rechts.</p>
+        </header>
+        <div class="blob-stage blob-stage--project">
+          <div class="reference-cluster reference-cluster--project">
+            <div class="reference-copy" id="project-summary">
+              <span class="reference-category">Automation</span>
+              <p>Neue Gutschriften werden Rechnungen zugeordnet; unklare Fälle bleiben bis zur manuellen Freigabe stehen.</p>
+            </div>
+            <span class="reference-connector" aria-hidden="true"></span>
+            <a class="cell-blob reference-blob" href="../projekte/rechnungs_pipeline.html" aria-describedby="project-summary">
+              <span>Zahlungsabgleich</span>
+            </a>
+            <svg class="reference-tail" viewBox="0 0 120 150" aria-hidden="true" focusable="false">
+              <path d="M0 75 C18 75 36 75 54 75 C72 60 91 27 120 5"/>
+              <path d="M54 75 C42 96 35 120 32 150"/>
+              <circle cx="54" cy="75" r="5"/>
+            </svg>
+          </div>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-06">
+        <header class="blob-study-head">
+          <p><span>06</span> Ableitung</p>
+          <h2>Eigenschafts-Blob</h2>
+          <p>Die kleinste Zelle ordnet eine Eigenschaft aus Label und Wert. Ihr Akzent übernimmt die Farbe des zugehörigen Automation-Blobs.</p>
+        </header>
+        <div class="blob-stage blob-stage--property">
+          <dl class="cell-blob cell-blob--property">
+            <div>
+              <span class="property-category-mark" aria-hidden="true"></span>
+              <dt>Werkzeuge</dt>
+              <dd>Python · Datenanalyse · Automatisierung</dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-07">
+        <header class="blob-study-head">
+          <p><span>07</span> Reiter-Organell</p>
+          <h2>Chloroplast für Start</h2>
+          <p>Doppelhülle, Stroma und klar gestapelte Thylakoide verbinden Licht, Wasser und Pflanzenwelt. Das dunklere Organell läuft kontrolliert unter den zentralen Titel.</p>
+        </header>
+        <div class="blob-stage blob-stage--artwork blob-stage--artwork-start">
+          <figure class="artwork-blob artwork-blob--start" aria-labelledby="chloroplast-art-title chloroplast-caption">
+            <svg class="organelle-art" viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+              <title id="chloroplast-title">Chloroplast</title>
+              <desc id="chloroplast-desc">Lehrbuchdarstellung eines Chloroplasten mit Doppelhülle, Stroma, Grana und verbindenden Stroma-Lamellen.</desc>
+              <path class="organelle-shell" d="M40 116C38 64 83 27 151 24c70-4 126 28 130 78 5 52-44 89-115 94-70 5-124-27-126-80Z"/>
+              <path class="organelle-inner" d="M52 115c-2-43 38-74 99-78 61-3 113 25 117 67 4 43-42 75-103 79-61 4-111-24-113-68Z"/>
+              <path class="organelle-highlight" d="M70 59c26-17 68-23 105-18"/>
+              <g aria-hidden="true">
+                <rect class="organelle-lumen" x="75" y="76" width="54" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="72" y="87" width="60" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="74" y="98" width="56" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="77" y="109" width="50" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="172" y="59" width="53" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="168" y="70" width="61" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="170" y="81" width="57" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="174" y="92" width="49" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="150" y="127" width="61" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="146" y="138" width="69" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="149" y="149" width="63" height="10" rx="5"/>
+                <rect class="organelle-lumen" x="154" y="160" width="53" height="10" rx="5"/>
+              </g>
+              <path class="organelle-line" d="M129 92c17-1 22-10 40-12M125 113c25 10 43 19 51 23M207 100c12 9 22 15 39 15"/>
+              <circle class="organelle-dot" cx="71" cy="142" r="2.6"/><circle class="organelle-dot" cx="108" cy="151" r="2.2"/><circle class="organelle-dot" cx="239" cy="137" r="2.8"/>
+            </svg>
+            <span class="artwork-title" id="chloroplast-art-title">Start</span>
+            <figcaption class="artwork-caption" id="chloroplast-caption">Chloroplast · Start</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-08">
+        <header class="blob-study-head">
+          <p><span>08</span> Reiter-Organell</p>
+          <h2>Endoplasmatisches Retikulum für Automation</h2>
+          <p>Aus der Kernhülle hervorgehende, verbundene Zisternen mit sichtbarem Lumen und aufgesetzten Ribosomen übersetzen Transportwege und Prozesslogik.</p>
+        </header>
+        <div class="blob-stage blob-stage--artwork">
+          <figure class="artwork-blob artwork-blob--automation" aria-labelledby="er-art-title er-caption">
+            <svg class="organelle-art" viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+              <title id="er-title">Raues endoplasmatisches Retikulum</title>
+              <desc id="er-desc">Lehrbuchdarstellung des rauen ER: vier verbundene Zisternen gehen aus der Kernhülle hervor und tragen Ribosomen auf ihrer Außenseite.</desc>
+              <circle class="organelle-inner" cx="63" cy="112" r="51"/>
+              <circle class="organelle-highlight" cx="63" cy="112" r="42"/>
+              <circle class="organelle-lumen" cx="63" cy="112" r="14"/>
+              <path class="organelle-lumen" d="M79 49c37-17 78-12 111 5 31 15 56 13 88-7l10 16c-37 27-73 29-110 11-27-13-59-16-91-4Z"/>
+              <path class="organelle-lumen" d="M88 83c34-13 70-8 100 7 32 16 61 14 91-5l10 17c-37 25-74 27-112 8-24-12-52-15-81-6Z"/>
+              <path class="organelle-lumen" d="M87 119c35-12 71-7 102 9 31 16 59 14 90-4l10 17c-38 24-74 25-112 6-25-13-53-15-82-7Z"/>
+              <path class="organelle-lumen" d="M79 156c38-15 77-10 111 7 29 15 55 13 85-4l10 17c-36 23-71 24-107 6-27-14-58-17-90-6Z"/>
+              <path class="organelle-lumen" d="M82 69c10 1 16 5 18 14l-5 21c-7-3-12-8-15-14Z"/>
+              <path class="organelle-lumen" d="M82 104c10 2 15 6 17 15l-5 21c-8-3-12-8-15-15Z"/>
+              <path class="organelle-highlight" d="M104 57c25-5 47 0 68 10M111 92c23-3 43 2 62 11M110 128c23-2 43 3 63 13M104 164c25-4 47 1 68 12"/>
+              <g aria-hidden="true">
+                <circle class="organelle-dot" cx="90" cy="45" r="2.7"/><circle class="organelle-dot" cx="119" cy="40" r="2.7"/><circle class="organelle-dot" cx="150" cy="44" r="2.7"/><circle class="organelle-dot" cx="184" cy="56" r="2.7"/><circle class="organelle-dot" cx="218" cy="60" r="2.7"/><circle class="organelle-dot" cx="254" cy="49" r="2.7"/><circle class="organelle-dot" cx="282" cy="40" r="2.7"/>
+                <circle class="organelle-dot" cx="98" cy="79" r="2.7"/><circle class="organelle-dot" cx="129" cy="75" r="2.7"/><circle class="organelle-dot" cx="160" cy="82" r="2.7"/><circle class="organelle-dot" cx="191" cy="95" r="2.7"/><circle class="organelle-dot" cx="226" cy="97" r="2.7"/><circle class="organelle-dot" cx="260" cy="84" r="2.7"/>
+                <circle class="organelle-dot" cx="97" cy="115" r="2.7"/><circle class="organelle-dot" cx="129" cy="111" r="2.7"/><circle class="organelle-dot" cx="160" cy="119" r="2.7"/><circle class="organelle-dot" cx="193" cy="132" r="2.7"/><circle class="organelle-dot" cx="229" cy="133" r="2.7"/><circle class="organelle-dot" cx="262" cy="121" r="2.7"/>
+                <circle class="organelle-dot" cx="90" cy="152" r="2.7"/><circle class="organelle-dot" cx="122" cy="147" r="2.7"/><circle class="organelle-dot" cx="154" cy="153" r="2.7"/><circle class="organelle-dot" cx="186" cy="168" r="2.7"/><circle class="organelle-dot" cx="221" cy="171" r="2.7"/><circle class="organelle-dot" cx="252" cy="159" r="2.7"/>
+              </g>
+            </svg>
+            <span class="artwork-title" id="er-art-title">Automation</span>
+            <figcaption class="artwork-caption" id="er-caption">ER · Automation</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-09">
+        <header class="blob-study-head">
+          <p><span>09</span> Reiter-Organell</p>
+          <h2>Golgi-Fächer für Datenanalyse</h2>
+          <p>Sechs gemeinsam gebogene Zisternen und eine konzentrierte Vesikelgruppe an der Trans-Seite bilden geordnete Strömungsschichten.</p>
+        </header>
+        <div class="blob-stage blob-stage--artwork blob-stage--artwork-analysis">
+          <figure class="artwork-blob artwork-blob--analysis" aria-labelledby="golgi-art-title golgi-caption">
+            <svg class="organelle-art" viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+              <title id="golgi-title">Golgi-Apparat</title>
+              <desc id="golgi-desc">Lehrbuchdarstellung eines Golgi-Apparats mit sechs dünnen, gemeinsam gebogenen Zisternen und einer konzentrierten Gruppe abschnürender Vesikel an der Trans-Seite.</desc>
+              <path class="organelle-lumen" d="M108 43c31-16 77-18 111-4 12 5 18 12 16 18-2 7-11 9-22 5-29-11-65-9-92 4-11 5-21 2-23-5-2-6 2-13 10-18Z"/>
+              <path class="organelle-lumen" d="M91 68c41-17 98-17 139 2 11 5 16 13 13 20-3 7-12 8-23 3-34-14-80-14-115 1-11 5-22 2-25-5-3-8 1-16 11-21Z"/>
+              <path class="organelle-lumen" d="M75 96c49-15 114-11 156 13 10 6 14 14 10 21-4 7-14 7-24 1-34-18-87-22-127-10-12 4-23 0-25-8-2-8 2-14 10-17Z"/>
+              <path class="organelle-lumen" d="M69 125c47-8 105 1 143 27 9 7 11 15 6 21-5 7-15 5-24-1-30-20-76-28-114-21-11 2-20-3-21-11-1-7 3-13 10-15Z"/>
+              <path class="organelle-lumen" d="M79 153c39-1 84 12 112 36 8 7 8 15 2 20-6 5-15 2-22-4-22-18-58-29-89-28-10 0-18-5-18-13 1-7 6-11 15-11Z"/>
+              <path class="organelle-highlight" d="M119 49c28-9 61-10 88-2M104 76c34-8 74-6 106 6M91 104c36-4 79 1 111 17M84 133c33 3 70 13 96 31M94 160c27 6 54 17 73 33"/>
+              <path class="organelle-line" d="M217 131c16 2 25 8 32 18M198 169c15 2 25 9 31 19"/>
+              <g aria-hidden="true">
+                <circle class="organelle-shell" cx="258" cy="86" r="7"/>
+                <circle class="organelle-shell" cx="279" cy="105" r="11"/>
+                <circle class="organelle-shell" cx="254" cy="128" r="8"/>
+                <circle class="organelle-shell" cx="287" cy="149" r="6"/>
+                <circle class="organelle-shell" cx="258" cy="169" r="12"/>
+                <circle class="organelle-shell" cx="232" cy="194" r="8"/>
+                <circle class="organelle-dot" cx="258" cy="86" r="2.2"/>
+                <circle class="organelle-dot" cx="279" cy="105" r="3"/>
+                <circle class="organelle-dot" cx="254" cy="128" r="2.4"/>
+                <circle class="organelle-dot" cx="287" cy="149" r="2"/>
+                <circle class="organelle-dot" cx="258" cy="169" r="3.2"/>
+                <circle class="organelle-dot" cx="232" cy="194" r="2.3"/>
+              </g>
+            </svg>
+            <span class="artwork-title" id="golgi-art-title">Datenanalyse</span>
+            <figcaption class="artwork-caption" id="golgi-caption">Golgi-Fächer · Datenanalyse</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-10">
+        <header class="blob-study-head">
+          <p><span>10</span> Reiter-Organell</p>
+          <h2>Zentralvakuole für Private Projekte</h2>
+          <p>Ein großer abgeschlossener Speicherraum wird zur zellulären Zenote: eigenständig, tief und mit einem eigenen inneren Milieu.</p>
+        </header>
+        <div class="blob-stage blob-stage--artwork blob-stage--artwork-private">
+          <figure class="artwork-blob artwork-blob--private" aria-labelledby="vacuole-art-title vacuole-caption">
+            <svg class="organelle-art" viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+              <title id="vacuole-title">Zentralvakuole</title>
+              <desc id="vacuole-desc">Lehrbuchdarstellung einer Pflanzenzelle mit großer Zentralvakuole, Tonoplast, dünnem Cytoplasmasaum und seitlich verdrängtem Zellkern.</desc>
+              <path class="organelle-highlight" d="M61 25 245 31l43 43-11 107-53 20-164-16-28-48 7-83Z"/>
+              <path class="organelle-inner" d="M70 40 232 44l37 37-10 87-42 17-143-13-23-40 6-69Z"/>
+              <path class="organelle-shell" d="M84 51c42-10 116-7 150 9 25 12 28 38 22 67-7 34-20 46-55 49-38 3-98 0-123-14-21-12-23-34-17-63 5-27 5-42 23-48Z"/>
+              <path class="organelle-inner" d="M92 64c37-9 103-6 132 7 19 9 21 29 16 54-5 27-15 35-45 38-34 2-84-1-107-12-16-8-18-25-13-49 4-22 3-32 17-38Z"/>
+              <path class="organelle-highlight" d="M91 88c39-10 104-7 145 7M82 119c42-7 111-3 156 10M91 146c40-3 91 1 128 9"/>
+              <circle class="organelle-lumen" cx="252" cy="148" r="16"/>
+              <circle class="organelle-dot" cx="252" cy="148" r="6"/><circle class="organelle-dot" cx="110" cy="103" r="2.8"/><circle class="organelle-dot" cx="145" cy="137" r="2.4"/><circle class="organelle-dot" cx="201" cy="95" r="3"/>
+            </svg>
+            <span class="artwork-title" id="vacuole-art-title">Private Projekte</span>
+            <figcaption class="artwork-caption" id="vacuole-caption">Zentralvakuole · Private Projekte</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-11">
+        <header class="blob-study-head">
+          <p><span>11</span> Reiter-Organell</p>
+          <h2>Zellkern für Über mich</h2>
+          <p>Kernhülle, Chromatin und Nukleolus tragen Identität und Herkunft. Ihre konzentrische Ordnung erinnert zugleich an Stamm und Jahresringe.</p>
+        </header>
+        <div class="blob-stage blob-stage--artwork blob-stage--artwork-profile">
+          <figure class="artwork-blob artwork-blob--profile" aria-labelledby="nucleus-art-title nucleus-caption">
+            <svg class="organelle-art" viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+              <title id="nucleus-title">Zellkern</title>
+              <desc id="nucleus-desc">Lehrbuchdarstellung eines Zellkerns mit doppelter Kernhülle, Kernporen, Chromatin und deutlich erkennbarem Nukleolus.</desc>
+              <path class="organelle-shell" d="M58 116c-3-49 40-88 101-91 64-3 111 35 109 86-2 50-43 86-104 88-62 2-103-33-106-83Z"/>
+              <path class="organelle-inner" d="M72 115c-3-41 34-73 87-76 54-2 94 30 93 72-2 41-37 72-89 74-53 2-89-28-91-70Z"/>
+              <path class="organelle-fine" d="M95 77c18-18 39 5 57-7 17-12 39-15 58-3M86 116c25-18 46 13 70 1 23-12 42 1 66 12M107 157c16-16 34-9 48 2 16 12 34 8 51-4M124 51c-5 16 8 25 24 31 21 8 29 25 20 42"/>
+              <circle class="organelle-lumen" cx="190" cy="112" r="27"/>
+              <circle class="organelle-inner" cx="190" cy="112" r="17"/>
+              <g aria-hidden="true">
+                <circle class="organelle-dot" cx="71" cy="79" r="3.5"/><circle class="organelle-dot" cx="97" cy="48" r="3.5"/><circle class="organelle-dot" cx="139" cy="34" r="3.5"/><circle class="organelle-dot" cx="187" cy="36" r="3.5"/><circle class="organelle-dot" cx="228" cy="57" r="3.5"/><circle class="organelle-dot" cx="257" cy="91" r="3.5"/><circle class="organelle-dot" cx="256" cy="137" r="3.5"/><circle class="organelle-dot" cx="230" cy="174" r="3.5"/><circle class="organelle-dot" cx="184" cy="194" r="3.5"/><circle class="organelle-dot" cx="137" cy="192" r="3.5"/><circle class="organelle-dot" cx="95" cy="173" r="3.5"/><circle class="organelle-dot" cx="68" cy="143" r="3.5"/>
+              </g>
+            </svg>
+            <span class="artwork-title" id="nucleus-art-title">Über mich</span>
+            <figcaption class="artwork-caption" id="nucleus-caption">Zellkern · Über mich</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="blob-study" id="blob-12">
+        <header class="blob-study-head">
+          <p><span>12</span> Reiter-Organell</p>
+          <h2>Transportvesikel für Kontakt</h2>
+          <p>Ein Vesikel trägt ein Signal zur Grenze, dockt an und öffnet sich nach außen. Die kleine Öffnung greift das Lichtmotiv auf.</p>
+        </header>
+        <div class="blob-stage blob-stage--artwork blob-stage--artwork-contact">
+          <figure class="artwork-blob artwork-blob--contact" aria-labelledby="vesicle-art-title vesicle-caption">
+            <svg class="organelle-art" viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+              <title id="vesicle-title">Transportvesikel bei der Exozytose</title>
+              <desc id="vesicle-desc">Lehrbuchdarstellung eines Transportvesikels mit Fracht, das an die Zellmembran andockt und seinen Inhalt nach außen abgibt.</desc>
+              <circle class="organelle-shell" cx="111" cy="112" r="62"/>
+              <circle class="organelle-inner" cx="111" cy="112" r="50"/>
+              <circle class="organelle-lumen" cx="86" cy="94" r="8"/><circle class="organelle-lumen" cx="123" cy="82" r="7"/><circle class="organelle-lumen" cx="139" cy="122" r="9"/><circle class="organelle-lumen" cx="99" cy="137" r="6"/>
+              <path class="organelle-shell" d="M224 30c12 24 14 46 2 66-8 13-8 24 0 37 12 20 10 42-2 67l20 8c16-32 18-61 2-87-4-7-4-13 0-20 16-26 14-55-2-79Z"/>
+              <path class="organelle-inner" d="M224 96c-15 8-30 12-49 12M224 133c-15-8-30-12-49-12"/>
+              <path class="organelle-line" d="M173 108c17-1 31-5 48-14M173 121c18 2 32 6 49 15"/>
+              <path class="organelle-highlight" d="M233 45c5 17 4 32-3 45M231 145c7 14 7 29 2 43"/>
+              <circle class="organelle-dot" cx="196" cy="103" r="4"/><circle class="organelle-dot" cx="211" cy="94" r="3"/><circle class="organelle-dot" cx="209" cy="139" r="3.5"/><circle class="organelle-dot" cx="269" cy="74" r="4"/><circle class="organelle-dot" cx="283" cy="57" r="3"/><circle class="organelle-dot" cx="278" cy="151" r="4.5"/>
+            </svg>
+            <span class="artwork-title" id="vesicle-art-title">Kontakt</span>
+            <figcaption class="artwork-caption" id="vesicle-caption">Transportvesikel · Kontakt</figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="blob-board-footer">
+    <p>Blob-Labor · isoliert von der Website</p>
+    <a href="#blob-lab">Nach oben ↑</a>
+  </footer>
+</body>
+</html>

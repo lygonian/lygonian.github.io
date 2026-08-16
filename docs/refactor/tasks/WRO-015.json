@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "WRO-015",
+  "title": "Remove KI-Basics as a standalone portfolio category",
+  "status": "completed",
+  "mode": "implementation",
+  "primary_agent": "orchestrator",
+  "consulted_agents": [],
+  "reviewers": ["semantics-accessibility", "visual-integration"],
+  "objective": "Focus the portfolio on Automation, Datenanalyse, and Private Projekte by removing KI-Basics as a top-level category while retaining the Cash-Forecast as a Datenanalyse case study.",
+  "scope": ["six-item shared navigation across all HTML pages", "remove the KI-Basics overview and its two standalone KI-method pages", "preserve the Cash-Forecast route and classify its surrounding navigation solely as Datenanalyse", "remove the homepage KI route activation, expertise node, and KI-only outro link", "remove KI-only CSS identity and artwork rules", "record the resulting DESIGN.md reconciliation item"],
+  "non_goals": ["homepage canopy or trunk artwork", "hero-copy positioning", "copy rewrites on Automation, Datenanalyse, Private Projekte, or Über mich", "moving or renaming the established Cash-Forecast URL", "responsive changes", "new visual direction", "editing ../DESIGN.md"],
+  "depends_on": ["WRO-014 release", "user IA decision 2026-08-15"],
+  "contract_reads": ["information_architecture", "navigation.ready_scope", "content_roles.ready_scope", "html_semantics.ready_scope", "accessibility.ready_scope", "color.ui", "color.artwork", "background-artwork"],
+  "contract_changes_requested": ["navigation invariant changes from seven to six top-level routes", "category palette and motif inventory changes from six to five active portfolio categories"],
+  "write_files": ["assets/css/style.css", "index.html", "automation.html", "datenanalyse.html", "private_projekte.html", "ueber_mich.html", "kontakt.html", "forschung/index.html", "forschung/membran_biophysik.html", "forschung/neuroimmunologie.html", "forschung/redox_neurobiochemie.html", "ki-workflow/ml_cash_forecast_fallstudie.html", "projekte/bewaesserung.html", "projekte/crm_sync.html", "projekte/graphql_reverse_engineering.html", "projekte/kontoauszuege.html", "projekte/lead_automation.html", "projekte/linkedin_pipeline.html", "projekte/pv_vertragsgenerator.html", "projekte/rechnungs_pipeline.html", "projekte/spotify_playlists.html", "ki_basics.html", "ki-workflow/index.html", "ki-workflow/personalisierung.html", "assets/img/ki-personalisierung.png", "README.md", "docs/refactor/website-state.yaml", "docs/refactor/design-contracts.yaml"],
+  "write_domains": ["information_architecture.top_level_categories", "navigation.shared_shell", "content.knowledge_category_removal", "semantics.navigation", "artwork.home_route", "artwork.category_motifs", "foundation.category_identity", "orchestration.state", "orchestration.contracts"],
+  "exclusive_leases": ["WRO-015-ia-navigation-removal", "WRO-015-index-style-finalization"],
+  "deliverables": ["six-item navigation with no KI-Basics destination", "no internal links to removed KI-only pages", "Cash-Forecast remaining accessible from Datenanalyse", "removed KI-only pages and image asset", "reconciled control-plane documentation"],
+  "acceptance_checks": ["all remaining HTML pages have one consistent six-item navigation", "all local links and assets resolve", "no aria-current value refers to a removed KI category", "homepage route activation mappings contain no knowledge category", "no unused KI category CSS or KI-only asset remains", "one main and one h1 remain on every retained page", "HTML, CSS, JSON, and YAML parse", "desktop visual integration review confirms the expertise composition remains balanced", "no WRO-013 canopy/trunk or WRO-014 hero-alignment diff is altered"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "KI-Basics is removed as a standalone category. The shared navigation now has six destinations; the two KI-method pages and their image asset are removed; the retained Cash-Forecast remains a Datenanalyse case study at its existing URL.",
+    "files_changed": ["all retained HTML navigation shells", "index.html", "assets/css/style.css", "README.md", "docs/refactor/design-contracts.yaml", "docs/refactor/website-state.yaml"],
+    "files_removed": ["ki_basics.html", "ki-workflow/index.html", "ki-workflow/personalisierung.html", "assets/img/ki-personalisierung.png"],
+    "checks": ["git diff --check", "20 retained pages each have one main, one h1, and six navigation links", "all local href/src targets resolve", "homepage route mapping contains Automation, Datenanalyse, Private Projekte, Über mich, and Kontakt only", "no remaining KI-Basics route, knowledge CSS selector, or removed image reference", "JSON and YAML parse"],
+    "reviews": {
+      "semantics_accessibility": "pass: shared navigation remains consistent; the retained Cash-Forecast uses Datenanalyse as its current ancestor and has no dead previous/next target.",
+      "visual_integration": "pass: the two remaining expertise cards are symmetrically placed around the central DNA motif; desktop screenshot reviewed at 1440 by 5000."
+    },
+    "known_deferred": ["REC-013: only Samet may update DESIGN.md to remove its KI-Basics design definition", "responsive changes remain out of scope", "ambient-motion WCAG 2.2.2 classification and nonlocal assistive-technology matrix"],
+    "commit": null,
+    "pushed": false
+  }
+}

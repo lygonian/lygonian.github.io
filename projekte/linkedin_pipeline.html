@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn-Daten lokal auswerten — Privates Projekt — Samet Kurt</title>
+  <meta name="description" content="Eine lokale Pipeline holt eigene LinkedIn-Profil-, Beitrags- und Statistikdaten über die offizielle Schnittstelle zusammen und erzeugt daraus einen gefilterten Brief.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="subpage subpage--private">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header"><div class="container"><a class="brand" href="../index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a><nav class="site-nav" aria-label="Hauptnavigation"><a href="../index.html">Start</a><a href="../automation.html">Automation</a><a href="../datenanalyse.html">Datenanalyse</a><a href="../private_projekte.html" aria-current="location">Private Projekte</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav></div></header>
+  <main id="main">
+    <section class="page-hero"><div class="container">
+      <nav class="breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../private_projekte.html">Private Projekte</a></li><li aria-current="page">LinkedIn-Daten</li></ol></nav><p class="eyebrow">Schnittstelle · Datenhaltung · Datenschutz</p><h1>Die eigenen LinkedIn-Daten an einem Ort zusammenführen</h1>
+      <p class="lead">Profil, Beiträge und Statistiken liegen bei LinkedIn über mehrere Ansichten und Exporte verteilt. Die Pipeline sammelt sie in einer lokalen Datenbank und erzeugt daraus einen gefilterten Brief — die einzige Datei, die das Projekt verlässt.</p>
+      <ul class="project-skills" aria-label="Technologien"><li class="skill-badge">LinkedIn-API</li><li class="skill-badge">DuckDB</li><li class="skill-badge">pandas</li><li class="skill-badge">Keyring</li><li class="skill-badge">Excel-Import</li></ul>
+    </div></section>
+
+    <section class="case-study"><div class="container">
+      <div class="case-intro"><p>Vier Schritte, eine lokale Datenbank, ein Ergebnis: ein Brief mit Positionierung, Fakten und Kennzahlen, aus dem persönliche Angaben herausgefiltert sind.</p></div>
+      <div class="case-grid">
+        <article class="case-block case-block--wide"><p class="eyebrow">Ablauf</p><h2>Die einzelnen Schritte</h2><ol class="flow">
+          <li><strong>Profil und Laufbahn abrufen</strong> <em>(API-Aufruf, OAuth)</em> — Anmeldung über einen OAuth-Token, dann Abfragen an die offizielle Schnittstelle zur Datenportabilität. Die Antworten werden als unveränderter Rohdaten-Schnappschuss abgelegt, beschränkt auf Profil-, Laufbahn- und Inhaltsbereiche.</li>
+          <li><strong>Beiträge strukturieren</strong> <em>(API-Aufruf, Ersatzweg über Dateien)</em> — jeder Beitrag mit URL und Kennung. Solange die Schnittstelle die Beitragstexte nicht freigibt, liefert eine Zuordnungstabelle mit verlinkten Textdateien dieselben Felder.</li>
+          <li><strong>Offizielle Statistiken einlesen</strong> <em>(Excel-Import, Verknüpfung über die URL)</em> — die heruntergeladenen Analytics-Dateien werden am Namensmuster erkannt und eingelesen. Einzelberichte werden über die Beitrags-URL mit den Beiträgen verknüpft, der Gesamtbericht in getrennte Tabellen für Tageswerte, Follower, Top-Beiträge und Demografie zerlegt.</li>
+          <li><strong>Lokal ablegen</strong> <em>(DuckDB, Prüfsumme je Datei)</em> — die Tabellen werden in eine lokale Datenbankdatei geschrieben. Eine SHA-256-Prüfsumme über jede Quelldatei entscheidet, ob erneut importiert wird; Rohdateien bleiben unverändert.</li>
+          <li><strong>Brief erzeugen</strong> <em>(SQL-Abfragen, Feldfreigabe, Textfilter)</em> — Kennzahlen und Fakten werden per Abfrage aus der Datenbank geholt, auf eine feste Liste erlaubter Felder beschränkt und in Markdown geschrieben. E-Mail-Adressen, Telefonnummern und Token entfernt ein Filter über den freien Text.</li>
+        </ol></article>
+        <article class="case-block case-block--wide"><p class="eyebrow">Entscheidungspfad</p><h2>Was den Ausschlag gab</h2><ul class="decision-list">
+          <li><strong>Offizielle Schnittstelle statt Auslesen der Oberfläche:</strong> zulässig, dokumentiert und stabiler gegenüber Änderungen an der Website.</li>
+          <li><strong>Nur die benötigten Bereiche laden:</strong> Nachrichten, Login-, Kontakt- und Sicherheitsdaten werden gar nicht erst abgerufen. Was nicht geholt wird, muss auch nicht geschützt werden.</li>
+          <li><strong>Zugangsdaten in den Anmeldeinformations-Speicher:</strong> nichts davon liegt im Projektordner oder in einem Notebook.</li>
+          <li><strong>Prüfsumme statt Zeitstempel:</strong> geänderte Exporte werden am Inhalt erkannt. Dadurch bleibt ein erneuter Lauf wiederholbar und erzeugt keine Dubletten.</li>
+          <li><strong>Ersatzweg statt Wartestellung:</strong> ein noch nicht freigeschalteter Bereich hält die Pipeline nicht auf. Die manuell gepflegten Texte haben dieselbe Struktur wie der spätere Import.</li>
+          <li><strong>Kennzahlen bleiben getrennt:</strong> Gesamt-Engagement und soziale Interaktionen werden nicht zusammengefasst, weil sie Unterschiedliches zählen.</li>
+          <li><strong>Nur eine Datei verlässt das Projekt:</strong> der gefilterte Brief. Datenbank, Rohdaten und Zugangsdaten bleiben lokal.</li>
+        </ul></article>
+      </div>
+      <div class="outcome-strip"><div><strong>Quellen</strong><span>Offizielle Schnittstelle und Analytics-Exporte</span></div><div><strong>Ablage</strong><span>Eine lokale Datenbankdatei</span></div><div><strong>Weitergabe</strong><span>Eine gefilterte Markdown-Datei</span></div></div>
+      <p class="case-note"><strong>Grenze:</strong> Die hinterlegte Positionierung ist ausdrücklich als Arbeitshypothese markiert. Sie wird angepasst, sobald Ziel und Zielgruppe feststehen — die Pipeline liefert die Daten, nicht die Strategie.</p>
+      <nav class="page-nav" aria-label="Weitere Seiten"><a href="../private_projekte.html"><span aria-hidden="true">←</span> Alle privaten Projekte</a><a href="../automation.html">Berufliche Automationen <span aria-hidden="true">→</span></a></nav>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer><script src="../assets/js/atlas.js" defer></script>
+</body></html>

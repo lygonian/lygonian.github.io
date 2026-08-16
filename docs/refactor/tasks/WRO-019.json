@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "WRO-019",
+  "title": "Remove visible corners from the harmonic homepage route",
+  "status": "completed",
+  "mode": "implementation_reopen",
+  "primary_agent": "orchestrator",
+  "consulted_agents": [],
+  "reviewers": ["orchestrator_visual_integration_review"],
+  "objective": "Render the deterministic harmonic homepage route as a tangentially continuous curve without visible polyline corners.",
+  "scope": ["homepage route path interpolation in assets/js/atlas.js"],
+  "non_goals": ["route formula", "route depth bands", "category activation colors", "CSS styling", "homepage layout", "responsive redesign"],
+  "depends_on": ["WRO-018", "user visual feedback 2026-08-15"],
+  "contract_reads": ["background-artwork", "visual-effects", "layers", "accessibility.ready_scope"],
+  "contract_changes_requested": [],
+  "write_files": ["assets/js/atlas.js"],
+  "write_domains": ["javascript.home_route_geometry"],
+  "exclusive_leases": ["WRO-019-home-route-smoothing"],
+  "deliverables": ["continuous cubic route path", "desktop render evidence"],
+  "acceptance_checks": ["the route retains the WRO-018 formula and central start", "adjacent route segments have continuous tangents", "no visible corners remain at sampled formula points", "depth bands and category activation segments remain mapped", "desktop render reviewed at 2048 by 942"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "The formula is now interpolated as tangentially continuous cubic Bézier segments, removing the visible corners while keeping the WRO-018 formula, central origin, depth bands, and activation mapping.",
+    "files_changed": ["assets/js/atlas.js"],
+    "checks": ["git diff --check", "JSON and YAML parser checks", "Firefox headless desktop render at 2048x942"],
+    "reviews": {
+      "orchestrator_visual_integration_review": "pass: the route has no visible sample-point corners and remains a smooth, centered mathematical curve."
+    },
+    "commit": null,
+    "pushed": false
+  }
+}

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Startseiten-Elemente · Elemente-Board · Samet Kurt</title>
+  <meta name="description" content="Aktueller, nach Auftreten sortierter Bestand der Elemente und Artworks aus der Startseite von Samet Kurt.">
+  <link rel="stylesheet" href="board.css">
+  <noscript><style>
+    #panel-artworks { display: none; }
+    #panel-artworks:target { display: block; }
+    body:has(#panel-artworks:target) #panel-elements { display: none; }
+    body:has(#panel-artworks:target) #tab-elements { color: var(--text-2); background: var(--panel); border-color: var(--line); }
+    body:has(#panel-artworks:target) #tab-artworks { color: var(--text); background: var(--surface-hi); border-color: var(--interaction); }
+  </style></noscript>
+</head>
+<body class="start-board">
+  <a class="skip-link" href="#board">Direkt zu den Startseiten-Elementen</a>
+
+  <header class="board-header">
+    <div class="board-brand">
+      <span class="board-brand-mark" aria-hidden="true"></span>
+      <span><strong>Startseiten-Elemente</strong><small>aktueller Bestand · Desktop</small></span>
+    </div>
+    <div class="board-controls" aria-label="Board-Werkzeuge">
+      <label class="search"><span class="sr-only">Elemente suchen</span><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="ID, Name, Ebene oder Kategorie …" autocomplete="off"></label>
+      <span class="header-selection" id="header-selection">Keine Auswahl</span>
+      <a class="board-button board-page-link" href="index.html">Gesamtes Board</a>
+      <button class="board-button board-button--primary" id="copy-selection" type="button">Auswahl kopieren</button>
+    </div>
+  </header>
+
+  <main id="board" class="board-main board-main--start">
+    <section class="board-intro" aria-labelledby="board-title">
+      <div>
+        <p class="overline">Startseite · aktuelle Quelle</p>
+        <h1 id="board-title">Komplette Elemente in ihrer Auftretensreihenfolge.</h1>
+        <p>Links steht jeweils das ganze Element mit seinen Unterelementen als eine Einheit. Rechts stehen Ebene und Kategorie.</p>
+      </div>
+      <div class="selection-box" aria-live="polite">
+        <span>Aktuelle Auswahl</span>
+        <strong id="selection-id">Noch kein Element gewählt</strong>
+        <small id="selection-name">Nutze „Referenz auswählen“ an einem Element.</small>
+      </div>
+    </section>
+
+    <div class="scope-note">
+      <strong>Quelle</strong>
+      <span>Die Reihenfolge und Inhalte folgen <code>../index.html</code>. Unterelemente werden nicht separat inventarisiert, sondern ausschließlich in ihrer vollständigen Elternkomponente gezeigt.</span>
+    </div>
+
+    <div class="board-tabs" role="tablist" aria-label="Startseiten-Bestand">
+      <a id="tab-elements" class="board-tab" role="tab" aria-selected="true" aria-controls="panel-elements" href="#panel-elements">Elemente <span>8</span></a>
+      <a id="tab-artworks" class="board-tab" role="tab" aria-selected="false" aria-controls="panel-artworks" href="#panel-artworks">Artworks <span>5</span></a>
+    </div>
+
+    <section id="panel-elements" class="board-tabpanel element-section" role="tabpanel" aria-labelledby="tab-elements">
+      <header class="group-head"><div><span>01</span><p>Elemente</p></div><h2>Vom Seiteneinstieg bis zum Abschluss</h2></header>
+
+      <article id="hs-01" class="element-row" data-id="HS-01" data-name="Skip-Link" data-search="skip link seitenrahmen global accessibility barrierefreiheit">
+        <div class="specimen specimen--center"><a class="ui-skip" href="#">Zum Inhalt springen</a></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">HS-01</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Skip-Link</h3><p class="purpose">Überspringt den Seitenkopf und führt direkt zum Hauptinhalt.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Seitenrahmen</dd></div><div><dt>Kategorie</dt><dd>Global · Barrierefreiheit</dd></div></dl></div>
+      </article>
+
+      <article id="hs-02" class="element-row" data-id="HS-02" data-name="Seitenkopf" data-search="header seitenrahmen global navigation brand start automation datenanalyse private über mich kontakt">
+        <div class="specimen specimen--nav specimen--site-header"><a class="ui-brand" href="#"><i class="home-brand-symbol" aria-hidden="true"></i>samet<span>.</span>kurt</a><nav class="ui-nav" aria-label="Vorschau der Hauptnavigation"><a class="is-current" href="#">Start</a><a href="#">Automation</a><a href="#">Datenanalyse</a><a href="#">Private Projekte</a><a href="#">Über mich</a><a class="is-contact" href="#">Kontakt</a></nav></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">HS-02</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Seitenkopf</h3><p class="purpose">Marke und alle sechs Hauptwege bilden gemeinsam ein Element.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Seitenrahmen</dd></div><div><dt>Kategorie</dt><dd>Global · Navigation</dd></div></dl></div>
+      </article>
+
+      <article id="hs-03" class="element-row" data-id="HS-03" data-name="Hero" data-search="hero inhalt startseite digitalisierung operative exzellenz projekte ansehen">
+        <div class="specimen home-specimen home-hero-specimen"><div class="home-hero-preview"><p class="ui-eyebrow"><i></i>Digitalisierung</p><h2><span>Automation &amp; Data für</span><b>operative Exzellenz</b></h2><i class="home-route-origin" aria-hidden="true"></i><p>Jedes Unternehmen hinterlässt in seinen Abläufen einen digitalen Fingerabdruck. Wird er lesbar, zeigen sich Zusammenhänge, Daten bekommen eine klare Struktur und Automatisierungen werden möglich. Die fortschreitende Digitalisierung setzt bereits das Fundament, jedoch werden die Daten bisher nicht effektiv genutzt.</p><a class="ui-button home-gradient-button" href="#">Projekte ansehen <span aria-hidden="true">↓</span></a></div></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">HS-03</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Hero</h3><p class="purpose">Eyebrow, Titel, Routenursprung, Erklärung und Projektaktion bleiben eine gemeinsame Eröffnung.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Inhaltsbühne</dd></div><div><dt>Kategorie</dt><dd>Startseite · Einstieg</dd></div></dl></div>
+      </article>
+
+      <article id="hs-04" class="element-row" data-id="HS-04" data-name="Schwerpunkte-Stage" data-search="inhalt automation datenanalyse digitale dna er golgi stage">
+        <div class="specimen home-specimen home-stage-preview home-stage-preview--domains"><svg class="home-stage-route" viewBox="0 0 620 570" preserveAspectRatio="none" aria-hidden="true"><path d="M314 -20 C302 105 344 155 316 270 C288 385 330 442 304 600"/></svg><div class="home-stage-intro"><div class="home-mini-blob home-mini-blob--heading"><i class="home-organelle home-organelle--chloroplast" aria-hidden="true"></i><b>Digitale DNA</b></div><p>Ich entwickle Automationen, Analysen und technische Systeme, die reale Abläufe abbilden — mit klaren Datenflüssen, prüfbaren Schritten und sichtbaren Grenzen.</p></div><a class="home-stage-station home-stage-station--right" href="#"><div class="home-mini-blob home-mini-blob--automation"><i class="home-organelle home-organelle--er" aria-hidden="true"></i><b>Automation</b></div><span>Prozesse, die für Sie arbeiten.</span></a><a class="home-stage-station home-stage-station--left" href="#"><div class="home-mini-blob home-mini-blob--analysis"><i class="home-organelle home-organelle--golgi" aria-hidden="true"></i><b>Datenanalyse</b></div><span>Wissensmanagement für strategische Entscheidungen.</span></a></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">HS-04</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Schwerpunkte-Stage</h3><p class="purpose">Intro und beide vollständig verlinkten Fachstationen werden als eine räumliche Stage gezeigt.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Inhaltsbühne · Route</dd></div><div><dt>Kategorie</dt><dd>Automation + Datenanalyse</dd></div></dl></div>
+      </article>
+
+      <article id="hs-05" class="element-row" data-id="HS-05" data-name="Projekte-Stage" data-search="inhalt projekte zahlungsbuchung cash forecast bewässerung automation datenanalyse privat">
+        <div class="specimen home-specimen home-stage-preview home-stage-preview--work"><svg class="home-stage-route" viewBox="0 0 620 690" preserveAspectRatio="none" aria-hidden="true"><path d="M304 -20 C340 110 286 180 318 292 C348 402 286 486 314 720"/></svg><div class="home-stage-intro home-stage-intro--right"><div class="home-mini-blob home-mini-blob--heading"><i class="home-organelle home-organelle--chloroplast" aria-hidden="true"></i><b>Projekte</b></div><p>Erfolgreich implementierte Systeme.</p></div><a class="home-project-station home-project-station--left home-project-station--payment" href="#"><div class="home-mini-blob home-mini-blob--automation"><i class="home-organelle home-organelle--er" aria-hidden="true"></i><b>Automatische<br>Zahlungsbuchung</b></div><span><small>Automation</small>Zahlungen werden mit Rechnungen verglichen und eingebucht; der Kunde wird automatisch kontaktiert.</span></a><a class="home-project-station home-project-station--left home-project-station--forecast" href="#"><div class="home-mini-blob home-mini-blob--analysis"><i class="home-organelle home-organelle--golgi" aria-hidden="true"></i><b>Wöchentlicher<br>Cash-Forecast</b></div><span><small>Datenanalyse</small>Projekt-, Bank- und Umsatzsteuerpfade bleiben getrennt und laufen in einer gemeinsamen Wochenansicht zusammen.</span></a><a class="home-project-station home-project-station--left home-project-station--irrigation" href="#"><div class="home-mini-blob home-mini-blob--private"><i class="home-organelle home-organelle--vacuole" aria-hidden="true"></i><b>Automatische<br>Bewässerung</b></div><span><small>Privates Projekt</small>Meine Pflanzen werden abhängig von der Bodenfeuchtigkeit automatisch gegossen – ein Engineering-Projekt.</span></a></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">HS-05</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Projekte-Stage</h3><p class="purpose">Projektintro und drei vollständige Projektlinks bleiben eine gemeinsame Stage.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Inhaltsbühne · Route</dd></div><div><dt>Kategorie</dt><dd>Automation · Datenanalyse · Private Projekte</dd></div></dl></div>
+      </article>
+
+      <article id="hs-06" class="element-row" data-id="HS-06" data-name="Profil-Konstellation" data-search="inhalt profil über mich forschung private projekte studium zertifikat werkzeuge">
+        <div class="specimen home-specimen home-profile-preview"><svg viewBox="0 0 620 590" preserveAspectRatio="none" aria-hidden="true"><path d="M178 104 C290 94 346 48 444 58 M178 126 C304 132 386 165 512 178 M178 152 C292 226 318 286 310 360 L310 590 M310 360 L180 436 M310 462 L446 506"/></svg><a class="home-profile-portal" href="#"><div class="home-mini-blob home-mini-blob--profile"><i class="home-organelle home-organelle--nucleus" aria-hidden="true"></i><b>Über mich</b></div></a><dl class="home-profile-facts"><div><dt>Studium</dt><dd>M.Sc. Biochemie</dd></div><div><dt>Zertifikat</dt><dd>XDi Certified Data Scientist</dd></div><div><dt>Werkzeuge</dt><dd>Innovation</dd></div></dl><div class="home-profile-branches"><a href="#"><div class="home-mini-blob home-mini-blob--research"><i class="home-organelle home-organelle--cell" aria-hidden="true"></i><b>Meine Forschung</b></div><span>Proteinbiochemie, Zellbiologie, Neurologie</span></a><a href="#"><div class="home-mini-blob home-mini-blob--private"><i class="home-organelle home-organelle--vacuole" aria-hidden="true"></i><b>Private Projekte</b></div><span>Code, Tools &amp; Automatisierungslösungen</span></a></div></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">HS-06</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Profil-Konstellation</h3><p class="purpose">Profilportal, drei Fakten und beide Folgewege bilden gemeinsam eine Konstellation.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Inhaltsbühne · Konstellation</dd></div><div><dt>Kategorie</dt><dd>Über mich · Forschung · Private Projekte</dd></div></dl></div>
+      </article>
+
+      <article id="hs-07" class="element-row" data-id="HS-07" data-name="Kontakt-Station" data-search="inhalt kontakt transportvesikel extension cta route tail">
+        <div class="specimen home-specimen home-contact-preview"><a href="#"><div class="home-mini-blob home-mini-blob--contact"><i class="home-organelle home-organelle--vesicle" aria-hidden="true"></i><b>Kontakt</b></div><span>Für Rückfragen zu einer Arbeitsprobe, einer Rolle oder einem ähnlichen Problem bin ich über LinkedIn erreichbar.<strong>Kontaktmöglichkeiten ansehen →</strong></span></a><i class="home-contact-tail" aria-hidden="true"></i></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">HS-07</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Kontakt-Station</h3><p class="purpose">Blob, Erklärung und CTA bilden zusammen einen einzigen Kontaktlink.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Inhaltsbühne · Abschluss</dd></div><div><dt>Kategorie</dt><dd>Kontakt</dd></div></dl></div>
+      </article>
+
+      <article id="hs-08" class="element-row" data-id="HS-08" data-name="Footer" data-search="footer seitenrahmen global linkedin kontakt copyright">
+        <div class="specimen specimen--footer"><p>© 2026 Samet Kurt</p><nav><a href="#">LinkedIn</a><a href="#">Kontakt</a></nav></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">HS-08</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Footer</h3><p class="purpose">Urheberzeile und beide globalen Folgewege schließen die Seite gemeinsam ab.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Seitenrahmen</dd></div><div><dt>Kategorie</dt><dd>Global · Abschluss</dd></div></dl></div>
+      </article>
+    </section>
+
+    <section id="panel-artworks" class="board-tabpanel element-section" role="tabpanel" aria-labelledby="tab-artworks">
+      <header class="group-head"><div><span>02</span><p>Artworks</p></div><h2>Dekorative Ebenen in ihrer Auftretensreihenfolge</h2></header>
+
+      <article id="ar-01" class="element-row" data-id="AR-01" data-name="Ambient Life" data-search="artwork atmosphäre ambient life blätter blasen">
+        <div class="specimen specimen--ambient home-ambient-preview"><i class="ambient-leaf ambient-leaf--1"></i><i class="ambient-bubble ambient-bubble--1"></i><i class="ambient-leaf ambient-leaf--2"></i><i class="ambient-bubble ambient-bubble--2"></i><i class="ambient-leaf ambient-leaf--3"></i><i class="ambient-bubble ambient-bubble--3"></i><i class="ambient-leaf ambient-leaf--4"></i><i class="ambient-bubble ambient-bubble--4"></i><i class="ambient-leaf ambient-leaf--5"></i><i class="ambient-bubble ambient-bubble--5"></i></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">AR-01</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Ambient Life</h3><p class="purpose">Alle zehn Blätter und Blasen erscheinen gemeinsam als eine atmosphärische Ebene.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Artwork · Hintergrund</dd></div><div><dt>Kategorie</dt><dd>Atmosphäre · organisches Leben</dd></div></dl></div>
+      </article>
+
+      <article id="ar-02" class="element-row" data-id="AR-02" data-name="Hintere Routenebene" data-search="artwork verbindung route hinten laser pfad">
+        <div class="specimen specimen--path home-route-preview"><svg viewBox="0 0 620 250" aria-hidden="true"><path class="path-haze" d="M20 215 C125 200 118 55 250 72 S410 236 600 35"/><path class="path-core" d="M20 215 C125 200 118 55 250 72 S410 236 600 35"/></svg><span>hinter der Landschaft</span></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">AR-02</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Hintere Routenebene</h3><p class="purpose">Die erste Laufzeitprojektion des verbindenden Pfads beginnt hinter der Welt.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Artwork · hintere Verbindung</dd></div><div><dt>Kategorie</dt><dd>Globaler Startseitenpfad</dd></div></dl></div>
+      </article>
+
+      <article id="ar-03" class="element-row" data-id="AR-03" data-name="Biome-Welt" data-search="artwork landschaft canopy cave tree roots water plankton">
+        <div class="specimen specimen--biome home-biome-preview"><div class="biome-canopy-mini"></div><div class="biome-trunk-mini"></div><div class="biome-cenote-mini"></div><div class="biome-roots-mini"></div><div class="biome-cave-lip-mini"></div><div class="biome-water-mini"></div><div class="biome-strata-mini"><i></i><i></i><i></i></div><div class="biome-plankton-mini"><i></i><i></i><i></i><i></i><i></i><i></i></div><svg viewBox="0 0 620 320" aria-hidden="true"><path d="M70 45 C210 90 190 190 320 160 S450 225 560 285"/></svg><span>Krone</span><span>Stamm</span><span>Zenote</span><span>Wurzeln</span><span>Wasser</span><span>Plankton</span></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">AR-03</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Biome-Welt</h3><p class="purpose">Kronendach, Zenote, Baum, Wurzeln, Wasser und Plankton bleiben eine zusammenhängende Landschaft.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Artwork · Landschaft</dd></div><div><dt>Kategorie</dt><dd>Gemeinsame organische Welt</dd></div></dl></div>
+      </article>
+
+      <article id="ar-04" class="element-row" data-id="AR-04" data-name="Vordere Routenebene" data-search="artwork verbindung route vorne connector pfad">
+        <div class="specimen specimen--path home-route-preview home-route-preview--front"><svg viewBox="0 0 620 250" aria-hidden="true"><path class="path-haze" d="M20 215 C125 200 118 55 250 72 S410 236 600 35"/><path class="path-core" d="M20 215 C125 200 118 55 250 72 S410 236 600 35"/><path class="path-active" d="M244 71 C318 78 344 173 402 198"/><path class="home-route-ray" d="M246 72 L150 32 M402 198 L520 156"/></svg><span>vor der Landschaft · mit Elementverbindern</span></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">AR-04</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Vordere Routenebene</h3><p class="purpose">Der Pfad tritt wieder vor die Landschaft und verbindet die Elemente sichtbar mit der Hauptader.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Artwork · vordere Verbindung</dd></div><div><dt>Kategorie</dt><dd>Globaler Startseitenpfad</dd></div></dl></div>
+      </article>
+
+      <article id="ar-05" class="element-row" data-id="AR-05" data-name="Artwork-Bibliothek" data-search="artwork organellen chloroplast er golgi vakuole zellkern vesikel forschungszelle">
+        <div class="specimen home-organelle-library-preview"><span><i class="home-organelle home-organelle--chloroplast"></i><b>Chloroplast</b></span><span><i class="home-organelle home-organelle--er"></i><b>Raues ER</b></span><span><i class="home-organelle home-organelle--golgi"></i><b>Golgi</b></span><span><i class="home-organelle home-organelle--vacuole"></i><b>Vakuole</b></span><span><i class="home-organelle home-organelle--nucleus"></i><b>Zellkern</b></span><span><i class="home-organelle home-organelle--vesicle"></i><b>Vesikel</b></span><span><i class="home-organelle home-organelle--cell"></i><b>Forschungszelle</b></span></div>
+        <div class="element-info"><div class="element-title"><span class="element-id">AR-05</span><span class="status status--current">Bestand</span><button class="element-select" type="button">Referenz auswählen</button></div><h3>Artwork-Bibliothek</h3><p class="purpose">Alle Organellen und die Forschungszelle bilden gemeinsam die unsichtbare SVG-Quelle der Startseite.</p><dl class="element-classification"><div><dt>Ebene</dt><dd>Artwork · Quellenbibliothek</dd></div><div><dt>Kategorie</dt><dd>Organellen · Forschungszelle</dd></div></dl></div>
+      </article>
+    </section>
+
+    <p class="no-results" id="start-no-results" hidden>Kein Eintrag im aktiven Reiter passt zur Suche.</p>
+
+    <section class="board-end">
+      <p class="overline">Eindeutige Änderungsanweisung</p>
+      <h2>Eine Referenz bezeichnet immer das komplette Element.</h2>
+      <code>HS-04 · Schwerpunkte-Stage — Gewünschte Änderung: [Beschreibung].</code>
+      <p>Unterelemente werden nicht als getrennte Board-Einträge behandelt.</p>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="board.js"></script>
+</body>
+</html>

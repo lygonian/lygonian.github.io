@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zahlungsabgleich — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Eine kontrollierte Pipeline verbindet Banktransaktionen, Rechnungen und frühere Zahlungen und stoppt uneindeutige Fälle vor der Buchung.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="subpage subpage--automation">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header"><div class="container"><a class="brand" href="../index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a><nav class="site-nav" aria-label="Hauptnavigation"><a href="../index.html">Start</a><a href="../automation.html" aria-current="location">Automation</a><a href="../datenanalyse.html">Datenanalyse</a><a href="../private_projekte.html">Private Projekte</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav></div></header>
+  <main id="main">
+    <section class="page-hero"><div class="container">
+      <nav class="breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../automation.html">Automation</a></li><li aria-current="page">Zahlungsabgleich</li></ol></nav><p class="eyebrow">Fallstudie · Finanzprozess</p><h1>Vom Zahlungseingang zur kontrollierten Verbuchung</h1>
+      <p class="lead">Die Aufgabe war nicht, möglichst viele Zahlungen automatisch zu buchen. Sie war, eindeutige Fälle zuverlässig durch den gesamten Prozess zu führen und alles andere vor einer falschen Buchung anzuhalten.</p>
+      <ul class="project-skills" aria-label="Technologien"><li class="skill-badge">Python</li><li class="skill-badge">Qonto API</li><li class="skill-badge">pandas</li><li class="skill-badge">Selenium</li><li class="skill-badge">Streamlit</li></ul>
+      <p class="hero-note">Gezeigt werden Ablauf und anonymisierte Ansichten. Bankzugang, CRM-Zugänge, Kundendaten und interne Beträge bleiben privat.</p>
+    </div></section>
+
+    <section class="case-study"><div class="container">
+      <div class="case-intro"><p>Eine Transaktion ist erst dann erledigt, wenn sie gegen eine echte Rechnung geprüft, im CRM verbucht, passend bestätigt und als verarbeitet gespeichert ist. Jeder Übergang braucht einen nachweisbaren Zustand.</p></div>
+      <div class="case-grid">
+        <article class="case-block"><p class="eyebrow">Ausgangslage</p><h2>Ein Betrag, viele mögliche Bedeutungen</h2><p>Verwendungszwecke enthielten Rechnungsnummern in wechselnden Schreibweisen, mehrere Rechnungen oder gar keine eindeutige Angabe. Teilzahlungen und frühere Zahlungen veränderten zusätzlich den offenen Betrag.</p></article>
+        <article class="case-block"><p class="eyebrow">Kurskorrektur</p><h2>Von E-Mail-Benachrichtigungen zur Bank-API</h2><p>Der erste Parser hing am Textformat einer Benachrichtigungsmail. Mit einer verfügbaren Bank-API wechselte die Datenquelle auf eindeutige Transaktions-IDs und strukturierte Felder. Das machte den Zustand belastbarer.</p></article>
+        <article class="case-block case-block--wide"><p class="eyebrow">Lösungslogik</p><h2>Jede Entscheidung braucht eine Gegenprobe</h2><ul class="decision-list">
+          <li><strong>Nur neue Transaktionen:</strong> Die eindeutige Bank-ID wird gegen das Archiv geprüft, damit ein erneuter Lauf nichts doppelt verarbeitet.</li>
+          <li><strong>Nummern erkennen, nicht erfinden:</strong> Verschiedene Schreibweisen werden normalisiert; ohne sicheren Fund geht die Zahlung in die manuelle Prüfliste.</li>
+          <li><strong>Gegen den Rechnungsbestand prüfen:</strong> Eine erkannte Nummer läuft nur weiter, wenn sie im aktuellen CRM-Bestand als gültige Rechnung existiert.</li>
+          <li><strong>Historie einrechnen:</strong> Frühere Teilzahlungen und Sammelüberweisungen werden restbetragsbasiert berücksichtigt, ohne Geld mehrfach zu verteilen.</li>
+          <li><strong>Schreibzugriffe absichern:</strong> Vor der Browser-Automatisierung werden Nummern, Beträge und E-Mail-Adressen bestätigt; unerwartete Oberflächenzustände brechen ab.</li>
+          <li><strong>Reihenfolge halten:</strong> Erst eine erfolgreiche CRM-Buchung erlaubt die Zahlungsbestätigung und anschließend die Archivierung.</li>
+        </ul></article>
+        <article class="case-block"><p class="eyebrow">Bedienung</p><h2>Drei sichtbare Arbeitsphasen</h2><p>Die Streamlit-Oberfläche trennt Laden, Zuordnen und Verbuchen. Tabellen bleiben korrigierbar; kritische Schritte werden erst freigegeben, wenn der vorherige Zustand eindeutig ist.</p></article>
+        <article class="case-block"><p class="eyebrow">Grenzen</p><h2>Unklar bleibt manuell</h2><p>Fehlende Rechnungsnummern, Überzahlungen, ungültige E-Mail-Adressen oder geänderte CRM-Oberflächen werden nicht zwanghaft automatisiert. Ein sichtbarer Stopp ist hier Teil der Lösung.</p></article>
+      </div>
+      <div class="outcome-strip"><div><strong>Gedächtnis</strong><span>Archiv über eindeutige Transaktions-IDs</span></div><div><strong>Entscheidung</strong><span>Automatisch oder manuelle Prüfliste</span></div><div><strong>Sicherheit</strong><span>Bestätigung und Abbruch vor Schreibzugriffen</span></div></div>
+      <div class="case-figure-grid">
+        <figure class="figure"><img src="../assets/img/rechnungsnummer.png" alt="Anonymisierter Rechnungshinweis zur Angabe einer Rechnungsnummer im Verwendungszweck" width="683" height="84" loading="lazy" decoding="async"><figcaption>Eine klare Information an der Quelle verbessert den späteren Abgleich.</figcaption></figure>
+        <figure class="figure"><img src="../assets/img/zahlungs-app.png" alt="Oberfläche der Zahlungs-App mit den drei Phasen Laden, Zuordnen und Verbuchen" width="1882" height="1036" loading="lazy" decoding="async"><figcaption>Die Oberfläche macht Zustände und Stopppunkte sichtbar.</figcaption></figure>
+      </div>
+      <nav class="page-nav" aria-label="Weitere Projekte"><a href="lead_automation.html"><span aria-hidden="true">←</span> Lead-Automation</a><a href="pv_vertragsgenerator.html">Vertragsgenerator <span aria-hidden="true">→</span></a></nav>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer><script src="../assets/js/atlas.js" defer></script>
+</body></html>

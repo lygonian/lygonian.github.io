@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samet Kurt — Automation, Datenanalyse und technische Systeme</title>
+  <meta name="description" content="Portfolio von Samet Kurt: nachvollziehbare Automationen, Datenanalysen und technische Projekte mit klaren Entscheidungen und sichtbaren Grenzen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="home">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="index.html" aria-current="page">Start</a>
+        <a href="automation.html">Automation</a>
+        <a href="datenanalyse.html">Datenanalyse</a>
+        <a href="private_projekte.html">Private Projekte</a>
+        <a href="ueber_mich.html">Über mich</a>
+        <a href="kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="home-main">
+    <div class="ambient-life" aria-hidden="true">
+      <span class="life-form life-form--leaf life-form--one"></span>
+      <span class="life-form life-form--bubble life-form--two"></span>
+      <span class="life-form life-form--leaf life-form--three"></span>
+      <span class="life-form life-form--bubble life-form--four"></span>
+      <span class="life-form life-form--leaf life-form--five"></span>
+      <span class="life-form life-form--bubble life-form--six"></span>
+      <span class="life-form life-form--leaf life-form--seven"></span>
+      <span class="life-form life-form--bubble life-form--eight"></span>
+      <span class="life-form life-form--leaf life-form--nine"></span>
+      <span class="life-form life-form--bubble life-form--ten"></span>
+    </div>
+    <!-- Der Pfad beginnt hinter der Welt, taucht in ihr auf und tritt später
+         wieder davor. Die einzelnen Striche erzeugt atlas.js aus derselben
+         Formel, damit die drei Ebenen exakt zusammenbleiben. -->
+    <svg class="home-route-layer home-route-laser home-route-laser--back" aria-hidden="true" focusable="false">
+      <g class="home-route-lines"></g>
+    </svg>
+    <svg class="biome-world" viewBox="0 0 1000 5000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="canopy-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0c9767" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#030c0b" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="trunk-fill" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#74a34e" stop-opacity="0.02" />
+          <stop offset="48%" stop-color="#aaaa41" stop-opacity="0.11" />
+          <stop offset="100%" stop-color="#d2af37" stop-opacity="0.025" />
+        </linearGradient>
+        <!-- Zenote: Gestein, Schacht, hintere und vordere Wand. Alle Verläufe
+             liegen im Weltkoordinatensystem, damit Rand und Tiefe zusammenpassen. -->
+        <linearGradient id="cave-rock" x1="0" y1="1400" x2="0" y2="3900" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#0b1512" stop-opacity="0" />
+          <stop offset="13%" stop-color="#0a120f" stop-opacity="0.62" />
+          <stop offset="26%" stop-color="#070f0d" stop-opacity="0.88" />
+          <stop offset="62%" stop-color="#030807" stop-opacity="0.95" />
+          <stop offset="100%" stop-color="#01100f" stop-opacity="0.8" />
+        </linearGradient>
+        <linearGradient id="shaft-void" x1="0" y1="1764" x2="0" y2="3900" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#08201b" stop-opacity="0.3" />
+          <stop offset="11%" stop-color="#030c0a" stop-opacity="0.9" />
+          <stop offset="30%" stop-color="#000403" stop-opacity="0.97" />
+          <stop offset="100%" stop-color="#001720" stop-opacity="0.92" />
+        </linearGradient>
+        <linearGradient id="wall-back" x1="0" y1="1764" x2="0" y2="2095" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#9fae86" stop-opacity="0.2" />
+          <stop offset="24%" stop-color="#74a34e" stop-opacity="0.11" />
+          <stop offset="62%" stop-color="#1c3529" stop-opacity="0.07" />
+          <stop offset="100%" stop-color="#03100e" stop-opacity="0.02" />
+        </linearGradient>
+        <linearGradient id="wall-front" x1="0" y1="1950" x2="0" y2="2190" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#0e1a16" stop-opacity="0.9" />
+          <stop offset="55%" stop-color="#05100d" stop-opacity="0.55" />
+          <stop offset="100%" stop-color="#020706" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="rim-far-line" x1="80" y1="0" x2="920" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#9cd1c9" stop-opacity="0.06" />
+          <stop offset="24%" stop-color="#cbd3cd" stop-opacity="0.42" />
+          <stop offset="50%" stop-color="#e2e0c6" stop-opacity="0.5" />
+          <stop offset="76%" stop-color="#cbd3cd" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#9cd1c9" stop-opacity="0.06" />
+        </linearGradient>
+        <linearGradient id="rim-near-line" x1="80" y1="0" x2="920" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#9cd1c9" stop-opacity="0" />
+          <stop offset="30%" stop-color="#8f9a93" stop-opacity="0.22" />
+          <stop offset="70%" stop-color="#8f9a93" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#9cd1c9" stop-opacity="0" />
+        </linearGradient>
+        <radialGradient id="shaft-light" cx="50%" cy="24%" r="72%">
+          <stop offset="0%" stop-color="#e4ebc4" stop-opacity="0.1" />
+          <stop offset="42%" stop-color="#8fc39a" stop-opacity="0.04" />
+          <stop offset="100%" stop-color="#57d4c5" stop-opacity="0" />
+        </radialGradient>
+        <linearGradient id="root-stroke" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#aaaa41" stop-opacity="0.33" />
+          <stop offset="62%" stop-color="#74a34e" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#329c5d" stop-opacity="0.08" />
+        </linearGradient>
+        <linearGradient id="water-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#06383e" stop-opacity="0.12" />
+          <stop offset="38%" stop-color="#032a35" stop-opacity="0.42" />
+          <stop offset="100%" stop-color="#00131d" stop-opacity="0.82" />
+        </linearGradient>
+        <linearGradient id="water-line" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#0c9767" stop-opacity="0" />
+          <stop offset="28%" stop-color="#57d4c5" stop-opacity="0.46" />
+          <stop offset="70%" stop-color="#9cd1c9" stop-opacity="0.38" />
+          <stop offset="100%" stop-color="#0c9767" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="water-column-one" x1="0" y1="3300" x2="0" y2="5100" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#075d63" stop-opacity="0" />
+          <stop offset="22%" stop-color="#075d63" stop-opacity="0.05" />
+          <stop offset="31%" stop-color="#064c57" stop-opacity="0.3" />
+          <stop offset="52%" stop-color="#033640" stop-opacity="0.68" />
+          <stop offset="100%" stop-color="#001720" stop-opacity="0.97" />
+        </linearGradient>
+      </defs>
+
+      <g class="biome-canopy" transform="translate(0 160)">
+        <path class="canopy-mass" d="M-100 -160 H1100 V548 C1028 496 960 516 890 474 C824 434 772 486 704 453 C640 422 592 474 540 451 C524 444 510 438 500 427 C490 438 476 444 460 451 C408 474 360 422 296 453 C228 486 176 434 110 474 C40 516-28 496-100 548 Z" />
+        <g class="world-limbs">
+          <path d="M500 1120 C493 914 484 761 434 645 C393 551 332 495 258 435 C183 374 119 330 18 297" />
+          <path d="M500 1120 C507 914 516 761 566 645 C607 551 668 495 742 435 C817 374 881 330 982 297" />
+          <path d="M455 706 C394 564 312 420 187 311 C119 252 65 215-26 184" />
+          <path d="M545 706 C606 564 688 420 813 311 C881 252 935 215 1026 184" />
+          <path d="M485 781 C440 580 455 388 365 198 C327 119 288 65 225 6" />
+          <path d="M515 781 C560 580 545 388 635 198 C673 119 712 65 775 6" />
+          <path d="M500 722 C500 504 500 284 500 -42" />
+          <path class="canopy-bough--fine" d="M258 435 C168 430 91 443 5 488 M187 311 C159 205 111 129 38 59 M365 198 C344 116 347 54 368 -22 M742 435 C832 430 909 443 995 488 M813 311 C841 205 889 129 962 59 M635 198 C656 116 653 54 632 -22" />
+        </g>
+        <g class="canopy-leaves">
+          <path d="M-72 430 C-88 326-24 229 74 220 C76 124 168 70 246 124 C318 91 376 160 354 242 C420 290 381 393 292 414 C205 480 55 494-72 430 Z" />
+          <path d="M105 285 C72 176 136 55 249 54 C291-42 422-62 476 28 C538 80 502 189 429 222 C355 303 213 334 105 285 Z" />
+          <path d="M330 185 C290 95 350-15 445-12 C470-86 568-86 593-12 C688-15 748 95 708 185 C632 249 406 249 330 185 Z" />
+          <path d="M524 28 C578-62 709-42 751 54 C864 55 928 176 895 285 C787 334 645 303 571 222 C498 189 462 80 524 28 Z" />
+          <path d="M646 242 C624 160 682 91 754 124 C832 70 924 124 926 220 C1024 229 1088 326 1072 430 C945 494 795 480 708 414 C619 393 580 290 646 242 Z" />
+          <path d="M118 445 C96 344 178 253 282 274 C338 214 433 244 454 326 C492 390 448 482 366 502 C292 568 160 540 118 445 Z" />
+          <path d="M546 326 C567 244 662 214 718 274 C822 253 904 344 882 445 C840 540 708 568 634 502 C552 482 508 390 546 326 Z" />
+          <path d="M312 438 C278 354 340 262 428 271 C462 212 538 212 572 271 C660 262 722 354 688 438 C608 520 392 520 312 438 Z" />
+        </g>
+        <g class="canopy-contours">
+          <path d="M-28 403 C64 326 171 289 319 314" />
+          <path d="M145 268 C220 176 327 127 445 167" />
+          <path d="M364 169 C432 97 568 97 636 169" />
+          <path d="M555 167 C673 127 780 176 855 268" />
+          <path d="M681 314 C829 289 936 326 1028 403" />
+          <path d="M151 440 C231 369 335 351 422 399" />
+          <path d="M578 399 C665 351 769 369 849 440" />
+          <path d="M350 426 C429 359 571 359 650 426" />
+        </g>
+      </g>
+
+      <!-- Die Zenote: Mündungsellipse (Mitte 500/1960, 420×196), darin ein
+           enger gestellter Schlund (500/2078, 292×122). Der Baum steht am
+           hinteren Rand, die Wurzeln fallen an der Rückwand und über die
+           beiden Seitenränder hinab. -->
+      <g class="biome-cave">
+        <path class="shaft-void" d="M80 1960 C80 1852 268 1764 500 1764 C732 1764 920 1852 920 1960 C920 2024 866 2054 800 2092 C786 2320 758 2580 768 2870 C778 3150 848 3430 966 3665 C1028 3792 1078 3862 1120 3900 H-120 C-78 3862-28 3792 34 3665 C150 3435 220 3160 230 2880 C240 2590 214 2330 200 2092 C134 2054 80 2024 80 1960 Z" />
+        <ellipse class="shaft-light" cx="500" cy="2180" rx="270" ry="400" />
+        <path class="wall-back" d="M80 1960 C80 1852 268 1764 500 1764 C732 1764 920 1852 920 1960 C920 2024 866 2054 800 2092 L792 2078 C792 2011 661 1956 500 1956 C339 1956 208 2011 208 2078 L200 2092 C134 2054 80 2024 80 1960 Z" />
+        <path class="cave-rock" d="M-120 1400 H1120 V3900 C1078 3862 1028 3792 966 3665 C848 3430 778 3150 768 2870 C758 2580 786 2320 800 2092 C866 2054 920 2024 920 1960 C920 1852 732 1764 500 1764 C268 1764 80 1852 80 1960 C80 2024 134 2054 200 2092 C214 2330 240 2590 230 2880 C220 3160 150 3435 34 3665 C-28 3792-78 3862-120 3900 Z" />
+        <path class="ground-contour" d="M-56 2016 C-20 1874 230 1716 500 1714 C770 1712 1020 1872 1056 2014 M-8 1616 C104 1548 300 1508 500 1508 C700 1508 896 1548 1008 1616" />
+        <path class="cave-strata" d="M222 2326 C300 2394 700 2394 778 2326 M228 2736 C310 2822 690 2822 772 2736 M244 3176 C332 3276 668 3276 756 3176" />
+        <g class="cave-facets">
+          <path d="M204 2130 L252 2202 L242 2352 L214 2330 Z" />
+          <path d="M232 2520 L276 2606 L262 2742 L228 2696 Z" />
+          <path d="M796 2130 L748 2202 L758 2352 L786 2330 Z" />
+          <path d="M768 2520 L724 2606 L738 2742 L772 2696 Z" />
+        </g>
+        <path class="cave-rim cave-rim--far" d="M80 1960 C80 1852 268 1764 500 1764 C732 1764 920 1852 920 1960" />
+      </g>
+
+      <!-- Mittlere Pfadebene: vor Höhle, hinter Stamm, Wurzeln und Wasser. -->
+      <g class="home-route-layer biome-route biome-route--middle">
+        <g class="home-route-lines"></g>
+      </g>
+
+      <g class="biome-tree">
+        <path class="tree-trunk" d="M404 548 C434 570 462 612 480 660 C474 742 466 840 466 980 C468 1180 462 1340 458 1470 C456 1548 452 1602 450 1638 C446 1690 430 1732 396 1770 C430 1798 570 1798 604 1770 C570 1732 554 1690 550 1638 C548 1602 544 1548 542 1470 C538 1340 532 1180 534 980 C534 842 528 744 520 662 C538 608 560 552 592 510 C584 548 568 590 548 628 C531 660 517 690 505 724 C493 689 478 665 461 636 C444 605 423 575 404 548 Z" />
+        <path class="tree-heartline" d="M500 744 C494 820 506 980 496 1300 C492 1520 500 1660 500 1782 M500 744 C480 688 450 610 408 552 M500 744 C520 680 550 590 586 520" />
+        <path class="tree-ring" d="M466 1150 C482 1138 518 1138 534 1150 M458 1500 C478 1486 522 1486 542 1500" />
+        <path class="tree-flare" d="M452 1620 C448 1676 434 1722 408 1758 M548 1620 C552 1676 566 1722 592 1758 M474 1640 C470 1690 470 1740 474 1782 M526 1640 C530 1690 530 1740 526 1782" />
+      </g>
+
+      <g class="biome-roots">
+        <path class="root root--major" d="M410 1772 C356 1772 302 1782 250 1800 C196 1820 152 1848 132 1884 C118 1912 130 1950 158 1992 C192 2042 222 2110 244 2200 C272 2320 286 2520 276 2740 C266 2960 288 3180 320 3400 C344 3560 344 3722 328 3862" />
+        <path class="root root--major" d="M590 1772 C644 1772 698 1782 750 1800 C804 1820 848 1848 868 1884 C882 1912 870 1950 842 1992 C808 2042 778 2110 756 2200 C728 2320 714 2520 724 2740 C734 2960 712 3180 680 3400 C656 3560 656 3722 672 3862" />
+        <path class="root root--middle" d="M476 1790 C470 1850 468 1904 472 1960 C476 2040 458 2160 450 2320 C440 2560 456 2820 440 3040 C424 3220 426 3440 452 3630 C468 3746 472 3806 468 3866" />
+        <path class="root root--middle" d="M524 1792 C530 1852 532 1906 528 1962 C524 2042 542 2162 550 2322 C560 2562 544 2822 560 3042 C576 3222 574 3442 548 3632 C532 3748 528 3808 532 3868" />
+        <path class="root root--fine" d="M318 1794 C312 1846 320 1892 336 1932 M682 1794 C688 1846 680 1892 664 1932 M436 1782 C430 1836 434 1880 444 1918 M564 1782 C570 1836 566 1880 556 1918 M256 2280 C296 2352 312 2452 300 2552 M744 2280 C704 2352 688 2452 700 2552 M450 2320 C398 2412 386 2532 410 2650 M550 2322 C602 2414 612 2534 588 2652" />
+        <g class="root-nodules">
+          <circle cx="278" cy="2760" r="6" /><circle cx="440" cy="3040" r="5" />
+          <circle cx="560" cy="3042" r="5" /><circle cx="722" cy="2760" r="6" />
+        </g>
+      </g>
+
+      <!-- Der vordere Rand liegt vor den Wurzeln: sie tauchen dahinter weg. -->
+      <g class="biome-cave-lip">
+        <path class="wall-front" d="M920 1960 C920 2068 732 2156 500 2156 C268 2156 80 2068 80 1960 L208 2078 C208 2145 339 2200 500 2200 C661 2200 792 2145 792 2078 Z" />
+        <path class="cave-rim cave-rim--near" d="M920 1960 C920 2068 732 2156 500 2156 C268 2156 80 2068 80 1960" />
+      </g>
+
+      <g class="biome-water">
+        <path class="water-depth" d="M-120 3828 C98 3765 236 3892 449 3835 C656 3780 817 3898 1120 3807 V5100 H-120 Z" />
+        <g class="water-color-transition">
+          <rect x="0" y="3300" width="1000" height="1800" fill="url(#water-column-one)" />
+        </g>
+        <path class="water-surface water-surface--haze" d="M-90 3850 C120 3787 259 3907 452 3851 C656 3792 826 3910 1090 3828" />
+        <path class="water-surface" d="M-90 3850 C120 3787 259 3907 452 3851 C656 3792 826 3910 1090 3828" />
+        <path class="water-current" d="M-120 4200 C109 4117 286 4245 492 4178 C694 4112 856 4206 1120 4125 M-120 4578 C143 4474 298 4621 526 4538 C729 4464 904 4582 1120 4488" />
+        <g class="water-caustics">
+          <path d="M87 4041 C163 4009 238 4021 300 4072" />
+          <path d="M702 4120 C768 4072 841 4057 922 4084" />
+          <path d="M165 4468 C239 4418 330 4418 397 4471" />
+          <path d="M603 4710 C677 4655 767 4655 839 4702" />
+        </g>
+      </g>
+
+      <g class="biome-plankton">
+        <circle cx="72" cy="3970" r="3" /><circle cx="918" cy="4050" r="4" />
+        <circle cx="148" cy="4320" r="2.5" /><circle cx="861" cy="4390" r="3" />
+        <circle cx="244" cy="4780" r="3.5" /><circle cx="756" cy="4880" r="2.5" />
+      </g>
+    </svg>
+    <!-- Vordere Ebene: bleibt dekorativ und liegt deshalb weiterhin unter dem
+         Inhalt, aber sichtbar vor dem Biome. -->
+    <svg class="home-route-layer home-route-laser home-route-laser--front" aria-hidden="true" focusable="false">
+      <g class="home-route-lines"></g>
+      <g class="home-layout-connectors"></g>
+    </svg>
+    <svg class="home-organelle-library" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="home-organelle-chloroplast" viewBox="0 0 320 220">
+          <path class="organelle-shell" d="M40 116C38 64 83 27 151 24c70-4 126 28 130 78 5 52-44 89-115 94-70 5-124-27-126-80Z"/>
+          <path class="organelle-inner" d="M52 115c-2-43 38-74 99-78 61-3 113 25 117 67 4 43-42 75-103 79-61 4-111-24-113-68Z"/>
+          <path class="organelle-highlight" d="M70 59c26-17 68-23 105-18"/>
+          <g>
+            <rect class="organelle-lumen" x="75" y="76" width="54" height="10" rx="5"/><rect class="organelle-lumen" x="72" y="87" width="60" height="10" rx="5"/><rect class="organelle-lumen" x="74" y="98" width="56" height="10" rx="5"/><rect class="organelle-lumen" x="77" y="109" width="50" height="10" rx="5"/>
+            <rect class="organelle-lumen" x="172" y="59" width="53" height="10" rx="5"/><rect class="organelle-lumen" x="168" y="70" width="61" height="10" rx="5"/><rect class="organelle-lumen" x="170" y="81" width="57" height="10" rx="5"/><rect class="organelle-lumen" x="174" y="92" width="49" height="10" rx="5"/>
+            <rect class="organelle-lumen" x="150" y="127" width="61" height="10" rx="5"/><rect class="organelle-lumen" x="146" y="138" width="69" height="10" rx="5"/><rect class="organelle-lumen" x="149" y="149" width="63" height="10" rx="5"/><rect class="organelle-lumen" x="154" y="160" width="53" height="10" rx="5"/>
+          </g>
+          <path class="organelle-line" d="M129 92c17-1 22-10 40-12M125 113c25 10 43 19 51 23M207 100c12 9 22 15 39 15"/>
+          <circle class="organelle-dot" cx="71" cy="142" r="2.6"/><circle class="organelle-dot" cx="108" cy="151" r="2.2"/><circle class="organelle-dot" cx="239" cy="137" r="2.8"/>
+        </symbol>
+        <symbol id="home-organelle-er" viewBox="0 0 320 220">
+          <circle class="organelle-inner" cx="63" cy="112" r="51"/><circle class="organelle-highlight" cx="63" cy="112" r="42"/><circle class="organelle-lumen" cx="63" cy="112" r="14"/>
+          <path class="organelle-lumen" d="M79 49c37-17 78-12 111 5 31 15 56 13 88-7l10 16c-37 27-73 29-110 11-27-13-59-16-91-4Z"/>
+          <path class="organelle-lumen" d="M88 83c34-13 70-8 100 7 32 16 61 14 91-5l10 17c-37 25-74 27-112 8-24-12-52-15-81-6Z"/>
+          <path class="organelle-lumen" d="M87 119c35-12 71-7 102 9 31 16 59 14 90-4l10 17c-38 24-74 25-112 6-25-13-53-15-82-7Z"/>
+          <path class="organelle-lumen" d="M79 156c38-15 77-10 111 7 29 15 55 13 85-4l10 17c-36 23-71 24-107 6-27-14-58-17-90-6Z"/>
+          <path class="organelle-lumen" d="M82 69c10 1 16 5 18 14l-5 21c-7-3-12-8-15-14ZM82 104c10 2 15 6 17 15l-5 21c-8-3-12-8-15-15Z"/>
+          <path class="organelle-highlight" d="M104 57c25-5 47 0 68 10M111 92c23-3 43 2 62 11M110 128c23-2 43 3 63 13M104 164c25-4 47 1 68 12"/>
+          <g>
+            <circle class="organelle-dot" cx="90" cy="45" r="2.7"/><circle class="organelle-dot" cx="119" cy="40" r="2.7"/><circle class="organelle-dot" cx="150" cy="44" r="2.7"/><circle class="organelle-dot" cx="184" cy="56" r="2.7"/><circle class="organelle-dot" cx="218" cy="60" r="2.7"/><circle class="organelle-dot" cx="254" cy="49" r="2.7"/><circle class="organelle-dot" cx="282" cy="40" r="2.7"/>
+            <circle class="organelle-dot" cx="98" cy="79" r="2.7"/><circle class="organelle-dot" cx="129" cy="75" r="2.7"/><circle class="organelle-dot" cx="160" cy="82" r="2.7"/><circle class="organelle-dot" cx="191" cy="95" r="2.7"/><circle class="organelle-dot" cx="226" cy="97" r="2.7"/><circle class="organelle-dot" cx="260" cy="84" r="2.7"/>
+            <circle class="organelle-dot" cx="97" cy="115" r="2.7"/><circle class="organelle-dot" cx="129" cy="111" r="2.7"/><circle class="organelle-dot" cx="160" cy="119" r="2.7"/><circle class="organelle-dot" cx="193" cy="132" r="2.7"/><circle class="organelle-dot" cx="229" cy="133" r="2.7"/><circle class="organelle-dot" cx="262" cy="121" r="2.7"/>
+            <circle class="organelle-dot" cx="90" cy="152" r="2.7"/><circle class="organelle-dot" cx="122" cy="147" r="2.7"/><circle class="organelle-dot" cx="154" cy="153" r="2.7"/><circle class="organelle-dot" cx="186" cy="168" r="2.7"/><circle class="organelle-dot" cx="221" cy="171" r="2.7"/><circle class="organelle-dot" cx="252" cy="159" r="2.7"/>
+          </g>
+        </symbol>
+        <symbol id="home-organelle-golgi" viewBox="0 0 320 220">
+          <path class="organelle-lumen" d="M108 43c31-16 77-18 111-4 12 5 18 12 16 18-2 7-11 9-22 5-29-11-65-9-92 4-11 5-21 2-23-5-2-6 2-13 10-18Z"/>
+          <path class="organelle-lumen" d="M91 68c41-17 98-17 139 2 11 5 16 13 13 20-3 7-12 8-23 3-34-14-80-14-115 1-11 5-22 2-25-5-3-8 1-16 11-21Z"/>
+          <path class="organelle-lumen" d="M75 96c49-15 114-11 156 13 10 6 14 14 10 21-4 7-14 7-24 1-34-18-87-22-127-10-12 4-23 0-25-8-2-8 2-14 10-17Z"/>
+          <path class="organelle-lumen" d="M69 125c47-8 105 1 143 27 9 7 11 15 6 21-5 7-15 5-24-1-30-20-76-28-114-21-11 2-20-3-21-11-1-7 3-13 10-15Z"/>
+          <path class="organelle-lumen" d="M79 153c39-1 84 12 112 36 8 7 8 15 2 20-6 5-15 2-22-4-22-18-58-29-89-28-10 0-18-5-18-13 1-7 6-11 15-11Z"/>
+          <path class="organelle-highlight" d="M119 49c28-9 61-10 88-2M104 76c34-8 74-6 106 6M91 104c36-4 79 1 111 17M84 133c33 3 70 13 96 31M94 160c27 6 54 17 73 33"/>
+          <path class="organelle-line" d="M217 131c16 2 25 8 32 18M198 169c15 2 25 9 31 19"/>
+          <g>
+            <circle class="organelle-shell" cx="258" cy="86" r="7"/><circle class="organelle-shell" cx="279" cy="105" r="11"/><circle class="organelle-shell" cx="254" cy="128" r="8"/><circle class="organelle-shell" cx="287" cy="149" r="6"/><circle class="organelle-shell" cx="258" cy="169" r="12"/><circle class="organelle-shell" cx="232" cy="194" r="8"/>
+            <circle class="organelle-dot" cx="258" cy="86" r="2.2"/><circle class="organelle-dot" cx="279" cy="105" r="3"/><circle class="organelle-dot" cx="254" cy="128" r="2.4"/><circle class="organelle-dot" cx="287" cy="149" r="2"/><circle class="organelle-dot" cx="258" cy="169" r="3.2"/><circle class="organelle-dot" cx="232" cy="194" r="2.3"/>
+          </g>
+        </symbol>
+        <symbol id="home-organelle-vacuole" viewBox="0 0 320 220">
+          <path class="organelle-highlight" d="M61 25 245 31l43 43-11 107-53 20-164-16-28-48 7-83Z"/>
+          <path class="organelle-inner" d="M70 40 232 44l37 37-10 87-42 17-143-13-23-40 6-69Z"/>
+          <path class="organelle-shell" d="M84 51c42-10 116-7 150 9 25 12 28 38 22 67-7 34-20 46-55 49-38 3-98 0-123-14-21-12-23-34-17-63 5-27 5-42 23-48Z"/>
+          <path class="organelle-inner" d="M92 64c37-9 103-6 132 7 19 9 21 29 16 54-5 27-15 35-45 38-34 2-84-1-107-12-16-8-18-25-13-49 4-22 3-32 17-38Z"/>
+          <path class="organelle-highlight" d="M91 88c39-10 104-7 145 7M82 119c42-7 111-3 156 10M91 146c40-3 91 1 128 9"/>
+          <circle class="organelle-lumen" cx="252" cy="148" r="16"/><circle class="organelle-dot" cx="252" cy="148" r="6"/><circle class="organelle-dot" cx="110" cy="103" r="2.8"/><circle class="organelle-dot" cx="145" cy="137" r="2.4"/><circle class="organelle-dot" cx="201" cy="95" r="3"/>
+        </symbol>
+        <symbol id="home-organelle-nucleus" viewBox="0 0 320 220">
+          <path class="organelle-shell" d="M58 116c-3-49 40-88 101-91 64-3 111 35 109 86-2 50-43 86-104 88-62 2-103-33-106-83Z"/>
+          <path class="organelle-inner" d="M72 115c-3-41 34-73 87-76 54-2 94 30 93 72-2 41-37 72-89 74-53 2-89-28-91-70Z"/>
+          <path class="organelle-fine" d="M95 77c18-18 39 5 57-7 17-12 39-15 58-3M86 116c25-18 46 13 70 1 23-12 42 1 66 12M107 157c16-16 34-9 48 2 16 12 34 8 51-4M124 51c-5 16 8 25 24 31 21 8 29 25 20 42"/>
+          <circle class="organelle-lumen" cx="190" cy="112" r="27"/><circle class="organelle-inner" cx="190" cy="112" r="17"/>
+          <g>
+            <circle class="organelle-dot" cx="71" cy="79" r="3.5"/><circle class="organelle-dot" cx="97" cy="48" r="3.5"/><circle class="organelle-dot" cx="139" cy="34" r="3.5"/><circle class="organelle-dot" cx="187" cy="36" r="3.5"/><circle class="organelle-dot" cx="228" cy="57" r="3.5"/><circle class="organelle-dot" cx="257" cy="91" r="3.5"/><circle class="organelle-dot" cx="256" cy="137" r="3.5"/><circle class="organelle-dot" cx="230" cy="174" r="3.5"/><circle class="organelle-dot" cx="184" cy="194" r="3.5"/><circle class="organelle-dot" cx="137" cy="192" r="3.5"/><circle class="organelle-dot" cx="95" cy="173" r="3.5"/><circle class="organelle-dot" cx="68" cy="143" r="3.5"/>
+          </g>
+        </symbol>
+        <symbol id="home-organelle-vesicle" viewBox="0 0 320 220">
+          <circle class="organelle-shell" cx="111" cy="112" r="62"/><circle class="organelle-inner" cx="111" cy="112" r="50"/>
+          <circle class="organelle-lumen" cx="86" cy="94" r="8"/><circle class="organelle-lumen" cx="123" cy="82" r="7"/><circle class="organelle-lumen" cx="139" cy="122" r="9"/><circle class="organelle-lumen" cx="99" cy="137" r="6"/>
+          <path class="organelle-shell" d="M224 30c12 24 14 46 2 66-8 13-8 24 0 37 12 20 10 42-2 67l20 8c16-32 18-61 2-87-4-7-4-13 0-20 16-26 14-55-2-79Z"/>
+          <path class="organelle-inner" d="M224 96c-15 8-30 12-49 12M224 133c-15-8-30-12-49-12"/><path class="organelle-line" d="M173 108c17-1 31-5 48-14M173 121c18 2 32 6 49 15"/><path class="organelle-highlight" d="M233 45c5 17 4 32-3 45M231 145c7 14 7 29 2 43"/>
+          <circle class="organelle-dot" cx="196" cy="103" r="4"/><circle class="organelle-dot" cx="211" cy="94" r="3"/><circle class="organelle-dot" cx="209" cy="139" r="3.5"/><circle class="organelle-dot" cx="269" cy="74" r="4"/><circle class="organelle-dot" cx="283" cy="57" r="3"/><circle class="organelle-dot" cx="278" cy="151" r="4.5"/>
+        </symbol>
+        <!-- Historische mikroskopische Zellwelt der frueheren DNA-Szene.
+             Sie wird hier nicht als Reiter-Organell, sondern als Ausschnitt
+             einer ganzen Forschungszelle weiterverwendet. -->
+        <symbol id="home-research-cell" viewBox="0 0 560 520">
+          <path class="research-cell-membrane" d="M278 18C397 11 500 82 525 194c27 121-41 249-156 298-119 50-260-4-321-112C-9 280 21 133 124 61c43-30 96-41 154-43Z"/>
+          <path class="research-cell-cytosol" d="M276 62c100-10 183 49 204 143 25 103-33 199-124 243-98 47-208 3-262-84-50-81-29-191 48-258 38-32 83-40 134-44Z"/>
+          <g class="research-cell-transporters">
+            <g transform="translate(72 139) rotate(-38)"><rect x="-8" y="-18" width="6" height="36" rx="3"/><rect x="3" y="-18" width="6" height="36" rx="3"/></g>
+            <g transform="translate(486 151) rotate(42)"><rect x="-8" y="-18" width="6" height="36" rx="3"/><rect x="3" y="-18" width="6" height="36" rx="3"/></g>
+            <g transform="translate(365 474) rotate(79)"><rect x="-8" y="-18" width="6" height="36" rx="3"/><rect x="3" y="-18" width="6" height="36" rx="3"/></g>
+          </g>
+          <g class="research-cell-nucleus">
+            <ellipse cx="292" cy="282" rx="72" ry="66"/>
+            <ellipse cx="292" cy="282" rx="61" ry="55"/>
+            <circle cx="318" cy="292" r="19"/>
+            <path d="M252 267c14-19 31 7 47-4 14-10 30-8 42 3M251 305c17-16 33 7 49-1 14-7 27 2 39 12"/>
+          </g>
+          <g class="research-cell-mito" transform="translate(151 300) rotate(-18)"><path d="M-31 0c3-17 50-24 62-5 10 17-18 32-43 27-14-3-23-11-19-22Z"/><path d="M-20 2c10-11 19 10 30-2 7-8 11-4 14 2"/></g>
+          <g class="research-cell-mito" transform="translate(400 220) rotate(29)"><path d="M-26 0c3-14 42-20 53-4 8 14-16 27-37 23-12-3-19-10-16-19Z"/><path d="M-17 1c8-9 16 9 25-1 6-7 10-3 13 2"/></g>
+          <path class="research-cell-er" d="M195 151c28-21 55-4 75-18 26-18 53-6 68 14M187 170c29-21 59 0 85-17 25-16 50-6 75 13M193 190c25-18 50 1 72-12 31-18 58-7 75 11"/>
+          <g class="research-cell-ribosomes"><circle cx="207" cy="139" r="3"/><circle cx="235" cy="149" r="2.5"/><circle cx="292" cy="135" r="2.7"/><circle cx="323" cy="154" r="2.4"/><circle cx="204" cy="180" r="2.4"/><circle cx="332" cy="191" r="2.3"/></g>
+          <circle class="research-cell-vesicle" cx="420" cy="337" r="11"/><circle class="research-cell-vesicle" cx="150" cy="210" r="8"/>
+        </symbol>
+      </defs>
+    </svg>
+    <section class="hero-intro home-hero" aria-labelledby="home-title">
+      <div class="container">
+        <div class="hero-intro-text hero-index-intro">
+          <p class="eyebrow">Digitalisierung</p>
+          <h1 id="home-title"><span class="home-title-neutral">Automation &amp; Data für</span> <span class="home-title-gradient">operative&nbsp;Exzellenz</span></h1>
+          <span class="route-origin" data-route-origin aria-hidden="true"></span>
+          <div class="hero-text-extension" data-extension-entry="top">
+            <p class="lead">Jedes Unternehmen hinterlässt in seinen Abläufen einen digitalen Fingerabdruck. Wird er lesbar, zeigen sich Zusammenhänge, Daten bekommen eine klare Struktur und Automatisierungen werden möglich. Die fortschreitende Digitalisierung setzt bereits das Fundament, jedoch werden die Daten bisher nicht effektiv genutzt.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-route-gradient" href="#arbeiten">Projekte ansehen <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-domains" id="schwerpunkte" aria-labelledby="domains-title">
+      <div class="container">
+        <div class="route-stage domains-stage domains-index" data-route-stage="domains">
+          <header class="route-intro route-intro--domains">
+            <div class="route-blob route-blob--intro route-blob--heading route-blob--chloroplast" data-route-orbit="dna">
+              <svg class="route-heading-cell" viewBox="0 0 390 190" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path class="route-heading-envelope" d="M22 101C18 54 67 23 151 16c91-7 183 11 210 54 29 46-8 88-89 103-88 17-191 3-231-33-13-12-18-25-19-39Z"/>
+                <path class="route-heading-inner" d="M34 101C31 62 74 35 154 28c85-7 169 9 195 47 25 38-10 73-81 86-82 15-177 3-216-29-11-9-17-20-18-31Z"/>
+                <g class="route-heading-granum">
+                  <rect x="55" y="72" width="41" height="6" rx="3"/>
+                  <rect x="52" y="81" width="47" height="6" rx="3"/>
+                  <rect x="56" y="90" width="39" height="6" rx="3"/>
+                  <rect x="291" y="104" width="42" height="6" rx="3"/>
+                  <rect x="288" y="113" width="48" height="6" rx="3"/>
+                  <rect x="293" y="122" width="38" height="6" rx="3"/>
+                </g>
+                <path class="route-heading-lamella" d="M99 84c16-4 26-10 38-17M96 96c17 5 28 11 40 20M288 116c-18 1-29 7-42 16"/>
+              </svg>
+              <h2 id="domains-title">Digitale DNA</h2>
+            </div>
+            <p class="route-intro-copy route-heading-extension" data-extension-entry="top">Ich entwickle Automationen, Analysen und technische Systeme, die reale Abläufe abbilden — mit klaren Datenflüssen, prüfbaren Schritten und sichtbaren Grenzen.</p>
+          </header>
+
+          <article class="route-station route-station--left route-station--automation domain-pair domain-pair--automation">
+            <span class="route-orbit-anchor route-orbit-anchor--automation" data-route-orbit="automation" aria-hidden="true"></span>
+            <a class="route-station-link" href="automation.html" aria-describedby="automation-summary">
+              <div class="route-blob route-blob--domain route-blob--automation route-blob--form-b" data-route-card data-route-dock="left" data-route-near="automation" data-route-activation="automation">
+                <svg class="route-blob-organelle route-blob-organelle--er" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-er"/></svg>
+                <h3>Automation</h3>
+              </div>
+              <span class="route-station-copy" data-extension-entry="top"><span id="automation-summary">Prozesse, die für Sie arbeiten.</span></span>
+            </a>
+          </article>
+
+          <article class="route-station route-station--right route-station--analysis domain-pair domain-pair--analysis">
+            <span class="route-orbit-anchor route-orbit-anchor--analysis" data-route-orbit="analysis" aria-hidden="true"></span>
+            <a class="route-station-link" href="datenanalyse.html" aria-describedby="analysis-summary">
+              <div class="route-blob route-blob--domain route-blob--analysis route-blob--form-c" data-route-card data-route-dock="right" data-route-near="analysis" data-route-activation="analysis">
+                <svg class="route-blob-organelle route-blob-organelle--golgi" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-golgi"/></svg>
+                <h3>Datenanalyse</h3>
+              </div>
+              <span class="route-station-copy" data-extension-entry="top"><span id="analysis-summary">Wissensmanagement für strategische Entscheidungen.</span></span>
+            </a>
+          </article>
+
+          <span class="route-orbit-anchor route-orbit-anchor--threshold" data-route-orbit="threshold" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-work" id="arbeiten" aria-labelledby="work-title">
+      <div class="container">
+        <div class="route-stage work-stage work-index" data-route-stage="work">
+          <header class="route-intro route-intro--work">
+            <div class="route-blob route-blob--intro route-blob--heading route-blob--chloroplast" data-route-orbit="work">
+              <svg class="route-heading-cell" viewBox="0 0 390 190" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path class="route-heading-envelope" d="M22 101C18 54 67 23 151 16c91-7 183 11 210 54 29 46-8 88-89 103-88 17-191 3-231-33-13-12-18-25-19-39Z"/>
+                <path class="route-heading-inner" d="M34 101C31 62 74 35 154 28c85-7 169 9 195 47 25 38-10 73-81 86-82 15-177 3-216-29-11-9-17-20-18-31Z"/>
+                <g class="route-heading-granum">
+                  <rect x="55" y="72" width="41" height="6" rx="3"/>
+                  <rect x="52" y="81" width="47" height="6" rx="3"/>
+                  <rect x="56" y="90" width="39" height="6" rx="3"/>
+                  <rect x="291" y="104" width="42" height="6" rx="3"/>
+                  <rect x="288" y="113" width="48" height="6" rx="3"/>
+                  <rect x="293" y="122" width="38" height="6" rx="3"/>
+                </g>
+                <path class="route-heading-lamella" d="M99 84c16-4 26-10 38-17M96 96c17 5 28 11 40 20M288 116c-18 1-29 7-42 16"/>
+              </svg>
+              <h2 id="work-title">Projekte</h2>
+            </div>
+            <p class="route-intro-copy route-heading-extension" data-extension-entry="right">Erfolgreich implementierte Systeme.</p>
+          </header>
+          <span class="route-orbit-anchor route-orbit-anchor--work-payment" data-route-orbit="work-payment" aria-hidden="true"></span>
+          <span class="route-orbit-anchor route-orbit-anchor--work-mid" data-route-orbit="work-mid" aria-hidden="true"></span>
+          <span class="route-orbit-anchor route-orbit-anchor--work-late" data-route-orbit="work-late" aria-hidden="true"></span>
+
+          <article class="route-station route-station--left route-station--project project-pair project-pair--payment">
+            <a class="route-station-link" href="projekte/rechnungs_pipeline.html" aria-describedby="payment-summary"><div class="route-blob route-blob--project route-blob--automation route-blob--form-b" data-route-card data-route-dock="right" data-route-near="work-payment" data-route-activation="automation"><svg class="route-blob-organelle route-blob-organelle--er" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-er"/></svg><h3>Automatische
+Zahlungsbuchung</h3></div><span class="route-station-copy" data-extension-entry="top"><span class="eyebrow">Automation</span><span id="payment-summary">Zahlungen werden mit Rechnungen verglichen und eingebucht; der Kunde wird automatisch kontaktiert.</span></span></a>
+          </article>
+
+          <article class="route-station route-station--left route-station--project project-pair project-pair--forecast">
+            <a class="route-station-link" href="projekte/cash_forecast.html" aria-describedby="forecast-summary"><div class="route-blob route-blob--project route-blob--analysis route-blob--form-c" data-route-card data-route-dock="right" data-route-near="work-mid" data-route-activation="analysis"><svg class="route-blob-organelle route-blob-organelle--golgi" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-golgi"/></svg><h3>Wöchentlicher Cash-Forecast</h3></div><span class="route-station-copy" data-extension-entry="top"><span class="eyebrow">Datenanalyse</span><span id="forecast-summary">Projekt-, Bank- und Umsatzsteuerpfade bleiben getrennt und laufen in einer gemeinsamen Wochenansicht zusammen.</span></span></a>
+          </article>
+
+          <article class="route-station route-station--left route-station--project project-pair project-pair--irrigation">
+            <a class="route-station-link" href="projekte/bewaesserung.html" aria-describedby="irrigation-summary"><div class="route-blob route-blob--project route-blob--private route-blob--form-a" data-route-card data-route-dock="right" data-route-near="work-late" data-route-activation="private"><svg class="route-blob-organelle route-blob-organelle--vacuole" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-vacuole"/></svg><h3>Automatische Bewässerung</h3></div><span class="route-station-copy" data-extension-entry="top"><span class="eyebrow">Privates Projekt</span><span id="irrigation-summary">Meine Pflanzen werden abhängig von der Bodenfeuchtigkeit automatisch gegossen – ein Engineering-Projekt.</span></span></a>
+          </article>
+
+          <span class="work-route-exit" data-route-orbit="work-exit" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-profile" id="profil" aria-labelledby="profile-title">
+      <div class="container">
+        <div class="profile-constellation" data-reveal>
+          <svg class="profile-orbits" viewBox="0 0 1040 1110" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path class="profile-route profile-route--profile" d="M292 142 C414 130 482 88 568 82" />
+            <path class="profile-route profile-route--profile" d="M292 164 C448 174 552 206 714 222" />
+            <path class="profile-route profile-route--profile" d="M288 194 C424 252 484 332 590 372" />
+            <path class="profile-route profile-route--stem" d="M284 230 C414 322 486 470 520 610 L520 1106" />
+            <path class="profile-route profile-route--profile" d="M520 610 C464 610 408 610 354 610" />
+            <path class="profile-route profile-route--private" d="M520 827 C570 827 618 827 665 827" />
+            <circle class="profile-junction-node" cx="520" cy="610" r="4" />
+            <circle class="profile-junction-node" cx="520" cy="827" r="4" />
+          </svg>
+
+          <div class="profile-intro">
+            <a class="route-blob route-blob--link route-blob--intro route-blob--profile route-blob--form-a" href="ueber_mich.html" data-route-point data-route-activation="profile" data-route-clearance="0.44">
+              <svg class="route-blob-organelle route-blob-organelle--nucleus" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-nucleus"/></svg>
+              <h2 id="profile-title">Über mich</h2>
+            </a>
+          </div>
+
+          <dl class="profile-facts" aria-label="Fachliche Eckpunkte">
+            <div class="profile-fact profile-fact--study" data-extension-entry="left"><dt>Studium</dt><dd>M.Sc. Biochemie</dd></div>
+            <div class="profile-fact profile-fact--certificate" data-extension-entry="left"><dt>Zertifikat</dt><dd>XDi Certified Data Scientist</dd></div>
+            <div class="profile-fact profile-fact--tools" data-extension-entry="left"><dt>Werkzeuge</dt><dd>Innovation</dd></div>
+          </dl>
+
+          <div class="profile-branches" aria-label="Weiterführende Bereiche">
+            <article class="profile-branch profile-branch--research">
+              <a class="profile-branch-link" href="forschung/index.html"><div class="route-blob route-blob--branch route-blob--profile route-blob--form-c" data-route-card data-route-dock="right" data-route-near="profile-research" data-route-activation="profile"><svg class="route-blob-artwork route-blob-artwork--research" viewBox="0 0 560 520" aria-hidden="true" focusable="false"><use href="#home-research-cell"/></svg><h3>Meine Forschung</h3></div><span class="profile-branch-copy" data-extension-entry="top">Proteinbiochemie, Zellbiologie, Neurologie</span></a>
+            </article>
+            <article class="profile-branch profile-branch--private">
+              <a class="profile-branch-link" href="private_projekte.html"><div class="route-blob route-blob--branch route-blob--private route-blob--form-b" data-route-card data-route-dock="left" data-route-near="profile-private" data-route-activation="private"><svg class="route-blob-organelle route-blob-organelle--vacuole" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-vacuole"/></svg><h3>Private Projekte</h3></div><span class="profile-branch-copy" data-extension-entry="top">Code, Tools &amp; Automatisierungslösungen</span></a>
+            </article>
+          </div>
+          <span class="profile-route-anchor profile-route-anchor--research" data-route-orbit="profile-research" aria-hidden="true"></span>
+          <span class="profile-route-anchor profile-route-anchor--private" data-route-orbit="profile-private" aria-hidden="true"></span>
+          <span class="profile-route-anchor profile-route-anchor--exit" data-route-orbit="profile-exit" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-contact" id="kontakt" aria-labelledby="contact-title">
+      <div class="container" data-reveal>
+        <a class="contact-station-link" href="kontakt.html">
+          <div class="route-blob route-blob--contact route-blob--form-a" data-route-point data-route-activation="contact" data-route-clearance="0.44">
+            <svg class="route-blob-organelle route-blob-organelle--vesicle" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-vesicle"/></svg>
+            <h2 id="contact-title">Kontakt</h2>
+          </div>
+          <span class="contact-extension" data-extension-entry="left"><span>Für Rückfragen zu einer Arbeitsprobe, einer Rolle oder einem ähnlichen Problem bin ich über LinkedIn erreichbar.</span><span class="contact-extension-cta">Kontaktmöglichkeiten ansehen <span aria-hidden="true">→</span></span></span>
+        </a>
+        <span class="route-tail" data-route-tail aria-hidden="true"></span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+  <script src="assets/js/atlas.js" defer></script>
+</body>
+</html>

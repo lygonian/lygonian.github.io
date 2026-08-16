@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "WRO-003",
+  "title": "Define layout, responsive, and layer boundaries",
+  "status": "analysis_complete",
+  "mode": "analysis",
+  "primary_agent": "layout-responsive",
+  "consulted_agents": ["foundation-systems", "visual-system", "architecture-cleanup"],
+  "reviewers": ["semantics-accessibility", "visual-integration"],
+  "objective": "Map real page layouts, breakpoints, reflow, container use, and DOM-measured geometry into a coherent proposal.",
+  "scope": ["layout", "grid", "flex", "containers consumption", "responsive", "breakpoints", "reflow", "basic layers"],
+  "non_goals": ["responsive writes before decision", "component restyling", "artwork redesign"],
+  "depends_on": ["WRO-001"],
+  "contract_reads": ["typography", "spacing", "containers", "layout", "responsive", "layers"],
+  "contract_changes_requested": ["layout", "responsive", "layers"],
+  "write_files": [],
+  "write_domains": [],
+  "exclusive_leases": [],
+  "deliverables": ["page-type layout matrix", "breakpoint rationale", "reflow risks", "atlas.js geometry dependency map"],
+  "acceptance_checks": ["all page types covered", "shared CSS conflict recorded", "desktop-only instruction conflict preserved"],
+  "git": {"base_branch": "main", "integration_branch": "refactor/orchestrator", "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "23-page desktop layout matrix, component-driven breakpoint map, and atlas.js geometry dependency map completed read-only.",
+    "contract_proposal": ["Accept four desktop layout families", "Keep responsive decision_required", "Assign stacking contexts to layout and named layer ordering to visual-system"],
+    "highest_risks": ["1024px typography jump", "home route lacks ResizeObserver invalidation", "implicit negative stacking contexts"],
+    "writes": false
+  }
+}

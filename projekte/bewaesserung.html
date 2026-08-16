@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bewässerungsanlage — Privates Projekt — Samet Kurt</title>
+  <meta name="description" content="Eine selbst entwickelte Bewässerungsanlage verbindet ESP32, Pumpen, Sensorik und Weboberfläche mit bewussten Sicherheitsgrenzen.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="subpage subpage--private">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header"><div class="container"><a class="brand" href="../index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a><nav class="site-nav" aria-label="Hauptnavigation"><a href="../index.html">Start</a><a href="../automation.html">Automation</a><a href="../datenanalyse.html">Datenanalyse</a><a href="../private_projekte.html" aria-current="location">Private Projekte</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav></div></header>
+  <main id="main">
+    <section class="page-hero"><div class="container">
+      <nav class="breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../private_projekte.html">Private Projekte</a></li><li aria-current="page">Bewässerungsanlage</li></ol></nav><p class="eyebrow">Hardware · Software · Systemlogik</p><h1>Acht Pflanzen lokal messen und gezielt bewässern</h1>
+      <p class="lead">Acht Feuchtesensoren und acht Pumpenausgänge werden von einem ESP32-S3 zusammengeführt. OLED und lokale Weboberfläche machen Zustände sichtbar; eine Warteschlange und feste Laufzeitgrenzen halten die Pumpensteuerung kontrollierbar.</p>
+      <ul class="project-skills" aria-label="Technologien"><li class="skill-badge">ESP32-S3</li><li class="skill-badge">8 Sensoren</li><li class="skill-badge">8 Pumpenausgänge</li><li class="skill-badge">OLED</li><li class="skill-badge">Webserver</li></ul>
+    </div></section>
+
+    <section class="case-study"><div class="container">
+      <div class="case-intro"><p>Die Systemfrage lautet: Wie lassen sich acht Pflanzen getrennt erfassen und aus einem lokalen System bewässern, ohne Sensorstatus, Pumpenlauf und Grenzen der Automatik zu vermischen?</p></div>
+      <div class="case-grid">
+        <article class="case-block"><p class="eyebrow">Ausgangslage</p><h2>Jede Pflanze behält ihren eigenen Kanal</h2><p>Jeder der acht Feuchtesensoren ist einem Pumpenausgang zugeordnet. Die Oberfläche hält Messwert, Status und ausgelösten Lauf getrennt sichtbar.</p></article>
+        <article class="case-block"><p class="eyebrow">Arbeitsprinzip</p><h2>Messen, einreihen, zurückmelden</h2><p>Der ESP32-S3 erfasst Feuchte, Wasserstand und Umgebung. Gießaufträge landen in einer Warteschlange; Statusänderungen laufen zyklisch an OLED und Weboberfläche zurück.</p></article>
+        <article class="case-block case-block--wide"><p class="eyebrow">Steuerlogik</p><h2>Begrenzungen sind Teil des Hauptpfads</h2><ul class="decision-list">
+          <li><strong>Kanäle fest zuordnen:</strong> Acht Sensoren und acht Pumpenausgänge bleiben einzeln adressierbar.</li>
+          <li><strong>Aufträge einreihen:</strong> Die Warteschlange verhindert, dass Pumpenbefehle unkontrolliert nebeneinander starten.</li>
+          <li><strong>Parallelität begrenzen:</strong> Höchstens zwei Pumpen arbeiten gleichzeitig.</li>
+          <li><strong>Laufzeit deckeln:</strong> Ein Pumpenlauf endet spätestens nach 60 Sekunden.</li>
+          <li><strong>Automatik offen kennzeichnen:</strong> Im Alpha-Sketch ist die automatische Bewässerung standardmäßig deaktiviert.</li>
+        </ul></article>
+        <article class="case-block"><p class="eyebrow">Sichtbarkeit</p><h2>Zustände kommen zum Bediener zurück</h2><p>Wasserstand, DHT22-Umgebungswerte und Pflanzenkanäle werden lokal angezeigt. So bleibt erkennbar, was gemessen, eingereiht, aktiv oder beendet ist.</p></article>
+        <article class="case-block"><p class="eyebrow">Ergebnis</p><h2>Ein bedienbares System mit benannten Grenzen</h2><p>Die lokale Weboberfläche steuert acht Pumpenkanäle und zeigt den zugehörigen Status. Sie stellt die Automatik nicht als fertig validierte Entscheidung dar.</p></article>
+      </div>
+      <div class="outcome-strip"><div><strong>Kanäle</strong><span>Acht Sensoren und acht Pumpenausgänge</span></div><div><strong>Steuerung</strong><span>ESP32-S3, OLED und lokale Weboberfläche</span></div><div><strong>Grenze</strong><span>Maximal zwei Pumpen und 60 Sekunden je Lauf</span></div></div>
+      <div class="case-figure-grid">
+        <figure class="figure"><img src="../assets/img/bewaesserung-breadboard.jpg" alt="Erster Breadboard-Aufbau mit ESP32, Display und Steckkabeln" width="1600" height="900" loading="lazy" decoding="async"><figcaption>Der Kern wurde klein aufgebaut und pro Bauteil geprüft.</figcaption></figure>
+        <figure class="figure"><img src="../assets/img/bewaesserung-platine.jpg" alt="Fertig gelötete Steuerplatine mit Klemmen, MOSFETs und ESP32" width="1600" height="2125" loading="lazy" decoding="async"><figcaption>Die feste Platine übersetzt den Prototyp in einen wartbaren Daueraufbau.</figcaption></figure>
+        <figure class="figure"><img src="../assets/img/bewaesserung-weboberflaeche.png" alt="Weboberfläche mit Tankstatus, Messwerten und Pflanzenkarten" width="1080" height="2424" loading="lazy" decoding="async"><figcaption>Jede Pflanze bleibt einzeln sichtbar und steuerbar.</figcaption></figure>
+        <figure class="figure"><img src="../assets/img/bewaesserung-anlage.jpg" alt="Realer Aufbau mit Wassertank, Pumpen, Schläuchen und Steuerkasten" width="1600" height="2125" loading="lazy" decoding="async"><figcaption>Tank, Pumpen, Elektronik und Pflanzen bilden ein zusammenhängendes System.</figcaption></figure>
+      </div>
+      <nav class="page-nav" aria-label="Weitere Seiten"><a href="../private_projekte.html"><span aria-hidden="true">←</span> Alle privaten Projekte</a><a href="../automation.html">Berufliche Automationen <span aria-hidden="true">→</span></a></nav>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer><script src="../assets/js/atlas.js" defer></script>
+</body></html>

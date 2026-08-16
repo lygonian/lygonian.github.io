@@ -1,0 +1,19 @@
+schema_version: 1
+id: WRO-DEC-007
+status: resolved
+topic: profile_research_inventory_depth
+context:
+  - "Über mich and the research hub both expose the same three research fields as inventories."
+  - "The duplicated roles can diverge and compete as navigation choices."
+options:
+  - id: A
+    summary: "Reduce Über mich to one compact research entry; the research hub owns the three-field inventory."
+  - id: B
+    summary: "Keep the three direct research entries on Über mich and retain the hub as a deeper overview."
+recommendation: A
+impact: "Controls visible profile content, CTA hierarchy, and whether research inventory has one or two owners."
+owner: content-ia
+resolution:
+  selected: A
+  basis: "User confirmed the recommended decision package on 2026-08-15."
+  resolved_at: "2026-08-15"

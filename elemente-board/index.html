@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elemente-Board · Samet Kurt</title>
+  <meta name="description" content="Isoliertes Design-Review-Board für die Elemente des Portfolios von Samet Kurt.">
+  <link rel="stylesheet" href="board.css">
+</head>
+<body>
+  <a class="skip-link" href="#board">Direkt zu den Elementen</a>
+
+  <header class="board-header">
+    <div class="board-brand">
+      <span class="board-brand-mark" aria-hidden="true"></span>
+      <span><strong>Elemente-Board</strong><small>isolierter Design-Arbeitsraum · Desktop</small></span>
+    </div>
+    <div class="board-controls" aria-label="Board-Werkzeuge">
+      <label class="search"><span class="sr-only">Elemente suchen</span><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="ID, Name oder Zweck suchen …" autocomplete="off"></label>
+      <label class="filter-label"><span class="sr-only">Gruppe filtern</span><select id="group-filter"><option value="">Alle Gruppen</option><option value="grundlagen">Grundlagen</option><option value="rahmen">Rahmen</option><option value="typografie">Typografie</option><option value="aktionen">Aktionen</option><option value="karten">Karten</option><option value="information">Information</option><option value="startseite">Startseite</option><option value="artwork">Artwork</option><option value="komposition">Komposition</option><option value="system">System &amp; Archiv</option></select></label>
+      <label class="filter-label"><span class="sr-only">Status filtern</span><select id="status-filter"><option value="">Alle Status</option><option value="current">Bestand</option><option value="rule">Verbindlich</option><option value="develop">Zu klären</option><option value="code">Nur Code / historisch</option></select></label>
+      <span class="header-selection" id="header-selection">Keine Auswahl</span>
+      <a class="board-button board-page-link" href="startseite.html">Nur Startseite</a>
+      <button class="board-button" id="toggle-labels" type="button" aria-pressed="true">Anatomie aus</button>
+      <button class="board-button board-button--primary" id="copy-selection" type="button">Auswahl kopieren</button>
+    </div>
+  </header>
+
+  <div class="board-shell">
+    <aside class="board-sidebar" aria-label="Elementgruppen">
+      <p class="sidebar-label">Elementgruppen</p>
+      <nav>
+        <a href="#grundlagen"><span>01</span> Grundlagen <b>4</b></a>
+        <a href="#rahmen"><span>02</span> Rahmen <b>4</b></a>
+        <a href="#typografie"><span>03</span> Typografie <b>4</b></a>
+        <a href="#aktionen"><span>04</span> Aktionen &amp; Labels <b>5</b></a>
+        <a href="#karten"><span>05</span> Karten <b>5</b></a>
+        <a href="#information"><span>06</span> Information <b>8</b></a>
+        <a href="#startseite"><span>07</span> Startseite <b>6</b></a>
+        <a href="#artwork"><span>08</span> Artwork <b>6</b></a>
+        <a href="#komposition"><span>09</span> Komposition <b>7</b></a>
+        <a href="#system"><span>10</span> System &amp; Archiv <b>5</b></a>
+      </nav>
+      <div class="sidebar-legend">
+        <p class="sidebar-label">Status</p>
+        <p><i class="dot dot--rule"></i> Designautorität</p>
+        <p><i class="dot dot--current"></i> aktueller Bestand</p>
+        <p><i class="dot dot--develop"></i> bewusst weiterzuentwickeln</p>
+        <p><i class="dot dot--code"></i> nur im Code / historisch</p>
+      </div>
+    </aside>
+
+    <main id="board" class="board-main">
+      <section class="board-intro" aria-labelledby="board-title">
+        <div>
+          <p class="overline">Gesprächsgrundlage · Version 1</p>
+          <h1 id="board-title">Jedes Element sichtbar, benennbar und direkt besprechbar.</h1>
+          <p>Links steht die repräsentative Ausführung, rechts ihre Rolle und Anatomie. Klicke eine Zeile an und nutze anschließend „Auswahl kopieren“ für eine eindeutige Änderungsanweisung.</p>
+        </div>
+        <div class="selection-box" aria-live="polite">
+          <span>Aktuelle Auswahl</span>
+          <strong id="selection-id">Noch kein Element gewählt</strong>
+          <small id="selection-name">Klicke auf eine Elementzeile.</small>
+        </div>
+      </section>
+
+      <div class="scope-note">
+        <strong>Abgrenzung</strong>
+        <span>Das Board zeigt 54 wiederverwendbare Elementfamilien, nicht jede inhaltliche Wiederholung. Vorschauen sind als Familienreferenzen beschriftet; Desktop ist maßgeblich. Vorhandener Code ist als Bestand markiert, DESIGN.md bleibt Autorität.</span>
+      </div>
+
+      <aside class="conflict-note" aria-labelledby="conflict-title">
+        <div><p class="overline">Designautorität ↔ aktueller Bestand</p><h2 id="conflict-title">Fünf Punkte sind bewusst als Klärung sichtbar.</h2></div>
+        <ol>
+          <li><a href="#hm-05">HM-05</a> <b>Über mich:</b> Die aktuelle Aktivierung sitzt mit Blatt und Ranke tief im Wasser; verbindlich sind Stamm und Jahresringe.</li>
+          <li><a href="#ar-02">AR-02</a> <b>Datenanalyse:</b> Der Rubrikverweis fokussiert die Wasser-/Strömungswelt derzeit nicht deutlich gemeinsam mit dem Inhalt.</li>
+          <li><a href="#hm-06">HM-06</a> <b>Kontakt:</b> Die Lichtöffnung am Startseitenende ist im aktuellen Bestand nur schwach lesbar.</li>
+          <li><a href="#cd-02">CD-02</a> <b>Projektkarte:</b> Der rubrikfarbene Wash ist flächiger als der in DESIGN.md vorgesehene kleine Flächenakzent.</li>
+          <li><a href="#pg-01">PG-01</a> <b>Dunkle Schlusssektion:</b> Es ist zu entscheiden, ob ihr eigener Verlauf Artwork-Bühne oder unzulässige zusätzliche UI-Surface ist.</li>
+        </ol>
+      </aside>
+
+      <section class="element-section" id="grundlagen">
+        <header class="group-head"><div><span>01</span><p>Grundlagen</p></div><h2>Farbe, Schrift, Raum und Material</h2></header>
+
+        <article class="element-row" id="fd-01" data-id="FD-01" data-name="Globales UI-Farbsystem" data-search="farbe palette background surface text border interaction grundlage">
+          <div class="specimen specimen--palette">
+            <div class="swatches swatches--ui">
+              <div style="--sw:#050908"><b></b><span>Background<small>#050908</small></span></div>
+              <div style="--sw:#141917bf"><b></b><span>Surface normal<small>#141917BF</small></span></div>
+              <div style="--sw:#141917d9"><b></b><span>Surface hervor.<small>#141917D9</small></span></div>
+              <div style="--sw:#e8edea"><b></b><span>Text Primary<small>#E8EDEA</small></span></div>
+              <div style="--sw:#b7c1bd"><b></b><span>Text Secondary<small>#B7C1BD</small></span></div>
+              <div style="--sw:#86938e"><b></b><span>Text Muted<small>#86938E</small></span></div>
+              <div style="--sw:#313735"><b></b><span>Border subtil<small>#313735</small></span></div>
+              <div style="--sw:#69706d"><b></b><span>Border stark<small>#69706D</small></span></div>
+              <div style="--sw:#cdd0ce"><b></b><span>Interaction<small>#CDD0CE</small></span></div>
+              <div style="--sw:#d2d6d4"><b></b><span>Interaction hervor.<small>#D2D6D4</small></span></div>
+            </div>
+          </div>
+          <div class="element-info"><div class="element-title"><span class="element-id">FD-01</span><span class="status status--rule">verbindlich</span></div><h3>Globales UI-Farbsystem</h3><p class="purpose">Trägt alle rubrikübergreifenden Flächen, Texte, Grenzen und Interaktionszustände.</p><dl><div><dt>Einsatz</dt><dd>Gesamte Website, jede UI-Komponente</dd></div><div><dt>Anatomie</dt><dd>1 Background · 2 Surfaces · 3 Textrollen · 2 Borders · 2 Interaction-Stufen</dd></div><div><dt>Wichtig</dt><dd>Keine komponentenspezifischen Mischfarben oder Alpha-Stufen ergänzen.</dd></div></dl></div>
+        </article>
+
+        <article class="element-row" id="fd-02" data-id="FD-02" data-name="Rubrikpalette" data-search="rubrikfarbe automation datenanalyse private profil kontakt farbe">
+          <div class="specimen specimen--palette"><div class="swatches swatches--category">
+            <div style="--sw:#54c596"><b></b><span>Automation<small>#54C596</small></span></div><div style="--sw:#5cc0e6"><b></b><span>Datenanalyse<small>#5CC0E6</small></span></div><div style="--sw:#7a88b2"><b></b><span>Private Projekte<small>#7A88B2</small></span></div><div style="--sw:#cc9653"><b></b><span>Über mich<small>#CC9653</small></span></div><div style="--sw:#ebd49a"><b></b><span>Kontakt<small>#EBD49A</small></span></div>
+          </div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">FD-02</span><span class="status status--rule">verbindlich</span></div><h3>Rubrikpalette</h3><p class="purpose">Kennzeichnet ausschließlich die inhaltliche Zugehörigkeit zu einer Rubrik.</p><dl><div><dt>Einsatz</dt><dd>Kicker, schmale Kartenkante, Rubrikmarker, aktiviertes Leitmotiv</dd></div><div><dt>Anatomie</dt><dd>Fünf feste Identitätsfarben; Forschung bleibt „Über mich“</dd></div><div><dt>Nicht dafür</dt><dd>Buttons, allgemeiner Hover, Focus oder dekorative Mehrfarbverläufe</dd></div></dl></div>
+        </article>
+
+        <article class="element-row" id="fd-03" data-id="FD-03" data-name="Typografische Rollen" data-search="typografie display heading subheading body ui meta schrift">
+          <div class="specimen specimen--type-ramp">
+            <p class="type-display">Display</p><p class="type-heading">Heading</p><p class="type-subheading">Subheading</p><p class="type-body-large">Body Large — hervorgehobene Einleitung</p><p class="type-body">Body — reguläre Information mit ruhigem Rhythmus.</p><p class="type-ui">UI · Aktion und Navigation</p><p class="type-meta">META · LABEL UND EINORDNUNG</p>
+          </div>
+          <div class="element-info"><div class="element-title"><span class="element-id">FD-03</span><span class="status status--rule">verbindlich</span></div><h3>Typografische Rollen</h3><p class="purpose">Ordnet Inhalt über sechs semantische Rollen; Body Large ist nur eine Body-Variante.</p><dl><div><dt>Einsatz</dt><dd>Display, Heading, Subheading, Body, UI, Meta</dd></div><div><dt>Anatomie</dt><dd>Größe · Zeilenhöhe · Gewicht · Laufweite</dd></div><div><dt>Schrift</dt><dd>Google Sans Flex, Schnitte 400 / 500 / 700</dd></div></dl></div>
+        </article>
+
+        <article class="element-row" id="fd-04" data-id="FD-04" data-name="Raum, Maße und Bio-Glas" data-search="spacing abstand radius container material glas surface border">
+          <div class="specimen specimen--material"><div class="measure-bar"><i style="--w:8px"></i><span>8</span><i style="--w:12px"></i><span>12</span><i style="--w:24px"></i><span>24</span><i style="--w:32px"></i><span>32</span><i style="--w:64px"></i><span>56–96</span></div><div class="material-card"><span class="pin pin--1">1</span><span class="pin pin--2">2</span><span class="pin pin--3">3</span><p>Bio-Glas-Fläche</p><small>transparente Surface · feste Border · organischer Radius</small></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">FD-04</span><span class="status status--current">Bestand</span></div><h3>Raum, Maße und Bio-Glas</h3><p class="purpose">Sichert ein gemeinsames Maßsystem und die transparente Materialwirkung der UI.</p><ol class="anatomy"><li><b>Surface</b> normal oder hervorgehoben</li><li><b>Border</b> subtil oder stark</li><li><b>Form</b> 4 / 8 / 16 px, organische Sonderformen nur motivisch</li></ol><p class="variants">Abstände: 8 · 12 · 24 · 32 · 56–96 px; Seitencontainer maximal 1200 px.</p></div>
+        </article>
+      </section>
+
+      <section class="element-section" id="rahmen">
+        <header class="group-head"><div><span>02</span><p>Rahmen</p></div><h2>Globale Orientierung</h2></header>
+
+        <article class="element-row" id="gl-01" data-id="GL-01" data-name="Marke" data-search="brand logo marke header samet kurt">
+          <div class="specimen specimen--center"><a class="ui-brand" href="#" onclick="return false"><img src="../assets/img/logo-symbol.svg" alt="">samet<span>.</span>kurt</a></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">GL-01</span><span class="status status--current">Bestand</span></div><h3>Marke</h3><p class="purpose">Identifiziert die Website und führt global zur Startseite.</p><ol class="anatomy"><li><b>Markensymbol</b> aktuell als Maskenform</li><li><b>Wortmarke</b> samet.kurt</li><li><b>Markenpunkt</b> globales Interaction-Signal</li></ol><p class="variants">Zustände: Ruhe · Hover · Tastaturfokus.</p></div>
+        </article>
+
+        <article class="element-row" id="gl-02" data-id="GL-02" data-name="Hauptnavigation" data-search="navigation nav aktiv header link kontakt">
+          <div class="specimen specimen--nav"><nav class="ui-nav"><a href="#">Start</a><a class="is-current" href="#">Automation</a><a href="#">Datenanalyse</a><a href="#">Private Projekte</a><a href="#">Über mich</a><a class="is-contact" href="#">Kontakt</a></nav><small class="nav-state-label">Top-Level current = global · Detail-location = Rubriklinie</small><span class="pin pin--1">1</span><span class="pin pin--2">2</span><span class="pin pin--3">3</span></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">GL-02</span><span class="status status--current">Bestand</span></div><h3>Hauptnavigation</h3><p class="purpose">Gibt globale Orientierung und zeigt den aktuellen Rubrikkontext.</p><ol class="anatomy"><li><b>Inaktiver Link</b> globale UI-Farbe</li><li><b>Aktivmarker</b> schmale Rubriklinie</li><li><b>Kontaktaktion</b> global gefasster Sonderlink</li></ol><p class="variants">Current page/location · Hover · Active · Focus.</p></div>
+        </article>
+
+        <article class="element-row" id="gl-03" data-id="GL-03" data-name="Skip-Link" data-search="skip link tastatur barrierefreiheit fokus">
+          <div class="specimen specimen--center"><a class="ui-skip" href="#">Zum Inhalt springen</a></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">GL-03</span><span class="status status--current">Bestand</span></div><h3>Skip-Link</h3><p class="purpose">Erlaubt Tastaturnutzern, die wiederholte Navigation direkt zu überspringen.</p><dl><div><dt>Einsatz</dt><dd>Erstes fokussierbares Element jeder Seite</dd></div><div><dt>Anatomie</dt><dd>Kurzes Ziel-Label · kontrastreiche Focus-Fläche</dd></div><div><dt>Zustand</dt><dd>Im Board absichtlich sichtbar; regulär nur bei Fokus</dd></div></dl></div>
+        </article>
+
+        <article class="element-row" id="gl-04" data-id="GL-04" data-name="Footer" data-search="footer copyright linkedin kontakt links">
+          <div class="specimen specimen--footer"><p>© 2026 Samet Kurt</p><nav><a href="#">LinkedIn</a><a href="#">Kontakt</a></nav></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">GL-04</span><span class="status status--current">Bestand</span></div><h3>Footer</h3><p class="purpose">Schließt jede Seite ruhig ab und hält zwei globale Folgewege bereit.</p><ol class="anatomy"><li><b>Urheberzeile</b> zurückgenommene Meta-Information</li><li><b>Footerlinks</b> globale Interaction-Farbe</li></ol><p class="variants">Relative Pfade ändern sich je Verzeichnistiefe; die sichtbare Form bleibt gleich.</p></div>
+        </article>
+      </section>
+
+      <section class="element-section" id="typografie">
+        <header class="group-head"><div><span>03</span><p>Typografie</p></div><h2>Inhaltliche Hierarchie</h2></header>
+
+        <article class="element-row" id="tx-01" data-id="TX-01" data-name="Eyebrow / Kicker" data-search="eyebrow kicker marker rubrik meta">
+          <div class="specimen specimen--center"><p class="ui-eyebrow"><i></i>Automation · Arbeitsproben</p></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">TX-01</span><span class="status status--current">Bestand</span></div><h3>Eyebrow / Kicker</h3><p class="purpose">Ordnet einen Inhalt vor Titel oder Abschnitt knapp ein.</p><ol class="anatomy"><li><b>Markerlinie</b> global oder rubrikbezogen</li><li><b>Meta-Label</b> kompakt und semantisch</li></ol><p class="variants">Global UI · Rubrikseite · Karte · dunkler Abschnitt.</p></div>
+        </article>
+
+        <article class="element-row" id="tx-02" data-id="TX-02" data-name="Hero-System" data-search="hero page hero intro titel lead actions">
+          <div class="specimen"><div class="ui-hero"><p class="ui-eyebrow"><i></i>Datenanalyse</p><h2>Erst klären, was die Daten tatsächlich tragen</h2><p>Eine Analyse beginnt mit einer prüfbaren Frage und lässt Grenzen sichtbar.</p><div class="mini-actions"><span>Primäre Aktion</span><a href="#">Sekundär</a></div></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">TX-02</span><span class="status status--current">Bestand</span></div><h3>Hero-System</h3><p class="purpose">Eröffnet eine Seite mit Rubrikkontext, Hauptaussage und optionaler Handlung.</p><ol class="anatomy"><li><b>Kicker</b> Zugehörigkeit</li><li><b>H1</b> zentrale Aussage</li><li><b>Lead</b> Einordnung</li><li><b>Actions</b> optional</li></ol><p class="variants">Startseiten-Hero · kompakter Hero · mittlerer Fallstudien-Hero.</p></div>
+        </article>
+
+        <article class="element-row" id="tx-03" data-id="TX-03" data-name="Abschnittskopf" data-search="section head abschnitt überschrift intro">
+          <div class="specimen specimen--center"><div class="ui-section-head"><p class="ui-eyebrow"><i></i>Arbeitsproben</p><h2>Entscheidungen sichtbar machen</h2><p>Ein kurzer Einführungstext erklärt, was im folgenden Abschnitt zusammengehört.</p></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">TX-03</span><span class="status status--current">Bestand</span></div><h3>Abschnittskopf</h3><p class="purpose">Bündelt Kicker, Überschrift und Einführung vor einer Elementgruppe.</p><ol class="anatomy"><li><b>Kicker</b> optional</li><li><b>H2</b> Abschnittsaussage</li><li><b>Intro</b> maximal 64 Zeichenbreiten</li></ol><p class="variants">Aktiver Bestand linksbündig; die zentrierte CSS-Hilfe ist derzeit nicht eingesetzt.</p></div>
+        </article>
+
+        <article class="element-row" id="tx-04" data-id="TX-04" data-name="Fließtext und Textlink" data-search="prose fließtext link code body">
+          <div class="specimen specimen--center"><div class="ui-prose"><h3>Vom Experiment zum System</h3><p>Reguläre Prosa bleibt ruhig und lesbar. <a href="#">Ein Textlink bleibt auch ohne Farbe erkennbar</a> und trägt eine klare Unterstreichung.</p><p><code>code_token</code> ist eine eingebettete technische Ausnahme.</p></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">TX-04</span><span class="status status--current">Bestand</span></div><h3>Fließtext und Textlink</h3><p class="purpose">Trägt längere Erklärungen, Listen und eingebettete technische Begriffe.</p><ol class="anatomy"><li><b>Zwischenüberschrift</b> gliedert</li><li><b>Body</b> reguläre Information</li><li><b>Textlink</b> Farbe plus Unterstreichung</li><li><b>Inline-Code</b> technische Kennzeichnung</li></ol><p class="variants">Lesemaß 68ch · breite Variante für Detailinhalte.</p></div>
+        </article>
+      </section>
+
+      <section class="element-section" id="aktionen">
+        <header class="group-head"><div><span>04</span><p>Aktionen &amp; Labels</p></div><h2>Bedienung und kompakte Einordnung</h2></header>
+
+        <article class="element-row" id="ac-01" data-id="AC-01" data-name="Button-Familie" data-search="button primary secondary ghost disabled focus hover">
+          <div class="specimen specimen--buttons"><button class="ui-button ui-button--primary">Primär <span>↗</span></button><button class="ui-button ui-button--secondary">Sekundär</button><button class="ui-button ui-button--ghost">Ghost</button><button class="ui-button" disabled>Deaktiviert</button></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AC-01</span><span class="status status--rule">verbindlich</span></div><h3>Button-Familie</h3><p class="purpose">Kennzeichnet explizite Handlungen unabhängig von der Rubrik.</p><ol class="anatomy"><li><b>Label</b> konkrete Handlung</li><li><b>Optionales Glyph</b> Richtung oder externes Ziel</li><li><b>Dunkle Fläche</b> auch beim Primary</li><li><b>Fokusrahmen</b> global</li></ol><p class="variants">Primary · Secondary · Ghost · Disabled; jeweils Hover / Active / Focus.</p></div>
+        </article>
+
+        <article class="element-row" id="ac-02" data-id="AC-02" data-name="Text-Aktionslink" data-search="cta aktionslink pfeil card link section">
+          <div class="specimen specimen--center"><a class="ui-action-link" href="#">Entscheidungsweg ansehen <span>→</span></a></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AC-02</span><span class="status status--current">Bestand</span></div><h3>Text-Aktionslink</h3><p class="purpose">Führt innerhalb einer Karte oder am Abschnittsende zum nächsten Inhalt.</p><ol class="anatomy"><li><b>Handlungslabel</b> beschreibt das Ziel</li><li><b>Richtungspfeil</b> signalisiert Weiterführung</li></ol><p class="variants">Karten-CTA · Abschnittslink · Route-CTA · externes ↗.</p></div>
+        </article>
+
+        <article class="element-row" id="ac-03" data-id="AC-03" data-name="Tag" data-search="tag label technologie thema pill">
+          <div class="specimen specimen--center"><div class="tag-set"><span class="ui-tag">Python</span><span class="ui-tag">Datenqualität</span><span class="ui-tag">GraphQL</span></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AC-03</span><span class="status status--current">Bestand</span></div><h3>Tag</h3><p class="purpose">Benennt kompakte Themen oder Werkzeuge innerhalb einer Karte.</p><dl><div><dt>Einsatz</dt><dd>Projektkarten und Forschungsfelder</dd></div><div><dt>Anatomie</dt><dd>Kurzes Meta-Label · globale Border · transparente Fläche</dd></div><div><dt>Regel</dt><dd>Bleibt globale UI; Rubrikfarbe gehört nicht in den Tag.</dd></div></dl></div>
+        </article>
+
+        <article class="element-row" id="ac-04" data-id="AC-04" data-name="Skill-Badge" data-search="skill badge technologie hero fallstudie">
+          <div class="specimen specimen--center"><ul class="skill-set"><li>Python</li><li>GraphQL</li><li>Tests</li><li>pandas</li></ul></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AC-04</span><span class="status status--current">Bestand</span></div><h3>Skill-Badge</h3><p class="purpose">Listet Technologien einer Fallstudie kompakt direkt unter der Hero-Einleitung.</p><dl><div><dt>Einsatz</dt><dd>Projekt-/Detailseite</dd></div><div><dt>Anatomie</dt><dd>Technologielabel · kompakte starke Border</dd></div><div><dt>Unterschied</dt><dd>Kontext im Hero; Tag sitzt im Karteninhalt.</dd></div></dl></div>
+        </article>
+
+        <article class="element-row" id="ac-05" data-id="AC-05" data-name="Breadcrumb und Seitennavigation" data-search="breadcrumb brotkrumen page nav vor zurück detailseite">
+          <div class="specimen specimen--stack"><nav class="ui-breadcrumb"><a href="#">Automation</a><span>/</span><span>CRM-Sync</span></nav><nav class="ui-page-nav"><a href="#">← Alle Automationen</a><a href="#">Lead-Automation →</a></nav></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AC-05</span><span class="status status--current">Bestand</span></div><h3>Breadcrumb und Seitennavigation</h3><p class="purpose">Rahmt eine Detailseite mit Herkunft oben und inhaltlicher Fortsetzung unten.</p><ol class="anatomy"><li><b>Breadcrumb-Link</b> Elternseite</li><li><b>Current</b> aktuelle Fallstudie</li><li><b>Zurück</b> vorige/übergeordnete Seite</li><li><b>Weiter</b> nächste Seite</li></ol><p class="variants">Projektfolge · Forschungsfolge · Rückkehr zur Übersicht.</p></div>
+        </article>
+      </section>
+
+      <section class="element-section" id="karten">
+        <header class="group-head"><div><span>05</span><p>Karten</p></div><h2>Zusammengehörige Inhalte und Ziele</h2></header>
+
+        <article class="element-row" id="cd-01" data-id="CD-01" data-name="Basiskarte" data-search="card basiskarte kontakt grid rubrik">
+          <div class="specimen"><article class="ui-card category-automation"><span class="pin pin--1">1</span><p class="ui-eyebrow"><i></i>Vor dem Gespräch</p><h2>Automation</h2><p>Ein kontrollierter Ablauf zeigt, wie Datenfluss und manuelle Freigabe zusammenspielen.</p><a class="ui-action-link" href="#">Automation ansehen →</a></article></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">CD-01</span><span class="status status--current">Bestand</span></div><h3>Basiskarte</h3><p class="purpose">Fasst einen kurzen Inhalt mit eindeutigem Ziel zusammen.</p><ol class="anatomy"><li><b>Rubrikkante</b> inhaltliche Zugehörigkeit</li><li><b>Kicker</b> Kontext</li><li><b>Titel</b> Zielthema</li><li><b>Beschreibung</b> Relevanz</li><li><b>CTA</b> primärer Weg</li></ol><p class="variants">Normale Karte · ganze Karte anklickbar · Hover/Focus-within.</p></div>
+        </article>
+
+        <article class="element-row" id="cd-02" data-id="CD-02" data-name="Projektkarte" data-search="project card projektkarte plain wide tags link">
+          <div class="specimen"><article class="ui-project-card category-analysis"><span class="pin pin--1">1</span><p class="ui-eyebrow"><i></i>Forecasting · Hauptfall</p><h3>Zahlungsströme für den Wochenblick verbinden</h3><p>Quellen bleiben getrennt nachvollziehbar und laufen in einer gemeinsamen Ansicht zusammen.</p><div class="tag-set"><span class="ui-tag">Datenqualität</span><span class="ui-tag">Dashboard</span></div><a class="ui-action-link" href="#">System ansehen →</a></article></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">CD-02</span><span class="status status--current">aktiver Bestand</span></div><h3>Projektkarte · plain / wide</h3><p class="purpose">Präsentiert ein Projekt als breite, informationsstarke Desktop-Zeile ohne dekoratives Foto.</p><ol class="anatomy"><li><b>Rubrik-Wash und Kicker-Tick</b> Zugehörigkeit</li><li><b>Kicker</b> über beide Spalten</li><li><b>Titel</b> links</li><li><b>Beschreibung</b> rechts</li><li><b>Tags</b> links unten</li><li><b>CTA</b> rechts unten</li></ol><p class="variants">Nur plain + wide ist aktiv. Bildtragend und klein existieren ausschließlich im CSS; siehe LG-01.</p></div>
+        </article>
+
+        <article class="element-row" id="cd-03" data-id="CD-03" data-name="Feature-Zeile" data-search="feature row zeilenkarte forschung projektübersicht">
+          <div class="specimen"><article class="ui-feature"><div><p class="ui-eyebrow"><i></i>Forschungsfeld</p><h3>Membranprotein-Biophysik</h3></div><div><p>Ein längerer erklärender Text steht dem Titelblock gegenüber und kann Tags sowie eine Folgeaktion tragen.</p><a class="ui-action-link" href="#">Mehr zu diesem Feld →</a></div></article></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">CD-03</span><span class="status status--code">nur Code</span></div><h3>Feature-Zeile · Basis</h3><p class="purpose">Definiert den Zweispalten-Unterbau, erscheint aber nicht ohne Forschungsvariante im aktiven HTML.</p><ol class="anatomy"><li><b>Feature-Kopf</b> Kicker und Titel</li><li><b>Feature-Body</b> Beschreibung, Tags und CTA</li><li><b>Obere Rubrikkante</b> Zuordnung auf Unterseiten</li></ol><p class="variants">Aktiv ist nur die kombinierte Forschungsform CD-04.</p></div>
+        </article>
+
+        <article class="element-row" id="cd-04" data-id="CD-04" data-name="Forschungsfeature" data-search="research feature forschung abbildung figcaption">
+          <div class="specimen"><article class="ui-research-card"><div class="research-head"><p class="ui-eyebrow"><i></i>Forschungsfeld I</p><h3>Synthetische Membransysteme</h3></div><div class="research-copy"><p>Fachlicher Überblick mit Methoden und Ergebnisrahmen.</p><div class="tag-set"><span class="ui-tag">FRET</span><span class="ui-tag">Membranen</span></div><a class="ui-action-link" href="#">Mehr zu diesem Feld →</a></div><figure><img src="assets/forschung-membran.png" alt="Schematische FRET-Sensoren"><figcaption>Abbildung 1 — Eigene Darstellung.</figcaption></figure></article></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">CD-04</span><span class="status status--current">Bestand</span></div><h3>Forschungsfeature</h3><p class="purpose">Verbindet ein Forschungsfeld mit ausführlicher Einordnung und einer breiten wissenschaftlichen Abbildung.</p><ol class="anatomy"><li><b>Feldkopf</b> Einordnung und Titel</li><li><b>Fachtext</b> Methode und Kontext</li><li><b>Tags/CTA</b> optional</li><li><b>Research-Figure</b> Bild plus Caption</li></ol><p class="variants">Drei Forschungsfelder, UI-Zugehörigkeit immer „Über mich“.</p></div>
+        </article>
+
+        <article class="element-row" id="cd-05" data-id="CD-05" data-name="Case-Block" data-search="case block fallstudie wide entscheidung inhalt">
+          <div class="specimen"><article class="ui-case"><p class="ui-eyebrow"><i></i>Entscheidende Frage</p><h3>Was hat sich seit dem letzten Lauf geändert?</h3><p>Der Block macht eine einzelne fachliche Entscheidung, Ausgangslage oder Grenze scanbar.</p></article></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">CD-05</span><span class="status status--current">Bestand</span></div><h3>Case-Block</h3><p class="purpose">Gliedert kompakte Fallstudien nach Entscheidungen statt rein technischer Chronologie.</p><ol class="anatomy"><li><b>Kicker</b> Rolle im Fall</li><li><b>H2/H3</b> Entscheidungsaussage</li><li><b>Body/Liste</b> Begründung</li></ol><p class="variants">Halbe Breite · volle Breite · mit Entscheidungs- oder Ablaufsliste.</p></div>
+        </article>
+      </section>
+
+      <section class="element-section" id="information">
+        <header class="group-head"><div><span>06</span><p>Information</p></div><h2>Daten, Abläufe, Hinweise und Evidenz</h2></header>
+
+        <article class="element-row" id="in-01" data-id="IN-01" data-name="Faktenliste" data-search="fact list fakten profil aside">
+          <div class="specimen"><ul class="ui-facts"><li><strong>Ausbildung</strong><span>M.Sc. Biochemie</span></li><li><strong>Schwerpunkte</strong><span>Automation · Datenanalyse</span></li><li><strong>Arbeitsweise</strong><span>systematisch · nachvollziehbar</span></li></ul></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">IN-01</span><span class="status status--current">Bestand</span></div><h3>Faktenliste</h3><p class="purpose">Stellt kompakte Label-Wert-Paare als ruhige Seiteninformation bereit.</p><ol class="anatomy"><li><b>Faktenlabel</b> Meta-Rolle</li><li><b>Wert</b> regulärer Inhalt oder Link</li><li><b>Trennlinie</b> subtile Border</li></ol><p class="variants">Profil-Aside · einzeilige Anschlussliste.</p></div>
+        </article>
+
+        <article class="element-row" id="in-02" data-id="IN-02" data-name="Ablaufsliste" data-search="flow ablauf nummeriert schritte">
+          <div class="specimen"><ol class="ui-flow"><li><b>1</b><span><strong>Eingang lesen</strong><small>Quelle und Zustand prüfen.</small></span></li><li><b>2</b><span><strong>Einordnen</strong><small>Regeln auf den Fall anwenden.</small></span></li><li><b>3</b><span><strong>Übergeben</strong><small>Wirkung nachvollziehbar machen.</small></span></li></ol></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">IN-02</span><span class="status status--current">Bestand</span></div><h3>Ablaufsliste</h3><p class="purpose">Zeigt eine echte fachliche Reihenfolge in nummerierten Schritten.</p><ol class="anatomy"><li><b>Nummer</b> inhaltliche Reihenfolge</li><li><b>Schritttitel</b> Aktion</li><li><b>Beschreibung</b> Bedeutung</li><li><b>Trennlinie</b> Rhythmus</li></ol><p class="variants">Kurzer Ablauf in Case-Block; optional mit anschließender Projektansicht.</p></div>
+        </article>
+
+        <article class="element-row" id="in-03" data-id="IN-03" data-name="Entscheidungsliste" data-search="decision list entscheidung begründung liste marker">
+          <div class="specimen"><ul class="ui-decisions"><li><strong>Erst vergleichen.</strong> Nur neue oder veränderte Datensätze laden.</li><li><strong>Unklarheit erhalten.</strong> Fachlich offene Fälle nicht erraten.</li><li><strong>Freigabe trennen.</strong> Technischer Erfolg ist keine fachliche Zustimmung.</li></ul></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">IN-03</span><span class="status status--current">Bestand</span></div><h3>Entscheidungsliste</h3><p class="purpose">Verdichtet die Gründe eines Systems in eigenständige, nicht zwingend chronologische Aussagen.</p><ol class="anatomy"><li><b>Organischer Marker</b> Listenpunkt</li><li><b>Entscheidung</b> fett gesetzter Kern</li><li><b>Begründung</b> regulärer Body</li></ol><p class="variants">In breiten Case-Blöcken oder als Entscheidungszusammenfassung.</p></div>
+        </article>
+
+        <article class="element-row" id="in-04" data-id="IN-04" data-name="Outcome-Strip" data-search="outcome strip ergebnis kennzahlen summary">
+          <div class="specimen"><div class="ui-outcomes"><div><strong>Schlüssel</strong><span>ID + Zeitpunkt</span></div><div><strong>Zustand</strong><span>Einfügen oder aktualisieren</span></div><div><strong>Nutzen</strong><span>Gemeinsames Fundament</span></div></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">IN-04</span><span class="status status--current">Bestand</span></div><h3>Outcome-Strip</h3><p class="purpose">Schließt einen Fall mit drei kompakten Ergebnisdimensionen ab.</p><ol class="anatomy"><li><b>Ergebnislabel</b> Dimension</li><li><b>Ergebniswert</b> kurze Aussage</li><li><b>Dreierspalten</b> gleichwertige Zusammenfassung</li></ol><p class="variants">Inhalt variiert je Fallstudie; Struktur bleibt dreiteilig.</p></div>
+        </article>
+
+        <article class="element-row" id="in-05" data-id="IN-05" data-name="Hinweisfamilie" data-search="note hero note case note deadend warnung grenze">
+          <div class="specimen specimen--stack"><p class="ui-note"><strong>Hinweis:</strong> Sichtbare Beispiele sind synthetisch oder anonymisiert.</p><div class="ui-deadend"><span>Was zuerst nicht trug</span><p>Ein plausibler Ansatz wurde nach der Gegenprobe verworfen.</p></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">IN-05</span><span class="status status--current">Bestand</span></div><h3>Hinweisfamilie</h3><p class="purpose">Hebt Grenzen, Datenschutz, Kontext oder einen verworfenen Weg aus dem Haupttext heraus.</p><ol class="anatomy"><li><b>Signalwort</b> Hinweis/Grenze/Fehlversuch</li><li><b>Erklärung</b> konkrete Konsequenz</li><li><b>Gefasste Fläche</b> je nach Gewicht</li></ol><p class="variants">Hero-Note · Note · Case-Note · Deadend mit Label.</p></div>
+        </article>
+
+        <article class="element-row" id="in-06" data-id="IN-06" data-name="Abbildung" data-search="figure bild caption label credit grid research">
+          <div class="specimen"><figure class="ui-figure"><img src="assets/bewaesserung-weboberflaeche.png" alt="Beispiel einer lokalen Bewässerungsoberfläche"><figcaption><b>Abbildung 2</b> — Bedienung und Systemzustand in einer Ansicht. <small>Eigene Darstellung.</small></figcaption></figure></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">IN-06</span><span class="status status--current">Bestand</span></div><h3>Abbildung</h3><p class="purpose">Belegt eine Aussage mit visueller Evidenz und ordnet Herkunft sowie Bedeutung ein.</p><ol class="anatomy"><li><b>Bild</b> mit belastbarem Alt-Text</li><li><b>Abbildungslabel</b> nummeriert</li><li><b>Caption</b> Bedeutung</li><li><b>Credit</b> Quelle</li></ol><p class="variants">Einzelabbildung · weite Abbildung · Figure-Grid · Research-Figure.</p></div>
+        </article>
+
+        <article class="element-row" id="in-07" data-id="IN-07" data-name="Forecast-Dashboard" data-search="forecast dashboard chart daten visualisierung status quelle warnung">
+          <div class="specimen"><div class="ui-dashboard"><header><span><small>Wöchentlicher Forecast</small><strong>Beobachtung + Termine</strong></span><b>prüfbar</b></header><div class="chart"><i class="range"></i><svg viewBox="0 0 480 130" aria-hidden="true"><path class="grid" d="M0 25H480M0 65H480M0 105H480"/><path class="actual" d="M0 95 C55 82 80 42 140 60 S230 83 270 50"/><path class="forecast" d="M270 50 C330 30 380 76 480 38"/><path class="divider" d="M270 10V120"/></svg></div><footer><span>Bankdaten</span><span>Projekte</span><span>USt.</span></footer></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">IN-07</span><span class="status status--current">Bestand</span></div><h3>Forecast-Dashboard</h3><p class="purpose">Zeigt eine theoretische Wochenansicht, ohne erfundene Zahlen als echte Daten auszugeben.</p><ol class="anatomy"><li><b>Dashboard-Kopf</b> Zeitraum und Status</li><li><b>Ist-Linie</b> globale Textfarbe</li><li><b>Forecast-Linie/-Band</b> Rubrik Datenanalyse</li><li><b>Trennlinie</b> Übergang Ist/Prognose</li><li><b>Quellen</b> getrennte Beiträge</li></ol><p class="variants">Spezifisches Informationsmodul der Cash-Forecast-Fallstudie.</p></div>
+        </article>
+
+        <article class="element-row" id="in-08" data-id="IN-08" data-name="Automations-Entscheidungsbaum" data-search="decision tree entscheidungsbaum automation signal einordnung aktion wirkung rückgabe">
+          <div class="specimen specimen--tree"><div class="tree-line tree-line--main"></div><div class="tree-line tree-line--branch"></div><div class="tree-preview-node tree-preview-node--1"><b>Signal</b><small>Eingang</small></div><div class="tree-preview-node tree-preview-node--2"><b>Einordnung</b><small>Regeln prüfen</small></div><div class="tree-preview-node tree-preview-node--3"><em>eindeutig</em><b>Aktion</b><small>Schritt ausführen</small></div><div class="tree-preview-node tree-preview-node--4"><b>Wirkung</b><small>Ergebnis</small></div><div class="tree-preview-node tree-preview-node--stop"><em>unklar</em><b>Rückgabe</b><small>Mensch prüft</small></div><i class="tree-fork-preview"></i><i class="tree-bud-preview"></i></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">IN-08</span><span class="status status--current">Bestand</span></div><h3>Automations-Entscheidungsbaum</h3><p class="purpose">Macht das Grundmuster Signal → Einordnung → Aktion → Wirkung und den bewussten Stopppunkt sichtbar.</p><ol class="anatomy"><li><b>Hauptachse</b> eindeutiger Fall</li><li><b>Knotenlabel</b> Begriff plus Erklärung</li><li><b>Bedingungslabel</b> eindeutig / unklar</li><li><b>Rückgabezweig</b> menschliche Prüfung</li><li><b>Haze/Core</b> gezeichnete Verbindung</li><li><b>Knospe/Gabel</b> Übergänge</li></ol><p class="variants">Gemessener Desktop-Baum · eingerückter No-JS-Fallback · statisch bei Reduced Motion.</p></div>
+        </article>
+      </section>
+
+      <section class="element-section" id="startseite">
+        <header class="group-head"><div><span>07</span><p>Startseite</p></div><h2>Routen, Knoten und Übergänge</h2></header>
+
+        <article class="element-row" id="hm-01" data-id="HM-01" data-name="Routen-Intro" data-search="route intro stage startseite domains work">
+          <div class="specimen specimen--stage"><div class="ui-route-intro"><p class="ui-eyebrow"><i></i>Zwei Schwerpunkte</p><h3>Systeme lesbar machen</h3><p>Der Auftakt einer Routenbühne benennt, was die folgenden Ziele verbindet.</p></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">HM-01</span><span class="status status--current">Bestand</span></div><h3>Routen-Intro</h3><p class="purpose">Eröffnet eine große Startseitenbühne und gibt der räumlichen Route inhaltliche Richtung.</p><ol class="anatomy"><li><b>Orbit-/Routenanschluss</b> unsichtbarer Geometrieanker</li><li><b>Kicker</b> Umfang</li><li><b>Heading</b> Thema</li><li><b>Intro</b> Zusammenhang</li></ol><p class="variants">Schwerpunkte · ausgewählte Arbeiten.</p></div>
+        </article>
+
+        <article class="element-row" id="hm-02" data-id="HM-02" data-name="Routen-Eintrag" data-search="route entry domain project card startseite">
+          <div class="specimen specimen--stage"><i class="route-ray"></i><a class="ui-route-entry category-automation" href="#"><b>01</b><i class="route-dock"></i><div><p class="ui-eyebrow"><i></i>Automation</p><h3>Prüfbare Abläufe</h3><p>Wiederkehrende Arbeit überführen, ohne unklare Fälle zu verstecken.</p></div><span>Automation ansehen ↗</span></a></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">HM-02</span><span class="status status--current">Bestand</span></div><h3>Routen-Eintrag</h3><p class="purpose">Aktiviert ein Leitmotiv semantisch und verbindet Route, Rubrik und konkretes Ziel.</p><ol class="anatomy"><li><b>Index</b> räumliche Reihenfolge</li><li><b>Rubrikkicker</b> Zugehörigkeit</li><li><b>Titel/Body</b> Zielversprechen</li><li><b>CTA</b> Navigation</li><li><b>Route-Anker</b> gemessener Anschluss</li></ol><p class="variants">Domain-Eintrag · Projekt-Eintrag · linke/rechte Kante · drei Rubriken.</p></div>
+        </article>
+
+        <article class="element-row" id="hm-03" data-id="HM-03" data-name="Verbindender Pfad" data-search="route path laser verbindung startseite haze core activation">
+          <div class="specimen specimen--path"><svg viewBox="0 0 620 180" aria-hidden="true"><path class="path-haze" d="M10 145 C135 145 120 35 260 55 S420 160 610 48"/><path class="path-core" d="M10 145 C135 145 120 35 260 55 S420 160 610 48"/><path class="path-active" d="M235 51 C300 47 340 95 390 116"/></svg><span class="path-label path-label--a">global</span><span class="path-label path-label--b">lokal aktiviert</span></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">HM-03</span><span class="status status--rule">verbindlich</span></div><h3>Verbindender Pfad</h3><p class="purpose">Verknüpft die Scroll-Erzählung räumlich und nimmt nur im aktivierten Abschnitt dessen Rubrikfarbe auf.</p><ol class="anatomy"><li><b>Haze</b> weiche räumliche Präsenz</li><li><b>Core</b> lesbare Verbindungslinie</li><li><b>Aktivierungssegment</b> lokale Rubrikfarbe</li><li><b>Orbit-/Kartenstrahlen</b> geometrische Anschlüsse</li></ol><p class="variants">Hinten · Mitte im Biome · vorne · lokale Aktivierung; per JS aus DOM-Geometrie.</p></div>
+        </article>
+
+        <article class="element-row" id="hm-04" data-id="HM-04" data-name="Digitale DNA / Expertise-Knoten" data-search="expertise map cell dna hub node automation analyse">
+          <div class="specimen specimen--cell"><div class="cell-core"><span>DNA</span></div><a class="cell-node cell-node--a" href="#"><i></i><b>Automation</b><small>Systeme strukturieren</small></a><a class="cell-node cell-node--b" href="#"><i></i><b>Datenanalyse</b><small>Signale einordnen</small></a><svg viewBox="0 0 620 250" aria-hidden="true"><path d="M310 125 C245 98 205 75 145 55"/><path d="M310 125 C380 145 430 176 495 195"/></svg></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">HM-04</span><span class="status status--code">nur Code</span></div><h3>Digitale DNA / Expertise-Knoten</h3><p class="purpose">Verdichtet die fachliche Verbindung zwischen biologischem Denken, Automation und Datenanalyse.</p><ol class="anatomy"><li><b>Zellfeld</b> atmosphärischer Raum</li><li><b>Expertise-Hub</b> DNA-Zeichen</li><li><b>Signalwege</b> rubrikfarbene Verbindung</li><li><b>Zielknoten</b> Marker, Titel, Subline, CTA</li></ol><p class="variants">Vollständig in CSS/JS vorhanden, aktuell aber in keinem HTML eingesetzt. Nicht mit der aktiven Route verwechseln.</p></div>
+        </article>
+
+        <article class="element-row" id="hm-05" data-id="HM-05" data-name="Profil-Achse" data-search="profile axis facts branches vine über mich forschung private">
+          <div class="specimen specimen--profile"><div class="leaf-marker"><i></i></div><h3>Über mich ↗</h3><p>Biochemie, Daten und Software als zusammenhängende Arbeitsweise.</p><div class="profile-stats"><span><b>Forschung</b><small>Methoden</small></span><span><b>Projekte</b><small>Systeme</small></span></div><svg viewBox="0 0 620 70" aria-hidden="true"><path d="M310 5 C280 25 230 34 140 60 M310 5 C340 25 390 34 480 60"/></svg></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">HM-05</span><span class="status status--develop">Bestand / klären</span></div><h3>Profil-Achse</h3><p class="purpose">Bündelt den Profilverweis und verzweigt zu Forschung und privaten Projekten.</p><ol class="anatomy"><li><b>Jahresring-Marker</b> verbindliches Profilmotiv</li><li><b>Verlinkter Titel</b> Profilziel</li><li><b>Kurzprofil</b> Einordnung</li><li><b>Faktenband</b> Eckpunkte</li><li><b>Ranke/Äste</b> Verbindung</li><li><b>Zweigkarten</b> Forschung und Projekte</li></ol><p class="variants">Konflikt: Aktuell dominieren Blatt/Ranke im Wasser; die Designautorität verlangt Stamm/Jahresringe als semantisch aktivierten Fokus.</p></div>
+        </article>
+
+        <article class="element-row" id="hm-06" data-id="HM-06" data-name="Kontakt-Lichtöffnung" data-search="home contact lichtöffnung cta glow section">
+          <div class="specimen specimen--light"><div><p class="ui-eyebrow"><i></i>Kontakt</p><h3>Über einen konkreten Fall sprechen</h3><p>Die Lichtöffnung bündelt die letzte Handlung der Startseite.</p><button class="ui-button ui-button--primary">Kontakt aufnehmen ↗</button></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">HM-06</span><span class="status status--current">Bestand</span></div><h3>Kontakt-Lichtöffnung</h3><p class="purpose">Schließt die Startseitenreise als hellster, eindeutig aktivierter Kontaktbereich ab.</p><ol class="anatomy"><li><b>Lichtkegel/-öffnung</b> Artwork</li><li><b>Kontakt-Kicker</b> Rubrikzuordnung</li><li><b>Heading/Body</b> Gesprächsanlass</li><li><b>Actions</b> konkreter Kontaktweg</li></ol><p class="variants">Kontakt-Rubrikfarbe nur als atmosphärischer Fokus; Button bleibt global.</p></div>
+        </article>
+      </section>
+
+      <section class="element-section" id="artwork">
+        <header class="group-head"><div><span>08</span><p>Artwork</p></div><h2>Leitmotive der gemeinsamen organischen Welt</h2></header>
+
+        <article class="element-row" id="ar-01" data-id="AR-01" data-name="Automation · Leitgewebe" data-search="artwork automation leitgewebe transportnetz pflanze wurzel">
+          <div class="specimen specimen--motif motif--automation"><div class="motif-art"><i></i><i></i><i></i><b></b></div><span>Leitgewebe · Transportnetz</span></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AR-01</span><span class="status status--develop">weiterentwickeln</span></div><h3>Automation · Leitgewebe</h3><p class="purpose">Übersetzt gerichtete, kontrollierte Abläufe in pflanzliche Transport- und Verzweigungslogik.</p><ol class="anatomy"><li><b>Hauptleitung</b> Kernprozess</li><li><b>Verzweigung</b> Bedingungen</li><li><b>Knoten</b> Übergaben/Prüfungen</li><li><b>gerichtete Bewegung</b> aktive Verarbeitung</li></ol><p class="variants">Passiv in der Landschaft · semantisch aktiviert auf Automation · Entscheidungsbaum als UI-nahe Form.</p></div>
+        </article>
+
+        <article class="element-row" id="ar-02" data-id="AR-02" data-name="Datenanalyse · Strömung" data-search="artwork datenanalyse wasser strömung schichten caustics">
+          <div class="specimen specimen--motif motif--analysis"><div class="motif-art"><i></i><i></i><i></i><b></b></div><span>Wasser · Strömungsschichten</span></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AR-02</span><span class="status status--develop">weiterentwickeln</span></div><h3>Datenanalyse · Strömung</h3><p class="purpose">Zeigt Quellen, Schichten, Flussrichtung und Unsicherheit, ohne Wasser zur UI-Farbe zu machen.</p><ol class="anatomy"><li><b>Wasserfläche</b> Schwelle</li><li><b>Strömungsschichten</b> Quellen</li><li><b>Kaustik</b> aktive Evidenz</li><li><b>Partikel</b> einzelne Beobachtungen</li></ol><p class="variants">Landschaftswasser · Rubrikbühne · Forecast als abstrahierte Informationsform.</p></div>
+        </article>
+
+        <article class="element-row" id="ar-03" data-id="AR-03" data-name="Private Projekte · Zenote" data-search="artwork private projekte zenote höhle cave depth">
+          <div class="specimen specimen--motif motif--private"><div class="motif-art"><i></i><i></i><i></i><b></b></div><span>Zenote · Höhle</span></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AR-03</span><span class="status status--develop">weiterentwickeln</span></div><h3>Private Projekte · Zenote</h3><p class="purpose">Gibt selbst initiierten, vollständigen Systemen einen eigenständigen Raum mit Tiefe und Erkundungscharakter.</p><ol class="anatomy"><li><b>Schlund</b> Eintritt ins Problem</li><li><b>Felsringe</b> Systemgrenzen</li><li><b>Lichtkegel</b> Erkenntnisraum</li><li><b>Tiefenwasser</b> eigenständige Welt</li></ol><p class="variants">Ferne/nahe Höhlenkante · hintere/vordere Wand · Wurzelübergang.</p></div>
+        </article>
+
+        <article class="element-row" id="ar-04" data-id="AR-04" data-name="Über mich · Stamm und Jahresringe" data-search="artwork profil über mich stamm jahresringe baum">
+          <div class="specimen specimen--motif motif--profile"><div class="motif-art"><i></i><i></i><i></i><b></b></div><span>Stamm · Jahresringe</span></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AR-04</span><span class="status status--develop">weiterentwickeln</span></div><h3>Über mich · Stamm und Jahresringe</h3><p class="purpose">Verankert Werdegang, Erfahrung und Verzweigungen in einer zeitlich gewachsenen Struktur.</p><ol class="anatomy"><li><b>Stamm</b> Biografieachse</li><li><b>Jahresringe</b> Entwicklung</li><li><b>Herzlinie</b> Kontinuität</li><li><b>Äste/Ranken</b> Vertiefungen</li></ol><p class="variants">Profil-Marker · Achse · Übergang zur eigenständigen Forschungswelt.</p></div>
+        </article>
+
+        <article class="element-row" id="ar-05" data-id="AR-05" data-name="Kontakt · Lichtöffnung" data-search="artwork kontakt licht öffnung glow hell">
+          <div class="specimen specimen--motif motif--contact"><div class="motif-art"><i></i><i></i><i></i><b></b></div><span>Lichtöffnung</span></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AR-05</span><span class="status status--develop">weiterentwickeln</span></div><h3>Kontakt · Lichtöffnung</h3><p class="purpose">Markiert den klaren Austritt aus der Landschaft und den Übergang in ein Gespräch.</p><ol class="anatomy"><li><b>Öffnung</b> Ziel</li><li><b>Lichtkegel</b> gerichtete Aufmerksamkeit</li><li><b>Staub/Partikel</b> räumliche Tiefe</li><li><b>ruhiger Vordergrund</b> Platz für Handlung</li></ol><p class="variants">Startseitenabschluss · ruhigere Kontakt-Unterseite.</p></div>
+        </article>
+
+        <article class="element-row" id="ar-06" data-id="AR-06" data-name="Forschung · Mikroskopische Zellwelt" data-search="artwork forschung zelle mikroskopisch membrane organelle scale">
+          <div class="specimen specimen--motif motif--research"><div class="motif-art"><i></i><i></i><i></i><b></b></div><span>Mikroskopische Zellwelt</span></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">AR-06</span><span class="status status--develop">Regel / entwickeln</span></div><h3>Forschung · Mikroskopische Zellwelt</h3><p class="purpose">Vollzieht innerhalb „Über mich“ einen echten Maßstabswechsel in einen eigenständigen Forschungsraum.</p><ol class="anatomy"><li><b>Mikroskopische Raumgrenze</b> eigenständige Welt</li><li><b>Zelluläre Tiefenlagen</b> Atmosphäre</li><li><b>Funktionale Strukturen</b> fachlicher Fokus</li><li><b>Signale/Partikel</b> gerichtete Aktivität</li></ol><p class="variants">Die Vorschau ist eine Konzeptskizze. Aktuell ist die Subpage-Welt primär gradient-/membranartig; explizite Organellen aus der alten Expertise-Map sind kein aktiver Bestand.</p></div>
+        </article>
+      </section>
+
+      <section class="element-section" id="komposition">
+        <header class="group-head"><div><span>09</span><p>Komposition</p></div><h2>Elemente im räumlichen Zusammenhang</h2></header>
+
+        <article class="element-row" id="pg-01" data-id="PG-01" data-name="Abschnittsfamilie" data-search="section standard alt dark schlusssektion fläche">
+          <div class="specimen specimen--sections"><div class="section-sample"><small>Standard</small><h3>Inhalt auf Artwork-Grund</h3></div><div class="section-sample section-sample--alt"><small>Alternativ</small><h3>Übergang und Trennung</h3></div><div class="section-sample section-sample--dark"><small>Dunkel</small><h3>Verdichteter Schluss</h3></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">PG-01</span><span class="status status--develop">Bestand / klären</span></div><h3>Abschnittsfamilie</h3><p class="purpose">Steuert Seitenrhythmus, Übergänge und den verdichteten Schlussbereich.</p><ol class="anatomy"><li><b>Standardsektion</b> regulärer Inhalt</li><li><b>Alt-Sektion</b> Übergang oder Absetzung</li><li><b>Dark-Sektion</b> Kicker, H2, Text, optionale Aktionen</li><li><b>Container/Rhythmus</b> gemeinsames Maß</li></ol><p class="variants">Klärung: Der eigene Dark-Verlauf muss als Artwork-Bühne oder zusätzliche UI-Surface eindeutig eingeordnet werden.</p></div>
+        </article>
+
+        <article class="element-row" id="pg-02" data-id="PG-02" data-name="Split-Layout" data-search="split prose aside fact list zweispalter layout">
+          <div class="specimen specimen--split"><div><small>PROSA</small><h3>Vom Experiment zum System</h3><p>Längerer Lesetext nutzt die breite Hauptspalte.</p><p>Weitere Absätze bleiben im gemeinsamen Lesemaß.</p></div><aside><small>ASIDE</small><b>Ausbildung</b><span>M.Sc. Biochemie</span><b>Schwerpunkt</b><span>Automation · Daten</span></aside></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">PG-02</span><span class="status status--current">Bestand</span></div><h3>Split-Layout</h3><p class="purpose">Stellt längere Prosa einer kompakten Fakten- oder Zusatzspalte gegenüber.</p><ol class="anatomy"><li><b>Hauptspalte</b> Prosa</li><li><b>Nebenspalte</b> Fakten/Aside</li><li><b>Spaltenabstand</b> Layouttrennung</li><li><b>Lesemaß</b> 68ch bzw. breite Variante</li></ol><p class="variants">Über mich · Forschungsübersicht · Forschungsdetails.</p></div>
+        </article>
+
+        <article class="element-row" id="pg-03" data-id="PG-03" data-name="Fallstudien-Komposition" data-search="case study intro grid blocks outcome media note navigation composition">
+          <div class="specimen specimen--case-composition"><header><small>CASE INTRO</small><h3>Entscheidungen vor Chronologie</h3></header><div class="case-mini-grid"><i></i><i></i><i class="wide"></i><i></i><i></i></div><div class="case-mini-outcome"></div><div class="case-mini-media"></div><footer>← vorheriger Fall <span>nächster Fall →</span></footer></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">PG-03</span><span class="status status--current">Bestand</span></div><h3>Fallstudien-Komposition</h3><p class="purpose">Ordnet den gesamten Detailfall aus Einleitung, Entscheidungen, Ergebnis, Evidenz und Folgewegen.</p><ol class="anatomy"><li><b>Case-Intro</b> fachlicher Rahmen</li><li><b>Case-Grid</b> normale und breite Blöcke</li><li><b>Outcome-Strip</b> Ergebnis</li><li><b>Medien/Case-Note</b> Evidenz und Grenze</li><li><b>Page-Nav</b> Fortsetzung</li></ol><p class="variants">Alle zehn Projektfälle; Inhalt variiert, Kompositionsfolge bleibt verwandt.</p></div>
+        </article>
+
+        <article class="element-row" id="pg-04" data-id="PG-04" data-name="Biome-Welt Gesamtkomposition" data-search="biome world canopy tree roots cenote water composition startseite">
+          <div class="specimen specimen--biome"><div class="biome-canopy-mini"></div><div class="biome-trunk-mini"></div><div class="biome-cenote-mini"></div><div class="biome-water-mini"></div><svg viewBox="0 0 620 320" aria-hidden="true"><path d="M70 45 C210 90 190 190 320 160 S450 225 560 285"/></svg><span>Krone</span><span>Stamm</span><span>Zenote</span><span>Wasser</span></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">PG-04</span><span class="status status--current">Bestand</span></div><h3>Biome-Welt · Gesamtkomposition</h3><p class="purpose">Hält Dschungel, Stamm, Wurzeln, Zenote und Wasser als eine zusammenhängende Scroll-Landschaft.</p><ol class="anatomy"><li><b>Kronendach</b> oberer Landschaftsraum</li><li><b>Stamm/Jahresringe</b> vertikale Achse</li><li><b>Wurzeln</b> Verbindung</li><li><b>Zenote/Höhle</b> Tiefenwechsel</li><li><b>Wasserwelt</b> unterer Raum</li><li><b>Pfad</b> separat als HM-03</li></ol><p class="variants">Die Landschaft darf Motive passiv tragen; semantische Bedeutung entsteht erst durch gezielte Aktivierung.</p></div>
+        </article>
+
+        <article class="element-row" id="pg-05" data-id="PG-05" data-name="Ambient Life" data-search="ambient life leaf bubble blätter blasen bewegung startseite">
+          <div class="specimen specimen--ambient"><i class="ambient-leaf ambient-leaf--1"></i><i class="ambient-bubble ambient-bubble--1"></i><i class="ambient-leaf ambient-leaf--2"></i><i class="ambient-bubble ambient-bubble--2"></i><i class="ambient-leaf ambient-leaf--3"></i><span>Blätter · Blasen · Tiefenbewegung</span></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">PG-05</span><span class="status status--current">Bestand</span></div><h3>Ambient Life</h3><p class="purpose">Gibt der langen Startseitenwelt leise biologische Bewegung und räumliche Tiefe.</p><ol class="anatomy"><li><b>Blattform</b> oberer/organischer Raum</li><li><b>Blase</b> Wasserraum</li><li><b>Position</b> zehn verteilte Instanzen</li><li><b>Geschwindigkeit/Delay</b> ungleichmäßiger Rhythmus</li></ol><p class="variants">Rein dekorativ; bei Reduced Motion vollständig ohne Animation.</p></div>
+        </article>
+
+        <article class="element-row" id="pg-06" data-id="PG-06" data-name="Profil-zu-Forschung-Übergang" data-search="profile research transition maßstabswechsel forschung zellwelt">
+          <div class="specimen specimen--transition"><div class="transition-rings"><i></i><i></i><i></i></div><div class="transition-threshold">Maßstabswechsel</div><div class="transition-cell"><i></i><i></i><i></i></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">PG-06</span><span class="status status--develop">weiterentwickeln</span></div><h3>Profil → Forschung</h3><p class="purpose">Schließt den Werdegangsraum und öffnet eine eigenständige mikroskopische Forschungswelt.</p><ol class="anatomy"><li><b>Profilseite</b> Stamm/Jahresring-Kontext</li><li><b>Schwelle</b> erkennbarer Maßstabswechsel</li><li><b>Forschungsraum</b> eigenständige Zellwelt</li><li><b>UI-Zugehörigkeit</b> bleibt Über mich</li></ol><p class="variants">Keine Zelle im Stamm oder Jahresring; räumlich eigenständiger Übergang.</p></div>
+        </article>
+
+        <article class="element-row" id="pg-07" data-id="PG-07" data-name="Unterseiten-Hintergrundfamilie" data-search="subpage background automation analysis private profile contact research artwork">
+          <div class="specimen specimen--subpages"><div style="--cat:var(--automation)"><i></i><span>Automation</span></div><div style="--cat:var(--analysis)"><i></i><span>Analyse</span></div><div style="--cat:var(--private)"><i></i><span>Privat</span></div><div style="--cat:var(--profile)"><i></i><span>Profil</span></div><div style="--cat:var(--contact)"><i></i><span>Kontakt</span></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">PG-07</span><span class="status status--current">Bestand</span></div><h3>Unterseiten-Hintergrundfamilie</h3><p class="purpose">Führt die gemeinsame dunkle Welt je Rubrik reduziert und motivisch verwandt fort.</p><ol class="anatomy"><li><b>Gemeinsamer Tiefengrund</b> globale Welt</li><li><b>Subpage-Biome</b> Konturen/Partikel</li><li><b>Rubrikmotiv</b> Netz, Strömung, Zenote, Ringe oder Licht</li><li><b>Hero-Layer</b> ruhige Titelzone</li></ol><p class="variants">Forschung besitzt eine eigene mikroskopische Variante; Artwork-Farben werden nicht zu UI-Farben.</p></div>
+        </article>
+      </section>
+
+      <section class="element-section" id="system">
+        <header class="group-head"><div><span>10</span><p>System &amp; Archiv</p></div><h2>Zustände und vorhandene, nicht aktive Familien</h2></header>
+
+        <article class="element-row" id="sy-01" data-id="SY-01" data-name="Interaktionszustände" data-search="state default hover active focus disabled clickable zustand">
+          <div class="specimen specimen--states"><button class="state-sample"><small>Default</small><b>Aktion</b></button><button class="state-sample is-hover"><small>Hover</small><b>Aktion</b></button><button class="state-sample is-active"><small>Active</small><b>Aktion</b></button><button class="state-sample is-focus"><small>Focus</small><b>Aktion</b></button><button class="state-sample" disabled><small>Disabled</small><b>Aktion</b></button></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">SY-01</span><span class="status status--rule">verbindlich</span></div><h3>Interaktionszustände</h3><p class="purpose">Hält Funktion und Feedback rubrikunabhängig über alle interaktiven Familien konsistent.</p><ol class="anatomy"><li><b>Default</b> eindeutige Bedienbarkeit</li><li><b>Hover</b> stärkere Surface / leichte Elevation</li><li><b>Active</b> unmittelbare Betätigung</li><li><b>Focus</b> globaler sichtbarer Ring</li><li><b>Disabled</b> reduzierte, nicht interaktive Form</li></ol><p class="variants">Karten erhalten Ganzflächen-Klick nur bei genau einem Primärlink; Tastatur bedient weiterhin den echten Link.</p></div>
+        </article>
+
+        <article class="element-row" id="sy-02" data-id="SY-02" data-name="Bewegung und Fallbacks" data-search="motion reveal reduced no js intersection animation route tree">
+          <div class="specimen specimen--motion"><div class="motion-track"><i></i><span>Reveal</span></div><div class="motion-track motion-track--route"><i></i><span>Route-Aufbau</span></div><div class="motion-static"><b>Reduced Motion</b><small>sofort sichtbar · vollständig statisch</small></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">SY-02</span><span class="status status--current">Bestand</span></div><h3>Bewegung und Fallbacks</h3><p class="purpose">Ergänzt Verständnis, ohne Information oder Bedienbarkeit von Animation oder JavaScript abhängig zu machen.</p><ol class="anatomy"><li><b>Reveal</b> einmaliges Einblenden</li><li><b>Route</b> DOM-vermessene Geometrie ab Desktop</li><li><b>Baumaufbau</b> einmaliges Wachstum</li><li><b>No-JS</b> lesbare Grundstruktur</li><li><b>Reduced Motion</b> sofortige statische Darstellung</li></ol><p class="variants">Fokus darf nie in einem unsichtbaren Reveal-Zustand landen.</p></div>
+        </article>
+
+        <article class="element-row" id="lg-01" data-id="LG-01" data-name="Bildtragende Projektkarte" data-search="legacy project card image foto normal wide nur code">
+          <div class="specimen specimen--image-card"><article><img src="assets/ml-forecast-karte.jpg" alt="Abstrakte Forecast-Ansicht"><div><p class="ui-eyebrow"><i></i>Projekt</p><h3>Bildtragende Projektkarte</h3><a href="#">Projekt ansehen →</a></div></article></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">LG-01</span><span class="status status--code">nur Code</span></div><h3>Bildtragende Projektkarte</h3><p class="purpose">Historisch definierte Projektkartenform mit vollflächigem Bild und Textverlauf.</p><ol class="anatomy"><li><b>Hintergrundbild</b> visueller Kontext</li><li><b>Kontrastverlauf</b> Textsicherheit</li><li><b>Body</b> Kicker, Titel, Beschreibung</li><li><b>Tags/CTA</b> optional</li></ol><p class="variants">Normal · wide. Aktuell werden in allen Rubrikübersichten ausschließlich plain-wide Zeilen verwendet.</p></div>
+        </article>
+
+        <article class="element-row" id="lg-02" data-id="LG-02" data-name="Frühere Startseitenfamilien" data-search="legacy portal route cell dna window cenote gathering companion nur code">
+          <div class="specimen specimen--archive"><div class="archive-shape archive-shape--portal"><i></i><span>Portal</span></div><div class="archive-shape archive-shape--cell"><i></i><span>Route Cell</span></div><div class="archive-shape archive-shape--dna"><i></i><span>DNA Window</span></div></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">LG-02</span><span class="status status--code">nur Code</span></div><h3>Frühere Startseitenfamilien</h3><p class="purpose">Sammelt vorhandene CSS-Familien, die nicht Teil des aktuellen HTML und damit kein aktiver Ist-Stand sind.</p><ol class="anatomy"><li><b>Domain Portals</b> Portal-Shell, Tiefe, Pulse</li><li><b>Route Cells</b> drei Membranformen und Companion</li><li><b>DNA Window</b> Helix-Lamellen</li><li><b>Cenote Gathering</b> ältere Übergangsszene</li></ol><p class="variants">Nur als Gesprächsevidenz zeigen; nicht still in neue Entwürfe übernehmen.</p></div>
+        </article>
+
+        <article class="element-row" id="lg-03" data-id="LG-03" data-name="Historische Prompt-Komponente und verwaiste Hooks" data-search="historisch prompt component orphan hook data cat profile transition">
+          <div class="specimen specimen--archive-note"><span>HISTORISCH</span><h3>Kein aktives Element</h3><p>Prompt-Komponente, <code>data-cat</code> der Forschungskarten und einzelne Klassen bestehen als Code-Evidenz ohne aktuelle Darstellung.</p></div>
+          <div class="element-info"><div class="element-title"><span class="element-id">LG-03</span><span class="status status--code">historisch</span></div><h3>Historische Komponente und Hooks</h3><p class="purpose">Verhindert, dass ungenutzte Selektoren fälschlich als verbindliches Designsystem gelesen werden.</p><dl><div><dt>Enthält</dt><dd>Prompt-Komponente · ungenutzte data-cat-Werte · verwaiste profile-transition-Klasse · ungenutzte Helfer</dd></div><div><dt>Regel</dt><dd>Code ist Evidenz, nicht automatisch Designautorität.</dd></div><div><dt>Besprechung</dt><dd>Nur reaktivieren, wenn eine bewusste neue Entscheidung dafür fällt.</dd></div></dl></div>
+        </article>
+      </section>
+
+      <section class="board-end">
+        <p class="overline">Bereit für die Besprechung</p>
+        <h2>So kannst du Änderungen anweisen</h2>
+        <code>CD-02 · Projektkarte — Anatomiepunkt 3 „Titel“: weniger technisch, stärker auf Wirkung ausrichten.</code>
+        <p>Mit ID, Elementname und Anatomiepunkt bleibt jede Anweisung eindeutig. Familienweite Änderungen kannst du mit „alle Varianten“ ergänzen.</p>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Änderungsvorlage kopiert</div>
+  <script src="board.js"></script>
+</body>
+</html>

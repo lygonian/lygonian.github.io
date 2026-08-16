@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PV-Vertragsgenerator — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Wie CRM-Daten, Angebots-PDF und eine eindeutig benannte Formularvorlage zu einem prüfbaren Kaufvertrag zusammengeführt werden.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="subpage subpage--automation">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header"><div class="container"><a class="brand" href="../index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a><nav class="site-nav" aria-label="Hauptnavigation"><a href="../index.html">Start</a><a href="../automation.html" aria-current="location">Automation</a><a href="../datenanalyse.html">Datenanalyse</a><a href="../private_projekte.html">Private Projekte</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav></div></header>
+  <main id="main">
+    <section class="page-hero"><div class="container">
+      <nav class="breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../automation.html">Automation</a></li><li aria-current="page">Vertragsgenerator</li></ol></nav><p class="eyebrow">Fallstudie · Dokumentlogik</p><h1>Von der Angebotsnummer zum ausgefüllten Kaufvertrag</h1>
+      <p class="lead">Kunden-, Projekt- und Anlagendaten waren bereits vorhanden. Der Generator verbindet sie über einen eindeutigen Schlüssel, liest ergänzende Werte aus dem Angebot und füllt nur eindeutig zuordenbare Vertragsfelder.</p>
+      <ul class="project-skills" aria-label="Technologien"><li class="skill-badge">Python</li><li class="skill-badge">PDF-Formulare</li><li class="skill-badge">pdfplumber</li><li class="skill-badge">pandas</li><li class="skill-badge">Tkinter</li></ul>
+      <p class="hero-note">Vertragsvorlagen, Kundendaten und interne Zugänge bleiben privat. Die Ansicht nutzt synthetische Beispieldaten.</p>
+    </div></section>
+
+    <section class="case-study"><div class="container">
+      <div class="case-intro"><p>Das Problem war kein fehlender Text, sondern eine fehlende Verbindung zwischen bestehenden Informationen und den richtigen Stellen im Dokument. Damit diese Verbindung stabil wird, müssen Quelle, Schlüssel und Formularfelder eindeutig sein.</p></div>
+      <div class="case-grid">
+        <article class="case-block"><p class="eyebrow">Ausgangslage</p><h2>Vorhandene Daten wurden erneut abgetippt</h2><p>CRM, Projekt und Angebots-PDF enthielten bereits Namen, Anschrift, Komponenten und Preise. Das manuelle Übertragen kostete Zeit und eröffnete bei jedem Vertrag neue Fehlerquellen.</p></article>
+        <article class="case-block"><p class="eyebrow">Technischer Wendepunkt</p><h2>Für Menschen sichtbar, für Software uneindeutig</h2><p>Die erste Formularvorlage hatte fast überall denselben internen Feldnamen. Erst eindeutige Bezeichnungen wie Kundenname, Gesamtpreis oder Speicherstatus machten aus Positionen eine verlässliche Datenstruktur.</p></article>
+        <article class="case-block case-block--wide"><p class="eyebrow">Lösungslogik</p><h2>Ein Schlüssel verbindet drei Quellen</h2><ul class="decision-list">
+          <li><strong>Angebotsnummer als Aktenzeichen:</strong> Sie identifiziert den Vorgang stabiler als Name oder Adresse und verbindet Angebot, Kunde und Vertrag.</li>
+          <li><strong>CRM-Daten über IDs zusammenführen:</strong> Kontakt-, Projekt- und Dokumenttabellen werden bereinigt, bevor ein Vertragsfeld beschrieben wird.</li>
+          <li><strong>Angebots-PDF nach festen Mustern lesen:</strong> Module, Leistung und optionale Komponenten werden nur übernommen, wenn der Text sie eindeutig belegt.</li>
+          <li><strong>Sichere Standardwerte:</strong> Optionale Bestandteile beginnen mit „nicht vorhanden“. Unklare Funde bleiben leer, statt wahrscheinlich ergänzt zu werden.</li>
+          <li><strong>Vorlage und Code gemeinsam prüfen:</strong> Änderungen an Feldnamen oder Vertragsversionen können die Zuordnung brechen und werden zuerst mit Testdaten kontrolliert.</li>
+        </ul></article>
+        <article class="case-block"><p class="eyebrow">Nutzbarkeit</p><h2>Vom Notebook zur kleinen Fachanwendung</h2><p>Die Oberfläche reduziert den Vorgang auf Angebotsnummer, Datenaktualisierung und Erstellen. Pfade, Schlüssel und Python-Dateien bleiben außerhalb der Bedienung.</p></article>
+        <article class="case-block"><p class="eyebrow">Bewusste Grenze</p><h2>Kein automatischer Versand</h2><p>Der fertige Vertrag wird vor dem Versand fachlich geprüft. Rechtliche Inhalte, Preise und optionale Komponenten sind zu folgenreich, um einen technisch erfolgreichen Export mit einer Freigabe gleichzusetzen.</p></article>
+      </div>
+      <div class="outcome-strip"><div><strong>Schlüssel</strong><span>Angebotsnummer verbindet den Vorgang</span></div><div><strong>Mapping</strong><span>Eindeutige Quellen zu eindeutigen Feldern</span></div><div><strong>Grenze</strong><span>Manuelle Prüfung vor dem Versand</span></div></div>
+      <figure class="figure"><img src="../assets/img/kv-ersteller-app.png" alt="Desktop-Anwendung zur Vertragserstellung mit Angebotsnummer und klaren Aktionsschaltflächen" width="640" height="580" loading="lazy" decoding="async"><figcaption>Die komplexe Datenverknüpfung bleibt im Hintergrund; sichtbar ist ein kurzer, kontrollierter Ablauf.</figcaption></figure>
+      <nav class="page-nav" aria-label="Weitere Projekte"><a href="rechnungs_pipeline.html"><span aria-hidden="true">←</span> Zahlungsabgleich</a><a href="graphql_reverse_engineering.html">GraphQL-Grundlage <span aria-hidden="true">→</span></a></nav>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer><script src="../assets/js/atlas.js" defer></script>
+</body></html>

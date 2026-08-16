@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automation — Samet Kurt</title>
+  <meta name="description" content="Arbeitsproben von Samet Kurt: robuste Automationen für Datenzugriff, Lead-Verarbeitung, Zahlungsabgleich und Dokumenterstellung.">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="subpage subpage--automation">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header"><div class="container">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a>
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      <a href="index.html">Start</a><a href="automation.html" aria-current="page">Automation</a><a href="datenanalyse.html">Datenanalyse</a><a href="private_projekte.html">Private Projekte</a><a href="ueber_mich.html">Über mich</a><a href="kontakt.html">Kontakt</a>
+    </nav>
+  </div></header>
+
+  <main id="main">
+    <section class="page-hero" aria-labelledby="automation-title"><div class="container">
+      <p class="eyebrow">Automation · Arbeitsproben</p>
+      <h1 id="automation-title">Wiederkehrende Arbeit in kontrollierte Abläufe übersetzen</h1>
+      <p class="lead">Jede Automatisierung folgt im Kern demselben Muster: Ein Signal trifft auf eine Einordnung. Ist der Fall eindeutig, läuft der festgelegte Schritt und erzeugt eine nachvollziehbare Wirkung — ist er es nicht, endet der Ablauf sichtbar bei einem Menschen. Jede Fallstudie ergänzt diesen Kern um ihre eigenen Schritte und Pfade.</p>
+
+      <!-- Grundmuster, bewusst schlicht: Die Hauptachse Signal → Einordnung →
+           Aktion → Wirkung steht auf einer Linie, abweichende Pfade hängen
+           darunter. Projektseiten hängen weitere Knoten in dieselbe
+           verschachtelte Liste, ohne dass die Achse sich verschiebt.
+           Die Verbindungen zeichnet assets/js/atlas.js aus den gemessenen
+           Kanten der Beschriftungen. Ohne Skript bleibt die Gliederung als
+           eingerückte Liste lesbar. -->
+      <div class="decision-tree" data-tree data-reveal>
+        <svg class="tree-canvas" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="tree-gradient" gradientUnits="userSpaceOnUse" x1="-60" y1="0" x2="1000" y2="0">
+              <stop offset="0%" stop-color="var(--category)" stop-opacity="0" />
+              <stop offset="12%" stop-color="var(--category)" stop-opacity="0.85" />
+              <stop offset="36%" stop-color="var(--category)" stop-opacity="0.88" />
+              <stop offset="60%" stop-color="var(--category)" stop-opacity="0.86" />
+              <stop offset="82%" stop-color="var(--category)" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="var(--category)" stop-opacity="0.74" />
+            </linearGradient>
+          </defs>
+          <g class="tree-links"></g>
+          <g class="tree-marks"></g>
+        </svg>
+
+        <ol class="tree-branch tree-branch--root" aria-label="Grundmuster einer Automatisierung">
+          <li class="tree-node">
+            <span class="tree-label">
+              <strong>Signal</strong>
+              <small>Eine E-Mail, ein geänderter Datensatz, eine Zahlung.</small>
+            </span>
+            <ol class="tree-branch">
+              <li class="tree-node">
+                <span class="tree-label">
+                  <strong>Einordnung</strong>
+                  <small>Vordefinierte Regeln prüfen den Fall.</small>
+                </span>
+                <ol class="tree-branch">
+                  <li class="tree-node">
+                    <span class="tree-label">
+                      <span class="tree-when">eindeutig</span>
+                      <strong>Aktion</strong>
+                      <small>Der festgelegte Schritt wird ausgeführt.</small>
+                    </span>
+                    <ol class="tree-branch">
+                      <li class="tree-node">
+                        <span class="tree-label">
+                          <strong>Wirkung</strong>
+                          <small>Ein CRM-Eintrag, eine verbuchte Zahlung, ein fertiges Dokument.</small>
+                        </span>
+                      </li>
+                    </ol>
+                  </li>
+                  <li class="tree-node tree-node--stop">
+                    <span class="tree-label">
+                      <span class="tree-when">unklar</span>
+                      <strong>Rückgabe</strong>
+                      <small>Der Fall stoppt und geht an einen Menschen.</small>
+                    </span>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+    </div></section>
+
+    <section class="section" aria-labelledby="arbeiten-title"><div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Arbeitsproben</p>
+        <h2 id="arbeiten-title">Automationen entlang ihrer Entscheidungen verstehen</h2>
+        <p>Der Zahlungsworkflow ist der Hauptfall. Die weiteren Arbeiten zeigen, wie dasselbe Grundmuster bei anderen Signalen, Regeln und Übergaben eingesetzt wird.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card project-card--plain project-card--wide" data-reveal>
+          <div class="project-card-body">
+            <p class="eyebrow">Zahlungsbestätigung · Hauptfall</p>
+            <h3>Zahlungseingänge prüfen, zuordnen und abschließen</h3>
+            <p>Neue Gutschriften werden Rechnungen zugeordnet; unklare Fälle stoppen vor der Buchung und bleiben bis zur manuellen Freigabe sichtbar.</p>
+            <div class="card-tags"><span class="tag">Python</span><span class="tag">Qonto API</span><span class="tag">HERO</span></div>
+            <a class="project-card-link" data-card-primary href="projekte/rechnungs_pipeline.html">Ablauf ansehen</a>
+          </div>
+        </article>
+
+        <article class="project-card project-card--plain project-card--wide" data-reveal>
+          <div class="project-card-body">
+            <p class="eyebrow">Datenfundament</p>
+            <h3>CRM-Daten gezielt synchronisieren</h3>
+            <p>Nur neue oder veränderte Einträge werden vollständig abgerufen — erkannt über IDs und Änderungszeitpunkte.</p>
+            <div class="card-tags"><span class="tag">Python</span><span class="tag">GraphQL</span><span class="tag">pandas</span></div>
+            <a class="project-card-link" data-card-primary href="projekte/crm_sync.html">Entscheidungsweg ansehen</a>
+          </div>
+        </article>
+
+        <article class="project-card project-card--plain project-card--wide" data-reveal>
+          <div class="project-card-body">
+            <p class="eyebrow">Eingang vereinheitlichen</p>
+            <h3>Lead-Mails in CRM-Vorgänge überführen</h3>
+            <p>Zwei Mailformate werden auf ein gemeinsames Datenmodell gebracht und erst nach der Validierung übergeben.</p>
+            <div class="card-tags"><span class="tag">Python</span><span class="tag">IMAP</span><span class="tag">HTML-Parsing</span></div>
+            <a class="project-card-link" data-card-primary href="projekte/lead_automation.html">Entscheidungsweg ansehen</a>
+          </div>
+        </article>
+
+        <article class="project-card project-card--plain project-card--wide" data-reveal>
+          <div class="project-card-body">
+            <p class="eyebrow">Dokumentlogik</p>
+            <h3>Aus einer Angebotsnummer einen Vertrag erzeugen</h3>
+            <p>Ein eindeutiger Schlüssel verbindet CRM, Angebot und Formular; die letzte fachliche Prüfung bleibt bewusst offen.</p>
+            <div class="card-tags"><span class="tag">Python</span><span class="tag">PDF-Formulare</span><span class="tag">pdfplumber</span></div>
+            <a class="project-card-link" data-card-primary href="projekte/pv_vertragsgenerator.html">Entscheidungsweg ansehen</a>
+          </div>
+        </article>
+
+        <article class="project-card project-card--plain project-card--wide" data-reveal>
+          <div class="project-card-body">
+            <p class="eyebrow">Technische Grundlage</p>
+            <h3>Eine kaum dokumentierte Schnittstelle lesbar machen</h3>
+            <p>Die Schnittstelle wurde über ihr eigenes Schema erschlossen, nicht über Vermutungen.</p>
+            <div class="card-tags"><span class="tag">GraphQL</span><span class="tag">Introspection</span><span class="tag">Python</span></div>
+            <a class="project-card-link" data-card-primary href="projekte/graphql_reverse_engineering.html">Entscheidungsweg ansehen</a>
+          </div>
+        </article>
+      </div>
+    </div></section>
+
+    <section class="section-dark" aria-labelledby="nenner-title"><div class="container">
+      <p class="eyebrow">Gemeinsamer Nenner</p><h2 id="nenner-title">Unklare Fälle stoppen vor dem Schreibzugriff</h2>
+      <p>IDs, Statuswerte und Prüfregeln tragen eindeutige Fälle. Fehlende Daten, widersprüchliche Beträge oder unerwartete Zustände bleiben sichtbar und gehen zur Prüfung an einen Menschen.</p>
+    </div></section>
+  </main>
+
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="kontakt.html">Kontakt</a></div></div></footer>
+  <script src="assets/js/atlas.js" defer></script>
+</body>
+</html>

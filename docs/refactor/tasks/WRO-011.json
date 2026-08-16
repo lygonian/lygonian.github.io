@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "WRO-011",
+  "title": "Stabilize desktop structure, components, interaction, and semantics",
+  "status": "completed",
+  "mode": "implementation",
+  "primary_agent": "components-interaction",
+  "consulted_agents": ["content-ia", "foundation-systems", "semantics-accessibility"],
+  "reviewers": ["semantics-accessibility", "visual-integration"],
+  "objective": "Make the shared desktop page and project structures content-ready with consistent surfaces, explicit primary actions, accessible navigation semantics, focus-safe interaction, and approved research routing.",
+  "scope": ["surface matrix", "cards and panels", "primary/secondary/ghost actions", "explicit card primary hooks", "shared shell current state", "breadcrumbs and previous-next", "heading ownership", "inline-link recognition", "focus and reveal lifecycle", "approved research CTA/inventory", "certificate-link removal", "image intrinsic metadata"],
+  "non_goals": ["artwork redesign", "copy rewriting beyond approved decisions", "breakpoint or mobile/tablet changes", "ambient-motion decision", "CSS or JavaScript architecture cleanup"],
+  "depends_on": ["WRO-010"],
+  "contract_reads": ["components.surface", "components.card", "components.button", "components.navigation.ready_scope", "interaction", "motion.ready_scope", "navigation.ready_scope", "information_architecture", "content_roles.ready_scope", "html_semantics.ready_scope", "media.image.ready_scope", "accessibility.ready_scope"],
+  "contract_changes_requested": [],
+  "write_files": ["assets/css/style.css", "assets/js/atlas.js", "index.html", "automation.html", "datenanalyse.html", "ki_basics.html", "private_projekte.html", "ueber_mich.html", "kontakt.html", "forschung/index.html", "forschung/membran_biophysik.html", "forschung/neuroimmunologie.html", "forschung/redox_neurobiochemie.html", "ki-workflow/index.html", "ki-workflow/ml_cash_forecast_fallstudie.html", "ki-workflow/personalisierung.html", "projekte/bewaesserung.html", "projekte/crm_sync.html", "projekte/graphql_reverse_engineering.html", "projekte/kontoauszuege.html", "projekte/lead_automation.html", "projekte/linkedin_pipeline.html", "projekte/pv_vertragsgenerator.html", "projekte/rechnungs_pipeline.html", "projekte/spotify_playlists.html"],
+  "write_domains": ["component.surface", "component.card", "component.button", "component.navigation.presentation", "interaction.card", "motion.reveal", "semantics.navigation", "semantics.heading", "media.image", "content.research_approved_scope"],
+  "exclusive_leases": ["WRO-011-structure-components-shell"],
+  "deliverables": ["component and surface implementation", "23-page synchronized shell semantics", "focus-safe interaction", "approved route/content changes", "image metadata completion"],
+  "acceptance_checks": ["no breakpoint or narrow-navigation edits", "all 23 pages keep one main and one h1", "every remaining card candidate retains exactly one real primary link", "focus never causes movement or clipping", "no-JavaScript navigation works", "all local routes and fragments resolve except no removed resource link", "surface matrix documented in result"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "Desktop structure, component states, shared-shell semantics, approved research routing, focus-safe reveal, and media metadata implemented across all 23 pages.",
+    "inventory_reconciliation": "The approved removal of three duplicated profile research cards reduces whole-card candidates from 24 to 21; every remaining card has exactly one real data-card-primary link.",
+    "files_changed": ["assets/css/style.css", "assets/js/atlas.js", "all 23 HTML pages"],
+    "checks": ["23 main/h1 and heading sequences", "7 page plus 16 location states", "15 breadcrumbs and 15 page-nav landmarks", "21 primary-link cards", "22 complete image metadata sets", "local route/asset/fragment scan", "Firefox JS/no-JS/reduced-motion", "real Tab-key reveal focus"],
+    "reviews": {"semantics_accessibility": "pass", "visual_integration": "pass"},
+    "known_deferred": ["REC-012 narrow-viewport expertise focus lift"],
+    "commit": null,
+    "pushed": false
+  }
+}

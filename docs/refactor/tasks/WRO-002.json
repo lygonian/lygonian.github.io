@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "WRO-002",
+  "title": "Reconcile foundation system contracts",
+  "status": "analysis_complete",
+  "mode": "analysis",
+  "primary_agent": "foundation-systems",
+  "consulted_agents": ["layout-responsive", "components-interaction", "visual-system"],
+  "reviewers": ["architecture-cleanup", "visual-integration"],
+  "objective": "Turn the initial Typography, Color, Spacing, Container, and Token inventory into minimal contract proposals.",
+  "scope": ["typography", "color.ui", "color.artwork boundary", "spacing", "containers", "design tokens"],
+  "non_goals": ["component implementation", "artwork redesign", "responsive implementation"],
+  "depends_on": ["WRO-001"],
+  "contract_reads": ["design_tokens", "typography", "color.ui", "color.artwork", "spacing", "containers"],
+  "contract_changes_requested": ["design_tokens", "typography", "color.ui", "spacing", "containers"],
+  "write_files": [],
+  "write_domains": [],
+  "exclusive_leases": [],
+  "deliverables": ["token usage matrix", "proposed semantic scale", "migration impact", "decision list"],
+  "acceptance_checks": ["Typography and Color not treated as frozen", "UI and artwork colors remain semantically separate", "all consumers and conflicts identified"],
+  "git": {"base_branch": "main", "integration_branch": "refactor/orchestrator", "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "Foundation inventory and minimal semantic contract proposal completed read-only across all 23 pages.",
+    "contract_proposal": ["Keep the documented ten UI applications and six category identities", "Use seven typography roles with context modifiers", "Adopt a small semantic spacing contract", "Use page-max 1200px, reading 64ch, component 52ch, artwork-stage 960px"],
+    "migration": "Alias first, migrate consumers second, remove legacy tokens only after visual review.",
+    "writes": false
+  }
+}

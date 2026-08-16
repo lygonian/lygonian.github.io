@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cash-Forecast — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Projekt-, Bank- und Umsatzsteuerpfade werden zu einem wöchentlichen Einnahmenforecast und einem nachvollziehbaren Management-Dashboard verbunden.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="subpage subpage--analysis">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header"><div class="container"><a class="brand" href="../index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a><nav class="site-nav" aria-label="Hauptnavigation"><a href="../index.html">Start</a><a href="../automation.html">Automation</a><a href="../datenanalyse.html" aria-current="location">Datenanalyse</a><a href="../private_projekte.html">Private Projekte</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav></div></header>
+  <main id="main">
+    <section class="page-hero"><div class="container">
+      <nav class="breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../datenanalyse.html">Datenanalyse</a></li><li aria-current="page">Wöchentlicher Forecast</li></ol></nav>
+      <p class="eyebrow">Fallstudie · Forecasting · Management-Dashboard</p>
+      <h1>Zahlungsströme für den wöchentlichen Managementblick verbinden</h1>
+      <p class="lead">Vier Notebooks lesen veröffentlichte Projekt- und Bankdaten, berechnen getrennte Projekt-, Bank- und Umsatzsteuerpfade und führen sie zu einem Einnahmenforecast zusammen. Das Zielbild ist ein geprüftes Dashboard, das einmal pro Woche automatisch an das Management geht.</p>
+      <ul class="project-skills" aria-label="Bausteine"><li class="skill-badge">4 Notebooks</li><li class="skill-badge">Read-only-Quellen</li><li class="skill-badge">Wochenrhythmus</li><li class="skill-badge">Dashboard</li><li class="skill-badge">Dry-run</li></ul>
+      <p class="hero-note"><strong>Status:</strong> Der Dashboard-Versand ist die theoretische Weiterführung des bestehenden Notebook-Workflows, kein bereits produktiv belegter Betrieb.</p>
+    </div></section>
+
+    <section class="case-study"><div class="container">
+      <div class="case-intro"><p>Das Projekt muss nicht jede Unsicherheit statistisch auflösen. Es soll jede Woche denselben nachvollziehbaren Blick erzeugen: Welche Quellen sind aktuell, welche Einnahmen werden aus welchem Pfad erwartet und welche Ausnahmen brauchen Aufmerksamkeit?</p></div>
+
+      <div class="forecast-dashboard-preview" aria-label="Aufbau des geplanten wöchentlichen Management-Dashboards">
+        <div class="forecast-dashboard-head"><div><span>Wochenlauf</span><strong>Stichtag und Quellenstände</strong></div><span class="forecast-status">OK · Warnung · Fehler</span></div>
+        <div class="forecast-dashboard-chart"><p class="eyebrow">Wochenansicht</p><h2>Ist und Forecast klar trennen</h2><svg viewBox="0 0 760 210" aria-hidden="true" focusable="false"><path class="dashboard-grid" d="M20 40 H740 M20 90 H740 M20 140 H740 M20 190 H740"/><path class="dashboard-actual" d="M30 161 C102 140 142 149 208 112 C264 80 312 91 367 72"/><path class="dashboard-divider" d="M382 25 V195"/><path class="dashboard-forecast" d="M397 78 C455 97 510 63 566 91 C625 122 680 83 731 106"/><path class="dashboard-range" d="M397 58 C455 71 510 38 566 62 C625 91 680 55 731 74 L731 137 C680 116 625 150 566 121 C510 91 455 124 397 101 Z"/></svg></div>
+        <div class="forecast-dashboard-sources"><div><span>Offene Rechnungen</span><strong>sichtbar</strong></div><div><span>DC / AC</span><strong>terminbasiert</strong></div><div><span>Umsatzsteuer</span><strong>Heuristik</strong></div></div>
+        <div class="forecast-dashboard-alerts"><p class="eyebrow">Aufmerksamkeit</p><p>Überfällige Forderungen, fehlende Bezüge und nicht freigegebene Regeln stehen separat statt unsichtbar im Gesamtwert.</p></div>
+      </div>
+
+      <div class="case-grid">
+        <article class="case-block"><p class="eyebrow">Wochenstart</p><h2>Ein gemeinsamer Stichtag</h2><p>Ein geplanter Lauf setzt Kalenderwoche, Zeitzone und Quellenstände. Die vier vorhandenen Notebooks bleiben die manuellen Einstiegspunkte.</p></article>
+        <article class="case-block"><p class="eyebrow">Datenzugriff</p><h2>Zentrale Daten bleiben Read-only</h2><p>Veröffentlichte HERO-Daten und Banktransaktionen werden gelesen, aber nicht aus dem Forecast-Projekt zurückgeschrieben oder als Rohdatenkopie veröffentlicht.</p></article>
+        <article class="case-block case-block--wide"><p class="eyebrow">Getrennte Pfade</p><h2>Erst nachvollziehbar, dann aggregiert</h2><ul class="decision-list"><li><strong>Projektpfad:</strong> offene Rechnungen sowie vorhandene DC- und AC-Termine.</li><li><strong>Bankpfad:</strong> beobachtete Ein- und Ausgänge als eigener Kontext.</li><li><strong>Umsatzsteuerpfad:</strong> vorhandene Heuristik mit sichtbarem Status.</li><li><strong>Gesamtbild:</strong> gemeinsame Wochenansicht ohne Verlust der Herkunft.</li></ul></article>
+        <article class="case-block"><p class="eyebrow">Prüf-Gate</p><h2>Bei Fehler kein regulärer Bericht</h2><p>Datenfrische, Zeitstempel, Beträge, Dubletten und fehlende Bezüge werden vor der Darstellung geprüft. Ein fehlgeschlagener Lauf erzeugt einen Fehlerstatus statt eines scheinbar vollständigen Forecasts.</p></article>
+        <article class="case-block"><p class="eyebrow">Unsicherheit</p><h2>Herkunft statt erfundener Präzision</h2><p>Beiträge bleiben als offene Rechnung, terminbasiert, geschätzter AC-Termin, USt-Heuristik oder nicht freigegebene Regel erkennbar. Daraus werden keine unbelegten Wahrscheinlichkeiten.</p></article>
+        <article class="case-block"><p class="eyebrow">E-Mail</p><h2>Kurze Managementfassung</h2><p>Betreff, Stichtag, wenige aggregierte Kennzahlen, wichtige Ausnahmen und ein geschützter Berichtlink bilden die Mail. Kunden-, Projekt-, Konto- oder Transaktionsdetails bleiben außen vor.</p></article>
+        <article class="case-block"><p class="eyebrow">Versandkontrolle</p><h2>Vorschau vor Freigabe</h2><p>Dry-run ist der Standard. Eine Report-ID aus Kalenderwoche, Stichtag und Quellenständen verhindert Doppelversand; Empfänger und Zugangsdaten stehen nicht im Code.</p></article>
+      </div>
+      <div class="outcome-strip"><div><strong>Zielbild</strong><span>Ein Dashboard pro Woche</span></div><div><strong>Status</strong><span>Theoretisch weitergeführt</span></div><div><strong>Grenze</strong><span>Keine behauptete Modellpräzision</span></div></div>
+      <p class="case-note"><strong>Fachliche Grenze:</strong> Die vorhandenen Forecast-Regeln sind dokumentiert, aber nicht erneut als verbindliche Geschäftsregeln freigegeben. Der Wochenprozess macht diese Grenze sichtbar.</p>
+      <nav class="page-nav" aria-label="Weitere Seiten"><a href="../datenanalyse.html"><span aria-hidden="true">←</span> Alle Analysen</a></nav>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer><script src="../assets/js/atlas.js" defer></script>
+</body></html>

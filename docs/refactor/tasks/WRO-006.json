@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "WRO-006",
+  "title": "Audit semantics and WCAG 2.2 AA accessibility",
+  "status": "analysis_complete",
+  "mode": "analysis",
+  "primary_agent": "semantics-accessibility",
+  "consulted_agents": ["content-ia", "components-interaction", "layout-responsive"],
+  "reviewers": ["visual-integration", "orchestrator"],
+  "objective": "Convert the static semantic scan into a prioritized manual and automated accessibility baseline.",
+  "scope": ["landmarks", "headings", "breadcrumb", "links vs buttons", "keyboard", "focus", "ARIA", "names", "contrast", "reduced motion", "zoom", "reflow", "target size", "image metadata"],
+  "non_goals": ["automatic markup fixes", "dependency installation", "content rewriting"],
+  "depends_on": ["WRO-001"],
+  "contract_reads": ["html_semantics", "media.image", "accessibility", "interaction", "motion", "responsive", "navigation", "components.card"],
+  "contract_changes_requested": ["html_semantics", "media.image", "accessibility"],
+  "write_files": [],
+  "write_domains": [],
+  "exclusive_leases": [],
+  "deliverables": ["WCAG-relevant findings", "manual browser matrix", "automation proposal", "semantic pattern proposals"],
+  "acceptance_checks": ["all 23 pages represented", "manual checks not replaced by automation", "known heading, nav, and image gaps tracked"],
+  "git": {"base_branch": "main", "integration_branch": "refactor/orchestrator", "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "WCAG 2.2 AA baseline completed read-only across all 23 pages with structural scans and representative Firefox renders.",
+    "p1_findings": ["Inline links rely on insufficient color-only differentiation", "16 descendant pages misuse aria-current=page for a parent route", "Research CTA and certificate targets are invalid", "Reveal may transiently hide focused links", "Sticky header focus obstruction needs manual confirmation"],
+    "p2_findings": ["Three overview heading gaps", "Fifteen breadcrumbs lack navigation/list semantics", "Three research page-nav blocks lack nav landmarks", "Nine images lack intrinsic metadata and lazy loading"],
+    "writes": false
+  }
+}

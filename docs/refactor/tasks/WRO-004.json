@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "WRO-004",
+  "title": "Define component, surface, and interaction contracts",
+  "status": "analysis_complete",
+  "mode": "analysis",
+  "primary_agent": "components-interaction",
+  "consulted_agents": ["foundation-systems", "layout-responsive", "semantics-accessibility"],
+  "reviewers": ["semantics-accessibility", "visual-integration"],
+  "objective": "Reduce card, panel, button, tag, navigation, state, radius, and motion behavior to intentional component families.",
+  "scope": ["components", "surfaces", "borders", "radius", "buttons", "cards", "tags", "navigation components", "interaction states", "component motion"],
+  "non_goals": ["implementation", "content changes", "global token acceptance"],
+  "depends_on": ["WRO-001"],
+  "contract_reads": ["typography", "color.ui", "spacing", "layout", "components.surface", "components.card", "components.button", "components.navigation", "interaction", "motion", "accessibility"],
+  "contract_changes_requested": ["components.surface", "components.card", "components.button", "components.navigation", "interaction", "motion"],
+  "write_files": [],
+  "write_domains": [],
+  "exclusive_leases": [],
+  "deliverables": ["component inventory", "variant matrix", "state matrix", "primary-writer package proposal"],
+  "acceptance_checks": ["focus and keyboard behavior included", "whole-card behavior explicit", "one writer per shared component"],
+  "git": {"base_branch": "main", "integration_branch": "refactor/orchestrator", "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "Component, state, navigation, and motion matrices completed read-only; 24/24 whole-card candidates retain one real link.",
+    "contract_proposal": ["Unify surface and panel recipes", "Treat whole-card behavior as pointer-only enhancement of an explicit primary link", "Add focus-within without movement", "Separate component motion from artwork ambient motion"],
+    "primary_writer_package": "One writer for style.css, atlas.js, and the 23-page shared shell; no responsive or IA changes.",
+    "writes": false
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "WRO-007",
+  "title": "Reconcile content, information architecture, navigation, and shared shell",
+  "status": "analysis_complete",
+  "mode": "analysis",
+  "primary_agent": "content-ia",
+  "consulted_agents": ["semantics-accessibility", "components-interaction"],
+  "reviewers": ["semantics-accessibility", "orchestrator"],
+  "objective": "Confirm page roles and user paths, then define explicit shared-shell and contextual-navigation variants.",
+  "scope": ["information architecture", "main navigation", "internal routes", "content roles", "CTA hierarchy", "shared header/nav/footer", "broken research route", "missing certificate target"],
+  "non_goals": ["silent content changes", "visible IA implementation", "publishing private material"],
+  "depends_on": ["WRO-001"],
+  "contract_reads": ["content_roles", "information_architecture", "navigation", "components.navigation", "html_semantics"],
+  "contract_changes_requested": ["content_roles", "information_architecture", "navigation", "components.navigation"],
+  "write_files": [],
+  "write_domains": [],
+  "exclusive_leases": [],
+  "deliverables": ["page-role map", "route integrity report", "shared-shell variant proposal", "user decision requests"],
+  "acceptance_checks": ["all destinations match labels", "research remains under profile unless user decides otherwise", "certificate privacy is not assumed"],
+  "git": {"base_branch": "main", "integration_branch": "refactor/orchestrator", "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "Page-role map and full route audit completed: 23/23 HTML routes reachable, 398/399 internal resources valid.",
+    "verified_findings": ["Homepage research CTA points to KI-Basics", "Certificate PDF target missing", "Research inventories are duplicated between profile and research hub", "Breadcrumb/page-nav patterns diverge"],
+    "contract_proposal": ["Keep seven-item main navigation", "Keep research under profile", "Parameterize shell by path depth, current section, contextual wayfinding, and terminal footer"],
+    "writes": false
+  }
+}

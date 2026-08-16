@@ -1,0 +1,20 @@
+schema_version: 1
+id: WRO-DEC-003
+status: resolved
+topic: missing_certificate_asset
+context:
+  - "forschung/index.html links to pdf/XDi_Certified_Data_Scientist_24-389_Samet_Kurt.pdf."
+  - "The target file is absent from the worktree and HEAD."
+options:
+  - id: A
+    summary: "Publish the intended certificate at the documented path."
+  - id: B
+    summary: "Remove or replace the link without publishing the certificate."
+recommendation: B
+impact: "Resolves the only verified broken local resource link without assuming a private document may be published."
+owner: content-ia
+resolution:
+  selected: B
+  action: "Remove the public certificate link; retain the factual certification statement."
+  basis: "User instruction on 2026-08-15 that the certificate should be deleted."
+  resolved_at: "2026-08-15"

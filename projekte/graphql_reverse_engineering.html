@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GraphQL-Analyse — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Wie eine kaum dokumentierte GraphQL-Schnittstelle über ihr Schema systematisch erschlossen und zur Grundlage weiterer Automationen wurde.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="subpage subpage--automation">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header"><div class="container"><a class="brand" href="../index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a><nav class="site-nav" aria-label="Hauptnavigation"><a href="../index.html">Start</a><a href="../automation.html" aria-current="location">Automation</a><a href="../datenanalyse.html">Datenanalyse</a><a href="../private_projekte.html">Private Projekte</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav></div></header>
+  <main id="main">
+    <section class="page-hero"><div class="container">
+      <nav class="breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../automation.html">Automation</a></li><li aria-current="page">GraphQL-Analyse</li></ol></nav><p class="eyebrow">Fallstudie · Schnittstelle</p><h1>Eine API über ihre eigene Struktur verstehen</h1>
+      <p class="lead">Die Dokumentation zeigte einzelne Beispiele, aber nicht das verfügbare Datenmodell. Statt Feldnamen weiter zu erraten, ließ ich die GraphQL-Schnittstelle ihr Schema offenlegen und machte die Metadaten lesbar.</p>
+      <ul class="project-skills" aria-label="Technologien"><li class="skill-badge">GraphQL</li><li class="skill-badge">Introspection</li><li class="skill-badge">Python</li><li class="skill-badge">Rekursion</li><li class="skill-badge">Pagination</li></ul>
+      <p class="hero-note">Schema und Beispiele sind bereinigt. Produktive Endpunkte, Zugangsdaten und echte Kontakte bleiben privat.</p>
+    </div></section>
+
+    <section class="case-study"><div class="container">
+      <div class="case-intro"><p>Mein erster API-Anwendungsfall begann ohne Erfahrung mit GraphQL. Der Fortschritt kam nicht durch mehr Versuch und Irrtum, sondern durch eine andere Frage: Welche Abfragen, Argumente und Rückgabetypen beschreibt die Schnittstelle selbst?</p></div>
+      <div class="case-grid">
+        <article class="case-block"><p class="eyebrow">Ausgangslage</p><h2>Beispiele sind noch kein Datenmodell</h2><p>Eine dokumentierte Kontaktabfrage zeigte wenige Felder. Für Projekte, Termine und Dokumente fehlte jedoch der Überblick: Welche Einstiegspunkte existieren, welche Parameter verlangen sie und wie sind verschachtelte Typen aufgebaut?</p></article>
+        <article class="case-block"><p class="eyebrow">Wendepunkt</p><h2>Metadaten statt Vermutungen</h2><p>GraphQL-Introspection liefert Queries, Mutationen, Argumente, Typen und Felder als strukturierte Antwort. Damit wurde die tatsächliche Schnittstelle zur verbindlichen Quelle, nicht eine plausible Benennung.</p></article>
+        <article class="case-block case-block--wide"><p class="eyebrow">Lösungslogik</p><h2>Das Schema in nutzbare Entscheidungen übersetzen</h2><ul class="decision-list">
+          <li><strong>Einstiegspunkte filtern:</strong> Aus dem vollständigen Schema werden zuerst die verfügbaren Abfragen und ihre Argumente herausgelöst.</li>
+          <li><strong>Typ-Hüllen rekursiv auflösen:</strong> Listen und Pflichtfelder können mehrfach verschachtelt sein. Die Auswertung folgt so lange nach innen, bis der tatsächliche Datentyp feststeht.</li>
+          <li><strong>Rückgabetypen getrennt prüfen:</strong> Erst der Basistyp zeigt, welche Felder für Kontakte, Projekte oder Dokumente wirklich abgefragt werden dürfen.</li>
+          <li><strong>Query-Strukturen ableiten:</strong> Aus den Metadaten entsteht ein nachvollziehbares Gerüst, das bewusst auf relevante Felder begrenzt wird.</li>
+          <li><strong>Pagination als Teil des Zugriffs behandeln:</strong> Die erste Antwort ist nicht der vollständige Bestand. Seiten werden geladen, bis keine weiteren Datensätze folgen.</li>
+        </ul></article>
+        <article class="case-block"><p class="eyebrow">Ergebnis</p><h2>Eine Grundlage statt einer Einmalabfrage</h2><p>Aus dem Schema entstanden verlässliche Kontakt-, Projekt-, Termin- und Dokumentabfragen. Darauf bauen CRM-Sync, Vertragsgenerator, Lead-Verarbeitung und Zahlungsabgleich auf.</p></article>
+        <article class="case-block"><p class="eyebrow">Grenzen</p><h2>Ein Schema erklärt keine Fachlogik</h2><p>Introspection zeigt, was technisch möglich ist. Welche Felder fachlich gültig sind, wie Statuswerte zu lesen sind und welche Daten veröffentlicht werden dürfen, musste separat geklärt werden.</p></article>
+      </div>
+      <div class="outcome-strip"><div><strong>Quelle</strong><span>Das tatsächliche API-Schema</span></div><div><strong>Methode</strong><span>Metadaten rekursiv lesbar machen</span></div><div><strong>Folge</strong><span>Stabile Abfragen für mehrere Systeme</span></div></div>
+      <div class="case-figure-grid">
+        <figure class="figure figure--wide"><img src="../assets/img/graphql-reverse-engineering.jpg" alt="Schaubild: Clients sprechen einen GraphQL-Endpunkt an, dessen Schema über Introspection sichtbar wird" width="1600" height="900" loading="lazy" decoding="async"><figcaption>Die Schnittstelle wird über ihr Schema untersucht, nicht über erratene Feldnamen.</figcaption></figure>
+        <figure class="figure"><img src="../assets/img/graphql-doku-kontakte.png" alt="Ausschnitt einer GraphQL-Dokumentation mit einer kurzen Beispielabfrage" width="1264" height="846" loading="lazy" decoding="async"><figcaption>Der dokumentierte Ausschnitt beantwortete nur einen kleinen Teil der Fragen.</figcaption></figure>
+        <figure class="figure"><img src="../assets/img/graphql-eigene-query.png" alt="Bereinigte selbst abgeleitete GraphQL-Abfrage" width="952" height="549" loading="lazy" decoding="async"><figcaption>Aus den Metadaten ließ sich eine gezielte Abfrage ableiten.</figcaption></figure>
+      </div>
+      <nav class="page-nav" aria-label="Weitere Projekte"><a href="pv_vertragsgenerator.html"><span aria-hidden="true">←</span> Vertragsgenerator</a><a href="crm_sync.html">CRM-Sync <span aria-hidden="true">→</span></a></nav>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer><script src="../assets/js/atlas.js" defer></script>
+</body></html>

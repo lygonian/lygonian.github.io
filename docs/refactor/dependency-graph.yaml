@@ -1,0 +1,145 @@
+schema_version: 1
+updated_at: "2026-08-15"
+direction: "from constraining or consumed dependency to affected consumer"
+scheduling_semantics:
+  hard_edge_types: [consumes, constrains, structural_dependency, visual_dependency, semantic_dependency]
+  review_dependency: "Review gate only; excluded from topological contract scheduling."
+  cleanup_after_stabilization: "Deferred ordering edge; excluded until upstream contracts are accepted."
+  partial_ready_scope: "A hard edge may be scheduled against a partial contract only for an explicitly matching ready_scope subset; touching blocked_scope or an unmatched dependency subset blocks the task."
+evidence_basis:
+  html_pages: 23
+  shared_css: assets/css/style.css
+  shared_javascript: assets/js/atlas.js
+  artwork_sources: [assets/css/style.css, index.html, assets/img/subpage-biome.svg, assets/js/atlas.js]
+
+nodes:
+  - {id: design_tokens, owner: foundation-systems, parallel_policy: serialized_if_style_css}
+  - {id: typography, owner: foundation-systems, parallel_policy: serialized_if_style_css}
+  - {id: color_ui, owner: foundation-systems, parallel_policy: serialized_if_style_css}
+  - {id: color_artwork, owner: visual-system, parallel_policy: serialized_if_style_css_or_index}
+  - {id: spacing, owner: foundation-systems, parallel_policy: serialized_if_style_css}
+  - {id: containers, owner: foundation-systems, parallel_policy: serialized_if_style_css}
+  - {id: layout, owner: layout-responsive, parallel_policy: serialized_if_style_css_or_measured_dom}
+  - {id: responsive, owner: layout-responsive, parallel_policy: serialized_if_style_css_or_shared_shell}
+  - {id: components_surface, owner: components-interaction, parallel_policy: primary_writer_per_component}
+  - {id: components_card, owner: components-interaction, parallel_policy: primary_writer_per_component}
+  - {id: components_button, owner: components-interaction, parallel_policy: primary_writer_per_component}
+  - {id: components_navigation, owner: components-interaction, parallel_policy: serialized_all_23_pages}
+  - {id: interaction, owner: components-interaction, parallel_policy: serialized_if_shared_component}
+  - {id: motion, owner: components-interaction, parallel_policy: serialized_if_css_js_pair}
+  - {id: visual_effects, owner: visual-system, parallel_policy: serialized_if_style_css}
+  - {id: layers, owner: visual-system, parallel_policy: serialized_if_style_css}
+  - {id: background_artwork, owner: visual-system, parallel_policy: serialized_artwork_package}
+  - {id: icons_symbols, owner: visual-system, parallel_policy: serialized_if_shared_logo_or_navigation}
+  - {id: navigation, owner: content-ia, parallel_policy: serialized_shared_shell}
+  - {id: information_architecture, owner: content-ia, parallel_policy: analysis_parallel_writes_coordinated}
+  - {id: content_roles, owner: content-ia, parallel_policy: analysis_parallel_writes_coordinated}
+  - {id: html_semantics, owner: semantics-accessibility, parallel_policy: disjoint_html_leases_only}
+  - {id: media_image, owner: semantics-accessibility, parallel_policy: disjoint_html_leases_only}
+  - {id: accessibility, owner: semantics-accessibility, parallel_policy: review_parallel}
+  - {id: css_architecture, owner: architecture-cleanup, parallel_policy: cleanup_after_stabilization}
+  - {id: javascript_architecture, owner: architecture-cleanup, parallel_policy: cleanup_after_stabilization}
+  - {id: dead_code_cleanup, owner: architecture-cleanup, parallel_policy: cleanup_after_stabilization}
+
+edges:
+  - {from: design_tokens, to: typography, type: constrains}
+  - {from: design_tokens, to: color_ui, type: constrains}
+  - {from: design_tokens, to: color_artwork, type: constrains}
+  - {from: typography, to: spacing, type: visual_dependency}
+  - {from: typography, to: containers, type: visual_dependency}
+  - {from: typography, to: layout, type: structural_dependency}
+  - {from: typography, to: javascript_architecture, type: structural_dependency, reason: measured_geometry}
+  - {from: spacing, to: containers, type: constrains}
+  - {from: spacing, to: layout, type: consumes}
+  - {from: containers, to: layout, type: constrains}
+  - {from: layout, to: responsive, type: structural_dependency}
+  - {from: navigation, to: responsive, type: structural_dependency}
+  - {from: content_roles, to: information_architecture, type: semantic_dependency}
+  - {from: information_architecture, to: navigation, type: semantic_dependency}
+  - {from: information_architecture, to: html_semantics, type: semantic_dependency}
+  - {from: color_ui, to: components_surface, type: consumes}
+  - {from: color_ui, to: interaction, type: constrains}
+  - {from: color_ui, to: accessibility, type: review_dependency}
+  - {from: color_artwork, to: visual_effects, type: consumes}
+  - {from: color_artwork, to: background_artwork, type: consumes}
+  - {from: color_ui, to: icons_symbols, type: consumes}
+  - {from: icons_symbols, to: components_navigation, type: visual_dependency}
+  - {from: accessibility, to: icons_symbols, type: review_dependency}
+  - {from: layers, to: visual_effects, type: structural_dependency}
+  - {from: layout, to: layers, type: structural_dependency}
+  - {from: visual_effects, to: components_surface, type: visual_dependency}
+  - {from: typography, to: components_card, type: consumes}
+  - {from: spacing, to: components_card, type: consumes}
+  - {from: layout, to: components_card, type: consumes}
+  - {from: components_surface, to: components_card, type: consumes}
+  - {from: interaction, to: components_card, type: consumes}
+  - {from: accessibility, to: components_card, type: review_dependency}
+  - {from: color_ui, to: components_button, type: consumes}
+  - {from: interaction, to: components_button, type: consumes}
+  - {from: navigation, to: components_navigation, type: consumes}
+  - {from: responsive, to: components_navigation, type: consumes}
+  - {from: accessibility, to: components_navigation, type: review_dependency}
+  - {from: interaction, to: motion, type: consumes}
+  - {from: accessibility, to: motion, type: constrains}
+  - {from: layout, to: background_artwork, type: structural_dependency}
+  - {from: responsive, to: background_artwork, type: structural_dependency}
+  - {from: content_roles, to: background_artwork, type: semantic_dependency}
+  - {from: html_semantics, to: accessibility, type: semantic_dependency}
+  - {from: content_roles, to: media_image, type: semantic_dependency}
+  - {from: layout, to: media_image, type: structural_dependency}
+  - {from: accessibility, to: media_image, type: constrains}
+  - {from: layout, to: javascript_architecture, type: structural_dependency, reason: atlas_js_measures_dom}
+  - {from: responsive, to: javascript_architecture, type: structural_dependency, reason: atlas_js_redraws_at_breakpoints}
+  - {from: components_card, to: javascript_architecture, type: structural_dependency, reason: whole_card_enhancement}
+  - {from: motion, to: javascript_architecture, type: structural_dependency, reason: reveal_and_tree_lifecycle}
+  - {from: design_tokens, to: css_architecture, type: cleanup_after_stabilization}
+  - {from: layout, to: css_architecture, type: cleanup_after_stabilization}
+  - {from: components_card, to: css_architecture, type: cleanup_after_stabilization}
+  - {from: background_artwork, to: css_architecture, type: cleanup_after_stabilization}
+  - {from: css_architecture, to: dead_code_cleanup, type: cleanup_after_stabilization}
+  - {from: javascript_architecture, to: dead_code_cleanup, type: cleanup_after_stabilization}
+  - {from: accessibility, to: visual_effects, type: review_dependency}
+  - {from: accessibility, to: background_artwork, type: review_dependency}
+
+parallel_groups:
+  discovery:
+    policy: parallel_read_only
+    groups:
+      - [design_tokens, typography, color_ui, spacing, containers]
+      - [layout, responsive, layers]
+      - [components_surface, components_card, components_button, interaction, motion]
+      - [color_artwork, visual_effects, background_artwork, icons_symbols]
+      - [navigation, information_architecture, content_roles, html_semantics, media_image, accessibility]
+      - [css_architecture, javascript_architecture, dead_code_cleanup]
+  contract_synthesis:
+    policy: parallel_proposals_single_orchestrator_write
+    coordination: "Groups draft in parallel; hard dependencies are resolved inside each proposal before acceptance."
+    groups:
+      - [design_tokens, typography, color_ui, spacing, containers]
+      - [layout, responsive, layers]
+      - [components_surface, components_card, components_button, components_navigation, interaction, motion]
+      - [color_artwork, visual_effects, background_artwork, icons_symbols]
+      - [information_architecture, content_roles, navigation, html_semantics, media_image, accessibility]
+  implementation:
+    policy: explicit_leases_only
+    safe_examples:
+      - "Disjoint HTML detail-page media metadata tasks without shared shell changes."
+      - "Documentation-only task parallel to a read-only review."
+    serialized_examples:
+      - "Any two tasks writing assets/css/style.css."
+      - "Any task pairing index.html artwork with assets/js/atlas.js geometry."
+      - "Any shared Header/Nav/Footer change across 23 pages."
+
+conflict_zones:
+  - path: assets/css/style.css
+    domains: [foundation, layout, responsive, components, interaction, effects, layers, artwork, cleanup]
+    policy: one_primary_writer
+  - path: index.html
+    domains: [content_ia, layout, artwork, accessibility, javascript_hooks]
+    policy: one_primary_writer
+  - path: assets/js/atlas.js
+    domains: [interaction, motion, layout_measurement, artwork_paths, cleanup]
+    policy: one_primary_writer
+  - path_pattern: "**/*.html:shared-shell"
+    domains: [navigation, information_architecture, accessibility]
+    policy: global_lease_all_23_pages

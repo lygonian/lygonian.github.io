@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontoauszüge auswerten — Privates Projekt — Samet Kurt</title>
+  <meta name="description" content="Monatliche Kontoauszüge liegen nur als PDF vor. Das Projekt liest sie aus, prüft jede Buchung gegen den Saldo und macht daraus eine auswertbare Tabelle.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="subpage subpage--private">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header"><div class="container"><a class="brand" href="../index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a><nav class="site-nav" aria-label="Hauptnavigation"><a href="../index.html">Start</a><a href="../automation.html">Automation</a><a href="../datenanalyse.html">Datenanalyse</a><a href="../private_projekte.html" aria-current="location">Private Projekte</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav></div></header>
+  <main id="main">
+    <section class="page-hero"><div class="container">
+      <nav class="breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../private_projekte.html">Private Projekte</a></li><li aria-current="page">Kontoauszüge</li></ol></nav><p class="eyebrow">PDF · Parsing · Auswertung</p><h1>Jahre von Kontoauszügen wieder auswertbar machen</h1>
+      <p class="lead">Die Bank liefert Monatsauszüge nur als PDF. Das Projekt liest sie aus, prüft jede erkannte Buchung gegen den Saldo und macht daraus eine Tabelle, mit der sich Ausgaben über Jahre vergleichen lassen.</p>
+      <ul class="project-skills" aria-label="Technologien"><li class="skill-badge">pdfplumber</li><li class="skill-badge">Regex</li><li class="skill-badge">pandas</li><li class="skill-badge">Matplotlib</li><li class="skill-badge">Saldo-Gegenprobe</li></ul>
+    </div></section>
+
+    <section class="case-study"><div class="container">
+      <div class="case-intro"><p>PDF hinein, geprüfte Transaktionstabelle heraus. Darauf setzt eine Auswertung nach Monat, Jahr, Empfänger und Kategorie auf.</p></div>
+      <div class="case-grid">
+        <article class="case-block case-block--wide"><p class="eyebrow">Ablauf</p><h2>Die einzelnen Schritte</h2><ol class="flow">
+          <li><strong>Dateien vereinheitlichen</strong> <em>(Dateisystem, Regex)</em> — ein Skript läuft über den Ordner, zieht das Datum per Muster aus dem Dateinamen und benennt nach Jahr und Monat um. Bereits umbenannte Dateien werden übersprungen.</li>
+          <li><strong>Text aus dem PDF holen</strong> <em>(PDF-Extraktion mit pdfplumber)</em> — jede Seite wird als Rohtext gelesen. Eine feste Liste von Mustern entfernt Kopf-, Fuß-, Adress- und Hinweiszeilen, bevor irgendetwas ausgewertet wird.</li>
+          <li><strong>Zeilen zu Buchungen bündeln</strong> <em>(Mustererkennung, Parsing)</em> — ein Muster erkennt die Kopfzeile am Datum vorn und am Betrag hinten. Daraus werden Datum, Typ, Empfänger, Betrag und aus den Folgezeilen Verwendungszweck, Mandat und Referenz als eigene Felder gelesen; das deutsche Zahlenformat wird in Zahlen umgewandelt.</li>
+          <li><strong>Gegenprobe je Monat</strong> <em>(Plausibilitätsprüfung)</em> — die Summe der erkannten Buchungen wird mit der Differenz aus altem und neuem Saldo verglichen, mit einer Toleranz von zwei Cent. Stimmt ein Monat nicht, wird nicht weitergerechnet.</li>
+          <li><strong>Zusammenführen und exportieren</strong> <em>(pandas)</em> — alle Monate werden zu einer Tabelle verbunden, Datumsspalten typisiert und als CSV abgelegt.</li>
+          <li><strong>Auswerten</strong> <em>(Gruppierung, Regelklassifikation, Matplotlib)</em> — Gruppierung nach Monat und Jahr, Saldoverlauf, größte Empfänger, Kategorien über Stichwortregeln und wiederkehrende Zahlungen — jeweils als Diagramm.</li>
+        </ol></article>
+        <article class="case-block case-block--wide"><p class="eyebrow">Entscheidungspfad</p><h2>Was den Ausschlag gab</h2><ul class="decision-list">
+          <li><strong>PDF statt Bankschnittstelle:</strong> die Auszüge liegen ohnehin lokal vor und reichen Jahre zurück. Ein Zugang zum Konto wäre der aufwendigere Weg für weniger Historie.</li>
+          <li><strong>Der Saldo ist das Abnahmekriterium:</strong> ein Parser, der Zeilen verschluckt, sieht auf den ersten Blick trotzdem richtig aus. Erst der Abgleich mit altem und neuem Saldo macht das sichtbar.</li>
+          <li><strong>Blockweise lesen statt Zeile für Zeile:</strong> ein Verwendungszweck läuft über mehrere Zeilen. Erst die Trennung in Kopfzeile und Folgezeilen ergibt vollständige Buchungen.</li>
+          <li><strong>Regeln statt Modell für die Kategorien:</strong> Stichwortlisten sind nachvollziehbar und lassen sich korrigieren. Was keine Regel trifft, bleibt „Sonstiges“ statt geraten zu werden.</li>
+          <li><strong>Rohdaten bleiben unangetastet:</strong> die PDFs werden nur gelesen, jedes Ergebnis entsteht bei jedem Lauf neu.</li>
+        </ul></article>
+      </div>
+      <div class="outcome-strip"><div><strong>Eingang</strong><span>Monatsauszüge als PDF</span></div><div><strong>Ergebnis</strong><span>Eine geprüfte Transaktionstabelle</span></div><div><strong>Prüfung</strong><span>Monatssumme gegen Saldo</span></div></div>
+      <p class="case-note"><strong>Datenschutz:</strong> Das Projekt läuft vollständig lokal, ohne Bankzugang und ohne Cloud. Auf dieser Seite stehen keine Beträge, Empfänger oder Kontodaten.</p>
+      <nav class="page-nav" aria-label="Weitere Seiten"><a href="../private_projekte.html"><span aria-hidden="true">←</span> Alle privaten Projekte</a><a href="../datenanalyse.html">Datenanalyse <span aria-hidden="true">→</span></a></nav>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer><script src="../assets/js/atlas.js" defer></script>
+</body></html>

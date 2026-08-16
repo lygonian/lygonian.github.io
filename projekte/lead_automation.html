@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lead-Automation — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Wie unterschiedliche Lead-E-Mails validiert und als zusammenhängende Kontakte und Vorgänge ins CRM übertragen werden.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="subpage subpage--automation">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header"><div class="container"><a class="brand" href="../index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a><nav class="site-nav" aria-label="Hauptnavigation"><a href="../index.html">Start</a><a href="../automation.html" aria-current="location">Automation</a><a href="../datenanalyse.html">Datenanalyse</a><a href="../private_projekte.html">Private Projekte</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav></div></header>
+  <main id="main">
+    <section class="page-hero"><div class="container">
+      <nav class="breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../automation.html">Automation</a></li><li aria-current="page">Lead-Automation</li></ol></nav><p class="eyebrow">Fallstudie · Eingangskanal</p><h1>Vom E-Mail-Lead zum vollständigen CRM-Vorgang</h1>
+      <p class="lead">Anfragen kamen aus zwei Quellen als unterschiedlich aufgebaute E-Mails. Statt sie manuell zu übertragen, vereinheitlicht der Ablauf ihre Daten, prüft Mindestangaben und legt erst danach Kontakt, Projekt und Notiz an.</p>
+      <ul class="project-skills" aria-label="Technologien"><li class="skill-badge">Python</li><li class="skill-badge">IMAP</li><li class="skill-badge">HTML-Parsing</li><li class="skill-badge">GraphQL</li><li class="skill-badge">Tests</li></ul>
+      <p class="hero-note">Alle sichtbaren Beispiele sind synthetisch oder anonymisiert. Zugangsdaten, echte E-Mails und Kundendaten bleiben privat.</p>
+    </div></section>
+
+    <section class="case-study"><div class="container">
+      <div class="case-intro"><p>Das Kopieren aus dem Postfach war nicht nur langsam. Es trennte Informationen, die fachlich zusammengehören: Person, Anfrage, Projektkontext und nächste Bearbeitung. Die Automatisierung musste deshalb den Arbeitsvorgang abbilden, nicht bloß Textfelder übertragen.</p></div>
+      <div class="case-grid">
+        <article class="case-block"><p class="eyebrow">Ausgangslage</p><h2>Zwei Formate, derselbe fachliche Inhalt</h2><p>Eine Quelle lieferte Schlüssel-Wert-Zeilen, die andere eine HTML-Tabelle. Beide enthielten Name, Kontaktweg, Adresse und Projektinformation, aber an unterschiedlichen Stellen und in unterschiedlicher Form.</p></article>
+        <article class="case-block"><p class="eyebrow">Abstraktion</p><h2>Ein gemeinsames Lead-Objekt</h2><p>Jeder Parser endet in derselben Struktur. Alle nachfolgenden Schritte arbeiten damit unabhängig von der ursprünglichen E-Mail. Neue Quellen brauchen nur einen eigenen Parser, nicht einen neuen Gesamtprozess.</p></article>
+        <article class="case-block case-block--wide"><p class="eyebrow">Lösungslogik</p><h2>Erst verstehen, dann schreiben</h2><ul class="decision-list">
+          <li><strong>Quelle erkennen:</strong> Nur bekannte Mailmuster werden verarbeitet; unbekannte Formate erzeugen einen sichtbaren Fehler.</li>
+          <li><strong>Daten normalisieren:</strong> Titel, Namensbestandteile, Telefonnummern und Adressfelder landen an einer einheitlichen Stelle.</li>
+          <li><strong>Mindestangaben prüfen:</strong> Ohne Quelle, Namen oder erreichbaren Kontaktweg wird kein unvollständiger CRM-Datensatz angelegt.</li>
+          <li><strong>Zusammenhang erhalten:</strong> Erst entsteht der Kontakt, dann über dessen ID das Projekt und bei Bedarf eine Notiz mit dem Freitext der Anfrage.</li>
+          <li><strong>Zustand eindeutig machen:</strong> Eine Mail kann erst nach erfolgreicher Übernahme als gelesen markiert werden; das Postfach bleibt Eingang, das CRM wird Arbeitsplatz.</li>
+        </ul></article>
+        <article class="case-block"><p class="eyebrow">Erweiterung</p><h2>Telefonnummern dort verfügbar machen, wo sie gebraucht werden</h2><p>Ein ergänzender Kontakte-Sync normalisiert Identifikatoren und plant neue Smartphone-Kontakte zunächst im Dry-Run. Ein echter Schreiblauf braucht eine bewusste Freigabe.</p></article>
+        <article class="case-block"><p class="eyebrow">Grenzen</p><h2>Parser reagieren auf Formatänderungen</h2><p>Darum decken Tests fehlende Felder, abweichende Namen und fehlerhafte Mails ab. Fachlich unklare Anfragen werden nicht aus Text erraten, sondern zur Prüfung zurückgegeben.</p></article>
+      </div>
+      <div class="outcome-strip"><div><strong>Eingang</strong><span>Zwei standardisierte Mailquellen</span></div><div><strong>Modell</strong><span>Eine gemeinsame Lead-Struktur</span></div><div><strong>Übergabe</strong><span>Kontakt, Projekt und Kontext bleiben verbunden</span></div></div>
+      <figure class="figure"><img src="../assets/img/lead-automation.png" alt="Anonymisierte Lead-E-Mail neben Kontakt, Projekt und Notiz im CRM" width="1536" height="1024" loading="lazy" decoding="async"><figcaption>Aus dem Eingang entsteht ein zusammenhängender Vorgang, nicht nur ein isolierter Kontakt.</figcaption></figure>
+      <nav class="page-nav" aria-label="Weitere Projekte"><a href="crm_sync.html"><span aria-hidden="true">←</span> CRM-Sync</a><a href="rechnungs_pipeline.html">Zahlungsabgleich <span aria-hidden="true">→</span></a></nav>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer><script src="../assets/js/atlas.js" defer></script>
+</body></html>

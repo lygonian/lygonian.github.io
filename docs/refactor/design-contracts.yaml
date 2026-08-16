@@ -1,0 +1,388 @@
+schema_version: 1
+updated_at: "2026-08-15"
+status: accepted_with_partial_and_deferred_scopes
+authority: orchestrator_after_user_acceptance
+accepted_at: "2026-08-15"
+principle: "so wenig System wie sinnvoll, so viel System wie notwendig"
+dependency_semantics:
+  depends_on: "Hard scheduling dependency that must be contract-ready first."
+  review_constraints: "Iterative cross-system review input; not a topological scheduling edge."
+  partial_ready_scope: "A task may consume a partial contract only when every requested domain is explicitly inside ready_scope, no blocked_scope item is touched, and each hard dependency exposes an equivalent ready subset. The task records this proof in contract_reads and acceptance checks."
+sources:
+  - path: ../DESIGN.md
+    role: design_intent_source
+    writable_by_orchestrator: false
+  - path: assets/css/style.css
+    role: implementation_evidence
+    authoritative: false
+  - path: index.html
+    role: implementation_and_visual_evidence
+    authoritative: unresolved
+
+contracts:
+  design_tokens:
+    status: accepted
+    semantic_roles: [shared_foundation_values, category_identity, component_consumption]
+    invariants:
+      - "Tokens represent stable semantic roles, not a renamed inventory of every current value."
+      - "Numerically equal UI and artwork colors do not automatically share a token."
+      - "Public tokens expose stable semantic roles; primitives, migration aliases, artwork geometry, breakpoints, radii, and shadows stay internal to their owning system."
+      - "Migration order is Root default, context-mode variable override, component modifier, interaction state, then authorized responsive override."
+      - "Migration introduces aliases first; components consume role variables, context modes override variables rather than properties, and legacy consumers are removed only after computed-style and visual parity."
+    allowed_variants: [documented_component_local_value, documented_artwork_local_value]
+    depends_on: []
+    owner: foundation-systems
+    required_reviewers: [architecture-cleanup, visual-integration]
+  typography:
+    status: accepted
+    semantic_roles: [display, heading, subheading, body, ui, meta]
+    invariants:
+      - "Typography remains fully reviewable despite its historical refactor."
+      - "Sizes, line heights, and tracking live in CSS, not HTML."
+      - "Modifier context does not create a new semantic role by itself."
+      - "The single type family uses weights 400, 500, and 700."
+      - "The current home and subpage scales are context modes of the same roles, not separate typography systems."
+      - "Body Large is a size variant of Body, never a seventh semantic role."
+    allowed_variants: [body_large, compact_body, compact_subheading, prominent_ui, prominent_meta, fluid_home_scale, stepped_subpage_scale, compact_overview_heading, emphasized_card_subheading]
+    depends_on: [design_tokens]
+    owner: foundation-systems
+    required_reviewers: [architecture-cleanup, visual-integration]
+  color.ui:
+    status: accepted
+    semantic_roles: [background, surface_normal, surface_emphasized, text_primary, text_secondary, text_muted, border_subtle, border_strong, interaction, interaction_emphasized, category_identity]
+    invariants:
+      - "Rubrikfarbe communicates content identity, never a global interaction state."
+      - "Global function and state colors remain category-independent."
+      - "The current historical palette is reviewable and not protected."
+      - "The raw Surface value is a non-consumable source; components consume only the two documented Surface applications."
+    fixed_values:
+      background: "#050908"
+      surface_normal: "#141917BF"
+      surface_emphasized: "#141917D9"
+      text_primary: "#E8EDEA"
+      text_secondary: "#B7C1BD"
+      text_muted: "#86938E"
+      border_subtle: "#313735"
+      border_strong: "#69706D"
+      interaction: "#CDD0CE"
+      interaction_emphasized: "#D2D6D4"
+      categories: {automation: "#54C596", analysis: "#5CC0E6", private: "#7A88B2", profile: "#CC9653", contact: "#EBD49A"}
+    allowed_variants: [five_documented_category_colors]
+    depends_on: [design_tokens]
+    owner: foundation-systems
+    required_reviewers: [semantics-accessibility, visual-integration]
+  color.artwork:
+    status: accepted
+    semantic_roles: [atmosphere, depth, material, illumination, world_transition]
+    invariants:
+      - "Artwork colors are not automatically promoted to UI tokens."
+      - "Artwork must preserve content readability and must not impersonate interaction state."
+      - "A color is artwork when removing it leaves UI function, state, and readability unchanged while atmosphere, material, light, or depth changes."
+      - "A category wash becomes category activation only when spatially and semantically bound to that category's activated guiding motif; equal numeric opacity alone does not qualify it."
+      - "Existing full-page, hero, leaf, contrast-section, and diagram washes remain implementation evidence pending motif binding; the categorized card wash is owned by components.card."
+    allowed_variants: [scene_local_palette, motif_bound_category_activation_wash, research_microscopic_palette]
+    depends_on: [design_tokens]
+    owner: visual-system
+    required_reviewers: [foundation-systems, semantics-accessibility, visual-integration]
+  spacing:
+    status: accepted
+    semantic_roles: [section_gap, layout_gap, component_gap, component_inset, inline_gap, page_gutter]
+    invariants:
+      - "Repeated relationships use a small semantic scale after reconciliation."
+      - "One-off values require a layout or artwork reason."
+      - "Proposed values are defaults, not a mandate to tokenize or normalize component-local and artwork-local geometry."
+    proposed_values:
+      inline_gap: "8px"
+      component_gap: "12px"
+      layout_gap: "24px"
+      component_inset: "24px, with a documented fluid 24-32px modifier"
+      section_gap: "clamp(56px, 8vw, 96px)"
+      page_gutter: "clamp(20px, 4vw, 40px)"
+    allowed_variants: [fluid_section_spacing, artwork_geometry]
+    depends_on: [design_tokens, typography]
+    owner: foundation-systems
+    required_reviewers: [layout-responsive, architecture-cleanup]
+  containers:
+    status: accepted
+    semantic_roles: [page_max, reading_measure, component_measure, artwork_stage]
+    invariants:
+      - "Content width follows content role, not incidental current pixel values."
+      - "Artwork stages may exceed reading measure without changing text measure."
+    proposed_values: {page_max: "1200px", reading_measure: "64ch", component_measure: "52ch", artwork_stage: "960px"}
+    allowed_variants: [full_bleed_artwork, bounded_content, narrow_prose]
+    depends_on: [typography, spacing]
+    owner: foundation-systems
+    required_reviewers: [layout-responsive, visual-integration]
+  layout:
+    status: accepted
+    semantic_roles: [page_flow, section_flow, grid, split, alignment, stage_geometry]
+    invariants:
+      - "DOM order preserves meaningful reading order."
+      - "Layout changes account for JavaScript-measured geometry."
+      - "Desktop composition uses four primary families: home_scene, overview, case_study, and research_detail."
+      - "Every Typography, Spacing, Container, or Layout write reruns Atlas geometry checks after font readiness and dynamic height changes."
+      - "The homepage route groups related actions into explicit stages; one stage owns the route anchor and its cells use local lanes instead of competing for independent document-Y alignment."
+    allowed_variants: [home_scene, overview, case_study, research_detail]
+    route_families:
+      home_scene: [index.html]
+      overview: [automation.html, datenanalyse.html, private_projekte.html, ueber_mich.html, kontakt.html, forschung/index.html]
+      case_study: [projekte/bewaesserung.html, projekte/cash_forecast.html, projekte/crm_sync.html, projekte/graphql_reverse_engineering.html, projekte/kontoauszuege.html, projekte/lead_automation.html, projekte/linkedin_pipeline.html, projekte/pv_vertragsgenerator.html, projekte/rechnungs_pipeline.html, projekte/spotify_playlists.html]
+      research_detail: [forschung/membran_biophysik.html, forschung/neuroimmunologie.html, forschung/redox_neurobiochemie.html]
+    context_modes: [automation_tree, contact_conversion, profile_split, research_hub, full_case, compact_case, ki_method]
+    depends_on: [typography, spacing, containers]
+    owner: layout-responsive
+    required_reviewers: [semantics-accessibility, visual-integration]
+  responsive:
+    status: accepted_audit_only_writes_deferred
+    semantic_roles: [reflow, breakpoint, crop, navigation_wrap, zoom_resilience]
+    invariants:
+      - "No content or operation is lost at supported widths."
+      - "Artwork cropping may change; content meaning and controls remain available."
+      - "Responsive risks remain auditable, but tablet and smartphone implementation is deferred until explicit desktop acceptance."
+      - "Audit evidence covers 200 percent text, 400 percent zoom or 320 CSS pixels, portrait and landscape, keyboard operation, and sticky-UI focus visibility."
+      - "Desktop implementation may not edit breakpoints, tablet/mobile media blocks, or narrow-navigation behavior; cross-width findings remain queued."
+    allowed_variants: [desktop_write_scope, tablet_audit_only, smartphone_audit_only]
+    depends_on: [typography, containers, layout, navigation]
+    review_constraints: [background-artwork]
+    owner: layout-responsive
+    required_reviewers: [semantics-accessibility, visual-integration]
+  components.surface:
+    status: accepted
+    semantic_roles: [regular_surface, emphasized_surface, subtle_boundary, strong_boundary]
+    invariants:
+      - "Material differences signal an intentional component role."
+      - "Component-specific color derivations do not bypass color.ui."
+      - "Interactive emphasis may change Surface and Border roles; category color remains an identity marker, never the state."
+      - "Every implementation package provides a component matrix mapping Surface role, Border role, radius family, and hover/focus behavior for cards, features, case blocks, figures, facts, flows, notes, outcomes, and navigation."
+      - "Radius remains component-owned; numeric equality does not create a new global token or erase intentional role differences."
+    allowed_variants: [regular, emphasized, interactive, navigation_surface, figure]
+    depends_on: [color.ui, spacing, visual-effects]
+    owner: components-interaction
+    required_reviewers: [foundation-systems, visual-integration]
+  components.card:
+    status: accepted
+    semantic_roles: [overview_item, project_item, feature_item, case_block]
+    invariants:
+      - "Each card exposes a clear primary action and valid semantic structure."
+      - "Whole-card pointer behavior does not hide or replace the real link."
+      - "Whole-card enhancement requires one explicitly identified primary link; the container receives no synthetic role or tabindex."
+      - "Focus-within emphasizes the surface without pointer lift or movement."
+      - "Focus-within is supplementary; the actual focused link retains an unclipped, contrasting focus indicator."
+      - "A card with exactly one real link may treat it as primary; a card with multiple links requires an explicit data-card-primary hook."
+      - "A category wash inside a card is components.card identity decoration consuming category_identity; it is neither Surface nor an interaction state and requires visual-system review."
+      - "A homepage route cell remains a real-link card with a legible content core; its organic membrane is identity decoration, not an interaction state."
+      - "A title-only homepage route cell keeps explanatory copy as an adjacent companion, so the cell remains a compact, scannable action."
+      - "Homepage section markers are non-interactive route landmarks, while category and project route cells are real-link actions; the variants may not impersonate one another."
+      - "Route-cell companions remain outside the action membrane and are explicitly associated with their action without enlarging the interactive hit area into invisible surrounding space."
+    allowed_variants: [plain, media, wide, compact, route_cell]
+    depends_on: [typography, color.ui, spacing, layout, components.surface, interaction, accessibility]
+    owner: components-interaction
+    required_reviewers: [semantics-accessibility, visual-integration]
+  components.button:
+    status: accepted
+    semantic_roles: [primary_action, secondary_action, ghost_action]
+    invariants:
+      - "State remains visible without category color."
+      - "Links styled as buttons remain navigation, not fake buttons."
+      - "Disabled presentation is used only with effective disabled semantics; navigational anchors are not disabled with aria-disabled alone."
+    allowed_variants: [primary, secondary, ghost, disabled]
+    depends_on: [typography, color.ui, spacing, interaction, accessibility]
+    owner: components-interaction
+    required_reviewers: [semantics-accessibility, visual-integration]
+  components.navigation:
+    status: partial_accepted
+    semantic_roles: [site_navigation, wayfinder, breadcrumb, previous_next, footer_navigation]
+    invariants:
+      - "Current location has a programmatic and visible signal."
+      - "Shared shell variants are explicit and synchronized across all pages."
+      - "Shell variation is parameterized by path depth, current section, contextual wayfinding, and terminal footer."
+      - "Exact top-level pages use aria-current=page; category parent links on descendant pages use aria-current=location."
+      - "Decorative arrows and separators do not enter accessible names."
+    ready_scope: [path_depth, page_current, ancestor_location, breadcrumb_pattern, previous_next_pattern]
+    blocked_scope: [visible_research_route, content_labels, terminal_cta_hierarchy]
+    allowed_variants: [root_relative, nested_relative, page_current, ancestor_location, contextual_wayfinding, terminal_footer]
+    depends_on: [navigation, typography, color.ui, spacing, responsive, accessibility]
+    owner: components-interaction
+    required_reviewers: [content-ia, semantics-accessibility, visual-integration]
+  interaction:
+    status: accepted
+    semantic_roles: [default, hover, focus, active, disabled, pointer_enhancement]
+    invariants:
+      - "Keyboard users receive an equivalent visible path to every action."
+      - "Focus is global, visible, and category-independent."
+      - "Progressive enhancement preserves a functional no-JavaScript path."
+      - "Pointer hover may move a surface; keyboard focus remains equally visible without movement."
+      - "Focus acceptance covers header navigation, buttons, cards and their real links, expertise nodes, profile branches, breadcrumbs, and previous/next links; focus never triggers lift, arrow travel, or clipped outlines."
+    allowed_variants: [link, button, card_primary_link]
+    depends_on: [color.ui, components.surface, accessibility]
+    owner: components-interaction
+    required_reviewers: [semantics-accessibility, visual-integration]
+  motion:
+    status: partial_accepted_pending_manual_classification
+    semantic_roles: [feedback, reveal, narrative_once, ambient_artwork]
+    invariants:
+      - "Reduced motion removes non-essential movement."
+      - "Motion has a defined trigger and does not replay unintentionally."
+      - "Reveal never keeps a focused descendant invisible; focus settles the reveal synchronously."
+      - "Component motion and ambient artwork motion remain separate effect families."
+      - "Automatically running non-essential movement longer than five seconds requires a visible Pause, Stop, or Hide mechanism in addition to reduced-motion support."
+      - "Motion must not flash more than three times in any one-second period."
+    ready_scope: [feedback, reveal_once, narrative_once, instant_reduced]
+    blocked_scope: [ambient_motion_pending_wcag_2_2_2_classification]
+    allowed_variants: [instant_reduced, short_feedback, one_time_narrative, slow_ambient]
+    depends_on: [interaction, visual-effects, accessibility]
+    owner: components-interaction
+    required_reviewers: [semantics-accessibility, visual-integration]
+  visual-effects:
+    status: accepted
+    semantic_roles: [depth, separation, focus_support, atmospheric_light]
+    invariants:
+      - "Effects support hierarchy and readability instead of becoming independent decoration."
+      - "Blur, glow, gradient, and shadow variants remain intentionally limited."
+    allowed_variants: [ui_separation, ui_elevation, artwork_atmosphere, connector_haze]
+    depends_on: [color.ui, color.artwork, layers]
+    owner: visual-system
+    required_reviewers: [semantics-accessibility, visual-integration]
+  layers:
+    status: accepted
+    semantic_roles: [background, artwork, connector, content, sticky_navigation, skip_link]
+    invariants:
+      - "Negative layers remain inside an explicit stacking context."
+      - "Content, focus indicators, and navigation remain above decorative artwork."
+      - "The semantic global stack is background, artwork, connector, content, sticky_navigation, and skip_link."
+      - "Negative layers exist only inside an explicit local stacking context."
+      - "The homepage route may use a local back, interstitial, and front artwork stack, but content, focus indicators, navigation, and the skip link remain above all three."
+    allowed_variants: [local_scene_stack, global_ui_stack]
+    depends_on: [layout]
+    owner: visual-system
+    required_reviewers: [layout-responsive, semantics-accessibility, visual-integration]
+  background-artwork:
+    status: accepted
+    semantic_roles: [biome_world, ambient_life, route, tree, cave, roots, water, light, subpage_world]
+    invariants:
+      - "Artwork is its own visual system and remains subordinate to content legibility."
+      - "UI and artwork may share numeric colors without sharing semantic tokens."
+      - "Responsive cropping does not remove content meaning."
+      - "The homepage route uses a global connector color outside activation regions and category color only in locally anchored semantic segments."
+      - "The homepage route starts centered and follows a deterministic open-spiral system; its turns are limited by the number of shared content stages and never use random offsets."
+      - "Homepage route stages align to explicit points on the live spiral while their cells occupy controlled local lanes and retain real link semantics and content-layer legibility."
+      - "Research is a microscopic world distinct from tree and annual-ring artwork while retaining profile UI identity."
+      - "Every active category subpage direction deepens its documented guiding motif; a shared base world alone or a full-page category tint is insufficient activation."
+    allowed_variants: [home_full_world, shared_subpage_world_with_category_overlay, independent_category_scenes, research_continuous_microscopic_world, research_bounded_microscopic_stages]
+    depends_on: [color.artwork, layout, responsive, visual-effects, layers, content_roles]
+    owner: visual-system
+    required_reviewers: [semantics-accessibility, visual-integration]
+  navigation:
+    status: partial_accepted
+    semantic_roles: [global_route, section_route, contextual_route, return_route]
+    invariants:
+      - "Main navigation is Start, Automation, Datenanalyse, Private Projekte, Über mich, Kontakt."
+      - "Link labels and destinations agree."
+      - "Exact top-level pages use aria-current=page; category parent links on descendant pages use aria-current=location."
+    ready_scope: [six_item_main_navigation, page_current, ancestor_location, label_destination_agreement]
+    blocked_scope: [homepage_research_destination, certificate_destination, profile_research_inventory]
+    allowed_variants: [root_path, nested_path, current_category]
+    depends_on: [information_architecture, content_roles]
+    owner: content-ia
+    required_reviewers: [semantics-accessibility, orchestrator]
+  information_architecture:
+    status: accepted
+    semantic_roles: [top_level_section, project_detail, workflow_detail, research_under_profile]
+    invariants:
+      - "Research remains within Über mich unless the user chooses a visible IA change."
+      - "Page placement follows the strongest content context, not completion status."
+    allowed_variants: [overview_to_detail, contextual_cross_link, research_direct_hub, research_via_profile]
+    depends_on: [content_roles]
+    owner: content-ia
+    required_reviewers: [semantics-accessibility, orchestrator]
+  content_roles:
+    status: partial_accepted
+    semantic_roles: [orientation, evidence, explanation, decision, outcome, call_to_action]
+    invariants:
+      - "Content statement changes require user approval."
+      - "CTA prominence follows user journey rather than decoration."
+    allowed_variants: [home, overview, case_study, profile, contact]
+    ready_scope: [home_research_route, profile_research_entry, research_hub_inventory, certificate_link_removal]
+    blocked_scope: [unapproved_copy_changes, additional_case_inventory]
+    depends_on: []
+    owner: content-ia
+    required_reviewers: [semantics-accessibility, orchestrator]
+  html_semantics:
+    status: partial_accepted
+    semantic_roles: [landmark, heading, navigation, article, figure, list]
+    invariants:
+      - "Every page retains one main landmark, one h1, and a meaningful heading sequence."
+      - "Breadcrumb and previous/next structures use named navigation landmarks."
+      - "Breadcrumbs use list semantics and mark the final current item; decorative separators do not enter accessible names."
+      - "A section with card headings has an owning heading or is not represented as a section landmark."
+    ready_scope: [landmarks, heading_sequence, breadcrumb_pattern, previous_next_pattern]
+    blocked_scope: [content_dependent_section_labels, unresolved_route_semantics]
+    allowed_variants: [overview, detail, research_detail]
+    depends_on: [content_roles, navigation, typography]
+    owner: semantics-accessibility
+    required_reviewers: [content-ia, visual-integration]
+  media.image:
+    status: partial_accepted
+    semantic_roles: [content_image, explanatory_diagram, decorative_image]
+    invariants:
+      - "Content images have meaningful alt text; decorative images are hidden from assistive technology."
+      - "Raster images declare intrinsic width and height."
+      - "Non-critical images use lazy loading and remain optimized."
+      - "Intrinsic dimensions are read from the asset rather than estimated from layout."
+    ready_scope: [intrinsic_dimensions, lazy_loading, existing_alt_and_figure_patterns]
+    blocked_scope: [new_content_image_role_decisions]
+    allowed_variants: [content, diagram, decorative]
+    depends_on: [content_roles, layout, accessibility]
+    owner: semantics-accessibility
+    required_reviewers: [visual-integration, architecture-cleanup]
+  accessibility:
+    status: partial_accepted_pending_manual_gates
+    semantic_roles: [keyboard, focus, accessible_name, contrast, reduced_motion, zoom_reflow, target_size]
+    invariants:
+      - "Target standard is WCAG 2.2 AA where relevant."
+      - "Automated checks never replace manual keyboard, focus, structure, hierarchy, and responsive review."
+      - "No-JavaScript operation remains available."
+      - "Inline text links have a persistent non-color cue unless their component context already identifies them as actions."
+      - "Sticky UI does not obscure focus targets or fragment destinations."
+      - "Normal text has at least 4.5:1 contrast; large text and necessary UI or focus boundaries have at least 3:1, including worst-case compositing over artwork and blur."
+      - "Pointer targets are at least 24 by 24 CSS pixels or satisfy the WCAG spacing exception."
+      - "Visible labels are contained in accessible names; decorative arrows and separators are excluded."
+      - "The audit baseline includes 200 percent text, 400 percent zoom or 320 CSS pixels, portrait and landscape evidence, keyboard operation, and sticky-UI focus visibility."
+      - "Desktop implementation tasks may not edit breakpoints, tablet/mobile media blocks, or narrow-navigation behavior; cross-width regression findings remain queued."
+    ready_scope: [keyboard, focus_visible, link_recognition, accessible_names, contrast, target_size, no_javascript]
+    blocked_scope: [ambient_motion_classification, responsive_fixes_deferred_until_desktop_acceptance]
+    allowed_variants: [manual_evidence, automated_evidence]
+    depends_on: [typography, color.ui, layout, html_semantics]
+    review_constraints: [responsive, interaction, motion, background-artwork]
+    owner: semantics-accessibility
+    required_reviewers: [visual-integration, orchestrator]
+  css_architecture:
+    status: deferred_after_stabilization
+    semantic_roles: [cascade_order, selector_ownership, migration_cleanup]
+    invariants:
+      - "No Cascade Layers, file split, or broad reordering is introduced in the first functional implementation wave."
+      - "Cascade no-ops are removed only after the owning functional contract is accepted and computed-style parity is verified."
+    allowed_variants: [small_post_stabilization_cleanup_package]
+    depends_on: [design_tokens, typography, spacing, layout, components.card, background-artwork]
+    owner: architecture-cleanup
+    required_reviewers: [orchestrator, visual-integration]
+  javascript_architecture:
+    status: deferred_after_functional_stabilization
+    semantic_roles: [feature_guard, error_boundary, lifecycle]
+    invariants:
+      - "Card-primary, reveal-focus, and geometry invalidation behavior is stabilized without restructuring the current IIFE."
+      - "Feature init functions and error boundaries are a later cleanup task with selectors and observable behavior held constant."
+    allowed_variants: [single_file_guarded_features]
+    depends_on: [layout, responsive, components.card, motion]
+    owner: architecture-cleanup
+    required_reviewers: [components-interaction, orchestrator]
+  dead_code_cleanup:
+    status: deferred_after_architecture_stabilization
+    semantic_roles: [verified_zero_consumer, verified_zero_coverage]
+    invariants:
+      - "Text search alone never proves dead code."
+      - "Deletion requires accepted upstream contracts plus browser coverage across all relevant pages and states."
+    allowed_variants: [small_evidence_backed_deletion_package]
+    depends_on: [css_architecture, javascript_architecture]
+    owner: architecture-cleanup
+    required_reviewers: [orchestrator]

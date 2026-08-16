@@ -1,0 +1,19 @@
+schema_version: 1
+id: WRO-DEC-005
+status: resolved
+topic: research_microscopic_world_depth
+context:
+  - "DESIGN.md requires research to become a microscopic world distinct from tree and annual-ring artwork."
+  - "The current research hub and details reuse the generic profile/tree subpage world."
+options:
+  - id: A
+    summary: "Use a quiet continuous microscopic space across research hub and details; begin the scale transition on the profile page."
+  - id: B
+    summary: "Use bounded microscopic stages at the research entry and figures with neutral dark content intervals."
+recommendation: A
+impact: "Controls continuity, diagram contrast, performance, and the profile-to-research transition."
+owner: visual-system
+resolution:
+  selected: A
+  basis: "User confirmed the recommended decision package on 2026-08-15."
+  resolved_at: "2026-08-15"

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "WRO-008",
+  "title": "Plan CSS, JavaScript, and legacy cleanup after stabilization",
+  "status": "analysis_complete",
+  "mode": "analysis",
+  "primary_agent": "architecture-cleanup",
+  "consulted_agents": ["foundation-systems", "layout-responsive", "components-interaction", "visual-system"],
+  "reviewers": ["orchestrator"],
+  "objective": "Identify safe cleanup packages and their required upstream contract stabilization without deleting live behavior.",
+  "scope": ["CSS architecture", "JavaScript architecture", "duplicate media queries", "legacy selectors", "unused tokens", "dead CSS", "dead JS", "override chains", "shared failure boundaries"],
+  "non_goals": ["cleanup implementation", "dependency installation", "unverified deletion"],
+  "depends_on": ["WRO-001"],
+  "contract_reads": ["all affected system contracts"],
+  "contract_changes_requested": [],
+  "write_files": [],
+  "write_domains": [],
+  "exclusive_leases": [],
+  "deliverables": ["evidence-backed legacy inventory", "cleanup dependency map", "small package proposals", "validation matrix"],
+  "acceptance_checks": ["cleanup ordered after stabilization", "no dead-code claim based only on text search", "shared CSS and JS conflicts explicit"],
+  "git": {"base_branch": "main", "integration_branch": "refactor/orchestrator", "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "CSS/JS architecture and legacy inventory completed read-only; no broad dead-code block is currently proven.",
+    "cleanup_packages": ["C1 cascade no-ops", "C2 artwork/motion remnants", "C3 token tail after migration", "C4 responsive consolidation after desktop approval", "C5 JS feature error boundaries", "C6 optional no-hook script includes", "C7 browser-backed legacy coverage"],
+    "ordering": "All cleanup remains after contract acceptance and visual stabilization.",
+    "writes": false
+  }
+}

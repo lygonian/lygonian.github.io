@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "WRO-022",
+  "title": "Integrate homepage spiral stages and route components",
+  "status": "completed",
+  "mode": "implementation_reopen",
+  "primary_agent": "components-interaction",
+  "consulted_agents": ["visual-system", "foundation-systems", "layout-responsive", "content-ia"],
+  "reviewers": ["semantics-accessibility", "visual-integration"],
+  "objective": "Replace the patch-like sequence of individually positioned homepage route cells with a deterministic open spiral that creates shared content stages and integrates headings, category actions, project actions, companion copy, color, form, and depth into one homepage system.",
+  "scope": ["homepage open-spiral route geometry", "shared route stages for categories and selected work", "homepage route marker, action cell, and companion variants", "local route depth bands", "homepage-only color and form application", "homepage route alignment JavaScript"],
+  "non_goals": ["copy wording or destinations", "shared subpage cards", "global navigation", "new category colors", "new global UI palette", "tablet or smartphone implementation", "ambient motion", "DESIGN.md changes"],
+  "depends_on": ["WRO-021", "user approval 2026-08-15"],
+  "contract_reads": ["color.ui", "color.artwork", "typography", "spacing", "containers", "layout", "components.surface", "components.card", "interaction", "visual-effects", "layers", "background-artwork", "html_semantics.ready_scope", "accessibility.ready_scope"],
+  "contract_changes_requested": ["layout.home_route_stages", "components.card.route_cell", "background-artwork.home_route"],
+  "write_files": ["index.html", "assets/css/style.css", "assets/js/atlas.js"],
+  "write_domains": ["layout.home_route_stages", "component.card.home_route_cell", "artwork.home_spiral_route", "visual.layers.home_route", "javascript.home_route_geometry"],
+  "exclusive_leases": ["WRO-022-home-spiral-stages"],
+  "deliverables": ["deterministic open spiral", "category stage with Automation and Datenanalyse on one level", "selected-work stage with three projects on shared levels", "route marker, action cell, and companion component variants", "desktop render evidence", "specialist and visual-integration reviews"],
+  "acceptance_checks": ["route creates shared stages instead of aligning every cell only by its own Y center", "Automation and Datenanalyse read as one level while each remains a real link", "all three selected projects read as one grouped stage without overlap", "section headings are non-interactive route markers rather than card variants", "companion copy is visibly and semantically associated with its action", "the route uses global connector color and only local category activation", "global UI colors and five category identities remain unchanged", "content and focus remain above all route layers", "focus is visible and motionless", "no-JavaScript reading order and links remain functional", "desktop render reviewed at 2048 by 942 and full-page height", "tablet and smartphone media rules remain unchanged"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "The homepage now uses two deterministic open-spiral stages. Section headings are non-interactive route markers, five category and project destinations are visible real-link membranes, and their companion copy remains outside the hit area. The route runs through back, middle, and front artwork bands, preserves all five local category activations, and exits the work stage without crossing its own windings.",
+    "files_changed": ["index.html", "assets/css/style.css", "assets/js/atlas.js"],
+    "checks": ["git diff --check", "JSON/YAML/HTML parse checks", "unique IDs and valid aria-describedby assertions", "two route stages and five stage actions asserted", "seven local category activations asserted", "13 media queries unchanged", "Firefox desktop render at 2048x942", "Firefox tall render at 2048x3000", "Firefox full-page-height render at 2048x5000", "JavaScript executed in Firefox without a parse error"],
+    "reviews": {
+      "semantics-accessibility": "pass for desktop: meaningful heading and DOM order, real links, valid companion associations, visible motionless focus, and functional no-JavaScript content",
+      "visual-integration": "pass for desktop after fix round: coherent shared stages, no route self-crossing, preserved profile/contact activation, differentiated membranes, and consistent artwork/UI layering"
+    },
+    "known_deferred": ["narrow route-stage reflow and focus-clipping correction under the explicit desktop-first responsive policy", "ambient-motion WCAG 2.2.2 classification", "nonlocal browser and assistive-technology matrix"],
+    "commit": null,
+    "pushed": false
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "WRO-014",
+  "title": "Center the homepage title within the canopy",
+  "status": "completed",
+  "mode": "implementation_reopen",
+  "primary_agent": "orchestrator",
+  "consulted_agents": [],
+  "reviewers": ["orchestrator_accessibility_review", "orchestrator_visual_integration_review"],
+  "objective": "Move the primary homepage hero copy slightly downward so the title sits more centrally within the accepted canopy composition.",
+  "scope": ["desktop homepage hero-copy vertical alignment", "upper-hero route-point visual integration"],
+  "non_goals": ["copy or typography changes", "canopy or trunk geometry", "wayfinder position", "section spacing", "breakpoints", "tablet or smartphone tuning"],
+  "depends_on": ["WRO-013", "user visual feedback 2026-08-15"],
+  "contract_reads": ["layout", "background-artwork", "typography", "accessibility.ready_scope"],
+  "contract_changes_requested": [],
+  "write_files": ["assets/css/style.css"],
+  "write_domains": ["layout.home_hero_alignment"],
+  "exclusive_leases": ["WRO-014-home-hero-alignment"],
+  "deliverables": ["canopy-centered hero title", "updated desktop screenshot"],
+  "acceptance_checks": ["title is visibly lower and remains horizontally centered", "wayfinder position remains unchanged", "hero text and actions do not overlap", "Digitale DNA section start remains unchanged", "route still crosses the hero naturally", "no media-query edits", "desktop screenshot reviewed at 2048 by 942"],
+  "git": {"base_branch": "main", "integration_branch": null, "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "The primary hero-copy group now sits 48px lower, placing the title near the optical center of the accepted canopy while leaving the wayfinder and following section in place.",
+    "files_changed": ["assets/css/style.css"],
+    "checks": ["git diff --check", "JSON and YAML parser checks", "13 media queries unchanged", "Firefox 2048x942 upper-home screenshot", "visual overlap check for title, lead, actions, and wayfinder", "unchanged Digitale DNA section start"],
+    "reviews": {
+      "orchestrator_accessibility_review": "pass: title, lead, and both actions remain unobstructed and readable",
+      "orchestrator_visual_integration_review": "pass: title is more centrally framed by the canopy and the wayfinder remains anchored"
+    },
+    "commit": null,
+    "pushed": false
+  }
+}

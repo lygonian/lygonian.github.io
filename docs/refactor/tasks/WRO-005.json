@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "WRO-005",
+  "title": "Audit artwork, effects, layers, and visual composition",
+  "status": "analysis_complete",
+  "mode": "analysis",
+  "primary_agent": "visual-system",
+  "consulted_agents": ["foundation-systems", "layout-responsive", "content-ia"],
+  "reviewers": ["semantics-accessibility", "visual-integration"],
+  "objective": "Establish the role, hierarchy, layering, cropping, intensity, and UI relationship of the visual world.",
+  "scope": ["color.artwork", "visual effects", "shadows", "glow", "blur", "gradients", "layers", "z-index", "background artwork", "route", "subpage biome"],
+  "non_goals": ["artwork implementation", "brand direction change", "UI color token merger"],
+  "depends_on": ["WRO-001"],
+  "contract_reads": ["color.artwork", "visual-effects", "layers", "background-artwork", "layout", "responsive", "content_roles", "accessibility"],
+  "contract_changes_requested": ["color.artwork", "visual-effects", "layers", "background-artwork"],
+  "write_files": [],
+  "write_domains": [],
+  "exclusive_leases": [],
+  "deliverables": ["artwork source map", "layer map", "effect inventory", "legibility and cropping findings", "decision alternatives"],
+  "acceptance_checks": ["UI and artwork roles remain separate", "homepage and subpages compared", "multi-color route reconciled", "visual review evidence planned"],
+  "git": {"base_branch": "main", "integration_branch": "refactor/orchestrator", "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "Artwork, layer, effect, route, and cross-page composition audit completed read-only with Firefox desktop evidence.",
+    "verified_findings": ["Subpages share one generic stretched biome", "Research lacks its documented microscopic world", "Homepage connector is permanently multicolor and omits Private Projects", "Route colors are not anchored to semantic activation regions"],
+    "contract_proposal": ["Classify category washes as artwork activation", "Use a global connector with local category segments", "Add a research microscopic world", "Name the semantic layer stack"],
+    "writes": false
+  }
+}

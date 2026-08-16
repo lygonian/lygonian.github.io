@@ -1,0 +1,572 @@
+{
+  "schemaVersion": 2,
+  "editor": "Samet Kurt · Startseiten-Editor",
+  "source": {
+    "page": "index.html",
+    "commit": "c066511"
+  },
+  "exportedAt": "2026-08-16T21:21:36.957Z",
+  "viewport": {
+    "width": 1936,
+    "height": 1027,
+    "desktopOnly": true
+  },
+  "rules": {
+    "generatedRoutePathsAreDerived": true,
+    "extensionConnectorsAreDerived": true,
+    "visualOrderOnly": true,
+    "semanticReadingOrderRemainsSourceOrder": true,
+    "originalWasNotModified": true
+  },
+  "state": {
+    "nodes": {
+      "page-header": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "hero-content": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "hero-origin": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "hero-extension": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "hero-actions": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "domains-stage": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "domains-intro": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "domains-blob": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "domains-extension": {
+        "x": -65.8,
+        "y": -9.5,
+        "width": 460,
+        "height": 138,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "automation-station": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "automation-blob": {
+        "x": 37.5,
+        "y": -40,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "automation-extension": {
+        "x": 78.5,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "analysis-station": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "analysis-blob": {
+        "x": -10.3,
+        "y": 24,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "analysis-extension": {
+        "x": 7.5,
+        "y": 64,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "work-stage": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "work-intro": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "work-blob": {
+        "x": 16,
+        "y": -40,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "work-extension": {
+        "x": -458.1,
+        "y": -207,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "payment-station": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "payment-blob": {
+        "x": -33.4,
+        "y": 128,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "payment-extension": {
+        "x": -46.5,
+        "y": 131.1,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "forecast-station": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "forecast-blob": {
+        "x": -36.5,
+        "y": 48,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "forecast-extension": {
+        "x": -46.1,
+        "y": 73.2,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "irrigation-station": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "irrigation-blob": {
+        "x": 0,
+        "y": 10.5,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "irrigation-extension": {
+        "x": -24,
+        "y": -24,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "profile-scene": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "profile-blob": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "profile-fact-study": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "profile-fact-certificate": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "profile-fact-tools": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "profile-branches": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "research-branch": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "research-blob": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "research-extension": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "private-branch": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "private-blob": {
+        "x": -7,
+        "y": -30.9,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "private-extension": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "contact-station": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "contact-blob": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "contact-extension": {
+        "x": 135,
+        "y": -48,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "page-footer": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "world-canopy": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "world-cave": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "world-tree": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "world-roots": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "world-cave-lip": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      },
+      "world-water": {
+        "x": 0,
+        "y": 0,
+        "width": null,
+        "height": null,
+        "rotation": 0,
+        "z": null,
+        "locked": false
+      }
+    },
+    "texts": {
+      "nav-start": "Start",
+      "nav-automation": "Automation",
+      "nav-analysis": "Datenanalyse",
+      "nav-private": "Private Projekte",
+      "nav-profile": "Über mich",
+      "nav-contact": "Kontakt",
+      "hero-eyebrow": "Digitalisierung",
+      "hero-title-neutral": "Automation & Data für",
+      "hero-title-accent": "operative Exzellenz",
+      "hero-lead": "Jedes Unternehmen hinterlässt in seinen Abläufen einen digitalen Fingerabdruck. Wird er lesbar, zeigen sich Zusammenhänge, Daten bekommen eine klare Struktur und Automatisierungen werden möglich. Die fortschreitende Digitalisierung setzt bereits das Fundament, jedoch werden die Daten bisher nicht effektiv genutzt.",
+      "hero-action-work": "Projekte ansehen",
+      "domains-title": "Digitale DNA",
+      "domains-copy": "Ich entwickle Automationen, Analysen und technische Systeme, die reale Abläufe abbilden — mit klaren Datenflüssen, prüfbaren Schritten und sichtbaren Grenzen.",
+      "automation-title": "Automation",
+      "automation-copy": "Prozesse, die für Sie arbeiten.",
+      "analysis-title": "Datenanalyse",
+      "analysis-copy": "Wissensmanagement für strategische Entscheidungen.",
+      "work-title": "Projekte",
+      "work-copy": "Erfolgreich implementierte Systeme.",
+      "payment-kicker": "Automation",
+      "payment-title": "Automatische\nZahlungsbuchung",
+      "payment-copy": "Zahlungen werden mit Rechnungen verglichen und eingebucht; der Kunde wird automatisch kontaktiert.",
+      "forecast-kicker": "Datenanalyse",
+      "forecast-title": "Wöchentlicher Cash-Forecast",
+      "forecast-copy": "Projekt-, Bank- und Umsatzsteuerpfade bleiben getrennt und laufen in einer gemeinsamen Wochenansicht zusammen.",
+      "irrigation-kicker": "Privates Projekt",
+      "irrigation-title": "Automatische Bewässerung",
+      "irrigation-copy": "Meine Pflanzen werden abhängig von der Bodenfeuchtigkeit automatisch gegossen – ein Engineering-Projekt.",
+      "profile-title": "Über mich",
+      "profile-study-label": "Studium",
+      "profile-study-value": "M.Sc. Biochemie",
+      "profile-certificate-label": "Zertifikat",
+      "profile-certificate-value": "XDi Certified Data Scientist",
+      "profile-tools-label": "Werkzeuge",
+      "profile-tools-value": "Innovation",
+      "research-title": "Meine Forschung",
+      "research-copy": "Proteinbiochemie, Zellbiologie, Neurologie",
+      "private-title": "Private Projekte",
+      "private-copy": "Code, Tools & Automatisierungslösungen",
+      "contact-title": "Kontakt",
+      "contact-copy": "Für Rückfragen zu einer Arbeitsprobe, einer Rolle oder einem ähnlichen Problem bin ich über LinkedIn erreichbar.",
+      "contact-cta": "Kontaktmöglichkeiten ansehen",
+      "footer-copy": "© 2026 Samet Kurt",
+      "footer-linkedin": "LinkedIn",
+      "footer-contact": "Kontakt"
+    },
+    "textStyles": {
+      "nav-start": {},
+      "nav-automation": {},
+      "nav-analysis": {},
+      "nav-private": {},
+      "nav-profile": {},
+      "nav-contact": {},
+      "hero-eyebrow": {},
+      "hero-title-neutral": {},
+      "hero-title-accent": {},
+      "hero-lead": {
+        "textAlign": "center"
+      },
+      "hero-action-work": {},
+      "domains-title": {},
+      "domains-copy": {},
+      "automation-title": {},
+      "automation-copy": {},
+      "analysis-title": {},
+      "analysis-copy": {},
+      "work-title": {},
+      "work-copy": {},
+      "payment-kicker": {},
+      "payment-title": {},
+      "payment-copy": {},
+      "forecast-kicker": {},
+      "forecast-title": {},
+      "forecast-copy": {},
+      "irrigation-kicker": {},
+      "irrigation-title": {},
+      "irrigation-copy": {},
+      "profile-title": {},
+      "profile-study-label": {},
+      "profile-study-value": {},
+      "profile-certificate-label": {},
+      "profile-certificate-value": {},
+      "profile-tools-label": {},
+      "profile-tools-value": {},
+      "research-title": {},
+      "research-copy": {},
+      "private-title": {},
+      "private-copy": {},
+      "contact-title": {},
+      "contact-copy": {},
+      "contact-cta": {},
+      "footer-copy": {},
+      "footer-linkedin": {},
+      "footer-contact": {}
+    },
+    "canvasExtra": 0
+  }
+}

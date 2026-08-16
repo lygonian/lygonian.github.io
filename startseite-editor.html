@@ -1,0 +1,2451 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Startseiten-Editor — Samet Kurt</title>
+  <meta name="description" content="Portfolio von Samet Kurt: nachvollziehbare Automationen, Datenanalysen und technische Projekte mit klaren Entscheidungen und sichtbaren Grenzen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <script>document.documentElement.classList.add("editor-js");</script>
+  <style id="startseite-editor-styles">
+    #startseite-editor-app { display: none; }
+    .editor-js #startseite-editor-app { display: block; }
+
+    .editor-nojs {
+      position: fixed;
+      z-index: 12000;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      color: #e8edea;
+      background: #050908;
+      text-align: center;
+      font: 600 18px/1.5 sans-serif;
+    }
+
+    .editor-js .home-layout-editor {
+      --editor-bar-height: 62px;
+      --editor-panel-width: 330px;
+      --editor-chrome: #141917f2;
+      --editor-line: #69706d;
+      --editor-accent: #d2d6d4;
+      padding-top: var(--editor-bar-height);
+    }
+
+    .editor-js .home-layout-editor .site-header { top: var(--editor-bar-height); }
+    .editor-js .home-layout-editor .home-main {
+      overflow: visible;
+      transition: padding-bottom 180ms ease;
+    }
+
+    .editor-js .home-layout-editor [data-editor-id] {
+      transform-box: border-box;
+      transform-origin: center;
+      touch-action: none;
+    }
+
+    .editor-js .home-layout-editor [data-editor-id].editor-is-locked { cursor: not-allowed !important; }
+    .editor-js .home-layout-editor [data-editor-text-id][contenteditable] {
+      cursor: text;
+      outline: 2px solid var(--ui-interaction-emphasized);
+      outline-offset: 4px;
+      caret-color: var(--ui-text-primary);
+      user-select: text;
+    }
+
+    .editor-js .home-layout-editor .route-station-copy::before,
+    .editor-js .home-layout-editor .route-heading-extension::before,
+    .editor-js .home-layout-editor .hero-text-extension::before,
+    .editor-js .home-layout-editor .profile-branch-copy::before,
+    .editor-js .home-layout-editor .contact-extension::before { content: none !important; }
+
+    /* Die statische Profilzeichnung wäre nach freier Bewegung falsch. Im
+       Editor übernimmt deshalb dieselbe abgeleitete Connector-Ebene. */
+    .editor-js .home-layout-editor .profile-orbits { opacity: 0 !important; }
+    .editor-js .home-layout-editor .home-layout-connectors { opacity: 0 !important; }
+
+    .home-layout-editor.editor-hide-route .home-route-layer,
+    .home-layout-editor.editor-hide-route .profile-orbits { opacity: 0 !important; }
+    .home-layout-editor.editor-hide-artwork .biome-world,
+    .home-layout-editor.editor-hide-artwork .ambient-life { opacity: 0 !important; }
+    .home-layout-editor.editor-hide-connectors #editor-smart-connectors { opacity: 0 !important; }
+
+    #startseite-editor-app,
+    #startseite-editor-app * { box-sizing: border-box; }
+
+    .editor-toolbar {
+      position: fixed;
+      z-index: 10020;
+      top: 0;
+      right: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: var(--editor-bar-height);
+      padding: 9px 12px;
+      color: var(--ui-text-secondary);
+      background: var(--editor-chrome);
+      border-bottom: 1px solid var(--ui-border-strong);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(18px);
+      font: 500 13px/1.2 var(--type-family);
+    }
+
+    .editor-wordmark {
+      display: grid;
+      min-width: 176px;
+      margin-right: 4px;
+      color: var(--ui-text-primary);
+    }
+
+    .editor-wordmark strong { font-size: 14px; font-weight: 650; }
+    .editor-wordmark small {
+      margin-top: 3px;
+      color: var(--ui-text-muted);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .editor-toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding-left: 8px;
+      border-left: 1px solid var(--ui-border-subtle);
+    }
+
+    .editor-toolbar-spacer { flex: 1; }
+
+    .editor-button,
+    .editor-icon-button,
+    .editor-select,
+    .editor-input {
+      min-height: 34px;
+      color: var(--ui-text-secondary);
+      background: var(--ui-surface-normal);
+      border: 1px solid var(--ui-border-strong);
+      border-radius: 5px;
+      font: 600 12px/1 var(--type-family);
+    }
+
+    .editor-button,
+    .editor-icon-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 11px;
+      cursor: pointer;
+    }
+
+    .editor-icon-button { width: 34px; padding: 0; font-size: 15px; }
+    .editor-button:hover,
+    .editor-icon-button:hover,
+    .editor-button:focus-visible,
+    .editor-icon-button:focus-visible {
+      color: var(--ui-text-primary);
+      background: var(--ui-surface-emphasized);
+      border-color: var(--ui-interaction-emphasized);
+      text-decoration: none;
+    }
+
+    .editor-button[aria-pressed="true"] {
+      color: var(--ui-text-primary);
+      border-color: var(--ui-interaction-emphasized);
+      background: var(--ui-surface-emphasized);
+    }
+
+    .editor-button--save {
+      color: var(--ui-text-primary);
+      border-color: var(--ui-interaction);
+      box-shadow: inset 3px 0 0 var(--ui-interaction);
+    }
+
+    .editor-button:disabled,
+    .editor-icon-button:disabled { opacity: 0.42; cursor: default; }
+
+    .editor-save-state {
+      min-width: 74px;
+      color: var(--ui-text-muted);
+      font-size: 11px;
+      text-align: right;
+    }
+
+    .editor-save-state.is-dirty { color: var(--category-contact); }
+
+    .editor-panel {
+      position: fixed;
+      z-index: 10010;
+      top: calc(var(--editor-bar-height) + 12px);
+      right: 12px;
+      bottom: 12px;
+      width: var(--editor-panel-width);
+      overflow: auto;
+      padding: 16px;
+      color: var(--ui-text-secondary);
+      background: var(--editor-chrome);
+      border: 1px solid var(--ui-border-strong);
+      border-radius: 9px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(20px);
+      transition: transform 180ms ease, opacity 180ms ease;
+      font: 500 13px/1.35 var(--type-family);
+    }
+
+    .editor-panel.is-collapsed {
+      opacity: 0;
+      transform: translateX(calc(100% + 24px));
+      pointer-events: none;
+    }
+
+    .editor-panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--ui-border-subtle);
+    }
+
+    .editor-panel-head span,
+    .editor-section-title {
+      display: block;
+      color: var(--ui-text-muted);
+      font-size: 10px;
+      font-weight: 650;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .editor-panel-head strong {
+      display: block;
+      margin-top: 5px;
+      color: var(--ui-text-primary);
+      font-size: 15px;
+      font-weight: 650;
+    }
+
+    .editor-warning {
+      display: none;
+      margin-top: 10px;
+      padding: 9px 10px;
+      color: var(--category-contact);
+      background: var(--ui-surface-normal);
+      border-left: 2px solid var(--category-contact);
+      font-size: 11px;
+    }
+
+    .editor-warning.is-visible { display: block; }
+
+    .editor-section {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--ui-border-subtle);
+    }
+
+    .editor-section:last-child { border-bottom: 0; }
+    .editor-section-title { margin: 0 0 10px; }
+
+    .editor-field {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .editor-field > span {
+      color: var(--ui-text-muted);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .editor-field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .editor-field-grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .editor-input,
+    .editor-select {
+      width: 100%;
+      padding: 0 9px;
+      outline: none;
+    }
+
+    .editor-input:focus,
+    .editor-select:focus {
+      color: var(--ui-text-primary);
+      border-color: var(--ui-interaction-emphasized);
+    }
+
+    .editor-inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 9px;
+    }
+
+    .editor-inline-actions .editor-button { min-height: 31px; padding: 0 9px; }
+
+    .editor-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 30px;
+      cursor: pointer;
+    }
+
+    .editor-check input { accent-color: var(--ui-interaction-emphasized); }
+
+    .editor-help {
+      margin: 0;
+      padding-left: 17px;
+      color: var(--ui-text-muted);
+      font-size: 11px;
+    }
+
+    .editor-help li + li { margin-top: 7px; }
+
+    #editor-smart-connectors {
+      position: fixed;
+      z-index: 8000;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+      transition: opacity 120ms ease;
+    }
+
+    #editor-smart-connectors .editor-connector {
+      fill: none;
+      stroke: var(--connector-color, var(--art-route-global));
+      stroke-width: 1.2;
+      stroke-linecap: round;
+      opacity: 0.76;
+      filter: drop-shadow(0 0 4px var(--connector-color, var(--art-route-global)));
+      vector-effect: non-scaling-stroke;
+    }
+
+    #editor-smart-connectors .editor-connector--profile { opacity: 0.54; }
+    #editor-smart-connectors .editor-connector-terminal {
+      fill: var(--connector-color, var(--art-route-global));
+      stroke: var(--ui-background);
+      stroke-width: 1;
+    }
+
+    #editor-selection {
+      position: fixed;
+      z-index: 10005;
+      display: none;
+      pointer-events: none;
+      border: 1px solid var(--ui-interaction-emphasized);
+      box-shadow: 0 0 0 1px rgba(5, 9, 8, 0.9), 0 0 18px rgba(210, 214, 212, 0.18);
+    }
+
+    #editor-selection.is-visible { display: block; }
+    #editor-selection.is-locked { border-style: dashed; }
+
+    .editor-selection-label {
+      position: absolute;
+      top: -25px;
+      left: -1px;
+      max-width: 240px;
+      overflow: hidden;
+      padding: 4px 7px;
+      color: var(--ui-background);
+      background: var(--ui-interaction-emphasized);
+      border-radius: 3px 3px 0 0;
+      font: 700 10px/1.2 var(--type-family);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .editor-handle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      pointer-events: auto;
+      background: var(--ui-background);
+      border: 1px solid var(--ui-interaction-emphasized);
+      border-radius: 50%;
+    }
+
+    .editor-handle[data-handle="nw"] { top: -6px; left: -6px; cursor: nwse-resize; }
+    .editor-handle[data-handle="ne"] { top: -6px; right: -6px; cursor: nesw-resize; }
+    .editor-handle[data-handle="sw"] { bottom: -6px; left: -6px; cursor: nesw-resize; }
+    .editor-handle[data-handle="se"] { right: -6px; bottom: -6px; cursor: nwse-resize; }
+    .editor-handle[data-handle="n"] { top: -6px; left: calc(50% - 5px); cursor: ns-resize; }
+    .editor-handle[data-handle="s"] { bottom: -6px; left: calc(50% - 5px); cursor: ns-resize; }
+    .editor-handle[data-handle="w"] { top: calc(50% - 5px); left: -6px; cursor: ew-resize; }
+    .editor-handle[data-handle="e"] { top: calc(50% - 5px); right: -6px; cursor: ew-resize; }
+
+    .editor-handle[data-handle="rotate"] {
+      top: -38px;
+      left: calc(50% - 6px);
+      width: 12px;
+      height: 12px;
+      cursor: grab;
+      background: var(--ui-interaction-emphasized);
+    }
+
+    .editor-handle[data-handle="rotate"]::after {
+      content: "";
+      position: absolute;
+      top: 11px;
+      left: 5px;
+      height: 26px;
+      border-left: 1px solid var(--ui-interaction-emphasized);
+    }
+
+    .editor-guide {
+      position: fixed;
+      z-index: 10000;
+      display: none;
+      pointer-events: none;
+      background: var(--ui-interaction-emphasized);
+      opacity: 0.54;
+    }
+
+    .editor-guide.is-visible { display: block; }
+    #editor-guide-x { top: var(--editor-bar-height); bottom: 0; width: 1px; }
+    #editor-guide-y { right: 0; left: 0; height: 1px; }
+
+    .editor-toast {
+      position: fixed;
+      z-index: 10030;
+      right: 18px;
+      bottom: 18px;
+      max-width: 390px;
+      padding: 11px 14px;
+      color: var(--ui-text-primary);
+      background: var(--ui-surface-emphasized);
+      border: 1px solid var(--ui-border-strong);
+      border-radius: 6px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.34);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 150ms ease, transform 150ms ease;
+      font: 600 12px/1.35 var(--type-family);
+    }
+
+    .editor-toast.is-visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1180px) {
+      .editor-wordmark { min-width: auto; }
+      .editor-wordmark small,
+      .editor-save-state,
+      .editor-toolbar .editor-wide-label { display: none; }
+      .editor-toolbar { overflow-x: auto; }
+    }
+
+    @media (max-width: 780px) {
+      .home-layout-editor::before {
+        content: "Der Startseiten-Editor ist für Desktop ab 1024 px vorgesehen.";
+        position: fixed;
+        z-index: 12000;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 32px;
+        color: var(--ui-text-primary);
+        background: var(--ui-background);
+        text-align: center;
+        font: 600 18px/1.5 var(--type-family);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .editor-panel,
+      .editor-toast,
+      .home-layout-editor .home-main { transition: none; }
+    }
+  </style>
+
+</head>
+<body class="home home-layout-editor">
+  <noscript><div class="editor-nojs">Für den Startseiten-Editor muss JavaScript aktiviert sein. Die öffentliche Startseite bleibt davon unberührt.</div></noscript>
+
+  <div id="startseite-editor-app" aria-label="Startseiten-Editor">
+    <header class="editor-toolbar">
+      <div class="editor-wordmark">
+        <strong>Startseiten-Editor</strong>
+        <small>Desktop · Original bleibt unverändert</small>
+      </div>
+
+      <div class="editor-toolbar-group" aria-label="Verlauf">
+        <button class="editor-icon-button" id="editor-undo" type="button" title="Rückgängig (Strg+Z)" disabled>↶</button>
+        <button class="editor-icon-button" id="editor-redo" type="button" title="Wiederholen (Strg+Umschalt+Z)" disabled>↷</button>
+      </div>
+
+      <div class="editor-toolbar-group" aria-label="Ansicht">
+        <button class="editor-button" id="editor-toggle-route" type="button" aria-pressed="true">Pfad</button>
+        <button class="editor-button" id="editor-toggle-connectors" type="button" aria-pressed="true">Anschlüsse</button>
+        <button class="editor-button" id="editor-toggle-artwork" type="button" aria-pressed="true">Artwork</button>
+      </div>
+
+      <div class="editor-toolbar-group" aria-label="Leinwand">
+        <button class="editor-icon-button" id="editor-space-minus" type="button" title="Leinwand um 500 px kürzen">−</button>
+        <span class="editor-wide-label">Freiraum</span>
+        <button class="editor-icon-button" id="editor-space-plus" type="button" title="Leinwand um 500 px verlängern">+</button>
+      </div>
+
+      <div class="editor-toolbar-spacer"></div>
+      <span class="editor-save-state" id="editor-save-state">Gespeichert</span>
+      <button class="editor-button" id="editor-import" type="button">JSON laden</button>
+      <button class="editor-button editor-button--save" id="editor-save" type="button">Speichern (.json)</button>
+      <button class="editor-button" id="editor-panel-toggle" type="button" aria-pressed="true">Inspector</button>
+    </header>
+
+    <aside class="editor-panel" id="editor-panel" aria-label="Inspector">
+      <div class="editor-panel-head">
+        <div>
+          <span>Auswahl</span>
+          <strong id="editor-selection-name">Noch nichts ausgewählt</strong>
+        </div>
+        <button class="editor-icon-button" id="editor-deselect" type="button" title="Auswahl aufheben">×</button>
+      </div>
+      <p class="editor-warning" id="editor-warning"></p>
+
+      <section class="editor-section">
+        <h2 class="editor-section-title">Ebenen &amp; Gruppen</h2>
+        <label class="editor-field">
+          <span>Element direkt wählen</span>
+          <select class="editor-select" id="editor-layer-select">
+            <option value="">Element auswählen …</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="editor-section">
+        <h2 class="editor-section-title">Position</h2>
+        <div class="editor-field-grid editor-field-grid--four">
+          <label class="editor-field"><span>X</span><input class="editor-input" id="editor-x" type="number" step="1"></label>
+          <label class="editor-field"><span>Y</span><input class="editor-input" id="editor-y" type="number" step="1"></label>
+          <label class="editor-field"><span>W</span><input class="editor-input" id="editor-w" type="number" min="40" step="1"></label>
+          <label class="editor-field"><span>H</span><input class="editor-input" id="editor-h" type="number" min="24" step="1"></label>
+        </div>
+        <div class="editor-field-grid" style="margin-top:9px">
+          <label class="editor-field"><span>Drehung °</span><input class="editor-input" id="editor-rotation" type="number" step="1"></label>
+          <label class="editor-field"><span>Ebene</span><input class="editor-input" id="editor-z" type="number" step="1"></label>
+        </div>
+        <div class="editor-inline-actions">
+          <button class="editor-button" id="editor-reset-geometry" type="button">Geometrie zurück</button>
+          <button class="editor-button" id="editor-z-down" type="button">Nach hinten</button>
+          <button class="editor-button" id="editor-z-up" type="button">Nach vorn</button>
+        </div>
+      </section>
+
+      <section class="editor-section">
+        <h2 class="editor-section-title">Text &amp; Typografie</h2>
+        <label class="editor-field">
+          <span>Text im gewählten Element</span>
+          <select class="editor-select" id="editor-text-target">
+            <option value="">Kein Textziel</option>
+          </select>
+        </label>
+        <div class="editor-field-grid" style="margin-top:9px">
+          <label class="editor-field"><span>Rolle</span>
+            <select class="editor-select" id="editor-type-role">
+              <option value="custom">Individuell</option>
+              <option value="display">Display</option>
+              <option value="heading">Heading</option>
+              <option value="subheading">Subheading</option>
+              <option value="body-large">Body Large</option>
+              <option value="body">Body</option>
+              <option value="ui">UI</option>
+              <option value="meta">Meta</option>
+            </select>
+          </label>
+          <label class="editor-field"><span>Gewicht</span>
+            <select class="editor-select" id="editor-font-weight">
+              <option value="400">400</option>
+              <option value="500">500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+            </select>
+          </label>
+        </div>
+        <div class="editor-field-grid editor-field-grid--four" style="margin-top:9px">
+          <label class="editor-field"><span>Größe</span><input class="editor-input" id="editor-font-size" type="number" min="8" max="160" step="1"></label>
+          <label class="editor-field"><span>Zeile</span><input class="editor-input" id="editor-line-height" type="number" min="0.7" max="3" step="0.05"></label>
+          <label class="editor-field"><span>Laufw.</span><input class="editor-input" id="editor-letter-spacing" type="number" min="-8" max="20" step="0.1"></label>
+          <label class="editor-field"><span>Max. B.</span><input class="editor-input" id="editor-text-width" type="number" min="40" max="1200" step="1"></label>
+        </div>
+        <label class="editor-field" style="margin-top:9px"><span>Ausrichtung</span>
+          <select class="editor-select" id="editor-text-align">
+            <option value="left">Links</option>
+            <option value="center">Mitte</option>
+            <option value="right">Rechts</option>
+          </select>
+        </label>
+        <div class="editor-inline-actions">
+          <button class="editor-button" id="editor-font-smaller" type="button">Text −</button>
+          <button class="editor-button" id="editor-font-larger" type="button">Text +</button>
+          <button class="editor-button" id="editor-edit-text" type="button">Text bearbeiten</button>
+          <button class="editor-button" id="editor-reset-text-style" type="button">Typo zurück</button>
+        </div>
+      </section>
+
+      <section class="editor-section">
+        <h2 class="editor-section-title">Verhalten</h2>
+        <label class="editor-check"><input id="editor-snap" type="checkbox" checked> 8-px-Raster, Kanten und Mitte einrasten</label>
+        <label class="editor-check"><input id="editor-lock" type="checkbox"> Gewähltes Element sperren</label>
+        <div class="editor-inline-actions">
+          <button class="editor-button" id="editor-reset-all" type="button">Gesamten Arbeitsstand löschen</button>
+        </div>
+      </section>
+
+      <section class="editor-section">
+        <h2 class="editor-section-title">Kurzhilfe</h2>
+        <ul class="editor-help">
+          <li>Element anklicken und ziehen. Mit Pfeiltasten fein verschieben, mit Umschalt 10 px.</li>
+          <li>Doppelklick auf Text zum direkten Ändern. Esc beendet die Texteingabe.</li>
+          <li>Blob und Extension sind einzeln wählbar; ihr Anschluss verlängert und dreht sich automatisch.</li>
+          <li>Der Hauptpfad und die Blob-Strahlen werden nach jeder Bewegung neu vermessen.</li>
+          <li>Alt hält beim Ziehen das Einrasten aus. Umschalt hält beim Skalieren das Verhältnis.</li>
+          <li>„Speichern“ erzeugt die JSON-Datei, die später kontrolliert ins Original übertragen wird.</li>
+          <li>Freies Umordnen ist hier visuell. Die semantische Leser- und Fokusreihenfolge bleibt bewusst erhalten und wird beim Übertragen separat geprüft.</li>
+        </ul>
+      </section>
+    </aside>
+
+    <svg id="editor-smart-connectors" aria-hidden="true" focusable="false"></svg>
+    <div id="editor-selection" aria-hidden="true">
+      <span class="editor-selection-label" id="editor-selection-label"></span>
+      <i class="editor-handle" data-handle="nw"></i><i class="editor-handle" data-handle="n"></i><i class="editor-handle" data-handle="ne"></i>
+      <i class="editor-handle" data-handle="w"></i><i class="editor-handle" data-handle="e"></i>
+      <i class="editor-handle" data-handle="sw"></i><i class="editor-handle" data-handle="s"></i><i class="editor-handle" data-handle="se"></i>
+      <i class="editor-handle" data-handle="rotate"></i>
+    </div>
+    <i class="editor-guide" id="editor-guide-x"></i>
+    <i class="editor-guide" id="editor-guide-y"></i>
+    <input id="editor-file-input" type="file" accept="application/json,.json" hidden>
+    <div class="editor-toast" id="editor-toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="index.html" aria-current="page">Start</a>
+        <a href="automation.html">Automation</a>
+        <a href="datenanalyse.html">Datenanalyse</a>
+        <a href="private_projekte.html">Private Projekte</a>
+        <a href="ueber_mich.html">Über mich</a>
+        <a href="kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="home-main">
+    <div class="ambient-life" aria-hidden="true">
+      <span class="life-form life-form--leaf life-form--one"></span>
+      <span class="life-form life-form--bubble life-form--two"></span>
+      <span class="life-form life-form--leaf life-form--three"></span>
+      <span class="life-form life-form--bubble life-form--four"></span>
+      <span class="life-form life-form--leaf life-form--five"></span>
+      <span class="life-form life-form--bubble life-form--six"></span>
+      <span class="life-form life-form--leaf life-form--seven"></span>
+      <span class="life-form life-form--bubble life-form--eight"></span>
+      <span class="life-form life-form--leaf life-form--nine"></span>
+      <span class="life-form life-form--bubble life-form--ten"></span>
+    </div>
+    <!-- Der Pfad beginnt hinter der Welt, taucht in ihr auf und tritt später
+         wieder davor. Die einzelnen Striche erzeugt atlas.js aus derselben
+         Formel, damit die drei Ebenen exakt zusammenbleiben. -->
+    <svg class="home-route-layer home-route-laser home-route-laser--back" aria-hidden="true" focusable="false">
+      <g class="home-route-lines"></g>
+    </svg>
+    <svg class="biome-world" viewBox="0 0 1000 5000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="canopy-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0c9767" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#030c0b" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="trunk-fill" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#74a34e" stop-opacity="0.02" />
+          <stop offset="48%" stop-color="#aaaa41" stop-opacity="0.11" />
+          <stop offset="100%" stop-color="#d2af37" stop-opacity="0.025" />
+        </linearGradient>
+        <!-- Zenote: Gestein, Schacht, hintere und vordere Wand. Alle Verläufe
+             liegen im Weltkoordinatensystem, damit Rand und Tiefe zusammenpassen. -->
+        <linearGradient id="cave-rock" x1="0" y1="1400" x2="0" y2="3900" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#0b1512" stop-opacity="0" />
+          <stop offset="13%" stop-color="#0a120f" stop-opacity="0.62" />
+          <stop offset="26%" stop-color="#070f0d" stop-opacity="0.88" />
+          <stop offset="62%" stop-color="#030807" stop-opacity="0.95" />
+          <stop offset="100%" stop-color="#01100f" stop-opacity="0.8" />
+        </linearGradient>
+        <linearGradient id="shaft-void" x1="0" y1="1764" x2="0" y2="3900" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#08201b" stop-opacity="0.3" />
+          <stop offset="11%" stop-color="#030c0a" stop-opacity="0.9" />
+          <stop offset="30%" stop-color="#000403" stop-opacity="0.97" />
+          <stop offset="100%" stop-color="#001720" stop-opacity="0.92" />
+        </linearGradient>
+        <linearGradient id="wall-back" x1="0" y1="1764" x2="0" y2="2095" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#9fae86" stop-opacity="0.2" />
+          <stop offset="24%" stop-color="#74a34e" stop-opacity="0.11" />
+          <stop offset="62%" stop-color="#1c3529" stop-opacity="0.07" />
+          <stop offset="100%" stop-color="#03100e" stop-opacity="0.02" />
+        </linearGradient>
+        <linearGradient id="wall-front" x1="0" y1="1950" x2="0" y2="2190" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#0e1a16" stop-opacity="0.9" />
+          <stop offset="55%" stop-color="#05100d" stop-opacity="0.55" />
+          <stop offset="100%" stop-color="#020706" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="rim-far-line" x1="80" y1="0" x2="920" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#9cd1c9" stop-opacity="0.06" />
+          <stop offset="24%" stop-color="#cbd3cd" stop-opacity="0.42" />
+          <stop offset="50%" stop-color="#e2e0c6" stop-opacity="0.5" />
+          <stop offset="76%" stop-color="#cbd3cd" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#9cd1c9" stop-opacity="0.06" />
+        </linearGradient>
+        <linearGradient id="rim-near-line" x1="80" y1="0" x2="920" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#9cd1c9" stop-opacity="0" />
+          <stop offset="30%" stop-color="#8f9a93" stop-opacity="0.22" />
+          <stop offset="70%" stop-color="#8f9a93" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#9cd1c9" stop-opacity="0" />
+        </linearGradient>
+        <radialGradient id="shaft-light" cx="50%" cy="24%" r="72%">
+          <stop offset="0%" stop-color="#e4ebc4" stop-opacity="0.1" />
+          <stop offset="42%" stop-color="#8fc39a" stop-opacity="0.04" />
+          <stop offset="100%" stop-color="#57d4c5" stop-opacity="0" />
+        </radialGradient>
+        <linearGradient id="root-stroke" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#aaaa41" stop-opacity="0.33" />
+          <stop offset="62%" stop-color="#74a34e" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#329c5d" stop-opacity="0.08" />
+        </linearGradient>
+        <linearGradient id="water-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#06383e" stop-opacity="0.12" />
+          <stop offset="38%" stop-color="#032a35" stop-opacity="0.42" />
+          <stop offset="100%" stop-color="#00131d" stop-opacity="0.82" />
+        </linearGradient>
+        <linearGradient id="water-line" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#0c9767" stop-opacity="0" />
+          <stop offset="28%" stop-color="#57d4c5" stop-opacity="0.46" />
+          <stop offset="70%" stop-color="#9cd1c9" stop-opacity="0.38" />
+          <stop offset="100%" stop-color="#0c9767" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="water-column-one" x1="0" y1="3300" x2="0" y2="5100" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#075d63" stop-opacity="0" />
+          <stop offset="22%" stop-color="#075d63" stop-opacity="0.05" />
+          <stop offset="31%" stop-color="#064c57" stop-opacity="0.3" />
+          <stop offset="52%" stop-color="#033640" stop-opacity="0.68" />
+          <stop offset="100%" stop-color="#001720" stop-opacity="0.97" />
+        </linearGradient>
+      </defs>
+
+      <g class="biome-canopy" transform="translate(0 160)">
+        <path class="canopy-mass" d="M-100 -160 H1100 V548 C1028 496 960 516 890 474 C824 434 772 486 704 453 C640 422 592 474 540 451 C524 444 510 438 500 427 C490 438 476 444 460 451 C408 474 360 422 296 453 C228 486 176 434 110 474 C40 516-28 496-100 548 Z" />
+        <g class="world-limbs">
+          <path d="M500 1120 C493 914 484 761 434 645 C393 551 332 495 258 435 C183 374 119 330 18 297" />
+          <path d="M500 1120 C507 914 516 761 566 645 C607 551 668 495 742 435 C817 374 881 330 982 297" />
+          <path d="M455 706 C394 564 312 420 187 311 C119 252 65 215-26 184" />
+          <path d="M545 706 C606 564 688 420 813 311 C881 252 935 215 1026 184" />
+          <path d="M485 781 C440 580 455 388 365 198 C327 119 288 65 225 6" />
+          <path d="M515 781 C560 580 545 388 635 198 C673 119 712 65 775 6" />
+          <path d="M500 722 C500 504 500 284 500 -42" />
+          <path class="canopy-bough--fine" d="M258 435 C168 430 91 443 5 488 M187 311 C159 205 111 129 38 59 M365 198 C344 116 347 54 368 -22 M742 435 C832 430 909 443 995 488 M813 311 C841 205 889 129 962 59 M635 198 C656 116 653 54 632 -22" />
+        </g>
+        <g class="canopy-leaves">
+          <path d="M-72 430 C-88 326-24 229 74 220 C76 124 168 70 246 124 C318 91 376 160 354 242 C420 290 381 393 292 414 C205 480 55 494-72 430 Z" />
+          <path d="M105 285 C72 176 136 55 249 54 C291-42 422-62 476 28 C538 80 502 189 429 222 C355 303 213 334 105 285 Z" />
+          <path d="M330 185 C290 95 350-15 445-12 C470-86 568-86 593-12 C688-15 748 95 708 185 C632 249 406 249 330 185 Z" />
+          <path d="M524 28 C578-62 709-42 751 54 C864 55 928 176 895 285 C787 334 645 303 571 222 C498 189 462 80 524 28 Z" />
+          <path d="M646 242 C624 160 682 91 754 124 C832 70 924 124 926 220 C1024 229 1088 326 1072 430 C945 494 795 480 708 414 C619 393 580 290 646 242 Z" />
+          <path d="M118 445 C96 344 178 253 282 274 C338 214 433 244 454 326 C492 390 448 482 366 502 C292 568 160 540 118 445 Z" />
+          <path d="M546 326 C567 244 662 214 718 274 C822 253 904 344 882 445 C840 540 708 568 634 502 C552 482 508 390 546 326 Z" />
+          <path d="M312 438 C278 354 340 262 428 271 C462 212 538 212 572 271 C660 262 722 354 688 438 C608 520 392 520 312 438 Z" />
+        </g>
+        <g class="canopy-contours">
+          <path d="M-28 403 C64 326 171 289 319 314" />
+          <path d="M145 268 C220 176 327 127 445 167" />
+          <path d="M364 169 C432 97 568 97 636 169" />
+          <path d="M555 167 C673 127 780 176 855 268" />
+          <path d="M681 314 C829 289 936 326 1028 403" />
+          <path d="M151 440 C231 369 335 351 422 399" />
+          <path d="M578 399 C665 351 769 369 849 440" />
+          <path d="M350 426 C429 359 571 359 650 426" />
+        </g>
+      </g>
+
+      <!-- Die Zenote: Mündungsellipse (Mitte 500/1960, 420×196), darin ein
+           enger gestellter Schlund (500/2078, 292×122). Der Baum steht am
+           hinteren Rand, die Wurzeln fallen an der Rückwand und über die
+           beiden Seitenränder hinab. -->
+      <g class="biome-cave">
+        <path class="shaft-void" d="M80 1960 C80 1852 268 1764 500 1764 C732 1764 920 1852 920 1960 C920 2024 866 2054 800 2092 C786 2320 758 2580 768 2870 C778 3150 848 3430 966 3665 C1028 3792 1078 3862 1120 3900 H-120 C-78 3862-28 3792 34 3665 C150 3435 220 3160 230 2880 C240 2590 214 2330 200 2092 C134 2054 80 2024 80 1960 Z" />
+        <ellipse class="shaft-light" cx="500" cy="2180" rx="270" ry="400" />
+        <path class="wall-back" d="M80 1960 C80 1852 268 1764 500 1764 C732 1764 920 1852 920 1960 C920 2024 866 2054 800 2092 L792 2078 C792 2011 661 1956 500 1956 C339 1956 208 2011 208 2078 L200 2092 C134 2054 80 2024 80 1960 Z" />
+        <path class="cave-rock" d="M-120 1400 H1120 V3900 C1078 3862 1028 3792 966 3665 C848 3430 778 3150 768 2870 C758 2580 786 2320 800 2092 C866 2054 920 2024 920 1960 C920 1852 732 1764 500 1764 C268 1764 80 1852 80 1960 C80 2024 134 2054 200 2092 C214 2330 240 2590 230 2880 C220 3160 150 3435 34 3665 C-28 3792-78 3862-120 3900 Z" />
+        <path class="ground-contour" d="M-56 2016 C-20 1874 230 1716 500 1714 C770 1712 1020 1872 1056 2014 M-8 1616 C104 1548 300 1508 500 1508 C700 1508 896 1548 1008 1616" />
+        <path class="cave-strata" d="M222 2326 C300 2394 700 2394 778 2326 M228 2736 C310 2822 690 2822 772 2736 M244 3176 C332 3276 668 3276 756 3176" />
+        <g class="cave-facets">
+          <path d="M204 2130 L252 2202 L242 2352 L214 2330 Z" />
+          <path d="M232 2520 L276 2606 L262 2742 L228 2696 Z" />
+          <path d="M796 2130 L748 2202 L758 2352 L786 2330 Z" />
+          <path d="M768 2520 L724 2606 L738 2742 L772 2696 Z" />
+        </g>
+        <path class="cave-rim cave-rim--far" d="M80 1960 C80 1852 268 1764 500 1764 C732 1764 920 1852 920 1960" />
+      </g>
+
+      <!-- Mittlere Pfadebene: vor Höhle, hinter Stamm, Wurzeln und Wasser. -->
+      <g class="home-route-layer biome-route biome-route--middle">
+        <g class="home-route-lines"></g>
+      </g>
+
+      <g class="biome-tree">
+        <path class="tree-trunk" d="M404 548 C434 570 462 612 480 660 C474 742 466 840 466 980 C468 1180 462 1340 458 1470 C456 1548 452 1602 450 1638 C446 1690 430 1732 396 1770 C430 1798 570 1798 604 1770 C570 1732 554 1690 550 1638 C548 1602 544 1548 542 1470 C538 1340 532 1180 534 980 C534 842 528 744 520 662 C538 608 560 552 592 510 C584 548 568 590 548 628 C531 660 517 690 505 724 C493 689 478 665 461 636 C444 605 423 575 404 548 Z" />
+        <path class="tree-heartline" d="M500 744 C494 820 506 980 496 1300 C492 1520 500 1660 500 1782 M500 744 C480 688 450 610 408 552 M500 744 C520 680 550 590 586 520" />
+        <path class="tree-ring" d="M466 1150 C482 1138 518 1138 534 1150 M458 1500 C478 1486 522 1486 542 1500" />
+        <path class="tree-flare" d="M452 1620 C448 1676 434 1722 408 1758 M548 1620 C552 1676 566 1722 592 1758 M474 1640 C470 1690 470 1740 474 1782 M526 1640 C530 1690 530 1740 526 1782" />
+      </g>
+
+      <g class="biome-roots">
+        <path class="root root--major" d="M410 1772 C356 1772 302 1782 250 1800 C196 1820 152 1848 132 1884 C118 1912 130 1950 158 1992 C192 2042 222 2110 244 2200 C272 2320 286 2520 276 2740 C266 2960 288 3180 320 3400 C344 3560 344 3722 328 3862" />
+        <path class="root root--major" d="M590 1772 C644 1772 698 1782 750 1800 C804 1820 848 1848 868 1884 C882 1912 870 1950 842 1992 C808 2042 778 2110 756 2200 C728 2320 714 2520 724 2740 C734 2960 712 3180 680 3400 C656 3560 656 3722 672 3862" />
+        <path class="root root--middle" d="M476 1790 C470 1850 468 1904 472 1960 C476 2040 458 2160 450 2320 C440 2560 456 2820 440 3040 C424 3220 426 3440 452 3630 C468 3746 472 3806 468 3866" />
+        <path class="root root--middle" d="M524 1792 C530 1852 532 1906 528 1962 C524 2042 542 2162 550 2322 C560 2562 544 2822 560 3042 C576 3222 574 3442 548 3632 C532 3748 528 3808 532 3868" />
+        <path class="root root--fine" d="M318 1794 C312 1846 320 1892 336 1932 M682 1794 C688 1846 680 1892 664 1932 M436 1782 C430 1836 434 1880 444 1918 M564 1782 C570 1836 566 1880 556 1918 M256 2280 C296 2352 312 2452 300 2552 M744 2280 C704 2352 688 2452 700 2552 M450 2320 C398 2412 386 2532 410 2650 M550 2322 C602 2414 612 2534 588 2652" />
+        <g class="root-nodules">
+          <circle cx="278" cy="2760" r="6" /><circle cx="440" cy="3040" r="5" />
+          <circle cx="560" cy="3042" r="5" /><circle cx="722" cy="2760" r="6" />
+        </g>
+      </g>
+
+      <!-- Der vordere Rand liegt vor den Wurzeln: sie tauchen dahinter weg. -->
+      <g class="biome-cave-lip">
+        <path class="wall-front" d="M920 1960 C920 2068 732 2156 500 2156 C268 2156 80 2068 80 1960 L208 2078 C208 2145 339 2200 500 2200 C661 2200 792 2145 792 2078 Z" />
+        <path class="cave-rim cave-rim--near" d="M920 1960 C920 2068 732 2156 500 2156 C268 2156 80 2068 80 1960" />
+      </g>
+
+      <g class="biome-water">
+        <path class="water-depth" d="M-120 3828 C98 3765 236 3892 449 3835 C656 3780 817 3898 1120 3807 V5100 H-120 Z" />
+        <g class="water-color-transition">
+          <rect x="0" y="3300" width="1000" height="1800" fill="url(#water-column-one)" />
+        </g>
+        <path class="water-surface water-surface--haze" d="M-90 3850 C120 3787 259 3907 452 3851 C656 3792 826 3910 1090 3828" />
+        <path class="water-surface" d="M-90 3850 C120 3787 259 3907 452 3851 C656 3792 826 3910 1090 3828" />
+        <path class="water-current" d="M-120 4200 C109 4117 286 4245 492 4178 C694 4112 856 4206 1120 4125 M-120 4578 C143 4474 298 4621 526 4538 C729 4464 904 4582 1120 4488" />
+        <g class="water-caustics">
+          <path d="M87 4041 C163 4009 238 4021 300 4072" />
+          <path d="M702 4120 C768 4072 841 4057 922 4084" />
+          <path d="M165 4468 C239 4418 330 4418 397 4471" />
+          <path d="M603 4710 C677 4655 767 4655 839 4702" />
+        </g>
+      </g>
+
+      <g class="biome-plankton">
+        <circle cx="72" cy="3970" r="3" /><circle cx="918" cy="4050" r="4" />
+        <circle cx="148" cy="4320" r="2.5" /><circle cx="861" cy="4390" r="3" />
+        <circle cx="244" cy="4780" r="3.5" /><circle cx="756" cy="4880" r="2.5" />
+      </g>
+    </svg>
+    <!-- Vordere Ebene: bleibt dekorativ und liegt deshalb weiterhin unter dem
+         Inhalt, aber sichtbar vor dem Biome. -->
+    <svg class="home-route-layer home-route-laser home-route-laser--front" aria-hidden="true" focusable="false">
+      <g class="home-route-lines"></g>
+      <g class="home-layout-connectors"></g>
+    </svg>
+    <svg class="home-organelle-library" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="home-organelle-chloroplast" viewBox="0 0 320 220">
+          <path class="organelle-shell" d="M40 116C38 64 83 27 151 24c70-4 126 28 130 78 5 52-44 89-115 94-70 5-124-27-126-80Z"/>
+          <path class="organelle-inner" d="M52 115c-2-43 38-74 99-78 61-3 113 25 117 67 4 43-42 75-103 79-61 4-111-24-113-68Z"/>
+          <path class="organelle-highlight" d="M70 59c26-17 68-23 105-18"/>
+          <g>
+            <rect class="organelle-lumen" x="75" y="76" width="54" height="10" rx="5"/><rect class="organelle-lumen" x="72" y="87" width="60" height="10" rx="5"/><rect class="organelle-lumen" x="74" y="98" width="56" height="10" rx="5"/><rect class="organelle-lumen" x="77" y="109" width="50" height="10" rx="5"/>
+            <rect class="organelle-lumen" x="172" y="59" width="53" height="10" rx="5"/><rect class="organelle-lumen" x="168" y="70" width="61" height="10" rx="5"/><rect class="organelle-lumen" x="170" y="81" width="57" height="10" rx="5"/><rect class="organelle-lumen" x="174" y="92" width="49" height="10" rx="5"/>
+            <rect class="organelle-lumen" x="150" y="127" width="61" height="10" rx="5"/><rect class="organelle-lumen" x="146" y="138" width="69" height="10" rx="5"/><rect class="organelle-lumen" x="149" y="149" width="63" height="10" rx="5"/><rect class="organelle-lumen" x="154" y="160" width="53" height="10" rx="5"/>
+          </g>
+          <path class="organelle-line" d="M129 92c17-1 22-10 40-12M125 113c25 10 43 19 51 23M207 100c12 9 22 15 39 15"/>
+          <circle class="organelle-dot" cx="71" cy="142" r="2.6"/><circle class="organelle-dot" cx="108" cy="151" r="2.2"/><circle class="organelle-dot" cx="239" cy="137" r="2.8"/>
+        </symbol>
+        <symbol id="home-organelle-er" viewBox="0 0 320 220">
+          <circle class="organelle-inner" cx="63" cy="112" r="51"/><circle class="organelle-highlight" cx="63" cy="112" r="42"/><circle class="organelle-lumen" cx="63" cy="112" r="14"/>
+          <path class="organelle-lumen" d="M79 49c37-17 78-12 111 5 31 15 56 13 88-7l10 16c-37 27-73 29-110 11-27-13-59-16-91-4Z"/>
+          <path class="organelle-lumen" d="M88 83c34-13 70-8 100 7 32 16 61 14 91-5l10 17c-37 25-74 27-112 8-24-12-52-15-81-6Z"/>
+          <path class="organelle-lumen" d="M87 119c35-12 71-7 102 9 31 16 59 14 90-4l10 17c-38 24-74 25-112 6-25-13-53-15-82-7Z"/>
+          <path class="organelle-lumen" d="M79 156c38-15 77-10 111 7 29 15 55 13 85-4l10 17c-36 23-71 24-107 6-27-14-58-17-90-6Z"/>
+          <path class="organelle-lumen" d="M82 69c10 1 16 5 18 14l-5 21c-7-3-12-8-15-14ZM82 104c10 2 15 6 17 15l-5 21c-8-3-12-8-15-15Z"/>
+          <path class="organelle-highlight" d="M104 57c25-5 47 0 68 10M111 92c23-3 43 2 62 11M110 128c23-2 43 3 63 13M104 164c25-4 47 1 68 12"/>
+          <g>
+            <circle class="organelle-dot" cx="90" cy="45" r="2.7"/><circle class="organelle-dot" cx="119" cy="40" r="2.7"/><circle class="organelle-dot" cx="150" cy="44" r="2.7"/><circle class="organelle-dot" cx="184" cy="56" r="2.7"/><circle class="organelle-dot" cx="218" cy="60" r="2.7"/><circle class="organelle-dot" cx="254" cy="49" r="2.7"/><circle class="organelle-dot" cx="282" cy="40" r="2.7"/>
+            <circle class="organelle-dot" cx="98" cy="79" r="2.7"/><circle class="organelle-dot" cx="129" cy="75" r="2.7"/><circle class="organelle-dot" cx="160" cy="82" r="2.7"/><circle class="organelle-dot" cx="191" cy="95" r="2.7"/><circle class="organelle-dot" cx="226" cy="97" r="2.7"/><circle class="organelle-dot" cx="260" cy="84" r="2.7"/>
+            <circle class="organelle-dot" cx="97" cy="115" r="2.7"/><circle class="organelle-dot" cx="129" cy="111" r="2.7"/><circle class="organelle-dot" cx="160" cy="119" r="2.7"/><circle class="organelle-dot" cx="193" cy="132" r="2.7"/><circle class="organelle-dot" cx="229" cy="133" r="2.7"/><circle class="organelle-dot" cx="262" cy="121" r="2.7"/>
+            <circle class="organelle-dot" cx="90" cy="152" r="2.7"/><circle class="organelle-dot" cx="122" cy="147" r="2.7"/><circle class="organelle-dot" cx="154" cy="153" r="2.7"/><circle class="organelle-dot" cx="186" cy="168" r="2.7"/><circle class="organelle-dot" cx="221" cy="171" r="2.7"/><circle class="organelle-dot" cx="252" cy="159" r="2.7"/>
+          </g>
+        </symbol>
+        <symbol id="home-organelle-golgi" viewBox="0 0 320 220">
+          <path class="organelle-lumen" d="M108 43c31-16 77-18 111-4 12 5 18 12 16 18-2 7-11 9-22 5-29-11-65-9-92 4-11 5-21 2-23-5-2-6 2-13 10-18Z"/>
+          <path class="organelle-lumen" d="M91 68c41-17 98-17 139 2 11 5 16 13 13 20-3 7-12 8-23 3-34-14-80-14-115 1-11 5-22 2-25-5-3-8 1-16 11-21Z"/>
+          <path class="organelle-lumen" d="M75 96c49-15 114-11 156 13 10 6 14 14 10 21-4 7-14 7-24 1-34-18-87-22-127-10-12 4-23 0-25-8-2-8 2-14 10-17Z"/>
+          <path class="organelle-lumen" d="M69 125c47-8 105 1 143 27 9 7 11 15 6 21-5 7-15 5-24-1-30-20-76-28-114-21-11 2-20-3-21-11-1-7 3-13 10-15Z"/>
+          <path class="organelle-lumen" d="M79 153c39-1 84 12 112 36 8 7 8 15 2 20-6 5-15 2-22-4-22-18-58-29-89-28-10 0-18-5-18-13 1-7 6-11 15-11Z"/>
+          <path class="organelle-highlight" d="M119 49c28-9 61-10 88-2M104 76c34-8 74-6 106 6M91 104c36-4 79 1 111 17M84 133c33 3 70 13 96 31M94 160c27 6 54 17 73 33"/>
+          <path class="organelle-line" d="M217 131c16 2 25 8 32 18M198 169c15 2 25 9 31 19"/>
+          <g>
+            <circle class="organelle-shell" cx="258" cy="86" r="7"/><circle class="organelle-shell" cx="279" cy="105" r="11"/><circle class="organelle-shell" cx="254" cy="128" r="8"/><circle class="organelle-shell" cx="287" cy="149" r="6"/><circle class="organelle-shell" cx="258" cy="169" r="12"/><circle class="organelle-shell" cx="232" cy="194" r="8"/>
+            <circle class="organelle-dot" cx="258" cy="86" r="2.2"/><circle class="organelle-dot" cx="279" cy="105" r="3"/><circle class="organelle-dot" cx="254" cy="128" r="2.4"/><circle class="organelle-dot" cx="287" cy="149" r="2"/><circle class="organelle-dot" cx="258" cy="169" r="3.2"/><circle class="organelle-dot" cx="232" cy="194" r="2.3"/>
+          </g>
+        </symbol>
+        <symbol id="home-organelle-vacuole" viewBox="0 0 320 220">
+          <path class="organelle-highlight" d="M61 25 245 31l43 43-11 107-53 20-164-16-28-48 7-83Z"/>
+          <path class="organelle-inner" d="M70 40 232 44l37 37-10 87-42 17-143-13-23-40 6-69Z"/>
+          <path class="organelle-shell" d="M84 51c42-10 116-7 150 9 25 12 28 38 22 67-7 34-20 46-55 49-38 3-98 0-123-14-21-12-23-34-17-63 5-27 5-42 23-48Z"/>
+          <path class="organelle-inner" d="M92 64c37-9 103-6 132 7 19 9 21 29 16 54-5 27-15 35-45 38-34 2-84-1-107-12-16-8-18-25-13-49 4-22 3-32 17-38Z"/>
+          <path class="organelle-highlight" d="M91 88c39-10 104-7 145 7M82 119c42-7 111-3 156 10M91 146c40-3 91 1 128 9"/>
+          <circle class="organelle-lumen" cx="252" cy="148" r="16"/><circle class="organelle-dot" cx="252" cy="148" r="6"/><circle class="organelle-dot" cx="110" cy="103" r="2.8"/><circle class="organelle-dot" cx="145" cy="137" r="2.4"/><circle class="organelle-dot" cx="201" cy="95" r="3"/>
+        </symbol>
+        <symbol id="home-organelle-nucleus" viewBox="0 0 320 220">
+          <path class="organelle-shell" d="M58 116c-3-49 40-88 101-91 64-3 111 35 109 86-2 50-43 86-104 88-62 2-103-33-106-83Z"/>
+          <path class="organelle-inner" d="M72 115c-3-41 34-73 87-76 54-2 94 30 93 72-2 41-37 72-89 74-53 2-89-28-91-70Z"/>
+          <path class="organelle-fine" d="M95 77c18-18 39 5 57-7 17-12 39-15 58-3M86 116c25-18 46 13 70 1 23-12 42 1 66 12M107 157c16-16 34-9 48 2 16 12 34 8 51-4M124 51c-5 16 8 25 24 31 21 8 29 25 20 42"/>
+          <circle class="organelle-lumen" cx="190" cy="112" r="27"/><circle class="organelle-inner" cx="190" cy="112" r="17"/>
+          <g>
+            <circle class="organelle-dot" cx="71" cy="79" r="3.5"/><circle class="organelle-dot" cx="97" cy="48" r="3.5"/><circle class="organelle-dot" cx="139" cy="34" r="3.5"/><circle class="organelle-dot" cx="187" cy="36" r="3.5"/><circle class="organelle-dot" cx="228" cy="57" r="3.5"/><circle class="organelle-dot" cx="257" cy="91" r="3.5"/><circle class="organelle-dot" cx="256" cy="137" r="3.5"/><circle class="organelle-dot" cx="230" cy="174" r="3.5"/><circle class="organelle-dot" cx="184" cy="194" r="3.5"/><circle class="organelle-dot" cx="137" cy="192" r="3.5"/><circle class="organelle-dot" cx="95" cy="173" r="3.5"/><circle class="organelle-dot" cx="68" cy="143" r="3.5"/>
+          </g>
+        </symbol>
+        <symbol id="home-organelle-vesicle" viewBox="0 0 320 220">
+          <circle class="organelle-shell" cx="111" cy="112" r="62"/><circle class="organelle-inner" cx="111" cy="112" r="50"/>
+          <circle class="organelle-lumen" cx="86" cy="94" r="8"/><circle class="organelle-lumen" cx="123" cy="82" r="7"/><circle class="organelle-lumen" cx="139" cy="122" r="9"/><circle class="organelle-lumen" cx="99" cy="137" r="6"/>
+          <path class="organelle-shell" d="M224 30c12 24 14 46 2 66-8 13-8 24 0 37 12 20 10 42-2 67l20 8c16-32 18-61 2-87-4-7-4-13 0-20 16-26 14-55-2-79Z"/>
+          <path class="organelle-inner" d="M224 96c-15 8-30 12-49 12M224 133c-15-8-30-12-49-12"/><path class="organelle-line" d="M173 108c17-1 31-5 48-14M173 121c18 2 32 6 49 15"/><path class="organelle-highlight" d="M233 45c5 17 4 32-3 45M231 145c7 14 7 29 2 43"/>
+          <circle class="organelle-dot" cx="196" cy="103" r="4"/><circle class="organelle-dot" cx="211" cy="94" r="3"/><circle class="organelle-dot" cx="209" cy="139" r="3.5"/><circle class="organelle-dot" cx="269" cy="74" r="4"/><circle class="organelle-dot" cx="283" cy="57" r="3"/><circle class="organelle-dot" cx="278" cy="151" r="4.5"/>
+        </symbol>
+        <!-- Historische mikroskopische Zellwelt der frueheren DNA-Szene.
+             Sie wird hier nicht als Reiter-Organell, sondern als Ausschnitt
+             einer ganzen Forschungszelle weiterverwendet. -->
+        <symbol id="home-research-cell" viewBox="0 0 560 520">
+          <path class="research-cell-membrane" d="M278 18C397 11 500 82 525 194c27 121-41 249-156 298-119 50-260-4-321-112C-9 280 21 133 124 61c43-30 96-41 154-43Z"/>
+          <path class="research-cell-cytosol" d="M276 62c100-10 183 49 204 143 25 103-33 199-124 243-98 47-208 3-262-84-50-81-29-191 48-258 38-32 83-40 134-44Z"/>
+          <g class="research-cell-transporters">
+            <g transform="translate(72 139) rotate(-38)"><rect x="-8" y="-18" width="6" height="36" rx="3"/><rect x="3" y="-18" width="6" height="36" rx="3"/></g>
+            <g transform="translate(486 151) rotate(42)"><rect x="-8" y="-18" width="6" height="36" rx="3"/><rect x="3" y="-18" width="6" height="36" rx="3"/></g>
+            <g transform="translate(365 474) rotate(79)"><rect x="-8" y="-18" width="6" height="36" rx="3"/><rect x="3" y="-18" width="6" height="36" rx="3"/></g>
+          </g>
+          <g class="research-cell-nucleus">
+            <ellipse cx="292" cy="282" rx="72" ry="66"/>
+            <ellipse cx="292" cy="282" rx="61" ry="55"/>
+            <circle cx="318" cy="292" r="19"/>
+            <path d="M252 267c14-19 31 7 47-4 14-10 30-8 42 3M251 305c17-16 33 7 49-1 14-7 27 2 39 12"/>
+          </g>
+          <g class="research-cell-mito" transform="translate(151 300) rotate(-18)"><path d="M-31 0c3-17 50-24 62-5 10 17-18 32-43 27-14-3-23-11-19-22Z"/><path d="M-20 2c10-11 19 10 30-2 7-8 11-4 14 2"/></g>
+          <g class="research-cell-mito" transform="translate(400 220) rotate(29)"><path d="M-26 0c3-14 42-20 53-4 8 14-16 27-37 23-12-3-19-10-16-19Z"/><path d="M-17 1c8-9 16 9 25-1 6-7 10-3 13 2"/></g>
+          <path class="research-cell-er" d="M195 151c28-21 55-4 75-18 26-18 53-6 68 14M187 170c29-21 59 0 85-17 25-16 50-6 75 13M193 190c25-18 50 1 72-12 31-18 58-7 75 11"/>
+          <g class="research-cell-ribosomes"><circle cx="207" cy="139" r="3"/><circle cx="235" cy="149" r="2.5"/><circle cx="292" cy="135" r="2.7"/><circle cx="323" cy="154" r="2.4"/><circle cx="204" cy="180" r="2.4"/><circle cx="332" cy="191" r="2.3"/></g>
+          <circle class="research-cell-vesicle" cx="420" cy="337" r="11"/><circle class="research-cell-vesicle" cx="150" cy="210" r="8"/>
+        </symbol>
+      </defs>
+    </svg>
+    <section class="hero-intro home-hero" aria-labelledby="home-title">
+      <div class="container">
+        <div class="hero-intro-text hero-index-intro">
+          <p class="eyebrow">Digitalisierung</p>
+          <h1 id="home-title"><span class="home-title-neutral">Automation &amp; Data für</span> <span class="home-title-gradient">operative&nbsp;Exzellenz</span></h1>
+          <span class="route-origin" data-route-origin aria-hidden="true"></span>
+          <div class="hero-text-extension" data-extension-entry="top">
+            <p class="lead">Jedes Unternehmen hinterlässt in seinen Abläufen einen digitalen Fingerabdruck. Wird er lesbar, zeigen sich Zusammenhänge, Daten bekommen eine klare Struktur und Automatisierungen werden möglich. Die fortschreitende Digitalisierung setzt bereits das Fundament, jedoch werden die Daten bisher nicht effektiv genutzt.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-route-gradient" href="#arbeiten">Projekte ansehen <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-domains" id="schwerpunkte" aria-labelledby="domains-title">
+      <div class="container">
+        <div class="route-stage domains-stage domains-index" data-route-stage="domains">
+          <header class="route-intro route-intro--domains">
+            <div class="route-blob route-blob--intro route-blob--heading route-blob--chloroplast" data-route-orbit="dna">
+              <svg class="route-heading-cell" viewBox="0 0 390 190" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path class="route-heading-envelope" d="M22 101C18 54 67 23 151 16c91-7 183 11 210 54 29 46-8 88-89 103-88 17-191 3-231-33-13-12-18-25-19-39Z"/>
+                <path class="route-heading-inner" d="M34 101C31 62 74 35 154 28c85-7 169 9 195 47 25 38-10 73-81 86-82 15-177 3-216-29-11-9-17-20-18-31Z"/>
+                <g class="route-heading-granum">
+                  <rect x="55" y="72" width="41" height="6" rx="3"/>
+                  <rect x="52" y="81" width="47" height="6" rx="3"/>
+                  <rect x="56" y="90" width="39" height="6" rx="3"/>
+                  <rect x="291" y="104" width="42" height="6" rx="3"/>
+                  <rect x="288" y="113" width="48" height="6" rx="3"/>
+                  <rect x="293" y="122" width="38" height="6" rx="3"/>
+                </g>
+                <path class="route-heading-lamella" d="M99 84c16-4 26-10 38-17M96 96c17 5 28 11 40 20M288 116c-18 1-29 7-42 16"/>
+              </svg>
+              <h2 id="domains-title">Digitale DNA</h2>
+            </div>
+            <p class="route-intro-copy route-heading-extension" data-extension-entry="top">Ich entwickle Automationen, Analysen und technische Systeme, die reale Abläufe abbilden — mit klaren Datenflüssen, prüfbaren Schritten und sichtbaren Grenzen.</p>
+          </header>
+
+          <article class="route-station route-station--left route-station--automation domain-pair domain-pair--automation">
+            <span class="route-orbit-anchor route-orbit-anchor--automation" data-route-orbit="automation" aria-hidden="true"></span>
+            <a class="route-station-link" href="automation.html" aria-describedby="automation-summary">
+              <div class="route-blob route-blob--domain route-blob--automation route-blob--form-b" data-route-card data-route-dock="left" data-route-near="automation" data-route-activation="automation">
+                <svg class="route-blob-organelle route-blob-organelle--er" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-er"/></svg>
+                <h3>Automation</h3>
+              </div>
+              <span class="route-station-copy" data-extension-entry="top"><span id="automation-summary">Prozesse, die für Sie arbeiten.</span></span>
+            </a>
+          </article>
+
+          <article class="route-station route-station--right route-station--analysis domain-pair domain-pair--analysis">
+            <span class="route-orbit-anchor route-orbit-anchor--analysis" data-route-orbit="analysis" aria-hidden="true"></span>
+            <a class="route-station-link" href="datenanalyse.html" aria-describedby="analysis-summary">
+              <div class="route-blob route-blob--domain route-blob--analysis route-blob--form-c" data-route-card data-route-dock="right" data-route-near="analysis" data-route-activation="analysis">
+                <svg class="route-blob-organelle route-blob-organelle--golgi" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-golgi"/></svg>
+                <h3>Datenanalyse</h3>
+              </div>
+              <span class="route-station-copy" data-extension-entry="top"><span id="analysis-summary">Wissensmanagement für strategische Entscheidungen.</span></span>
+            </a>
+          </article>
+
+          <span class="route-orbit-anchor route-orbit-anchor--threshold" data-route-orbit="threshold" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-work" id="arbeiten" aria-labelledby="work-title">
+      <div class="container">
+        <div class="route-stage work-stage work-index" data-route-stage="work">
+          <header class="route-intro route-intro--work">
+            <div class="route-blob route-blob--intro route-blob--heading route-blob--chloroplast" data-route-orbit="work">
+              <svg class="route-heading-cell" viewBox="0 0 390 190" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path class="route-heading-envelope" d="M22 101C18 54 67 23 151 16c91-7 183 11 210 54 29 46-8 88-89 103-88 17-191 3-231-33-13-12-18-25-19-39Z"/>
+                <path class="route-heading-inner" d="M34 101C31 62 74 35 154 28c85-7 169 9 195 47 25 38-10 73-81 86-82 15-177 3-216-29-11-9-17-20-18-31Z"/>
+                <g class="route-heading-granum">
+                  <rect x="55" y="72" width="41" height="6" rx="3"/>
+                  <rect x="52" y="81" width="47" height="6" rx="3"/>
+                  <rect x="56" y="90" width="39" height="6" rx="3"/>
+                  <rect x="291" y="104" width="42" height="6" rx="3"/>
+                  <rect x="288" y="113" width="48" height="6" rx="3"/>
+                  <rect x="293" y="122" width="38" height="6" rx="3"/>
+                </g>
+                <path class="route-heading-lamella" d="M99 84c16-4 26-10 38-17M96 96c17 5 28 11 40 20M288 116c-18 1-29 7-42 16"/>
+              </svg>
+              <h2 id="work-title">Projekte</h2>
+            </div>
+            <p class="route-intro-copy route-heading-extension" data-extension-entry="right">Erfolgreich implementierte Systeme.</p>
+          </header>
+          <span class="route-orbit-anchor route-orbit-anchor--work-payment" data-route-orbit="work-payment" aria-hidden="true"></span>
+          <span class="route-orbit-anchor route-orbit-anchor--work-mid" data-route-orbit="work-mid" aria-hidden="true"></span>
+          <span class="route-orbit-anchor route-orbit-anchor--work-late" data-route-orbit="work-late" aria-hidden="true"></span>
+
+          <article class="route-station route-station--left route-station--project project-pair project-pair--payment">
+            <a class="route-station-link" href="projekte/rechnungs_pipeline.html" aria-describedby="payment-summary"><div class="route-blob route-blob--project route-blob--automation route-blob--form-b" data-route-card data-route-dock="right" data-route-near="work-payment" data-route-activation="automation"><svg class="route-blob-organelle route-blob-organelle--er" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-er"/></svg><h3>Automatische
+Zahlungsbuchung</h3></div><span class="route-station-copy" data-extension-entry="top"><span class="eyebrow">Automation</span><span id="payment-summary">Zahlungen werden mit Rechnungen verglichen und eingebucht; der Kunde wird automatisch kontaktiert.</span></span></a>
+          </article>
+
+          <article class="route-station route-station--left route-station--project project-pair project-pair--forecast">
+            <a class="route-station-link" href="projekte/cash_forecast.html" aria-describedby="forecast-summary"><div class="route-blob route-blob--project route-blob--analysis route-blob--form-c" data-route-card data-route-dock="right" data-route-near="work-mid" data-route-activation="analysis"><svg class="route-blob-organelle route-blob-organelle--golgi" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-golgi"/></svg><h3>Wöchentlicher Cash-Forecast</h3></div><span class="route-station-copy" data-extension-entry="top"><span class="eyebrow">Datenanalyse</span><span id="forecast-summary">Projekt-, Bank- und Umsatzsteuerpfade bleiben getrennt und laufen in einer gemeinsamen Wochenansicht zusammen.</span></span></a>
+          </article>
+
+          <article class="route-station route-station--left route-station--project project-pair project-pair--irrigation">
+            <a class="route-station-link" href="projekte/bewaesserung.html" aria-describedby="irrigation-summary"><div class="route-blob route-blob--project route-blob--private route-blob--form-a" data-route-card data-route-dock="right" data-route-near="work-late" data-route-activation="private"><svg class="route-blob-organelle route-blob-organelle--vacuole" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-vacuole"/></svg><h3>Automatische Bewässerung</h3></div><span class="route-station-copy" data-extension-entry="top"><span class="eyebrow">Privates Projekt</span><span id="irrigation-summary">Meine Pflanzen werden abhängig von der Bodenfeuchtigkeit automatisch gegossen – ein Engineering-Projekt.</span></span></a>
+          </article>
+
+          <span class="work-route-exit" data-route-orbit="work-exit" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-profile" id="profil" aria-labelledby="profile-title">
+      <div class="container">
+        <div class="profile-constellation" data-reveal>
+          <svg class="profile-orbits" viewBox="0 0 1040 1110" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path class="profile-route profile-route--profile" d="M292 142 C414 130 482 88 568 82" />
+            <path class="profile-route profile-route--profile" d="M292 164 C448 174 552 206 714 222" />
+            <path class="profile-route profile-route--profile" d="M288 194 C424 252 484 332 590 372" />
+            <path class="profile-route profile-route--stem" d="M284 230 C414 322 486 470 520 610 L520 1106" />
+            <path class="profile-route profile-route--profile" d="M520 610 C464 610 408 610 354 610" />
+            <path class="profile-route profile-route--private" d="M520 827 C570 827 618 827 665 827" />
+            <circle class="profile-junction-node" cx="520" cy="610" r="4" />
+            <circle class="profile-junction-node" cx="520" cy="827" r="4" />
+          </svg>
+
+          <div class="profile-intro">
+            <a class="route-blob route-blob--link route-blob--intro route-blob--profile route-blob--form-a" href="ueber_mich.html" data-route-point data-route-activation="profile" data-route-clearance="0.44">
+              <svg class="route-blob-organelle route-blob-organelle--nucleus" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-nucleus"/></svg>
+              <h2 id="profile-title">Über mich</h2>
+            </a>
+          </div>
+
+          <dl class="profile-facts" aria-label="Fachliche Eckpunkte">
+            <div class="profile-fact profile-fact--study" data-extension-entry="left"><dt>Studium</dt><dd>M.Sc. Biochemie</dd></div>
+            <div class="profile-fact profile-fact--certificate" data-extension-entry="left"><dt>Zertifikat</dt><dd>XDi Certified Data Scientist</dd></div>
+            <div class="profile-fact profile-fact--tools" data-extension-entry="left"><dt>Werkzeuge</dt><dd>Innovation</dd></div>
+          </dl>
+
+          <div class="profile-branches" aria-label="Weiterführende Bereiche">
+            <article class="profile-branch profile-branch--research">
+              <a class="profile-branch-link" href="forschung/index.html"><div class="route-blob route-blob--branch route-blob--profile route-blob--form-c" data-route-card data-route-dock="right" data-route-near="profile-research" data-route-activation="profile"><svg class="route-blob-artwork route-blob-artwork--research" viewBox="0 0 560 520" aria-hidden="true" focusable="false"><use href="#home-research-cell"/></svg><h3>Meine Forschung</h3></div><span class="profile-branch-copy" data-extension-entry="top">Proteinbiochemie, Zellbiologie, Neurologie</span></a>
+            </article>
+            <article class="profile-branch profile-branch--private">
+              <a class="profile-branch-link" href="private_projekte.html"><div class="route-blob route-blob--branch route-blob--private route-blob--form-b" data-route-card data-route-dock="left" data-route-near="profile-private" data-route-activation="private"><svg class="route-blob-organelle route-blob-organelle--vacuole" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-vacuole"/></svg><h3>Private Projekte</h3></div><span class="profile-branch-copy" data-extension-entry="top">Code, Tools &amp; Automatisierungslösungen</span></a>
+            </article>
+          </div>
+          <span class="profile-route-anchor profile-route-anchor--research" data-route-orbit="profile-research" aria-hidden="true"></span>
+          <span class="profile-route-anchor profile-route-anchor--private" data-route-orbit="profile-private" aria-hidden="true"></span>
+          <span class="profile-route-anchor profile-route-anchor--exit" data-route-orbit="profile-exit" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-contact" id="kontakt" aria-labelledby="contact-title">
+      <div class="container" data-reveal>
+        <a class="contact-station-link" href="kontakt.html">
+          <div class="route-blob route-blob--contact route-blob--form-a" data-route-point data-route-activation="contact" data-route-clearance="0.44">
+            <svg class="route-blob-organelle route-blob-organelle--vesicle" viewBox="0 0 320 220" aria-hidden="true" focusable="false"><use href="#home-organelle-vesicle"/></svg>
+            <h2 id="contact-title">Kontakt</h2>
+          </div>
+          <span class="contact-extension" data-extension-entry="left"><span>Für Rückfragen zu einer Arbeitsprobe, einer Rolle oder einem ähnlichen Problem bin ich über LinkedIn erreichbar.</span><span class="contact-extension-cta">Kontaktmöglichkeiten ansehen <span aria-hidden="true">→</span></span></span>
+        </a>
+        <span class="route-tail" data-route-tail aria-hidden="true"></span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Samet Kurt</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+  <script src="assets/js/atlas.js" defer></script>
+
+  <script>
+  (function () {
+    "use strict";
+
+    var SOURCE_COMMIT = "c066511";
+    var STORAGE_KEY = "samet-portfolio.startseite-editor.v2";
+    var LEGACY_STORAGE_KEY = "samet-portfolio.startseite-editor.v1";
+    var SCHEMA_VERSION = 2;
+    var SVG_NS = "http://www.w3.org/2000/svg";
+
+    var NODE_MANIFEST = [
+      { group: "Rahmen", id: "page-header", label: "Seitenkopf", selector: ".site-header" },
+      { group: "Rahmen", id: "hero-content", label: "Hero · gesamte Textgruppe", selector: ".hero-index-intro" },
+      { group: "Rahmen", id: "hero-origin", label: "Hero · Routenursprung", selector: ".hero-index-intro .route-origin" },
+      { group: "Rahmen", id: "hero-extension", label: "Hero · Text-Extension", selector: ".hero-text-extension" },
+      { group: "Rahmen", id: "hero-actions", label: "Hero · Projekt-Button", selector: ".hero-actions" },
+
+      { group: "Schwerpunkte", id: "domains-stage", label: "Schwerpunkte · gesamte Bühne", selector: ".domains-stage" },
+      { group: "Schwerpunkte", id: "domains-intro", label: "Digitale DNA · Blob + Extension", selector: ".route-intro--domains" },
+      { group: "Schwerpunkte", id: "domains-blob", label: "Digitale DNA · Blob", selector: ".route-intro--domains .route-blob" },
+      { group: "Schwerpunkte", id: "domains-extension", label: "Digitale DNA · Extension", selector: ".route-intro--domains .route-heading-extension" },
+      { group: "Schwerpunkte", id: "automation-station", label: "Automation · gesamte Station", selector: ".domain-pair--automation" },
+      { group: "Schwerpunkte", id: "automation-blob", label: "Automation · Blob", selector: ".domain-pair--automation .route-blob" },
+      { group: "Schwerpunkte", id: "automation-extension", label: "Automation · Extension", selector: ".domain-pair--automation .route-station-copy" },
+      { group: "Schwerpunkte", id: "analysis-station", label: "Datenanalyse · gesamte Station", selector: ".domain-pair--analysis" },
+      { group: "Schwerpunkte", id: "analysis-blob", label: "Datenanalyse · Blob", selector: ".domain-pair--analysis .route-blob" },
+      { group: "Schwerpunkte", id: "analysis-extension", label: "Datenanalyse · Extension", selector: ".domain-pair--analysis .route-station-copy" },
+
+      { group: "Projekte", id: "work-stage", label: "Projekte · gesamte Bühne", selector: ".work-stage" },
+      { group: "Projekte", id: "work-intro", label: "Projekte · Blob + Extension", selector: ".route-intro--work" },
+      { group: "Projekte", id: "work-blob", label: "Projekte · Blob", selector: ".route-intro--work .route-blob" },
+      { group: "Projekte", id: "work-extension", label: "Projekte · Extension", selector: ".route-intro--work .route-heading-extension" },
+      { group: "Projekte", id: "payment-station", label: "Zahlungsbuchung · gesamte Station", selector: ".project-pair--payment" },
+      { group: "Projekte", id: "payment-blob", label: "Zahlungsbuchung · Blob", selector: ".project-pair--payment .route-blob" },
+      { group: "Projekte", id: "payment-extension", label: "Zahlungsbuchung · Extension", selector: ".project-pair--payment .route-station-copy" },
+      { group: "Projekte", id: "forecast-station", label: "Cash-Forecast · gesamte Station", selector: ".project-pair--forecast" },
+      { group: "Projekte", id: "forecast-blob", label: "Cash-Forecast · Blob", selector: ".project-pair--forecast .route-blob" },
+      { group: "Projekte", id: "forecast-extension", label: "Cash-Forecast · Extension", selector: ".project-pair--forecast .route-station-copy" },
+      { group: "Projekte", id: "irrigation-station", label: "Bewässerung · gesamte Station", selector: ".project-pair--irrigation" },
+      { group: "Projekte", id: "irrigation-blob", label: "Bewässerung · Blob", selector: ".project-pair--irrigation .route-blob" },
+      { group: "Projekte", id: "irrigation-extension", label: "Bewässerung · Extension", selector: ".project-pair--irrigation .route-station-copy" },
+
+      { group: "Profil", id: "profile-scene", label: "Profil · gesamte Konstellation", selector: ".profile-constellation" },
+      { group: "Profil", id: "profile-blob", label: "Über mich · Blob", selector: ".profile-intro .route-blob" },
+      { group: "Profil", id: "profile-fact-study", label: "Profilfakt · Studium", selector: ".profile-fact--study" },
+      { group: "Profil", id: "profile-fact-certificate", label: "Profilfakt · Zertifikat", selector: ".profile-fact--certificate" },
+      { group: "Profil", id: "profile-fact-tools", label: "Profilfakt · Werkzeuge", selector: ".profile-fact--tools" },
+      { group: "Profil", id: "profile-branches", label: "Profil · beide Stationen", selector: ".profile-branches" },
+      { group: "Profil", id: "research-branch", label: "Forschung · gesamte Station", selector: ".profile-branch--research" },
+      { group: "Profil", id: "research-blob", label: "Forschung · Blob", selector: ".profile-branch--research .route-blob" },
+      { group: "Profil", id: "research-extension", label: "Forschung · Extension", selector: ".profile-branch--research .profile-branch-copy" },
+      { group: "Profil", id: "private-branch", label: "Private Projekte · gesamte Station", selector: ".profile-branch--private" },
+      { group: "Profil", id: "private-blob", label: "Private Projekte · Blob", selector: ".profile-branch--private .route-blob" },
+      { group: "Profil", id: "private-extension", label: "Private Projekte · Extension", selector: ".profile-branch--private .profile-branch-copy" },
+
+      { group: "Kontakt", id: "contact-station", label: "Kontakt · Blob + Extension", selector: ".contact-station-link" },
+      { group: "Kontakt", id: "contact-blob", label: "Kontakt · Blob", selector: ".contact-station-link .route-blob" },
+      { group: "Kontakt", id: "contact-extension", label: "Kontakt · Extension", selector: ".contact-extension" },
+      { group: "Rahmen", id: "page-footer", label: "Footer", selector: ".site-footer .container" },
+
+      { group: "Welt", id: "world-canopy", label: "Artwork · Kronendach", selector: ".biome-canopy" },
+      { group: "Welt", id: "world-cave", label: "Artwork · Zenote/Höhle", selector: ".biome-cave" },
+      { group: "Welt", id: "world-tree", label: "Artwork · Stamm", selector: ".biome-tree" },
+      { group: "Welt", id: "world-roots", label: "Artwork · Wurzeln", selector: ".biome-roots" },
+      { group: "Welt", id: "world-cave-lip", label: "Artwork · Höhlenkante", selector: ".biome-cave-lip" },
+      { group: "Welt", id: "world-water", label: "Artwork · Wasser", selector: ".biome-water" }
+    ];
+
+    var TEXT_MANIFEST = [
+      { id: "nav-start", label: "Navigation · Start", selector: ".site-nav a:nth-child(1)" },
+      { id: "nav-automation", label: "Navigation · Automation", selector: ".site-nav a:nth-child(2)" },
+      { id: "nav-analysis", label: "Navigation · Datenanalyse", selector: ".site-nav a:nth-child(3)" },
+      { id: "nav-private", label: "Navigation · Private Projekte", selector: ".site-nav a:nth-child(4)" },
+      { id: "nav-profile", label: "Navigation · Über mich", selector: ".site-nav a:nth-child(5)" },
+      { id: "nav-contact", label: "Navigation · Kontakt", selector: ".site-nav a:nth-child(6)" },
+      { id: "hero-eyebrow", label: "Hero · Eyebrow", selector: ".hero-index-intro .eyebrow" },
+      { id: "hero-title-neutral", label: "Hero · Titel, neutral", selector: ".home-title-neutral" },
+      { id: "hero-title-accent", label: "Hero · Titel, Verlauf", selector: ".home-title-gradient" },
+      { id: "hero-lead", label: "Hero · Beschreibung", selector: ".hero-index-intro .lead" },
+      { id: "hero-action-work", label: "Hero · Button Projekte", selector: ".hero-actions a:nth-child(1)", textNode: true },
+      { id: "domains-title", label: "Digitale DNA · Titel", selector: "#domains-title" },
+      { id: "domains-copy", label: "Digitale DNA · Text", selector: ".route-intro--domains .route-heading-extension" },
+      { id: "automation-title", label: "Automation · Titel", selector: ".domain-pair--automation h3" },
+      { id: "automation-copy", label: "Automation · Text", selector: "#automation-summary" },
+      { id: "analysis-title", label: "Datenanalyse · Titel", selector: ".domain-pair--analysis h3" },
+      { id: "analysis-copy", label: "Datenanalyse · Text", selector: "#analysis-summary" },
+      { id: "work-title", label: "Projekte · Titel", selector: "#work-title" },
+      { id: "work-copy", label: "Projekte · Text", selector: ".route-intro--work .route-heading-extension" },
+      { id: "payment-kicker", label: "Zahlungsbuchung · Kicker", selector: ".project-pair--payment .eyebrow" },
+      { id: "payment-title", label: "Zahlungsbuchung · Titel", selector: ".project-pair--payment h3" },
+      { id: "payment-copy", label: "Zahlungsbuchung · Text", selector: "#payment-summary" },
+      { id: "forecast-kicker", label: "Cash-Forecast · Kicker", selector: ".project-pair--forecast .eyebrow" },
+      { id: "forecast-title", label: "Cash-Forecast · Titel", selector: ".project-pair--forecast h3" },
+      { id: "forecast-copy", label: "Cash-Forecast · Text", selector: "#forecast-summary" },
+      { id: "irrigation-kicker", label: "Bewässerung · Kicker", selector: ".project-pair--irrigation .eyebrow" },
+      { id: "irrigation-title", label: "Bewässerung · Titel", selector: ".project-pair--irrigation h3" },
+      { id: "irrigation-copy", label: "Bewässerung · Text", selector: "#irrigation-summary" },
+      { id: "profile-title", label: "Über mich · Titel", selector: "#profile-title" },
+      { id: "profile-study-label", label: "Studium · Label", selector: ".profile-fact--study dt" },
+      { id: "profile-study-value", label: "Studium · Text", selector: ".profile-fact--study dd" },
+      { id: "profile-certificate-label", label: "Zertifikat · Label", selector: ".profile-fact--certificate dt" },
+      { id: "profile-certificate-value", label: "Zertifikat · Text", selector: ".profile-fact--certificate dd" },
+      { id: "profile-tools-label", label: "Werkzeuge · Label", selector: ".profile-fact--tools dt" },
+      { id: "profile-tools-value", label: "Werkzeuge · Text", selector: ".profile-fact--tools dd" },
+      { id: "research-title", label: "Forschung · Titel", selector: ".profile-branch--research h3" },
+      { id: "research-copy", label: "Forschung · Text", selector: ".profile-branch--research .profile-branch-copy" },
+      { id: "private-title", label: "Private Projekte · Titel", selector: ".profile-branch--private h3" },
+      { id: "private-copy", label: "Private Projekte · Text", selector: ".profile-branch--private .profile-branch-copy" },
+      { id: "contact-title", label: "Kontakt · Titel", selector: "#contact-title" },
+      { id: "contact-copy", label: "Kontakt · Text", selector: ".contact-extension > span:first-child" },
+      { id: "contact-cta", label: "Kontakt · CTA", selector: ".contact-extension-cta", textNode: true },
+      { id: "footer-copy", label: "Footer · Urheberzeile", selector: ".site-footer p" },
+      { id: "footer-linkedin", label: "Footer · LinkedIn", selector: ".footer-links a:nth-child(1)" },
+      { id: "footer-contact", label: "Footer · Kontakt", selector: ".footer-links a:nth-child(2)" }
+    ];
+
+    var EXTENSION_PAIRS = [
+      { from: "hero-origin", to: "hero-extension", color: "--ui-interaction" },
+      { from: "domains-blob", to: "domains-extension", color: "--category-contact" },
+      { from: "automation-blob", to: "automation-extension", color: "--category-automation" },
+      { from: "analysis-blob", to: "analysis-extension", color: "--category-analysis" },
+      { from: "work-blob", to: "work-extension", color: "--category-contact" },
+      { from: "payment-blob", to: "payment-extension", color: "--category-automation" },
+      { from: "forecast-blob", to: "forecast-extension", color: "--category-analysis" },
+      { from: "irrigation-blob", to: "irrigation-extension", color: "--category-private" },
+      { from: "research-blob", to: "research-extension", color: "--category-profile" },
+      { from: "private-blob", to: "private-extension", color: "--category-private" },
+      { from: "contact-blob", to: "contact-extension", color: "--category-contact" }
+    ];
+
+    var PROFILE_CONNECTIONS = [
+      { from: "profile-blob", to: "profile-fact-study", color: "--category-profile" },
+      { from: "profile-blob", to: "profile-fact-certificate", color: "--category-profile" },
+      { from: "profile-blob", to: "profile-fact-tools", color: "--category-profile" }
+    ];
+
+    var nodes = {};
+    var texts = {};
+    var nodeState = {};
+    var textStyleState = {};
+    var initialSizes = {};
+    var selectedId = "";
+    var activeTextId = "";
+    var gesture = null;
+    var historyStack = [];
+    var historyIndex = -1;
+    var canvasExtra = 0;
+    var dirty = false;
+    var routeFrame = 0;
+    var overlayFrame = 0;
+    var toastTimer = 0;
+    var textHistoryTimer = 0;
+    var textHistoryBefore = null;
+
+    var ui = {
+      panel: document.getElementById("editor-panel"),
+      selection: document.getElementById("editor-selection"),
+      selectionLabel: document.getElementById("editor-selection-label"),
+      selectionName: document.getElementById("editor-selection-name"),
+      warning: document.getElementById("editor-warning"),
+      layerSelect: document.getElementById("editor-layer-select"),
+      textTarget: document.getElementById("editor-text-target"),
+      typeRole: document.getElementById("editor-type-role"),
+      x: document.getElementById("editor-x"),
+      y: document.getElementById("editor-y"),
+      w: document.getElementById("editor-w"),
+      h: document.getElementById("editor-h"),
+      rotation: document.getElementById("editor-rotation"),
+      z: document.getElementById("editor-z"),
+      fontSize: document.getElementById("editor-font-size"),
+      lineHeight: document.getElementById("editor-line-height"),
+      letterSpacing: document.getElementById("editor-letter-spacing"),
+      textWidth: document.getElementById("editor-text-width"),
+      fontWeight: document.getElementById("editor-font-weight"),
+      textAlign: document.getElementById("editor-text-align"),
+      snap: document.getElementById("editor-snap"),
+      lock: document.getElementById("editor-lock"),
+      saveState: document.getElementById("editor-save-state"),
+      undo: document.getElementById("editor-undo"),
+      redo: document.getElementById("editor-redo"),
+      toast: document.getElementById("editor-toast"),
+      connectors: document.getElementById("editor-smart-connectors"),
+      guideX: document.getElementById("editor-guide-x"),
+      guideY: document.getElementById("editor-guide-y"),
+      fileInput: document.getElementById("editor-file-input")
+    };
+
+    function clone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function number(value, fallback) {
+      var parsed = parseFloat(value);
+      return isFinite(parsed) ? parsed : fallback;
+    }
+
+    function defaultNodeState() {
+      return { x: 0, y: 0, width: null, height: null, rotation: 0, z: null, locked: false };
+    }
+
+    function wrapDirectText(element) {
+      var childNodes = Array.prototype.slice.call(element.childNodes);
+      var textNode = childNodes.find(function (node) {
+        return node.nodeType === 3 && node.nodeValue.trim();
+      });
+      if (!textNode) return null;
+      var span = document.createElement("span");
+      span.textContent = textNode.nodeValue.trim();
+      textNode.parentNode.replaceChild(span, textNode);
+      return span;
+    }
+
+    function setupManifest() {
+      var groups = {};
+      NODE_MANIFEST.forEach(function (item) {
+        var element = document.querySelector(item.selector);
+        if (!element) return;
+        element.setAttribute("data-editor-id", item.id);
+        element.setAttribute("data-editor-label", item.label);
+        nodes[item.id] = { element: element, item: item };
+        nodeState[item.id] = defaultNodeState();
+        var rect = element.getBoundingClientRect();
+        initialSizes[item.id] = { width: rect.width, height: rect.height };
+        if (!groups[item.group]) {
+          groups[item.group] = document.createElement("optgroup");
+          groups[item.group].label = item.group;
+          ui.layerSelect.appendChild(groups[item.group]);
+        }
+        var option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = item.label;
+        groups[item.group].appendChild(option);
+      });
+
+      TEXT_MANIFEST.forEach(function (item) {
+        var element = document.querySelector(item.selector);
+        if (!element) return;
+        if (item.textNode) element = wrapDirectText(element);
+        if (!element) return;
+        element.setAttribute("data-editor-text-id", item.id);
+        element.setAttribute("data-editor-text-label", item.label);
+        texts[item.id] = { element: element, item: item };
+        textStyleState[item.id] = {};
+      });
+    }
+
+    function styleValue(value) {
+      return value == null || value === "" ? "" : String(value);
+    }
+
+    function applyNode(id) {
+      var record = nodes[id];
+      var state = nodeState[id];
+      if (!record || !state) return;
+      var element = record.element;
+      var svgElement = element.namespaceURI === SVG_NS;
+      var transform = "translate3d(" + state.x + "px," + state.y + "px,0) rotate(" + state.rotation + "deg)";
+      if (svgElement && initialSizes[id]) {
+        var scaleX = state.width == null ? 1 : state.width / Math.max(1, initialSizes[id].width);
+        var scaleY = state.height == null ? 1 : state.height / Math.max(1, initialSizes[id].height);
+        transform += " scale(" + scaleX + "," + scaleY + ")";
+      }
+      element.style.setProperty("transform", transform, "important");
+      if (state.width == null || svgElement) element.style.removeProperty("width");
+      else element.style.setProperty("width", state.width + "px", "important");
+      if (state.height == null || svgElement) {
+        element.style.removeProperty("height");
+        element.style.removeProperty("min-height");
+      } else {
+        element.style.setProperty("height", state.height + "px", "important");
+        element.style.setProperty("min-height", state.height + "px", "important");
+      }
+      if (state.z == null) element.style.removeProperty("z-index");
+      else element.style.setProperty("z-index", String(state.z), "important");
+      element.classList.toggle("editor-is-locked", !!state.locked);
+    }
+
+    function applyTextStyle(id) {
+      var record = texts[id];
+      var state = textStyleState[id];
+      if (!record || !state) return;
+      var element = record.element;
+      ["fontSize", "lineHeight", "letterSpacing", "fontWeight", "textAlign", "maxWidth"].forEach(function (property) {
+        if (state[property] == null || state[property] === "") element.style[property] = "";
+        else element.style[property] = state[property];
+      });
+    }
+
+    function captureState() {
+      var textValues = {};
+      Object.keys(texts).forEach(function (id) {
+        textValues[id] = texts[id].element.textContent;
+      });
+      return {
+        nodes: clone(nodeState),
+        texts: textValues,
+        textStyles: clone(textStyleState),
+        canvasExtra: canvasExtra
+      };
+    }
+
+    function applyState(state) {
+      if (!state) return;
+      Object.keys(nodes).forEach(function (id) {
+        nodeState[id] = Object.assign(defaultNodeState(), state.nodes && state.nodes[id] ? state.nodes[id] : {});
+        applyNode(id);
+      });
+      Object.keys(texts).forEach(function (id) {
+        if (state.texts && typeof state.texts[id] === "string") texts[id].element.textContent = state.texts[id];
+        textStyleState[id] = Object.assign({}, state.textStyles && state.textStyles[id] ? state.textStyles[id] : {});
+        applyTextStyle(id);
+      });
+      canvasExtra = Math.max(0, number(state.canvasExtra, 0));
+      document.querySelector(".home-main").style.paddingBottom = canvasExtra ? canvasExtra + "px" : "";
+      refreshAll();
+      syncInspector();
+    }
+
+    function statesEqual(a, b) {
+      return JSON.stringify(a) === JSON.stringify(b);
+    }
+
+    function pushHistory(before, after) {
+      if (statesEqual(before, after)) return;
+      historyStack = historyStack.slice(0, historyIndex + 1);
+      if (historyIndex < 0) historyStack.push(clone(before));
+      historyStack.push(clone(after));
+      if (historyStack.length > 81) historyStack.shift();
+      historyIndex = historyStack.length - 1;
+      updateHistoryButtons();
+      setDirty(true);
+      persistLocal();
+    }
+
+    function updateHistoryButtons() {
+      ui.undo.disabled = historyIndex <= 0;
+      ui.redo.disabled = historyIndex < 0 || historyIndex >= historyStack.length - 1;
+    }
+
+    function undo() {
+      if (historyIndex <= 0) return;
+      historyIndex -= 1;
+      applyState(clone(historyStack[historyIndex]));
+      updateHistoryButtons();
+      setDirty(true);
+      persistLocal();
+    }
+
+    function redo() {
+      if (historyIndex < 0 || historyIndex >= historyStack.length - 1) return;
+      historyIndex += 1;
+      applyState(clone(historyStack[historyIndex]));
+      updateHistoryButtons();
+      setDirty(true);
+      persistLocal();
+    }
+
+    function setDirty(value) {
+      dirty = value;
+      ui.saveState.textContent = value ? "Nicht exportiert" : "Gespeichert";
+      ui.saveState.classList.toggle("is-dirty", value);
+    }
+
+    function showToast(message) {
+      ui.toast.textContent = message;
+      ui.toast.classList.add("is-visible");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(function () {
+        ui.toast.classList.remove("is-visible");
+      }, 2600);
+    }
+
+    function persistLocal() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          schemaVersion: SCHEMA_VERSION,
+          source: { page: "index.html", commit: SOURCE_COMMIT },
+          state: captureState()
+        }));
+      } catch (error) {
+        showToast("Lokales Zwischenspeichern ist in diesem Browser nicht verfügbar.");
+      }
+    }
+
+    function stateWithCurrentTexts(state) {
+      var merged = clone(state);
+      merged.texts = captureState().texts;
+      return merged;
+    }
+
+    function loadLocal() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        var payload = JSON.parse(raw);
+        if (payload.schemaVersion !== SCHEMA_VERSION || !payload.state) return false;
+        applyState(payload.state);
+        historyStack = [captureState()];
+        historyIndex = 0;
+        updateHistoryButtons();
+        setDirty(true);
+        showToast("Lokaler Arbeitsstand geladen.");
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function loadLegacyLocal() {
+      try {
+        var raw = localStorage.getItem(LEGACY_STORAGE_KEY);
+        if (!raw) return false;
+        var payload = JSON.parse(raw);
+        if (payload.schemaVersion !== 1 || !payload.state) return false;
+        if (!window.confirm(
+          "Im Browser liegt ein Verschiebestand der früheren Startseite. " +
+          "Positionen und Typografie in den aktuellen Editor übernehmen? " +
+          "Die aktuellen Texte bleiben erhalten."
+        )) return false;
+        applyState(stateWithCurrentTexts(payload.state));
+        historyStack = [captureState()];
+        historyIndex = 0;
+        updateHistoryButtons();
+        setDirty(true);
+        persistLocal();
+        showToast("Früheren Verschiebestand übernommen; aktuelle Texte beibehalten.");
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function exportPayload() {
+      return {
+        schemaVersion: SCHEMA_VERSION,
+        editor: "Samet Kurt · Startseiten-Editor",
+        source: { page: "index.html", commit: SOURCE_COMMIT },
+        exportedAt: new Date().toISOString(),
+        viewport: {
+          width: window.innerWidth,
+          height: window.innerHeight,
+          desktopOnly: true
+        },
+        rules: {
+          generatedRoutePathsAreDerived: true,
+          extensionConnectorsAreDerived: true,
+          visualOrderOnly: true,
+          semanticReadingOrderRemainsSourceOrder: true,
+          originalWasNotModified: true
+        },
+        state: captureState()
+      };
+    }
+
+    function downloadJson(payload) {
+      var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      var date = new Date().toISOString().slice(0, 10);
+      link.href = url;
+      link.download = "startseite-layout-" + date + ".json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    }
+
+    async function saveJson() {
+      var payload = exportPayload();
+      persistLocal();
+      var json = JSON.stringify(payload, null, 2);
+      if ("showSaveFilePicker" in window) {
+        try {
+          var date = new Date().toISOString().slice(0, 10);
+          var handle = await window.showSaveFilePicker({
+            suggestedName: "startseite-layout-" + date + ".json",
+            types: [{ description: "Startseiten-Layout", accept: { "application/json": [".json"] } }]
+          });
+          var writable = await handle.createWritable();
+          await writable.write(json);
+          await writable.close();
+          setDirty(false);
+          showToast("Layout gespeichert. Diese JSON-Datei kannst du mir zur Übertragung geben.");
+          return;
+        } catch (error) {
+          if (error && error.name === "AbortError") {
+            showToast("Dateiauswahl abgebrochen; lokal im Browser bleibt der Stand erhalten.");
+            return;
+          }
+        }
+      }
+      downloadJson(payload);
+      setDirty(false);
+      showToast("Layout als JSON heruntergeladen und lokal zwischengespeichert.");
+    }
+
+    function importPayload(payload) {
+      if (!payload || ![1, SCHEMA_VERSION].includes(payload.schemaVersion) || !payload.state) {
+        throw new Error("Unbekanntes Speicherformat");
+      }
+      if (!payload.source || payload.source.page !== "index.html") {
+        throw new Error("Falsche Quelldatei");
+      }
+      if (!payload.state.nodes || !payload.state.texts || !payload.state.textStyles) {
+        throw new Error("Unvollständiger Arbeitsstand");
+      }
+      var missingNodes = Object.keys(nodes).filter(function (id) {
+        return !Object.prototype.hasOwnProperty.call(payload.state.nodes, id);
+      });
+      var missingTexts = Object.keys(texts).filter(function (id) {
+        return !Object.prototype.hasOwnProperty.call(payload.state.texts, id) ||
+          !Object.prototype.hasOwnProperty.call(payload.state.textStyles, id);
+      });
+      var compatibilityNotes = [];
+      if (payload.schemaVersion !== SCHEMA_VERSION) {
+        compatibilityNotes.push("älteres Editorformat v" + payload.schemaVersion);
+      }
+      if (payload.source.commit !== SOURCE_COMMIT) {
+        compatibilityNotes.push("andere Startseiten-Version " + (payload.source.commit || "unbekannt"));
+      }
+      if (missingNodes.length || missingTexts.length) {
+        compatibilityNotes.push("neue Elemente bleiben auf dem aktuellen Ausgangsstand");
+      }
+      var preserveCurrentTexts = payload.schemaVersion !== SCHEMA_VERSION || payload.source.commit !== SOURCE_COMMIT;
+      if (compatibilityNotes.length && !window.confirm(
+        "Diese Datei verwendet " + compatibilityNotes.join(", ") + ". Trotzdem laden?" +
+        (preserveCurrentTexts ? " Die aktuellen Texte bleiben erhalten." : "")
+      )) {
+        showToast("Import abgebrochen; der aktuelle Arbeitsstand bleibt unverändert.");
+        return;
+      }
+      var before = captureState();
+      applyState(preserveCurrentTexts ? stateWithCurrentTexts(payload.state) : payload.state);
+      var after = captureState();
+      pushHistory(before, after);
+      showToast(preserveCurrentTexts
+        ? "Layout übernommen; aktuelle Texte beibehalten."
+        : compatibilityNotes.length
+          ? "Layout übernommen; neue Elemente blieben unverändert."
+        : "Layout geladen.");
+    }
+
+    function selectNode(id, clickedTextId) {
+      if (!nodes[id]) return;
+      selectedId = id;
+      activeTextId = clickedTextId && texts[clickedTextId] ? clickedTextId : "";
+      ui.layerSelect.value = id;
+      ui.selectionName.textContent = nodes[id].item.label;
+      ui.selectionLabel.textContent = nodes[id].item.label;
+      ui.lock.checked = !!nodeState[id].locked;
+      populateTextTargets();
+      syncInspector();
+      refreshAll();
+    }
+
+    function deselect() {
+      finishTextEditing();
+      selectedId = "";
+      activeTextId = "";
+      ui.layerSelect.value = "";
+      ui.selectionName.textContent = "Noch nichts ausgewählt";
+      ui.selection.classList.remove("is-visible");
+      ui.warning.classList.remove("is-visible");
+      populateTextTargets();
+    }
+
+    function findNodeFromTarget(target) {
+      var element = target.closest ? target.closest("[data-editor-id]") : null;
+      return element ? element.getAttribute("data-editor-id") : "";
+    }
+
+    function findTextFromTarget(target) {
+      var element = target.closest ? target.closest("[data-editor-text-id]") : null;
+      return element ? element.getAttribute("data-editor-text-id") : "";
+    }
+
+    function textIdsWithinSelected() {
+      if (!selectedId || !nodes[selectedId]) return [];
+      var selectedElement = nodes[selectedId].element;
+      var candidates = Array.prototype.slice.call(selectedElement.querySelectorAll("[data-editor-text-id]"));
+      if (selectedElement.hasAttribute("data-editor-text-id")) candidates.unshift(selectedElement);
+      var clicked = activeTextId && texts[activeTextId] ? texts[activeTextId].element : null;
+      if (clicked && !candidates.includes(clicked)) candidates.unshift(clicked);
+      return candidates.map(function (element) { return element.getAttribute("data-editor-text-id"); })
+        .filter(function (id, index, array) { return id && array.indexOf(id) === index; });
+    }
+
+    function populateTextTargets() {
+      ui.textTarget.innerHTML = "";
+      var ids = textIdsWithinSelected();
+      if (!ids.length) {
+        var empty = document.createElement("option");
+        empty.value = "";
+        empty.textContent = "Kein Textziel";
+        ui.textTarget.appendChild(empty);
+        activeTextId = "";
+        syncTextInspector();
+        return;
+      }
+      ids.forEach(function (id) {
+        var option = document.createElement("option");
+        option.value = id;
+        option.textContent = texts[id].item.label;
+        ui.textTarget.appendChild(option);
+      });
+      if (!activeTextId || !ids.includes(activeTextId)) activeTextId = ids[0];
+      ui.textTarget.value = activeTextId;
+      syncTextInspector();
+    }
+
+    function syncInspector() {
+      var disabled = !selectedId || !nodes[selectedId];
+      [ui.x, ui.y, ui.w, ui.h, ui.rotation, ui.z].forEach(function (input) { input.disabled = disabled; });
+      if (disabled) return;
+      var state = nodeState[selectedId];
+      var rect = nodes[selectedId].element.getBoundingClientRect();
+      ui.x.value = Math.round(state.x);
+      ui.y.value = Math.round(state.y);
+      ui.w.value = Math.round(state.width == null ? rect.width : state.width);
+      ui.h.value = Math.round(state.height == null ? rect.height : state.height);
+      ui.rotation.value = Math.round(state.rotation * 10) / 10;
+      ui.z.value = state.z == null ? "" : state.z;
+      ui.lock.checked = !!state.locked;
+      updateSelectionBox();
+      updateWarning();
+      syncTextInspector();
+    }
+
+    function syncTextInspector() {
+      var disabled = !activeTextId || !texts[activeTextId];
+      [ui.typeRole, ui.fontSize, ui.lineHeight, ui.letterSpacing, ui.textWidth, ui.fontWeight, ui.textAlign].forEach(function (input) {
+        input.disabled = disabled;
+      });
+      if (disabled) return;
+      var element = texts[activeTextId].element;
+      var computed = getComputedStyle(element);
+      ui.typeRole.value = "custom";
+      ui.fontSize.value = Math.round(number(computed.fontSize, 16) * 10) / 10;
+      ui.lineHeight.value = computed.lineHeight === "normal" ? 1.2 : Math.round(number(computed.lineHeight, 19.2) / number(computed.fontSize, 16) * 100) / 100;
+      ui.letterSpacing.value = computed.letterSpacing === "normal" ? 0 : Math.round(number(computed.letterSpacing, 0) * 10) / 10;
+      ui.textWidth.value = textStyleState[activeTextId].maxWidth ? Math.round(number(textStyleState[activeTextId].maxWidth, element.getBoundingClientRect().width)) : "";
+      ui.fontWeight.value = String(Math.round(number(computed.fontWeight, 400) / 100) * 100);
+      if (!["400", "500", "600", "700"].includes(ui.fontWeight.value)) ui.fontWeight.value = "500";
+      ui.textAlign.value = computed.textAlign === "start" ? "left" : computed.textAlign;
+    }
+
+    function updateSelectionBox() {
+      if (!selectedId || !nodes[selectedId]) {
+        ui.selection.classList.remove("is-visible");
+        return;
+      }
+      var rect = nodes[selectedId].element.getBoundingClientRect();
+      if (!rect.width || !rect.height || rect.bottom < 0 || rect.top > window.innerHeight) {
+        ui.selection.classList.remove("is-visible");
+        return;
+      }
+      ui.selection.classList.add("is-visible");
+      ui.selection.classList.toggle("is-locked", !!nodeState[selectedId].locked);
+      ui.selection.style.left = rect.left + "px";
+      ui.selection.style.top = rect.top + "px";
+      ui.selection.style.width = rect.width + "px";
+      ui.selection.style.height = rect.height + "px";
+    }
+
+    function rectsOverlap(a, b, padding) {
+      return a.left < b.right - padding && a.right > b.left + padding &&
+        a.top < b.bottom - padding && a.bottom > b.top + padding;
+    }
+
+    function updateWarning() {
+      if (!selectedId || !nodes[selectedId]) return;
+      var selectedRect = nodes[selectedId].element.getBoundingClientRect();
+      var warnings = [];
+      var size = initialSizes[selectedId];
+      if (size && (selectedRect.width < size.width * 0.75 || selectedRect.width > size.width * 1.35 ||
+        selectedRect.height < size.height * 0.75 || selectedRect.height > size.height * 1.35)) {
+        warnings.push("Größe liegt außerhalb des empfohlenen Bereichs von etwa 75–135 %.");
+      }
+      var collision = Object.keys(nodes).find(function (id) {
+        if (id === selectedId) return false;
+        if (!/-blob$|-extension$|profile-fact/.test(id)) return false;
+        var other = nodes[id].element.getBoundingClientRect();
+        return rectsOverlap(selectedRect, other, 12);
+      });
+      if (collision) warnings.push("Mögliche Überlappung mit „" + nodes[collision].item.label + "“.");
+      ui.warning.textContent = warnings.join(" ");
+      ui.warning.classList.toggle("is-visible", warnings.length > 0);
+    }
+
+    function scheduleRouteRefresh() {
+      if (routeFrame) return;
+      routeFrame = requestAnimationFrame(function () {
+        routeFrame = 0;
+        window.dispatchEvent(new Event("resize"));
+      });
+    }
+
+    function scheduleOverlay() {
+      if (overlayFrame) return;
+      overlayFrame = requestAnimationFrame(function () {
+        overlayFrame = 0;
+        drawConnectors();
+        updateSelectionBox();
+      });
+    }
+
+    function refreshAll() {
+      scheduleRouteRefresh();
+      scheduleOverlay();
+    }
+
+    function center(rect) {
+      return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+    }
+
+    function ellipseBoundary(rect, toward) {
+      var c = center(rect);
+      var dx = toward.x - c.x;
+      var dy = toward.y - c.y;
+      var rx = Math.max(2, rect.width / 2 - 3);
+      var ry = Math.max(2, rect.height / 2 - 3);
+      var factor = 1 / Math.sqrt((dx * dx) / (rx * rx) + (dy * dy) / (ry * ry));
+      if (!isFinite(factor)) factor = 0;
+      return { x: c.x + dx * factor, y: c.y + dy * factor };
+    }
+
+    function rectBoundary(rect, toward) {
+      var c = center(rect);
+      var dx = toward.x - c.x;
+      var dy = toward.y - c.y;
+      if (!dx && !dy) return c;
+      var scaleX = Math.abs(dx) ? rect.width / 2 / Math.abs(dx) : Infinity;
+      var scaleY = Math.abs(dy) ? rect.height / 2 / Math.abs(dy) : Infinity;
+      var scale = Math.min(scaleX, scaleY);
+      return { x: c.x + dx * scale, y: c.y + dy * scale };
+    }
+
+    function extensionEntry(fromRect, toRect) {
+      var from = center(fromRect);
+      var to = center(toRect);
+      var dx = from.x - to.x;
+      var dy = from.y - to.y;
+      if (Math.abs(dx) > Math.abs(dy)) return dx > 0 ? "right" : "left";
+      return dy > 0 ? "bottom" : "top";
+    }
+
+    function connectorPath(start, end) {
+      var dx = end.x - start.x;
+      var dy = end.y - start.y;
+      if (Math.abs(dx) >= Math.abs(dy)) {
+        var bendX = Math.min(80, Math.abs(dx) * 0.38) * (dx < 0 ? -1 : 1);
+        return "M " + start.x.toFixed(1) + " " + start.y.toFixed(1) +
+          " C " + (start.x + bendX).toFixed(1) + " " + start.y.toFixed(1) + ", " +
+          (end.x - bendX).toFixed(1) + " " + end.y.toFixed(1) + ", " +
+          end.x.toFixed(1) + " " + end.y.toFixed(1);
+      }
+      var bendY = Math.min(80, Math.abs(dy) * 0.38) * (dy < 0 ? -1 : 1);
+      return "M " + start.x.toFixed(1) + " " + start.y.toFixed(1) +
+        " C " + start.x.toFixed(1) + " " + (start.y + bendY).toFixed(1) + ", " +
+        end.x.toFixed(1) + " " + (end.y - bendY).toFixed(1) + ", " +
+        end.x.toFixed(1) + " " + end.y.toFixed(1);
+    }
+
+    function addConnector(pair, profile) {
+      if (!nodes[pair.from] || !nodes[pair.to]) return;
+      var fromElement = nodes[pair.from].element;
+      var toElement = nodes[pair.to].element;
+      var fromRect = fromElement.getBoundingClientRect();
+      var toRect = toElement.getBoundingClientRect();
+      if (!fromRect.width || !toRect.width) return;
+      var fromCenter = center(fromRect);
+      var toCenter = center(toRect);
+      var start = ellipseBoundary(fromRect, toCenter);
+      var end = /-extension$|profile-fact/.test(pair.to) ? rectBoundary(toRect, fromCenter) : ellipseBoundary(toRect, fromCenter);
+      var styles = getComputedStyle(document.documentElement);
+      var color = styles.getPropertyValue(pair.color).trim() || "#79a9a2";
+      var path = document.createElementNS(SVG_NS, "path");
+      path.setAttribute("class", "editor-connector" + (profile ? " editor-connector--profile" : ""));
+      path.setAttribute("d", connectorPath(start, end));
+      path.style.setProperty("--connector-color", color);
+      ui.connectors.appendChild(path);
+      var terminal = document.createElementNS(SVG_NS, "circle");
+      terminal.setAttribute("class", "editor-connector-terminal");
+      terminal.setAttribute("cx", end.x.toFixed(1));
+      terminal.setAttribute("cy", end.y.toFixed(1));
+      terminal.setAttribute("r", profile ? "1.8" : "2.4");
+      terminal.style.setProperty("--connector-color", color);
+      ui.connectors.appendChild(terminal);
+      if (toElement.hasAttribute("data-extension-entry")) {
+        toElement.setAttribute("data-extension-entry", extensionEntry(fromRect, toRect));
+      }
+    }
+
+    function drawConnectors() {
+      ui.connectors.setAttribute("viewBox", "0 0 " + window.innerWidth + " " + window.innerHeight);
+      ui.connectors.innerHTML = "";
+      EXTENSION_PAIRS.forEach(function (pair) { addConnector(pair, false); });
+      PROFILE_CONNECTIONS.forEach(function (pair) { addConnector(pair, true); });
+    }
+
+    function getSnapAdjustment(rect, movingId) {
+      var threshold = 7;
+      var pageCenter = window.innerWidth / 2;
+      var xCandidates = [pageCenter];
+      var yCandidates = [];
+      Object.keys(nodes).forEach(function (id) {
+        if (id === movingId || nodes[id].element.contains(nodes[movingId].element) || nodes[movingId].element.contains(nodes[id].element)) return;
+        if (!/-blob$|-extension$|profile-fact/.test(id)) return;
+        var other = nodes[id].element.getBoundingClientRect();
+        xCandidates.push(other.left, other.left + other.width / 2, other.right);
+        yCandidates.push(other.top, other.top + other.height / 2, other.bottom);
+      });
+      var movingX = [rect.left, rect.left + rect.width / 2, rect.right];
+      var movingY = [rect.top, rect.top + rect.height / 2, rect.bottom];
+      var bestX = null;
+      var bestY = null;
+      xCandidates.forEach(function (candidate) {
+        movingX.forEach(function (edge) {
+          var delta = candidate - edge;
+          if (Math.abs(delta) <= threshold && (!bestX || Math.abs(delta) < Math.abs(bestX.delta))) bestX = { delta: delta, guide: candidate };
+        });
+      });
+      yCandidates.forEach(function (candidate) {
+        movingY.forEach(function (edge) {
+          var delta = candidate - edge;
+          if (Math.abs(delta) <= threshold && (!bestY || Math.abs(delta) < Math.abs(bestY.delta))) bestY = { delta: delta, guide: candidate };
+        });
+      });
+      return { x: bestX, y: bestY };
+    }
+
+    function showGuides(snap) {
+      ui.guideX.classList.toggle("is-visible", !!snap.x);
+      ui.guideY.classList.toggle("is-visible", !!snap.y);
+      if (snap.x) ui.guideX.style.left = snap.x.guide + "px";
+      if (snap.y) ui.guideY.style.top = snap.y.guide + "px";
+    }
+
+    function hideGuides() {
+      ui.guideX.classList.remove("is-visible");
+      ui.guideY.classList.remove("is-visible");
+    }
+
+    function beginMove(event, id) {
+      if (!nodes[id] || nodeState[id].locked) return;
+      var targetText = findTextFromTarget(event.target);
+      selectNode(id, targetText);
+      if (event.button !== 0 || event.target.closest("#startseite-editor-app")) return;
+      gesture = {
+        mode: "move",
+        id: id,
+        startX: event.clientX,
+        startY: event.clientY,
+        startRect: nodes[id].element.getBoundingClientRect(),
+        startState: clone(nodeState[id]),
+        before: captureState(),
+        moved: false
+      };
+      event.preventDefault();
+    }
+
+    function beginHandle(event) {
+      if (!selectedId || !nodes[selectedId] || nodeState[selectedId].locked) return;
+      var handle = event.currentTarget.getAttribute("data-handle");
+      var rect = nodes[selectedId].element.getBoundingClientRect();
+      gesture = {
+        mode: handle === "rotate" ? "rotate" : "resize",
+        handle: handle,
+        id: selectedId,
+        startX: event.clientX,
+        startY: event.clientY,
+        startRect: rect,
+        center: center(rect),
+        startAngle: Math.atan2(event.clientY - center(rect).y, event.clientX - center(rect).x),
+        startState: clone(nodeState[selectedId]),
+        before: captureState(),
+        moved: false
+      };
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    function onPointerMove(event) {
+      if (!gesture) return;
+      var state = nodeState[gesture.id];
+      if (!state) return;
+      var dx = event.clientX - gesture.startX;
+      var dy = event.clientY - gesture.startY;
+      if (Math.abs(dx) + Math.abs(dy) > 2) gesture.moved = true;
+
+      if (gesture.mode === "move") {
+        var nextX = gesture.startState.x + dx;
+        var nextY = gesture.startState.y + dy;
+        if (ui.snap.checked && !event.altKey) {
+          nextX = Math.round(nextX / 8) * 8;
+          nextY = Math.round(nextY / 8) * 8;
+          var desiredRect = {
+            left: gesture.startRect.left + nextX - gesture.startState.x,
+            top: gesture.startRect.top + nextY - gesture.startState.y,
+            width: gesture.startRect.width,
+            height: gesture.startRect.height
+          };
+          desiredRect.right = desiredRect.left + desiredRect.width;
+          desiredRect.bottom = desiredRect.top + desiredRect.height;
+          var snap = getSnapAdjustment(desiredRect, gesture.id);
+          if (snap.x) nextX += snap.x.delta;
+          if (snap.y) nextY += snap.y.delta;
+          showGuides(snap);
+        } else {
+          hideGuides();
+        }
+        state.x = Math.round(nextX * 10) / 10;
+        state.y = Math.round(nextY * 10) / 10;
+      } else if (gesture.mode === "resize") {
+        var handle = gesture.handle;
+        var width = gesture.startRect.width;
+        var height = gesture.startRect.height;
+        if (handle.indexOf("e") !== -1) width += dx;
+        if (handle.indexOf("w") !== -1) width -= dx;
+        if (handle.indexOf("s") !== -1) height += dy;
+        if (handle.indexOf("n") !== -1) height -= dy;
+        width = Math.max(40, width);
+        height = Math.max(24, height);
+        if (event.shiftKey) {
+          var ratio = gesture.startRect.width / gesture.startRect.height;
+          if (Math.abs(dx) > Math.abs(dy)) height = width / ratio;
+          else width = height * ratio;
+        }
+        state.width = Math.round(width);
+        state.height = Math.round(height);
+        if (handle.indexOf("w") !== -1) state.x = gesture.startState.x + gesture.startRect.width - width;
+        if (handle.indexOf("n") !== -1) state.y = gesture.startState.y + gesture.startRect.height - height;
+      } else if (gesture.mode === "rotate") {
+        var angle = Math.atan2(event.clientY - gesture.center.y, event.clientX - gesture.center.x);
+        var degrees = gesture.startState.rotation + (angle - gesture.startAngle) * 180 / Math.PI;
+        if (event.shiftKey) degrees = Math.round(degrees / 15) * 15;
+        state.rotation = Math.round(degrees * 10) / 10;
+      }
+      applyNode(gesture.id);
+      syncInspector();
+      refreshAll();
+    }
+
+    function endGesture() {
+      if (!gesture) return;
+      hideGuides();
+      var before = gesture.before;
+      var after = captureState();
+      var moved = gesture.moved;
+      gesture = null;
+      if (moved) pushHistory(before, after);
+      refreshAll();
+    }
+
+    function editText(id) {
+      if (!id || !texts[id]) return;
+      finishTextEditing();
+      activeTextId = id;
+      var element = texts[id].element;
+      element.setAttribute("contenteditable", "plaintext-only");
+      element.setAttribute("spellcheck", "true");
+      element.focus();
+      var selection = window.getSelection();
+      var range = document.createRange();
+      range.selectNodeContents(element);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      textHistoryBefore = captureState();
+      populateTextTargets();
+      showToast("Textmodus aktiv · Esc beendet");
+    }
+
+    function finishTextEditing() {
+      var active = document.querySelector('[data-editor-text-id][contenteditable]');
+      if (!active) return;
+      active.removeAttribute("contenteditable");
+      active.removeAttribute("spellcheck");
+      if (textHistoryBefore) pushHistory(textHistoryBefore, captureState());
+      textHistoryBefore = null;
+      window.clearTimeout(textHistoryTimer);
+      refreshAll();
+    }
+
+    function updateSelectedGeometry() {
+      if (!selectedId || !nodes[selectedId] || nodeState[selectedId].locked) return;
+      var before = captureState();
+      var state = nodeState[selectedId];
+      state.x = number(ui.x.value, state.x);
+      state.y = number(ui.y.value, state.y);
+      state.width = Math.max(40, number(ui.w.value, nodes[selectedId].element.getBoundingClientRect().width));
+      state.height = Math.max(24, number(ui.h.value, nodes[selectedId].element.getBoundingClientRect().height));
+      state.rotation = number(ui.rotation.value, state.rotation);
+      state.z = ui.z.value === "" ? null : Math.round(number(ui.z.value, 0));
+      applyNode(selectedId);
+      pushHistory(before, captureState());
+      syncInspector();
+      refreshAll();
+    }
+
+    function changeTextStyle(mutator) {
+      if (!activeTextId || !texts[activeTextId]) return;
+      var before = captureState();
+      mutator(textStyleState[activeTextId], texts[activeTextId].element);
+      applyTextStyle(activeTextId);
+      pushHistory(before, captureState());
+      syncTextInspector();
+      refreshAll();
+    }
+
+    var TYPE_ROLES = {
+      display: {
+        fontSize: "var(--type-display-size)", lineHeight: "var(--type-display-line)",
+        fontWeight: "var(--type-display-weight)", letterSpacing: "var(--type-display-spacing)"
+      },
+      heading: {
+        fontSize: "var(--type-heading-size)", lineHeight: "var(--type-heading-line)",
+        fontWeight: "var(--type-heading-weight)", letterSpacing: "var(--type-heading-spacing)"
+      },
+      subheading: {
+        fontSize: "var(--type-subheading-size)", lineHeight: "var(--type-subheading-line)",
+        fontWeight: "var(--type-subheading-weight)", letterSpacing: "var(--type-subheading-spacing)"
+      },
+      "body-large": {
+        fontSize: "var(--type-body-large-size)", lineHeight: "var(--type-body-large-line)",
+        fontWeight: "var(--type-body-weight)", letterSpacing: "var(--type-body-spacing)"
+      },
+      body: {
+        fontSize: "var(--type-body-size)", lineHeight: "var(--type-body-line)",
+        fontWeight: "var(--type-body-weight)", letterSpacing: "var(--type-body-spacing)"
+      },
+      ui: {
+        fontSize: "var(--type-ui-size)", lineHeight: "var(--type-ui-line)",
+        fontWeight: "var(--type-ui-weight)", letterSpacing: "var(--type-ui-spacing)"
+      },
+      meta: {
+        fontSize: "var(--type-meta-size)", lineHeight: "var(--type-meta-line)",
+        fontWeight: "var(--type-meta-weight)", letterSpacing: "var(--type-meta-spacing)"
+      }
+    };
+
+    function nudgeSelected(dx, dy) {
+      if (!selectedId || !nodes[selectedId] || nodeState[selectedId].locked) return;
+      var before = captureState();
+      nodeState[selectedId].x += dx;
+      nodeState[selectedId].y += dy;
+      applyNode(selectedId);
+      pushHistory(before, captureState());
+      syncInspector();
+      refreshAll();
+    }
+
+    function bindControls() {
+      document.querySelectorAll(".editor-handle").forEach(function (handle) {
+        handle.addEventListener("pointerdown", beginHandle);
+      });
+
+      document.addEventListener("pointerdown", function (event) {
+        if (event.target.closest("#startseite-editor-app")) return;
+        var id = findNodeFromTarget(event.target);
+        if (id) beginMove(event, id);
+      }, true);
+
+      document.addEventListener("pointermove", onPointerMove);
+      document.addEventListener("pointerup", endGesture);
+      document.addEventListener("pointercancel", endGesture);
+
+      document.addEventListener("click", function (event) {
+        if (event.target.closest("#startseite-editor-app")) return;
+        if (event.target.closest("a")) event.preventDefault();
+        var id = findNodeFromTarget(event.target);
+        if (id) selectNode(id, findTextFromTarget(event.target));
+      }, true);
+
+      document.addEventListener("dblclick", function (event) {
+        if (event.target.closest("#startseite-editor-app")) return;
+        var textId = findTextFromTarget(event.target);
+        if (!textId) return;
+        event.preventDefault();
+        event.stopPropagation();
+        var id = findNodeFromTarget(event.target);
+        if (id) selectNode(id, textId);
+        editText(textId);
+      }, true);
+
+      document.addEventListener("paste", function (event) {
+        var active = event.target.closest('[contenteditable][data-editor-text-id]');
+        if (!active) return;
+        event.preventDefault();
+        var plain = (event.clipboardData || window.clipboardData).getData("text/plain");
+        document.execCommand("insertText", false, plain);
+      });
+
+      document.addEventListener("input", function (event) {
+        if (!event.target.closest('[contenteditable][data-editor-text-id]')) return;
+        setDirty(true);
+        persistLocal();
+        refreshAll();
+      });
+
+      document.addEventListener("keydown", function (event) {
+        var activeEdit = event.target.closest && event.target.closest('[contenteditable][data-editor-text-id]');
+        if (event.key === "Escape") {
+          if (activeEdit) finishTextEditing();
+          else deselect();
+          return;
+        }
+        if (activeEdit) return;
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "z") {
+          event.preventDefault();
+          if (event.shiftKey) redo(); else undo();
+          return;
+        }
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "y") {
+          event.preventDefault();
+          redo();
+          return;
+        }
+        if (!selectedId) return;
+        var step = event.shiftKey ? 10 : 1;
+        if (event.key === "ArrowLeft") { event.preventDefault(); nudgeSelected(-step, 0); }
+        if (event.key === "ArrowRight") { event.preventDefault(); nudgeSelected(step, 0); }
+        if (event.key === "ArrowUp") { event.preventDefault(); nudgeSelected(0, -step); }
+        if (event.key === "ArrowDown") { event.preventDefault(); nudgeSelected(0, step); }
+      });
+
+      window.addEventListener("scroll", scheduleOverlay, { passive: true });
+      window.addEventListener("resize", scheduleOverlay);
+
+      ui.layerSelect.addEventListener("change", function () {
+        if (this.value) {
+          selectNode(this.value);
+          nodes[this.value].element.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+      ui.textTarget.addEventListener("change", function () {
+        activeTextId = this.value;
+        syncTextInspector();
+      });
+
+      [ui.x, ui.y, ui.w, ui.h, ui.rotation, ui.z].forEach(function (input) {
+        input.addEventListener("change", updateSelectedGeometry);
+      });
+
+      ui.lock.addEventListener("change", function () {
+        if (!selectedId) return;
+        var before = captureState();
+        nodeState[selectedId].locked = this.checked;
+        applyNode(selectedId);
+        pushHistory(before, captureState());
+        syncInspector();
+      });
+
+      ui.typeRole.addEventListener("change", function () {
+        var role = this.value;
+        if (!TYPE_ROLES[role]) return;
+        changeTextStyle(function (state) {
+          Object.assign(state, TYPE_ROLES[role]);
+        });
+      });
+      ui.fontWeight.addEventListener("change", function () {
+        var value = this.value;
+        changeTextStyle(function (state) { state.fontWeight = value; });
+      });
+      ui.fontSize.addEventListener("change", function () {
+        var value = Math.max(8, number(this.value, 16));
+        changeTextStyle(function (state) { state.fontSize = value + "px"; });
+      });
+      ui.lineHeight.addEventListener("change", function () {
+        var value = Math.max(0.7, number(this.value, 1.2));
+        changeTextStyle(function (state) { state.lineHeight = String(value); });
+      });
+      ui.letterSpacing.addEventListener("change", function () {
+        var value = number(this.value, 0);
+        changeTextStyle(function (state) { state.letterSpacing = value + "px"; });
+      });
+      ui.textWidth.addEventListener("change", function () {
+        var value = this.value === "" ? "" : Math.max(40, number(this.value, 320)) + "px";
+        changeTextStyle(function (state) { state.maxWidth = value; });
+      });
+      ui.textAlign.addEventListener("change", function () {
+        var value = this.value;
+        changeTextStyle(function (state) { state.textAlign = value; });
+      });
+
+      document.getElementById("editor-font-smaller").addEventListener("click", function () {
+        if (!activeTextId) return;
+        var size = number(getComputedStyle(texts[activeTextId].element).fontSize, 16) - 2;
+        changeTextStyle(function (state) { state.fontSize = Math.max(8, size) + "px"; });
+      });
+      document.getElementById("editor-font-larger").addEventListener("click", function () {
+        if (!activeTextId) return;
+        var size = number(getComputedStyle(texts[activeTextId].element).fontSize, 16) + 2;
+        changeTextStyle(function (state) { state.fontSize = Math.min(160, size) + "px"; });
+      });
+      document.getElementById("editor-edit-text").addEventListener("click", function () { editText(activeTextId); });
+      document.getElementById("editor-reset-text-style").addEventListener("click", function () {
+        if (!activeTextId) return;
+        var before = captureState();
+        textStyleState[activeTextId] = {};
+        applyTextStyle(activeTextId);
+        pushHistory(before, captureState());
+        syncTextInspector();
+        refreshAll();
+      });
+
+      document.getElementById("editor-reset-geometry").addEventListener("click", function () {
+        if (!selectedId) return;
+        var before = captureState();
+        var locked = nodeState[selectedId].locked;
+        nodeState[selectedId] = defaultNodeState();
+        nodeState[selectedId].locked = locked;
+        applyNode(selectedId);
+        pushHistory(before, captureState());
+        syncInspector();
+        refreshAll();
+      });
+      document.getElementById("editor-z-up").addEventListener("click", function () {
+        if (!selectedId) return;
+        ui.z.value = (nodeState[selectedId].z == null ? 4 : nodeState[selectedId].z) + 1;
+        updateSelectedGeometry();
+      });
+      document.getElementById("editor-z-down").addEventListener("click", function () {
+        if (!selectedId) return;
+        ui.z.value = (nodeState[selectedId].z == null ? 4 : nodeState[selectedId].z) - 1;
+        updateSelectedGeometry();
+      });
+
+      ui.undo.addEventListener("click", undo);
+      ui.redo.addEventListener("click", redo);
+      document.getElementById("editor-save").addEventListener("click", saveJson);
+      document.getElementById("editor-import").addEventListener("click", function () { ui.fileInput.click(); });
+      ui.fileInput.addEventListener("change", function () {
+        var file = this.files && this.files[0];
+        if (!file) return;
+        file.text().then(function (text) { importPayload(JSON.parse(text)); })
+          .catch(function () { showToast("Diese Datei ist kein gültiger Startseiten-Arbeitsstand."); });
+        this.value = "";
+      });
+
+      document.getElementById("editor-panel-toggle").addEventListener("click", function () {
+        var collapsed = ui.panel.classList.toggle("is-collapsed");
+        this.setAttribute("aria-pressed", String(!collapsed));
+      });
+      document.getElementById("editor-deselect").addEventListener("click", deselect);
+
+      [
+        { id: "editor-toggle-route", className: "editor-hide-route" },
+        { id: "editor-toggle-connectors", className: "editor-hide-connectors" },
+        { id: "editor-toggle-artwork", className: "editor-hide-artwork" }
+      ].forEach(function (toggle) {
+        document.getElementById(toggle.id).addEventListener("click", function () {
+          var hidden = document.body.classList.toggle(toggle.className);
+          this.setAttribute("aria-pressed", String(!hidden));
+        });
+      });
+
+      document.getElementById("editor-space-plus").addEventListener("click", function () {
+        var before = captureState();
+        canvasExtra += 500;
+        document.querySelector(".home-main").style.paddingBottom = canvasExtra + "px";
+        pushHistory(before, captureState());
+        refreshAll();
+        showToast("500 px Freiraum ergänzt.");
+      });
+      document.getElementById("editor-space-minus").addEventListener("click", function () {
+        var before = captureState();
+        canvasExtra = Math.max(0, canvasExtra - 500);
+        document.querySelector(".home-main").style.paddingBottom = canvasExtra ? canvasExtra + "px" : "";
+        pushHistory(before, captureState());
+        refreshAll();
+      });
+
+      document.getElementById("editor-reset-all").addEventListener("click", function () {
+        if (!window.confirm("Den gesamten lokalen Editor-Arbeitsstand löschen und zur aktuellen Startseite zurückkehren?")) return;
+        var before = captureState();
+        var fresh = { nodes: {}, texts: {}, textStyles: {}, canvasExtra: 0 };
+        Object.keys(texts).forEach(function (id) {
+          fresh.texts[id] = texts[id].element.getAttribute("data-editor-original-text") || texts[id].element.textContent;
+        });
+        applyState(fresh);
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(LEGACY_STORAGE_KEY);
+        } catch (error) {}
+        historyStack = [captureState()];
+        historyIndex = 0;
+        updateHistoryButtons();
+        setDirty(false);
+        showToast("Lokaler Arbeitsstand gelöscht.");
+      });
+    }
+
+    function rememberOriginalText() {
+      Object.keys(texts).forEach(function (id) {
+        texts[id].element.setAttribute("data-editor-original-text", texts[id].element.textContent);
+      });
+    }
+
+    function init() {
+      setupManifest();
+      rememberOriginalText();
+      bindControls();
+      Object.keys(nodeState).forEach(applyNode);
+      historyStack = [captureState()];
+      historyIndex = 0;
+      if (!loadLocal() && !loadLegacyLocal()) {
+        setDirty(false);
+        updateHistoryButtons();
+      }
+      refreshAll();
+      window.setTimeout(refreshAll, 350);
+      window.setTimeout(refreshAll, 1100);
+    }
+
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+    else init();
+  }());
+  </script>
+
+</body>
+</html>

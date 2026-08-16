@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "WRO-009",
+  "title": "Synthesize accepted contracts and release first implementation wave",
+  "status": "completed",
+  "mode": "synthesis",
+  "primary_agent": "orchestrator",
+  "consulted_agents": ["foundation-systems", "layout-responsive", "components-interaction", "visual-system", "semantics-accessibility", "content-ia", "architecture-cleanup"],
+  "reviewers": ["visual-integration", "orchestrator"],
+  "objective": "Reconcile specialist proposals, resolve user decisions, accept minimal contracts, and issue non-conflicting implementation tasks.",
+  "scope": ["cross-system synthesis", "decision resolution", "contract acceptance", "dependency scheduling", "write leases", "first implementation wave"],
+  "non_goals": ["direct website implementation", "silent scope expansion", "automatic publication"],
+  "depends_on": ["WRO-002", "WRO-003", "WRO-004", "WRO-005", "WRO-006", "WRO-007", "WRO-008"],
+  "contract_reads": ["all provisional contracts"],
+  "contract_changes_requested": ["accepted versions of reconciled contracts"],
+  "write_files": ["docs/refactor/design-contracts.yaml", "docs/refactor/website-state.yaml", "docs/refactor/dependency-graph.yaml", "docs/refactor/decisions/", "docs/refactor/tasks/"],
+  "write_domains": ["orchestration.contracts", "orchestration.state", "orchestration.dependencies", "orchestration.tasks"],
+  "exclusive_leases": ["control-plane-permanent"],
+  "deliverables": ["accepted contract set", "resolved/reported decisions", "leased implementation tasks", "review assignments", "updated state"],
+  "acceptance_checks": ["dependencies satisfied", "one primary writer per object", "no incompatible leases", "required user decisions resolved", "review gates assigned"],
+  "git": {"base_branch": "main", "integration_branch": "refactor/orchestrator", "branch": null, "worktree": null, "commit": null, "pushed": false},
+  "result": {
+    "summary": "WRO-002 through WRO-008 proposals reconciled into contract-ready, partial-ready, decision-required, and deferred scopes.",
+    "reviews": {
+      "semantics_accessibility": "pass",
+      "architecture_cleanup": "pass",
+      "visual_integration": "pass"
+    },
+    "resolved": ["WRO-DEC-002", "REC-002", "REC-004"],
+    "pending_user_decisions": ["WRO-DEC-001", "WRO-DEC-003", "WRO-DEC-004", "WRO-DEC-005", "WRO-DEC-006", "WRO-DEC-007"],
+    "implementation_released": true,
+    "write_leases_issued": ["WRO-010-foundation-style"]
+  }
+}

@@ -1,0 +1,575 @@
+schema_version: 1
+updated_at: "2026-08-15"
+authority: orchestrator
+
+repository:
+  root: "."
+  base_branch: main
+  default_branch:
+    value: main
+    confidence: inferred
+    evidence: "Only local/remote branch name; origin/HEAD is not configured."
+  integration_branch:
+    name: refactor/orchestrator
+    status: planned_blocked
+    blocker: "Pre-existing dirty worktree and unrelated local/remote root histories."
+  remote:
+    name: origin
+    provider: github
+    url: "https://github.com/lygonian/lygonian.github.io.git"
+  ci:
+    status: not_configured
+  bootstrap_head: f90338f77fc64779ab5a4d26d2cdd081ee39f938
+  remote_head: d9e10c45c0f38f1f3d9eade5870a0f24208f0f3d
+  history_relation:
+    status: unrelated_roots
+    local_only_commits: 3
+    remote_only_commits: 1
+  dirty_state:
+    status: dirty_preexisting
+    tracked_modified_count_at_start: 25
+    current_tracked_modified_count: 0
+    current_untracked_entry_count: 0
+    full_snapshot_scope:
+      files: 65
+      previously_tracked_modified: 28
+      previously_untracked_files: 37
+      status: committed_locally_as_current_HEAD
+      pushed: false
+    untracked_at_start:
+      - assets/img/logo-symbol.png
+      - assets/img/logo-symbol.svg
+    policy: "Do not reset, stash, discard, merge, or include pre-existing changes in an orchestrator commit."
+  worktrees:
+    count: 1
+    task_worktrees: []
+  branch_conventions:
+    observed: []
+    planned_integration: refactor/orchestrator
+    planned_task_pattern: "agent/WRO-<id>-<slug>"
+
+systems:
+  design_tokens:
+    historical_baseline: existing_partially_explicit
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: implemented_reviewed
+    owner: foundation-systems
+    blockers: []
+  typography:
+    historical_baseline: previously_refactored
+    current_review_scope: full
+    priority: normal
+    protected: false
+    state: implemented_reviewed
+    owner: foundation-systems
+    blockers: []
+  color:
+    historical_baseline: previously_refactored
+    current_review_scope: full
+    priority: normal
+    protected: false
+    state: implemented_reviewed
+    owner: foundation-systems
+    blockers: []
+    reopen:
+      task_id: WRO-015
+      triggering_dependency: "User IA decision to remove KI-Basics as a standalone category."
+      affected_contract: color.ui
+      reason: "The KI category identity has no remaining content consumer after the approved removal."
+      expected_impact: "Remove the inactive KI category token and its artwork references; retain all five active category identities."
+      review_owner: orchestrator_visual_integration_review
+      status: resolved_verified_WRO-015
+  spacing:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: implemented_reviewed
+    owner: foundation-systems
+    blockers: []
+  containers:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: implemented_reviewed
+    owner: foundation-systems
+    blockers: []
+  layout:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: accepted
+    owner: layout-responsive
+    blockers: []
+    reopen_history:
+      - task_id: WRO-014
+        triggering_dependency: "User visual feedback after WRO-013 canopy acceptance."
+        affected_contract: layout
+        reason: "The title remains visually high inside the now fuller canopy and should sit closer to its optical center."
+        expected_impact: "Homepage-only hero-copy vertical alignment; no typography, artwork geometry, wayfinder, section-flow, or responsive-rule changes."
+        review_owner: orchestrator_visual_integration_review
+        status: resolved_verified_WRO-014
+      - task_id: WRO-020
+        triggering_dependency: "User visual feedback 2026-08-15."
+        affected_contract: layout.home_route_cells
+        reason: "The homepage category and selected-work actions should be positioned as sequential cells on the route instead of a detached card layout."
+        expected_impact: "Homepage-only category and selected-work cell placement; hero, profile, contact, and responsive rules remain unchanged."
+        review_owner: orchestrator_visual_integration_review
+        status: resolved_verified_WRO-020
+      - task_id: WRO-021
+        triggering_dependency: "User visual feedback with screenshots."
+        affected_contract: layout.home_route_cell_hierarchy
+        reason: "The route cells need compact title-only content and adjacent companion copy instead of oversized cell panels."
+        expected_impact: "Homepage-only route-cell and section-head geometry; route formula and global layout remain unchanged."
+        review_owner: orchestrator_visual_integration_review
+        status: resolved_verified_WRO-021
+    reopen:
+      task_id: WRO-022
+      triggering_dependency: "User approval for system-wide homepage spiral stages 2026-08-15."
+      affected_contract: layout.home_route_stages
+      reason: "Individually Y-aligned cells cannot place multiple equal actions on one coherent route level."
+      expected_impact: "Homepage-only grouped route stages and local cell lanes; global layout families and responsive rules remain unchanged."
+      review_owner: visual-integration
+      status: resolved_verified_WRO-022
+  responsive_design:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: normal
+    protected: false
+    state: accepted_audit_only_writes_deferred
+    owner: layout-responsive
+    blockers: [explicit_desktop_only_scope]
+  components:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: ready_scope_implemented_reviewed
+    owner: components-interaction
+    blockers: []
+    reopen_history:
+      - task_id: WRO-020
+        triggering_dependency: "User visual feedback 2026-08-15."
+        affected_contract: components.card.route_cell
+        reason: "The homepage actions require an organic, route-bound card form instead of the existing rectangular card presentation."
+        expected_impact: "Homepage-only route-cell variant; shared card variants and destinations remain unchanged."
+        review_owner: orchestrator_semantics_accessibility_review
+        status: resolved_verified_WRO-020
+      - task_id: WRO-021
+        triggering_dependency: "User visual feedback with screenshots."
+        affected_contract: components.card.route_cell
+        reason: "The existing route cells contain too much inner content and their project form is visually too uniform."
+        expected_impact: "Title-only cells, external companion copy, and varied silhouettes; shared card variants remain unchanged."
+        review_owner: orchestrator_semantics_accessibility_review
+        status: resolved_verified_WRO-021
+    reopen:
+      task_id: WRO-022
+      triggering_dependency: "User approval for system-wide homepage spiral stages 2026-08-15."
+      affected_contract: components.card.route_cell
+      reason: "Route marker, real-link action cell, and companion copy currently share patch-like selectors and unclear hit areas."
+      expected_impact: "Homepage-only component roles and stage grouping; shared subpage card variants remain unchanged."
+      review_owner: semantics-accessibility
+      status: resolved_verified_WRO-022
+  surfaces_borders_radius:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: implemented_reviewed
+    owner: components-interaction
+    blockers: []
+  interaction:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: implemented_reviewed
+    owner: components-interaction
+    blockers: []
+  motion_animation:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: normal
+    protected: false
+    state: ready_scope_implemented_reviewed
+    owner: components-interaction
+    blockers: [ambient_motion_wcag_2_2_2_classification]
+  visual_effects:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: normal
+    protected: false
+    state: implemented_reviewed
+    owner: visual-system
+    blockers: []
+  layers_z_index:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: implemented_reviewed
+    owner: visual-system
+    blockers: []
+    reopen:
+      task_id: WRO-018
+      triggering_dependency: "User visual feedback 2026-08-15."
+      affected_contract: layers.local_scene_stack
+      reason: "The route currently occupies one flat connector layer and cannot pass behind or in front of physical artwork objects."
+      expected_impact: "Homepage-only route depth bands; all content and global UI layers remain unchanged."
+      review_owner: orchestrator_visual_integration_review
+      status: resolved_verified_WRO-018
+  icons_symbols:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: normal
+    protected: false
+    state: proposal
+    owner: visual-system
+    blockers: [logo_is_explicitly_unfinished]
+  background_artwork_visual_composition:
+    historical_baseline: existing_distinct_system
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: implemented_reviewed
+    owner: visual-system
+    blockers: []
+    reopen_history:
+      - task_id: WRO-017
+        triggering_dependency: "User visual feedback after WRO-013 and WRO-014."
+        affected_contract: background-artwork
+        reason: "The narrowed crown-to-trunk junction reads like a rod instead of a natural split into load-bearing branches."
+        expected_impact: "Homepage-only upper-trunk silhouette and internal branch lines; canopy volume and lower tree geometry remain fixed."
+        review_owner: orchestrator_visual_integration_review
+        status: resolved_verified_WRO-017
+      - task_id: WRO-018
+        triggering_dependency: "User visual feedback 2026-08-15."
+        affected_contract: background-artwork.home_route
+        reason: "The current route is built from alternating anchor offsets, which reads as random rather than intentional system logic."
+        expected_impact: "A centered deterministic harmonic route with a three-level depth sequence; category activation semantics remain unchanged."
+        review_owner: orchestrator_visual_integration_review
+        status: resolved_verified_WRO-018
+      - task_id: WRO-019
+        triggering_dependency: "User visual feedback 2026-08-15."
+        affected_contract: background-artwork.home_route
+        reason: "The sampled harmonic route renders as straight line segments and exposes visible corners."
+        expected_impact: "Tangential cubic interpolation only; formula, start, layer sequence, and local category activations remain unchanged."
+        review_owner: orchestrator_visual_integration_review
+        status: resolved_verified_WRO-019
+      - task_id: WRO-020
+        triggering_dependency: "User visual feedback 2026-08-15."
+        affected_contract: background-artwork.home_route
+        reason: "The route needs to carry the visible category and project nodes instead of remaining a purely decorative connector."
+        expected_impact: "Five homepage route cells aligned to the connector; route formula and depth sequence remain unchanged."
+        review_owner: orchestrator_visual_integration_review
+        status: resolved_verified_WRO-020
+      - task_id: WRO-021
+        triggering_dependency: "User visual feedback with screenshots."
+        affected_contract: background-artwork.home_route
+        reason: "The central DNA hub competes with the route cells and the node hierarchy must be simplified around the connector."
+        expected_impact: "Remove the DNA hub and its decorative links; add compact heading cells and companion copy on the route."
+        review_owner: orchestrator_visual_integration_review
+        status: resolved_verified_WRO-021
+    reopen:
+      task_id: WRO-022
+      triggering_dependency: "User approval for system-wide homepage spiral stages 2026-08-15."
+      affected_contract: background-artwork.home_route
+      reason: "The accepted harmonic route cannot revisit a shared visual level or provide the required stage-based spiral composition."
+      expected_impact: "Replace the homepage harmonic route with a deterministic open spiral while preserving local category activation and the existing global layer order."
+      review_owner: visual-integration
+      status: resolved_verified_WRO-022
+  navigation:
+    historical_baseline: existing_consistent_shell
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: implemented_reviewed
+    owner: content-ia
+    blockers: []
+    reopen:
+      task_id: WRO-017
+      triggering_dependency: "User visual and navigation feedback 2026-08-15."
+      affected_contract: navigation
+      reason: "The four homepage section shortcuts add an unnecessary second action row below the two primary hero actions."
+      expected_impact: "Remove only the homepage wayfinder and its unused CSS; shared main navigation remains unchanged."
+      review_owner: orchestrator_semantics_accessibility_review
+      status: resolved_verified_WRO-017
+  information_architecture:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: implemented_reviewed
+    owner: content-ia
+    blockers: []
+    reopen:
+      task_id: WRO-015
+      triggering_dependency: "User IA decision 2026-08-15."
+      affected_contract: information_architecture
+      reason: "KI is retained as a method within concrete cases rather than a standalone portfolio section."
+      expected_impact: "Remove the KI overview and method-only pages while preserving the Cash-Forecast under Datenanalyse."
+      review_owner: orchestrator
+      status: resolved_verified_WRO-015
+  content_roles:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: normal
+    protected: false
+    state: ready_scope_implemented_reviewed
+    owner: content-ia
+    blockers: [unapproved_copy_changes]
+  html_semantics:
+    historical_baseline: existing_partially_consistent
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: ready_scope_implemented_reviewed
+    owner: semantics-accessibility
+    blockers: [content_dependent_section_labels]
+  accessibility:
+    historical_baseline: existing_partially_consistent
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: ready_scope_implemented_reviewed_pending_manual_gates
+    owner: semantics-accessibility
+    blockers: [automated_a11y_not_configured, ambient_motion_wcag_2_2_2_classification, responsive_fixes_deferred, nonlocal_browser_at_matrix]
+  css_architecture:
+    historical_baseline: monolithic_shared_file
+    current_review_scope: full
+    priority: high
+    protected: false
+    state: deferred_after_stabilization
+    owner: architecture-cleanup
+    blockers: [post_stabilization_cleanup_not_scheduled]
+  javascript_architecture:
+    historical_baseline: single_shared_iife
+    current_review_scope: full
+    priority: normal
+    protected: false
+    state: deferred_after_functional_stabilization
+    owner: architecture-cleanup
+    blockers: [post_stabilization_cleanup_not_scheduled, committed_browser_harness_missing]
+  dead_code_legacy_cleanup:
+    historical_baseline: existing_unverified
+    current_review_scope: full
+    priority: normal
+    protected: false
+    state: deferred_after_architecture_stabilization
+    owner: architecture-cleanup
+    blockers: [cleanup_after_stabilization]
+
+active_tasks: []
+completed_tasks:
+  - WRO-001
+  - WRO-002
+  - WRO-003
+  - WRO-004
+  - WRO-005
+  - WRO-006
+  - WRO-007
+  - WRO-008
+  - WRO-009
+  - WRO-010
+  - WRO-011
+  - WRO-012
+  - WRO-013
+  - WRO-014
+  - WRO-015
+  - WRO-016
+  - WRO-017
+  - WRO-018
+  - WRO-019
+  - WRO-020
+  - WRO-021
+  - WRO-022
+
+write_leases:
+  - id: control-plane-permanent
+    owner: orchestrator
+    status: active_permanent
+    write_files:
+      - docs/refactor/website-state.yaml
+      - docs/refactor/design-contracts.yaml
+      - docs/refactor/dependency-graph.yaml
+      - docs/refactor/decisions/
+    write_domains: [orchestration.state, orchestration.contracts, orchestration.dependencies, orchestration.decisions]
+    contract_nodes: [orchestration.control_plane]
+  - id: WRO-022-home-spiral-stages
+    owner: components-interaction
+    status: released_completed
+    write_files: [index.html, assets/css/style.css, assets/js/atlas.js]
+    write_domains: [layout.home_route_stages, component.card.home_route_cell, artwork.home_spiral_route, visual.layers.home_route, javascript.home_route_geometry]
+    contract_nodes: [layout, components.card, interaction, background-artwork, layers, visual-effects, color.ui, color.artwork, html_semantics.ready_scope, accessibility.ready_scope]
+  - id: WRO-010-foundation-style
+    owner: foundation-systems
+    status: released_completed
+    write_files: [assets/css/style.css]
+    write_domains: [foundation.tokens, foundation.typography, foundation.spacing, foundation.containers]
+    contract_nodes: [design_tokens, typography, color.ui, spacing, containers]
+  - id: WRO-011-structure-components-shell
+    owner: components-interaction
+    status: released_completed
+    write_files: [assets/css/style.css, assets/js/atlas.js, index.html, automation.html, datenanalyse.html, ki_basics.html, private_projekte.html, ueber_mich.html, kontakt.html, forschung/index.html, forschung/membran_biophysik.html, forschung/neuroimmunologie.html, forschung/redox_neurobiochemie.html, ki-workflow/index.html, ki-workflow/ml_cash_forecast_fallstudie.html, ki-workflow/personalisierung.html, projekte/bewaesserung.html, projekte/crm_sync.html, projekte/graphql_reverse_engineering.html, projekte/kontoauszuege.html, projekte/lead_automation.html, projekte/linkedin_pipeline.html, projekte/pv_vertragsgenerator.html, projekte/rechnungs_pipeline.html, projekte/spotify_playlists.html]
+    write_domains: [component.surface, component.card, component.button, component.navigation.presentation, interaction.card, motion.reveal, semantics.navigation, semantics.heading, media.image, content.research_approved_scope]
+    contract_nodes: [components.surface, components.card, components.button, components.navigation.ready_scope, interaction, motion.ready_scope, navigation.ready_scope, information_architecture, content_roles.ready_scope, html_semantics.ready_scope, media.image.ready_scope, accessibility.ready_scope]
+  - id: WRO-012-desktop-artwork
+    owner: visual-system
+    status: released_completed
+    write_files: [assets/css/style.css, assets/js/atlas.js, assets/img/subpage-biome.svg, index.html, ueber_mich.html, forschung/index.html, forschung/membran_biophysik.html, forschung/neuroimmunologie.html, forschung/redox_neurobiochemie.html]
+    write_domains: [artwork.home_route, artwork.subpage_world, artwork.category_motifs, artwork.research_microscopic, visual.effects, visual.layers]
+    contract_nodes: [color.artwork, layout, background-artwork, visual-effects, layers, motion.ready_scope, accessibility.ready_scope, information_architecture]
+  - id: WRO-013-home-tree-top
+    owner: orchestrator
+    status: released_completed
+    write_files: [index.html, assets/css/style.css]
+    write_domains: [artwork.home_tree_canopy, artwork.home_tree_trunk, visual.effects.home_canopy]
+    contract_nodes: [color.artwork, layout, background-artwork, visual-effects, layers, motion.ready_scope, accessibility.ready_scope]
+  - id: WRO-014-home-hero-alignment
+    owner: orchestrator
+    status: released_completed
+    write_files: [assets/css/style.css]
+    write_domains: [layout.home_hero_alignment]
+    contract_nodes: [layout, background-artwork, typography, accessibility.ready_scope]
+  - id: WRO-015-ia-navigation-removal
+    owner: orchestrator
+    status: released_completed
+    write_files: [assets/css/style.css, index.html, automation.html, datenanalyse.html, private_projekte.html, ueber_mich.html, kontakt.html, forschung/index.html, forschung/membran_biophysik.html, forschung/neuroimmunologie.html, forschung/redox_neurobiochemie.html, ki-workflow/ml_cash_forecast_fallstudie.html, projekte/bewaesserung.html, projekte/crm_sync.html, projekte/graphql_reverse_engineering.html, projekte/kontoauszuege.html, projekte/lead_automation.html, projekte/linkedin_pipeline.html, projekte/pv_vertragsgenerator.html, projekte/rechnungs_pipeline.html, projekte/spotify_playlists.html, ki_basics.html, ki-workflow/index.html, ki-workflow/personalisierung.html, assets/img/ki-personalisierung.png, README.md]
+    write_domains: [information_architecture.top_level_categories, navigation.shared_shell, content.knowledge_category_removal, semantics.navigation, artwork.home_route, artwork.category_motifs, foundation.category_identity]
+    contract_nodes: [color.ui, color.artwork, background-artwork, navigation, information_architecture, content_roles.ready_scope, html_semantics.ready_scope, accessibility.ready_scope]
+  - id: WRO-016-residual-ki-cleanup
+    owner: orchestrator
+    status: released_completed
+    write_files: [index.html, datenanalyse.html, projekte/cash_forecast.html, ki-workflow/ml_cash_forecast_fallstudie.html, README.md, docs/refactor/design-contracts.yaml, ../AGENTS.md, ../DESIGN.md]
+    write_domains: [information_architecture.route_cleanup, navigation.links, content.case_route, project.instructions, design.authority]
+    contract_nodes: [navigation, information_architecture, color.ui, background-artwork, html_semantics.ready_scope, accessibility.ready_scope]
+  - id: WRO-017-home-tree-actions
+    owner: orchestrator
+    status: released_completed
+    write_files: [index.html, assets/css/style.css]
+    write_domains: [artwork.home_tree_junction, navigation.home_wayfinder, layout.home_hero_actions]
+    contract_nodes: [layout, background-artwork, components.navigation.ready_scope, interaction, html_semantics.ready_scope, accessibility.ready_scope]
+  - id: WRO-018-home-route-depth
+    owner: orchestrator
+    status: released_completed
+    write_files: [index.html, assets/css/style.css, assets/js/atlas.js]
+    write_domains: [artwork.home_route, visual.layers.home_route, javascript.home_route_geometry]
+    contract_nodes: [background-artwork, layers, visual-effects, motion.ready_scope, accessibility.ready_scope]
+  - id: WRO-019-home-route-smoothing
+    owner: orchestrator
+    status: released_completed
+    write_files: [assets/js/atlas.js]
+    write_domains: [javascript.home_route_geometry]
+    contract_nodes: [background-artwork, visual-effects, layers, accessibility.ready_scope]
+  - id: WRO-020-home-route-cells
+    owner: orchestrator
+    status: released_completed
+    write_files: [index.html, assets/css/style.css, assets/js/atlas.js]
+    write_domains: [component.card.home_route_cell, interaction.home_route_cell, layout.home_route_cells, artwork.home_route_cells, javascript.home_route_cell_alignment]
+    contract_nodes: [components.card, interaction, layout, background-artwork, layers, accessibility.ready_scope]
+  - id: WRO-021-route-cell-hierarchy
+    owner: orchestrator
+    status: released_completed
+    write_files: [index.html, assets/css/style.css, assets/js/atlas.js]
+    write_domains: [component.card.home_route_cell, layout.home_route_cells, artwork.home_dna_hub, javascript.home_route_cell_alignment]
+    contract_nodes: [components.card, interaction, layout, background-artwork, layers, html_semantics.ready_scope, accessibility.ready_scope]
+
+decisions:
+  - id: WRO-DEC-001
+    status: resolved_A
+    topic: "Contract authority: DESIGN.md, reconciled contracts, and index.html"
+  - id: WRO-DEC-002
+    status: resolved_existing_instruction
+    topic: "Responsive implementation timing versus current desktop-only instruction"
+  - id: WRO-DEC-003
+    status: resolved_remove_public_link
+    topic: "Publish, replace, or remove the missing certificate PDF target"
+  - id: WRO-DEC-004
+    status: resolved_A
+    topic: "Shared reduced subpage world or independent category scenes"
+  - id: WRO-DEC-005
+    status: resolved_A
+    topic: "Continuous or bounded microscopic research world"
+  - id: WRO-DEC-006
+    status: resolved_A
+    topic: "Homepage research CTA direct to research or via profile"
+  - id: WRO-DEC-007
+    status: resolved_A
+    topic: "Compact profile research entry or duplicated three-field inventory"
+  - id: WRO-DEC-008
+    status: resolved_user_decision
+    topic: "Remove KI-Basics as a standalone portfolio category"
+
+reconciliation_items:
+  - id: REC-001
+    conflict: "DESIGN.md names index.html as binding design reference; current mandate says existing code is not design authority."
+    status: reconciled_via_WRO-DEC-001
+  - id: REC-002
+    conflict: "Project instructions require mobile checks but postpone tablet/smartphone work; current program includes full responsive review."
+    status: reconciled_audit_only_writes_deferred
+  - id: REC-003
+    conflict: "The documented exclusive ./veroeffentlichen.sh publication command is absent from worktree and HEAD."
+    status: open_blocker_for_publication
+  - id: REC-004
+    conflict: "Eight category color-mix() washes are consistent, but their UI-versus-artwork contract classification is not explicit."
+    status: reconciled_seven_artwork_one_card_identity_decoration
+  - id: REC-005
+    conflict: "The homepage research CTA targets ki_basics.html although text and IA identify research under Über mich."
+    status: resolved_verified_WRO-011
+  - id: REC-006
+    conflict: "Nine raster images lack width, height, and lazy loading required by project instructions."
+    status: resolved_verified_WRO-011
+  - id: REC-007
+    conflict: "Sixteen descendant pages mark a parent navigation route with aria-current=page instead of an ancestor-location state."
+    status: resolved_verified_WRO-011
+  - id: REC-008
+    conflict: "Inline text links rely on color although Interaction versus surrounding text is only about 1.19:1."
+    status: resolved_verified_WRO-011
+  - id: REC-009
+    conflict: "Research pages reuse the profile tree world instead of the distinct microscopic world required by DESIGN.md."
+    status: resolved_verified_WRO-012
+  - id: REC-010
+    conflict: "The homepage connector is permanently multicolor, omits Private Projects, and is not locally anchored to semantic activation regions."
+    status: resolved_verified_WRO-012
+  - id: REC-011
+    conflict: "All subpages share one generic stretched biome rather than visibly deepening their documented category motifs."
+    status: resolved_verified_WRO-012
+  - id: REC-012
+    conflict: "At max-width 780px, expertise focus still applies a 3px lift even though accepted focus behavior is motionless."
+    status: queued_responsive_fix_after_desktop_acceptance
+  - id: REC-013
+    conflict: "After WRO-015, DESIGN.md still assigned KI-Basics a sixth category color and neuronal guiding motif although the approved IA removed that category."
+    status: resolved_verified_WRO-016
+  - id: REC-014
+    conflict: "WRO-022 introduces fixed desktop spiral-stage lanes whose action cells overlap and may clip focus at narrow widths; responsive writes remain explicitly deferred until desktop acceptance."
+    status: queued_responsive_fix_after_desktop_acceptance
+
+quality_capabilities:
+  build:
+    status: not_configured
+    note: "Static site has no build step."
+  lint:
+    status: not_configured
+  existing_tests:
+    status: not_configured
+  browser_functional:
+    status: not_configured
+  visual_regression:
+    status: not_configured
+  accessibility_automated:
+    status: ad_hoc_read_only_baseline_only
+    evidence: "All 23 pages scanned for landmarks, headings, ARIA references, links, IDs, and image metadata; no committed harness."
+  responsive_review:
+    status: audit_partial_writes_deferred
+    evidence: "Representative Firefox headless renders at desktop and 320 CSS pixels; no responsive implementation authorized."
+  ci:
+    status: not_configured
+  browser_manual:
+    status: desktop_matrix_reviewed_without_committed_harness
+    evidence: "Firefox 153 desktop renders reviewed for home, all six categories, profile transition, research hub and detail; WRO-022 additionally reviewed the homepage spiral stages at 2048x942, 2048x3000, and full-page height. JS, no-JS structure, reduced motion, real-link semantics, focus CSS, and computed surface roles passed. Nonlocal browser and AT matrix remains manual work."
+  dependency_installation:
+    status: not_authorized_in_bootstrap

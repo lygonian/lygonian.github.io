@@ -1,0 +1,19 @@
+schema_version: 1
+id: WRO-DEC-002
+status: resolved_existing_instruction
+topic: responsive_timing
+context:
+  - "Existing instructions postpone tablet and smartphone work until desktop is complete."
+  - "The refactor program includes responsive design in full review scope."
+options:
+  - id: A
+    summary: "Continue full responsive audits, but queue responsive writes until explicit desktop acceptance."
+  - id: B
+    summary: "Allow responsive implementation as soon as the affected desktop contract is stable."
+recommendation: A
+impact: "Controls scheduling only; responsive risks remain visible in either option."
+owner: orchestrator
+resolution:
+  selected: A
+  basis: "../AGENTS.md explicitly postpones tablet and smartphone implementation until desktop is complete."
+  resolved_at: "2026-08-15"

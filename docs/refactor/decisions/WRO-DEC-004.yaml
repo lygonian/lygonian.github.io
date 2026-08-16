@@ -1,0 +1,19 @@
+schema_version: 1
+id: WRO-DEC-004
+status: resolved
+topic: subpage_visual_depth
+context:
+  - "All 22 current subpages share one generic vertically stretched biome and category wash."
+  - "DESIGN.md requires each category page to deepen its own guiding motif while preserving one organic world."
+options:
+  - id: A
+    summary: "Use one reduced common subpage world plus a distinct guiding-motif overlay per category."
+  - id: B
+    summary: "Build a fully independent scene for every category."
+recommendation: A
+impact: "Controls artwork scope, CSS/index conflicts, consistency, and the amount of visual work before project content is replaced."
+owner: visual-system
+resolution:
+  selected: A
+  basis: "User confirmed the recommended decision package on 2026-08-15."
+  resolved_at: "2026-08-15"

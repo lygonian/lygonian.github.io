@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM-Sync — Fallstudie — Samet Kurt</title>
+  <meta name="description" content="Wie aus einer CRM-Schnittstelle eine inkrementelle, wiederverwendbare Datengrundlage für mehrere Automationen wurde.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="subpage subpage--automation">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header"><div class="container"><a class="brand" href="../index.html"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a><nav class="site-nav" aria-label="Hauptnavigation"><a href="../index.html">Start</a><a href="../automation.html" aria-current="location">Automation</a><a href="../datenanalyse.html">Datenanalyse</a><a href="../private_projekte.html">Private Projekte</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav></div></header>
+  <main id="main">
+    <section class="page-hero"><div class="container">
+      <nav class="breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../automation.html">Automation</a></li><li aria-current="page">CRM-Sync</li></ol></nav>
+      <p class="eyebrow">Fallstudie · Datenfundament</p><h1>Vom CRM-Formular zur gemeinsamen Datengrundlage</h1>
+      <p class="lead">Kontakte, Projekte, Termine und Dokumente waren bereits im CRM vorhanden. Die eigentliche Aufgabe war, sie strukturiert verfügbar zu machen, ohne bei jedem Lauf den vollständigen Bestand neu zu laden.</p>
+      <ul class="project-skills" aria-label="Technologien"><li class="skill-badge">Python</li><li class="skill-badge">GraphQL</li><li class="skill-badge">pandas</li><li class="skill-badge">inkrementeller Sync</li></ul>
+      <p class="hero-note">Gezeigt wird die technische Logik mit anonymisierten Ansichten. Zugangsdaten, Kunden- und interne Geschäftsdaten bleiben privat.</p>
+    </div></section>
+
+    <section class="case-study"><div class="container">
+      <div class="case-intro"><p>Der erste erfolgreiche API-Abruf löste nur das Zugangsproblem. Für den Betrieb musste daraus ein verlässlicher Zustand entstehen: neue Datensätze ergänzen, veränderte aktualisieren und unveränderte nicht unnötig übertragen.</p></div>
+      <div class="case-grid">
+        <article class="case-block"><p class="eyebrow">Ausgangslage</p><h2>Die Daten waren sichtbar, aber nicht nutzbar</h2><p>Die CRM-Oberfläche zeigt jeweils einen Datensatz. Analysen und Folgewerkzeuge brauchen dagegen viele Einträge gleichzeitig, mit stabilen Feldnamen und eindeutigen Verbindungen zwischen Kontakten, Projekten, Terminen und Dokumenten.</p></article>
+        <article class="case-block"><p class="eyebrow">Entscheidende Frage</p><h2>Was hat sich seit dem letzten Lauf geändert?</h2><p>Ein Komplettabruf wäre einfach, aber langsam und unnötig. Deshalb lädt eine erste kleine Abfrage nur ID und Änderungszeitpunkt. Erst der Vergleich mit dem lokalen Bestand entscheidet, welche Datensätze vollständig gebraucht werden.</p></article>
+        <article class="case-block case-block--wide"><p class="eyebrow">Lösungslogik</p><h2>Von der einzelnen Abfrage zum stabilen Sync</h2><ul class="decision-list">
+          <li><strong>Eindeutige IDs statt Namen:</strong> Sie entscheiden, ob eine Zeile ergänzt oder aktualisiert wird und verbinden die vier Datenbereiche.</li>
+          <li><strong>Zweistufiger Abruf:</strong> Zuerst Änderungsmetadaten vergleichen, danach nur neue oder veränderte Einträge vollständig laden.</li>
+          <li><strong>Kontrolllauf bis zur Ruhe:</strong> Da Mitarbeitende während eines Abrufs weiterarbeiten, prüft der Sync erneut. Erst ein Lauf ohne neue Änderung gilt als stabil.</li>
+          <li><strong>Eine Bibliothek für Folgeprojekte:</strong> Verbindung, Pagination, Fehlerprüfung und Normalisierung werden einmal gepflegt und von mehreren Werkzeugen wiederverwendet.</li>
+        </ul></article>
+        <article class="case-block"><p class="eyebrow">Ergebnis</p><h2>Vier verbundene Tabellen</h2><p>Kontakte, Projekte, Termine und Dokumente stehen einzeln synchronisierbar bereit. Vertragsgenerator, Lead-Verarbeitung und Zahlungsabgleich beginnen dadurch mit einer aktuellen Datengrundlage statt jeweils mit neuer Schnittstellenlogik.</p></article>
+        <article class="case-block"><p class="eyebrow">Grenzen</p><h2>Aktuell heißt nicht automatisch richtig</h2><p>Der Sync bildet den CRM-Stand zuverlässig ab; er korrigiert keine fachlich falschen Eingaben. Schemaänderungen, API-Fehler und unerwartete Antwortstrukturen müssen sichtbar bleiben und geprüft werden.</p></article>
+      </div>
+
+      <div class="outcome-strip"><div><strong>Schlüssel</strong><span>ID und Änderungszeitpunkt</span></div><div><strong>Zustand</strong><span>Einfügen oder aktualisieren statt anhängen</span></div><div><strong>Nutzen</strong><span>Gemeinsames Fundament für weitere Systeme</span></div></div>
+
+      <div class="case-figure-grid">
+        <figure class="figure"><img src="../assets/img/crm-eingabemaske.png" alt="Anonymisierte CRM-Kontaktmaske mit vielen einzelnen Feldern" width="1002" height="737" loading="lazy" decoding="async"><figcaption>Ein einzelner Datensatz in der Arbeitsoberfläche.</figcaption></figure>
+        <figure class="figure"><img src="../assets/img/crm-dataframe.png" alt="Anonymisierte Tabelle mit mehreren Kontakten als Zeilen" width="1668" height="347" loading="lazy" decoding="async"><figcaption>Dieselben Informationen strukturiert für Filter, Verknüpfungen und Folgeprozesse.</figcaption></figure>
+      </div>
+      <nav class="page-nav" aria-label="Weitere Projekte"><a href="../automation.html"><span aria-hidden="true">←</span> Alle Automationen</a><a href="lead_automation.html">Lead-Automation <span aria-hidden="true">→</span></a></nav>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer><script src="../assets/js/atlas.js" defer></script>
+</body></html>
