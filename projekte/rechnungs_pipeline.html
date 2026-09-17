@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Zahlungsabgleich mit Buchung und Kundenbestätigung — Samet Kurt</title>
+<meta content="Die Anwendung führt Bankeingänge, Rechnungen und bisher erfasste Zahlungen zusammen. Sie bereitet Zuordnung und Restbetrag vor; das Office prüft die Tabelle und gibt die Buchung im CRM-/ERP-System sowie die anschließende Kundenbestätigung frei. Ein Zahlungsarchiv hält Bearbeitungsstände für spätere Läufe fest." name="description"/>
+<link href="../assets/css/style.css?v=a6908b4eedb8" rel="stylesheet"/>
+<link href="../assets/img/logo-symbol.svg" rel="icon" type="image/svg+xml"/>
+<link href="../assets/css/project-case.css?v=1c71226806c0" rel="stylesheet"/></head>
+<body class="subpage subpage--automation wave2-case wave2-payment project-case" data-project-category="apps">
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<header class="site-header">
+<div class="container">
+<a aria-label="Samet Kurt – Startseite" class="brand" href="../index.html"><span aria-hidden="true" class="brand-symbol"></span>samet<span class="brand-dot">.</span>kurt</a>
+<nav aria-label="Hauptnavigation" class="site-nav">
+<a aria-current="location" href="../projekte.html">Projekte</a>
+<a href="../forschung/index.html">Forschung</a>
+<a href="../ueber_mich.html">Über mich</a>
+<a href="../kontakt.html">Kontakt</a>
+</nav>
+</div>
+</header>
+<main class="container wave2-main" id="main" tabindex="-1">
+<header class="project-case-intro"><nav aria-label="Brotkrumen" class="breadcrumb wave2-context"><ol><li><a href="../projekte.html">Projekte</a></li><li aria-current="page">Zahlungsbearbeitung</li></ol></nav><p class="eyebrow wave2-kicker">Apps &amp; Automationen</p><h1>Zahlungsabgleich mit Buchung und Kundenbestätigung</h1><p class="lead">Die Anwendung gleicht Bankeingänge mit Rechnungen und erfassten Zahlungen ab. Das Office prüft Zuordnung und Restbetrag und gibt die Buchung im CRM-/ERP-System sowie die Kundenbestätigung frei.</p><p class="business-benefit"><strong>Routinezahlungen gebündelt abschließen:</strong> Zuordnung, Freigabe, Buchung und Bestätigung folgen einem gemeinsamen Arbeitsablauf; Klärfälle bleiben separat sichtbar.</p></header><section aria-label="Projekt und Nutzen" class="project-overview"><figure class="app-evidence project-overview-visual"><img alt="Zahlungs-App mit drei Rechnungszuordnungen, unterschiedlichen Restbeträgen und einem manuell zu prüfenden Bankeingang." height="782" loading="lazy" src="../assets/img/apps/zahlungen.webp" width="1528"/><figcaption>Reale Anwendung mit synthetischen Beispieldaten: drei Zuordnungen und ein Eingang ohne passende Rechnungsnummer. Die Aufnahme endet bei der Prüfung; die Demo umfasst keine tatsächliche Buchung und keinen Versand.<a class="app-evidence-zoom" href="../assets/img/apps/zahlungen.webp" rel="noopener" target="_blank">Ansicht in voller Größe öffnen ↗</a></figcaption></figure><aside class="project-benefits"><p class="project-benefits-kicker">Finance · Zahlungsbearbeitung</p><h2>Weniger Bearbeitungszeit für eindeutige Zahlungen</h2><dl><div><dt>Geschätzt 2–4 Minuten je Standardfall</dt><dd>Die Schätzung gilt für eindeutig zuordenbare Eingänge und berücksichtigt Prüfung, Abschlusskontrolle und beaufsichtigte automatische Erfassung.</dd></div><div><dt>Etwa 3–7 Stunden je 100 Fälle</dt><dd>Beispielhafte Größenordnung, keine historische Zeitmessung. Unklare Referenzen und auffällige Beträge benötigen weiterhin manuelle Klärung.</dd></div><div><dt>Restbeträge nachvollziehbar halten</dt><dd>Teil- und Sammelzahlungen werden anhand offener Beträge verteilt. Buchung, Kundenmail und Archivierung behalten getrennte Abschlusszustände.</dd></div></dl></aside></section>
+<section aria-labelledby="abgleich-title" class="wave2-section payment-matching">
+<h2 id="abgleich-title">Rechnung und Zahlung über den offenen Betrag verbinden</h2>
+<figure class="payment-match">
+<div class="payment-inputs">
+<div><span class="wave2-kicker">Bankeingang</span><h3>Betrag + Verwendungszweck</h3><p>Transaktionskennung hält den Eingang beim erneuten Abruf erkennbar.</p></div>
+<div><span class="wave2-kicker">Rechnungsbestand + Zahlungsarchiv</span><h3>Rechnung + bisher erfasste Zahlungen</h3><p>Rechnungsnummer verbindet Betrag, Kunde und Empfängeradresse.</p></div>
+</div>
+<div aria-label="Rechnungsbetrag minus bisher erfasste Zahlungen minus neu zugeordnete Zahlung ergibt Restbetrag" class="payment-balance" role="img">
+<span>Rechnungsbetrag</span><b aria-hidden="true">−</b><span>bisher erfasst</span><b aria-hidden="true">−</b><span>neu zugeordnet</span><b aria-hidden="true">=</b><strong>Restbetrag</strong>
+</div>
+<div class="payment-routing">
+<div class="payment-ready"><span class="wave2-kicker">Rechnung gefunden</span><h3>Zuordnung wird vorbereitet</h3><p><strong>Teilzahlung:</strong> Der Rest bleibt offen und erscheint in der Bestätigung.</p><p><strong>Sammelzahlung:</strong> Ein Eingang wird der Reihe nach auf die offenen Beträge mehrerer Rechnungen verteilt.</p>
+<div class="payment-release"><span class="wave2-kicker">Menschliche Freigabe</span><strong>Tabelle prüfen · Warnungen klären · Lauf starten</strong><p>Name, Betrag, Rest und E-Mail-Adresse kontrollieren. Erst die bestätigte Tabellenprüfung öffnet die automatische Buchung und den anschließenden Versand.</p></div>
+</div>
+<aside class="payment-clarify"><span class="wave2-kicker">Keine passende Rechnung</span><h3>Manuell klären</h3><p>Rechnungsnummer ergänzen oder korrigieren und den Abgleich erneut ausführen.</p><strong class="payment-return">Zurück in die Zuordnungsprüfung</strong><p>Offene Klärfälle erhalten keine automatische Buchung und keine Kundenmail. Sie können gesondert im Archiv vermerkt werden.</p></aside>
+</div>
+<figcaption>Fachliches Schema. Einzelzahlungen behalten ihren tatsächlichen Bankbetrag: Ein unpassender Betrag wird nicht auf die Rechnung zurechtgekürzt. Überzahlungen und auffällige Verteilungen bleiben zu prüfen.</figcaption>
+</figure>
+</section>
+
+<section aria-labelledby="status-title" class="wave2-section">
+<h2 id="status-title">Buchung, Versand und Archivierung bleiben getrennt</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Abschlusskontrolle je bearbeitetem Vorgang"><table class="payment-ledger">
+<caption>Abschlusskontrolle je bearbeitetem Vorgang</caption>
+<thead><tr><th scope="col">Bearbeitungsstand</th><th scope="col">Was er bestätigt</th><th scope="col">Was dadurch noch offen sein kann</th></tr></thead>
+<tbody>
+<tr><th scope="row">Buchung</th><td>Der freigegebene Zahlungseingang ist über die CRM-/ERP-Oberfläche eingetragen.</td><td>Die Kundenbestätigung steht noch aus.</td></tr>
+<tr><th scope="row">Versand</th><td>Nach erfolgreicher Buchung geht eine zusammengefasste E-Mail je Rechnung heraus, gegebenenfalls mit Restbetrag.</td><td>Der Lauf ist noch nicht im Zahlungsarchiv fortgeschrieben.</td></tr>
+<tr><th scope="row">Archivierung</th><td>Zahlung und Bearbeitungsstände werden für spätere Läufe festgehalten.</td><td>Ein manueller Archiveintrag belegt weder Buchung noch Versand.</td></tr>
+</tbody>
+</table></div><p class="table-scroll-hint">Die Tabelle lässt sich auf kleinen Bildschirmen seitlich verschieben.</p>
+<div class="payment-interruption"><h3>Unterbrechung nach Buchung, vor Archivierung</h3><p>Beim Neustart kann der Eingang erneut erscheinen. Vor einem weiteren Buchungsversuch muss im Zielsystem geprüft werden, welche Einträge bereits vorhanden sind. Das Archiv allein schützt an dieser Stelle nicht vor Doppelbuchung.</p></div>
+</section>
+<section class="wave2-section wave2-detail">
+<div><h2>Kontrollpunkte aus der Finance-Verantwortung</h2><p>Zuordnungsregeln, Freigabe und Ausnahmebehandlung bilden die Kontrollpunkte des Ablaufs. Die Oberfläche bündelt den Abgleich bis zum Abschluss und macht fachliche Rückmeldungen direkt am bearbeiteten Vorgang nutzbar.</p></div>
+<div><h3>Gemeinsam bearbeitbar, kontrolliert fortgeschrieben</h3><p>Bei der Aktualisierung läuft der Bankabruf parallel zum gezielten inkrementellen Abgleich von Kontakten, Dokumenten und Projekten. Das gemeinsame Zahlungsarchiv hält bereits bearbeitete Transaktionskennungen fest.</p><p>Eine Schreibsperre, Sicherungsstände vor Archivänderungen und ein Laufjournal unterstützen die Fortschreibung. Zahlungen werden auf einem Rechner zur Zeit bearbeitet; die Datei-Synchronisation muss davor und danach abgeschlossen sein. Wiederholungen im laufenden Vorgang berücksichtigen erfolgreiche Teilschritte; nach einem vollständigen Abbruch bleibt die Abschlusskontrolle notwendig.</p></div>
+</section>
+<div class="wave2-end"><p class="expertise-reference">Zeigt unter anderem: <span>Zustände · Freigaben · Ausnahmebehandlung</span></p><nav aria-label="Rückweg und verwandte Projekte" class="page-nav"><a href="../projekte.html">← Alle Projekte</a><a href="interne_anwendungssuite.html">Die interne Anwendungssuite →</a></nav></div>
+</main>
+<footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="../projekte.html">Projekte</a><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer>
+<script defer="" src="../assets/js/atlas.js?v=f28836006c28">
+</script>
+</body>
+</html>

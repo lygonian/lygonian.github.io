@@ -1,0 +1,80 @@
+/* Kuratierte Projektübersicht und ein physischer Ausschnitt in der Startlandschaft. */
+.water-mini{display:block;width:100%;height:auto;overflow:visible}
+.water-mini text,.crm-mini text{font-family:var(--type-family);font-size:21px;fill:var(--ui-text-primary)}
+.water-mini .mini-small,.crm-mini .mini-small{font-size:17px;fill:var(--ui-text-secondary)}
+.mini-hardware{fill:var(--ui-surface-normal);stroke:var(--ui-border-strong);stroke-width:1.5}
+.mini-leaf{fill:none;stroke:#54c596;stroke-width:2}
+.mini-signal{fill:none;stroke:#54c596;stroke-width:1.8;stroke-dasharray:6 5}
+.mini-water{fill:none;stroke:#5cc0e6;stroke-width:3}
+.mini-context{fill:none;stroke:var(--ui-text-secondary);stroke-width:1.5;stroke-dasharray:4 5}
+.encounter-irrigation{min-height:700px;grid-template-columns:.9fr 1.1fr;column-gap:85px}
+.encounter-irrigation .irrigation-status{font-size:13px;max-width:360px;margin-top:24px}
+.irrigation-space{position:relative}
+.music-aside{margin:45px 0 0 52px}
+.music-aside .core-kicker{font-size:10px;margin-bottom:8px}
+.music-aside .text-link{font-size:16px}
+.music-aside p:last-child{font-size:14px;margin-top:10px}
+.projects-curated .core-page-intro{padding-top:54px;padding-bottom:32px}
+.projects-curated .core-page-intro h1{font-size:64px;margin-bottom:15px}
+.projects-curated .core-page-intro .core-kicker{margin-bottom:12px}
+.selected-business{display:grid;grid-template-columns:1.15fr 1fr;gap:85px;padding-block:24px 70px;isolation:isolate}
+.selected-business h2,.selected-personal h2,.selected-cost h2{font-size:35px;line-height:1.2}
+.selected-crm h2{font-size:48px;line-height:1.1;margin-bottom:16px}
+.selected-crm{position:relative;padding-top:8px}
+.selected-crm>.context-art{position:absolute;z-index:-1;width:680px;height:620px;max-width:none;left:-145px;top:-15px;opacity:.3;pointer-events:none}
+.selected-business>.business-companions{position:relative;isolation:isolate}
+.selected-business>.business-companions::before{content:"";position:absolute;z-index:-1;inset:-50px -65px;background:radial-gradient(ellipse at 48% 48%,#050908e6 25%,#050908a8 55%,#05090800 76%);pointer-events:none}
+.crm-mini{display:block;width:100%;height:auto;margin:32px 0 22px}
+.projects-curated .scene-result{font-size:18px;max-width:520px;margin-bottom:20px}
+.business-companions{display:grid;gap:35px}
+.business-companions h2{font-size:28px}
+.business-companions .core-kicker{font-size:10px;margin-bottom:12px}
+.business-companions p:not(.core-kicker){font-size:15px;line-height:1.5;margin:15px 0 12px}
+.business-companions .text-link{font-size:14px}
+.report-mini{margin-top:20px;font-size:16px;text-align:center}
+.report-mini>div{display:flex;justify-content:space-between;gap:20px;padding:0 10px 14px;position:relative}
+.report-mini>div:after{content:"";position:absolute;inset:auto 24px 0;height:9px;border:solid var(--ui-border-strong);border-width:0 1px 1px}
+.report-mini strong{display:block;font-size:17px;font-weight:500;padding-top:12px}
+.report-mini strong:before{content:"";display:block;border-left:1px solid var(--ui-border-strong);height:12px;margin:-12px auto 7px;width:1px}
+.contract-mini{display:grid;grid-template-columns:1fr;gap:0;margin-top:18px;font-size:16px;line-height:1.3}
+.contract-mini b{font-weight:400;color:var(--ui-text-muted);padding-left:18px;line-height:1.1}
+.projects-curated .scene-estimate strong{font-size:22px;font-weight:500;color:var(--ui-text-primary);display:block}
+.scene-estimate span{display:block;font-size:12px;margin-top:4px}
+.selected-personal{display:grid;grid-template-columns:1.15fr 1fr;gap:85px;padding-block:55px 75px;border-top:1px solid var(--ui-border-subtle)}
+.selected-personal .core-kicker{font-size:10px}
+.selected-water .water-mini{margin:30px 0 24px}
+.selected-ai{padding:10px 0 0 22px}
+.selected-ai h2{font-size:32px}
+.experience-mini{margin:28px 0;display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+.experience-mini div{font-size:20px;color:var(--ui-text-primary)}
+.experience-mini span{font-size:13px;color:var(--ui-text-secondary);padding-left:15px}
+.experience-mini .human-loop{border-left:1px dashed var(--ui-border-strong);padding:8px 15px}
+.selected-ai>p:not(.core-kicker){font-size:16px;margin:20px 0}
+.selected-ai .related-agent{font-size:13px!important;margin-top:32px!important}
+.selected-cost{display:grid;grid-template-columns:.95fr 1.2fr;gap:10px 80px;padding-block:42px 55px;border-top:1px solid var(--ui-border-subtle)}
+.selected-cost .core-kicker{font-size:10px}
+.selected-cost .text-link{justify-self:start;grid-column:1;margin-top:0;align-self:end}
+.cost-mini{grid-column:2;grid-row:1 / 3;text-align:center;align-self:center;font-size:16px}
+.cost-mini>div{display:flex;gap:22px;justify-content:center}
+.cost-mini p{padding:13px 0;border-bottom:1px solid var(--ui-border-strong);font-size:14px}
+.cost-mini strong{display:block;font-weight:500;font-size:20px;padding-top:14px}
+.cost-mini small{display:block;font-size:12px;color:var(--ui-text-secondary);margin-top:12px}
+.work-index{padding-block:50px 90px}
+.work-index>h2{font-size:30px;margin-bottom:12px}
+.work-index>p{font-size:16px;margin-bottom:25px}
+.work-index details>summary{font-size:19px;color:var(--ui-interaction);cursor:pointer;padding:18px 0;border-block:1px solid var(--ui-border-strong)}
+.work-index details>summary:hover{color:var(--ui-interaction-emphasized)}
+.index-content{padding-top:35px}
+.index-content>h3{font-size:26px}
+.index-featured-links{display:flex;flex-wrap:wrap;gap:12px 26px;font-size:15px;margin-top:20px}
+.work-index .project-index{margin-top:20px}
+.work-index .project-index h3{font-size:18px}
+.work-index .project-index a{padding:16px 0}
+.work-index .accounting-case{grid-template-columns:.85fr 1.15fr;gap:60px;margin-block:40px 55px}
+.work-index .accounting-case h3{font-size:25px}
+.work-index .sample-group{grid-template-columns:210px 1fr;gap:45px;padding-top:27px;margin-top:28px}
+.work-index .sample-group>h3{font-size:21px}
+.work-index .sample-items{gap:24px 40px}
+.work-index .sample-item h4{font-size:17px}
+.work-index .index-historical{font-size:14px;margin-top:35px}
+@media(min-width:1001px) and (max-width:1350px){.selected-business,.selected-personal{gap:60px}.selected-crm h2{font-size:43px}.selected-personal h2{font-size:31px}.selected-ai{padding-left:0}.selected-cost{gap:15px 60px}.encounter-irrigation{column-gap:60px}}

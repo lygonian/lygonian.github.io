@@ -1,0 +1,111 @@
+/* Forschung, Profil und Kontakt: Textführung und eigene Erkenntnisräume. */
+.research-edition .case-hero h1 { max-width: 22ch; }
+.research-edition .case-hero .lead { max-width: 70ch; }
+.research-body { position: relative; padding: 28px 0 84px; }
+.research-body p, .profile-edition .profile-prose p, .profile-origin p { color: var(--ui-text-secondary); }
+.research-body h2 { max-width: 25ch; }
+.research-body h3 { max-width: 29ch; }
+.research-prose { max-width: 66ch; }
+.research-prose p + p { margin-top: 22px; }
+.research-question { max-width: 790px; margin-bottom: 45px; }
+.research-work { display: grid; grid-template-columns: .86fr 1.14fr; gap: 76px; margin: 88px 0; }
+.research-conclusion { max-width: 820px; border-top: 1px solid var(--ui-border-strong); padding-top: 36px; margin: 0 0 68px auto; }
+.research-conclusion h2 { max-width: 26ch; }
+.research-caption, .membrane-comparison figcaption { color: var(--ui-text-muted); font-size: var(--type-meta-size); line-height: var(--type-meta-line); }
+.membrane-comparison { margin: 0; }
+.membrane-states { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; padding: 35px 0 25px; border-top: 1px solid var(--ui-border-subtle); border-bottom: 1px solid var(--ui-border-subtle); }
+.membrane-states > div + div { border-left: 1px solid var(--ui-border-subtle); padding-left: 44px; }
+.membrane-states h3 { font-weight: 500; }
+.membrane-states svg { width: 100%; display: block; margin: 12px 0; }
+.membrane-states p { max-width: 37ch; margin-bottom: 0; }
+.membrane-comparison figcaption { margin-top: 15px; max-width: 91ch; }
+.research-contour { fill: none; stroke: var(--ui-border-strong); stroke-width: 1.5; }
+.research-molecules { fill: none; stroke: var(--ui-border-strong); stroke-width: 1.5; }
+.research-sensor { fill: none; stroke: var(--ui-text-secondary); stroke-width: 2; }
+.research-donor { fill: var(--category-profile); }
+.research-acceptor { fill: var(--ui-text-muted); }
+.research-membrane { fill: none; stroke: var(--category-profile); stroke-width: 2; }
+.redox-perspectives { padding: 34px 0; margin-bottom: 70px; }
+.redox-center { text-align: center; max-width: 640px; margin: 0 auto 0; padding: 32px 30px; border: 1px solid var(--ui-border-subtle); border-radius: 70px 20px 65px 20px; background: var(--ui-surface-normal); }
+.redox-center h2 { max-width: none; }
+.redox-center p:last-child { margin-bottom: 0; }
+.redox-readings { display: grid; grid-template-columns: 1fr 1fr; gap: 84px; margin-top: 64px; }
+.redox-readings article { position: relative; border-top: 1px solid var(--ui-border-strong); padding-top: 28px; }
+.redox-readings article::before { content: ''; position: absolute; height: 64px; width: 1px; background: var(--ui-border-strong); top: -65px; }
+.redox-readings article:first-child::before { right: 25%; }
+.redox-readings article:last-child::before { left: 25%; }
+.redox-perspectives > .research-caption { margin-top: 28px; }
+.redox-resolution { max-width: 800px; margin-bottom: 75px; }
+.method-investigation { display: grid; grid-template-columns: .65fr 1.35fr; gap: 80px; margin: 25px 0 100px; }
+.method-margin { border-left: 1px solid var(--category-profile); padding-left: 25px; align-self: start; }
+.method-margin > p:last-child { line-height: 1.9; }
+.method-standard { display: grid; grid-template-columns: .9fr 1.1fr; gap: 75px; padding: 45px 0; border-top: 1px solid var(--ui-border-subtle); border-bottom: 1px solid var(--ui-border-subtle); }
+.method-close { margin: 75px 0 75px auto; max-width: 800px; }
+.research-feature { display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; gap: 60px; padding: 12px 0 70px; }
+.research-feature-art svg { display: block; width: 100%; }
+.research-paths { display: grid; grid-template-columns: 1fr 1fr; gap: 75px; margin-bottom: 85px; }
+.research-paths article { border-top: 1px solid var(--ui-border-strong); padding-top: 30px; }
+.research-paths a, .research-feature a { display: inline-block; margin-top: 8px; }
+.research-foundation { display: grid; grid-template-columns: 1fr 1fr; gap: 75px; font-size: var(--type-meta-size); padding-top: 25px; border-top: 1px solid var(--ui-border-subtle); }
+.research-foundation strong { color: var(--ui-text-primary); font-weight: 500; }
+.profile-origin { max-width: 690px; }
+.profile-origin h2 { max-width: 24ch; }
+.profile-origin .text-link { display: inline-block; margin-top: 12px; }
+.profile-edition .profile-research-transition { margin-top: 0; padding-bottom: 100px; }
+.profile-edition .profile-research-transition::before { right: -10%; width: 58%; }
+.profile-responsibility { display: grid; grid-template-columns: .9fr 1.1fr; gap: 85px; }
+.profile-responsibility h2 { max-width: 23ch; }
+.profile-date { margin-top: 36px; color: var(--ui-text-muted); font-size: var(--type-meta-size); line-height: var(--type-meta-line); max-width: 43ch; }
+.profile-prose p + p { margin-top: 22px; }
+.profile-case-links { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; margin-top: 28px; }
+.profile-perspective { padding-top: 30px; }
+.profile-qualification { display: grid; grid-template-columns: 1fr 1fr; gap: 75px; margin-top: 85px; padding-top: 28px; border-top: 1px solid var(--ui-border-subtle); }
+.profile-qualification p { display: flex; flex-direction: column; gap: 8px; font-size: var(--type-meta-size); color: var(--ui-text-muted); }
+.profile-qualification strong { font-weight: 500; color: var(--ui-text-secondary); }
+.contact-edition main { min-height: calc(100vh - 120px); }
+.contact-edition .page-hero { padding-bottom: 115px; }
+.contact-invitation { margin-top: 65px; max-width: 750px; }
+.contact-invitation h2 { max-width: 30ch; }
+.contact-invitation p { color: var(--ui-text-secondary); margin-bottom: 25px; }
+
+@media(max-width:1100px){
+ .research-work,.research-feature,.research-paths,.research-foundation,
+ .profile-responsibility,.profile-qualification,.method-investigation,.method-standard,
+ .redox-readings{gap:36px}
+}
+@media(max-width:900px){
+ .research-work,.research-feature,.research-paths,.research-foundation,
+ .profile-responsibility,.profile-qualification,.method-investigation,.method-standard,
+ .redox-readings{grid-template-columns:minmax(0,1fr);gap:30px}
+ .research-work{margin-block:48px}
+ .research-feature{padding-bottom:45px}
+ .research-feature-art{max-width:460px}
+ .research-paths{margin-bottom:45px}
+ .research-conclusion{margin-bottom:45px}
+ .method-investigation{margin-bottom:50px}
+ .method-standard{padding-block:30px}
+ .method-close{margin-block:45px}
+ .profile-qualification{margin-top:42px;gap:18px}
+ .profile-edition .profile-research-transition{padding-bottom:48px}
+ .redox-readings article::before{display:none}
+ .redox-readings{margin-top:30px}
+ .contact-edition .page-hero{padding-bottom:55px}
+ .contact-invitation{margin-top:42px}
+}
+@media(max-width:600px){
+ .membrane-states{grid-template-columns:minmax(0,1fr);gap:26px;padding-block:24px}
+ .membrane-states>div+div{border-left:0;border-top:1px solid var(--ui-border-subtle);padding:24px 0 0}
+ .redox-center{padding:26px 20px;border-radius:35px 12px}
+ .research-body{padding-bottom:50px}
+ .profile-edition .profile-research-transition::before{right:0;width:100%}
+ .profile-case-links{gap:18px}
+}
+
+/* Ein durchgehender Lichtraum: das Motiv läuft vor dem Footer weich aus. */
+body.contact-edition main::before {
+  background-size: 100% 100%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+}
+body.contact-edition .page-hero::before,
+body.contact-edition .page-hero::after { content: none; }

@@ -1,0 +1,448 @@
+/* Startseitenprototyp. Alle Regeln bleiben auf den beauftragten Einstieg begrenzt. */
+.home-prototype {
+  --home-display: clamp(84px, 6.65vw, 96px);
+  --home-heading: clamp(34px, 2.8vw, 40px);
+  --home-subheading: 26px;
+  --home-body: 18px;
+  --home-body-large: 20px;
+  --home-ui: 16px;
+  --home-meta: 14px;
+}
+.home-prototype .core-wrap { width: min(1160px, calc(100% - 112px)); }
+.home-prototype .home-main {
+  background:
+    radial-gradient(ellipse 72% 19% at 50% 3%, rgba(6, 78, 59, 0.7), transparent 72%),
+    radial-gradient(ellipse 54% 15% at 12% 22%, rgba(5, 150, 105, 0.13), transparent 72%),
+    radial-gradient(ellipse 76% 17% at 50% 49%, rgba(0, 0, 0, 0.44), transparent 76%),
+    radial-gradient(ellipse 64% 18% at 84% 68%, rgba(170, 170, 65, 0.065), transparent 74%),
+    radial-gradient(ellipse 82% 21% at 48% 92%, rgba(5, 60, 78, 0.24), transparent 76%),
+    linear-gradient(180deg, #04110e 0%, #081713 24%, #080b09 43%, #030605 62%, #031820 78%, #000d14 100%);
+}
+.home-prototype .home-main::before {
+  background:
+    radial-gradient(ellipse 28% 8% at 8% 11%, rgba(5, 150, 105, 0.18), transparent 72%),
+    radial-gradient(ellipse 24% 7% at 91% 18%, rgba(156, 209, 201, 0.11), transparent 74%),
+    radial-gradient(ellipse 23% 10% at 3% 48%, rgba(170, 170, 65, 0.065), transparent 76%),
+    radial-gradient(ellipse 30% 8% at 94% 65%, rgba(116, 163, 78, 0.07), transparent 74%),
+    radial-gradient(ellipse 38% 8% at 16% 91%, rgba(174, 201, 230, 0.12), transparent 76%);
+}
+.home-prototype .home-main::after {
+  background:
+    radial-gradient(ellipse 30% 5% at 20% 9%, rgba(156, 209, 201, 0.11), transparent 72%),
+    radial-gradient(ellipse 36% 6% at 79% 26%, rgba(116, 163, 78, 0.09), transparent 74%),
+    radial-gradient(ellipse 28% 5% at 25% 62%, rgba(212, 175, 55, 0.045), transparent 72%),
+    radial-gradient(ellipse 42% 6% at 68% 84%, rgba(174, 201, 230, 0.12), transparent 75%);
+  filter: blur(16px);
+  animation: none;
+}
+.home-prototype .core-landscape .biome-world { width: 100%; left: 0; opacity: 1; }
+.home-prototype .core-landscape .biome-canopy { transform: translate(0, 160px); }
+.home-prototype .core-landscape .biome-tree { opacity: 1; }
+.home-prototype .biome-roots,
+.home-prototype .canopy-leaves,
+.home-prototype .water-caustics,
+.home-prototype .biome-plankton circle { animation: none; }
+.home-prototype .canopy-contours { opacity: .52; }
+.home-prototype .home-eyebrow {
+  margin: 0 0 17px;
+  color: var(--ui-text-secondary);
+  font-size: var(--home-meta);
+  font-weight: 500;
+  letter-spacing: .065em;
+  line-height: 1.5;
+}
+
+/* Interaktion: eine neutrale Linie, deutlicher Schriftschnitt und sichtbarer Fokus. */
+.home-prototype a { text-underline-offset: .2em; text-decoration-thickness: 1px; }
+.home-prototype a:focus-visible {
+  outline: 3px solid var(--ui-interaction-emphasized);
+  outline-offset: 7px;
+}
+.home-prototype .home-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 22px;
+  padding: 8px 0;
+  color: var(--ui-interaction);
+  border-bottom: 1px solid var(--ui-border-strong);
+  text-decoration: none;
+  font-size: var(--home-ui);
+  font-weight: 500;
+  line-height: 1.5;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+.home-prototype .home-link:hover {
+  color: var(--ui-text-primary);
+  border-color: var(--ui-interaction-emphasized);
+}
+.home-prototype .home-arrow {
+  display: inline-block;
+  flex: 0 0 auto;
+  color: var(--ui-interaction);
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 160ms ease;
+}
+.home-prototype a:hover .home-arrow { transform: translate(2px, -2px); }
+.home-prototype .home-primary-link {
+  position: relative;
+  padding: 13px 26px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--ui-surface-normal);
+  color: var(--ui-text-primary);
+}
+.home-prototype .home-primary-link::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--home-route-gradient);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.home-prototype .home-primary-link:hover {
+  border-color: transparent;
+  background: var(--ui-surface-emphasized);
+}
+.home-prototype .home-primary-link:focus-visible { border-radius: 999px; }
+.home-prototype .site-nav a { font-weight: 500; }
+.home-prototype .site-nav a:hover { text-decoration-thickness: 2px; }
+.home-prototype .site-footer a {
+  font-size: var(--home-meta);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--ui-border-strong);
+  text-underline-offset: 5px;
+}
+.home-prototype .site-footer a:hover { text-decoration-color: var(--ui-interaction-emphasized); }
+
+/* Zentrierter Einstieg in der ursprünglichen Baumkrone. */
+.home-prototype .home-hero-v2 { min-height: 0; padding-block: 100px 12px; text-align: center; }
+.home-prototype .home-hero-copy { position: relative; max-width: 900px; margin-inline: auto; isolation: isolate; }
+.home-prototype .home-hero-copy::before { content: none; }
+.home-prototype .home-hero-v2 .home-eyebrow { margin-bottom: 16px; }
+.home-prototype .home-hero-v2 h1 {
+  margin: 0 0 24px;
+  font-size: var(--home-display);
+  line-height: 1;
+  letter-spacing: -.065em;
+}
+.home-prototype .home-position {
+  max-width: 690px;
+  margin: 0 auto 24px;
+  font-size: var(--home-heading);
+  line-height: 1.18;
+  letter-spacing: -.035em;
+  color: var(--ui-text-primary);
+}
+.home-prototype .home-position span {
+  background: var(--home-route-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.home-prototype .home-lead {
+  max-width: 680px;
+  margin-inline: auto;
+  padding: 18px 26px;
+  border-top: 1px solid var(--ui-border-strong);
+  background: linear-gradient(180deg, rgba(92, 192, 230, .055), transparent 88%);
+  font-size: var(--home-body-large);
+  line-height: 1.6;
+}
+.home-prototype .home-hero-v2 .home-primary-link { margin-top: 28px; }
+
+/* Kompetenzbanner: Organell, fachlicher Zugang und Projektverweis. */
+.home-prototype .home-capabilities { padding-block: 0 88px; }
+.home-prototype .home-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 36px;
+  margin-bottom: 34px;
+}
+.home-prototype .home-section-head h2 {
+  font-size: var(--home-subheading);
+  line-height: 1.3;
+  letter-spacing: -.025em;
+}
+.home-prototype .home-section-head p { font-size: var(--home-ui); line-height: 1.5; }
+/* Gewählte Projektkarte: kompakte Form 6F mit mittigem Verlauf (Variante 01). */
+.home-prototype .home-projects-heading,
+.home-prototype .home-work-heading { padding-block: 8px 0; }
+.home-prototype .home-projects-heading h2 { font-size: var(--home-subheading); line-height: 1.3; }
+.home-prototype .home-project {
+  --card-accent: var(--ui-border-strong);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 36px;
+  min-height: 348px;
+  margin-bottom: 28px;
+  padding: 24px 24px 24px 36px;
+  background: var(--ui-surface-normal);
+  border: 1px solid var(--ui-border-subtle);
+  border-left: 2px solid var(--card-accent);
+  border-radius: 8px 18px 18px 8px;
+}
+/* Projektarten: ein Akzent für Kartenleiste und mittigen Schemaverlauf. */
+.home-prototype [data-project-category="apps"] { --card-accent: #54c596; }
+.home-prototype [data-project-category="business"] { --card-accent: #7297e6; }
+.home-prototype [data-project-category="data"] { --card-accent: #5cc0e6; }
+.home-prototype [data-project-category="ai"] { --card-accent: #c194dd; }
+.home-prototype [data-project-category="private"] { --card-accent: #cc9653; }
+.home-prototype .home-project-copy { min-width: 0; }
+.home-prototype .home-project .home-eyebrow { color: var(--card-accent); font-size: 12px; margin-bottom: 12px; }
+.home-prototype .home-project h2 {
+  margin: 0 0 17px;
+  font-size: 30px;
+  line-height: 1.17;
+  letter-spacing: -.035em;
+  hyphens: auto;
+}
+.home-prototype .home-project h2 a {
+  display: inline-flex;
+  align-items: baseline;
+  max-width: 100%;
+  gap: 12px;
+  color: var(--ui-text-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+.home-prototype .home-project-title {
+  min-width: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--ui-border-strong);
+  text-underline-offset: 7px;
+  transition: text-decoration-color 160ms ease;
+}
+.home-prototype .home-project h2 .home-arrow { margin-left: 0; }
+.home-prototype .home-project h2 a:hover .home-project-title { text-decoration-color: var(--ui-interaction-emphasized); }
+.home-prototype .home-project-lead {
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 48ch;
+}
+.home-prototype .home-project-visual {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  margin: 0;
+  width: 100%;
+  padding: 18px 20px;
+  border: 1px solid var(--ui-border-subtle);
+  border-radius: 18px 7px 20px 9px;
+  background:
+    radial-gradient(100% 100% at 50% 50%, color-mix(in srgb, var(--card-accent) 16%, transparent), transparent 68%),
+    var(--ui-surface-normal);
+}
+.home-prototype .home-project-visual > svg,
+.home-prototype .home-project-visual > img { display: block; width: 100%; height: auto; overflow: visible; }
+.home-prototype .home-project-visual .suite-mini { margin-top: 0; }
+.home-prototype .home-project-visual .water-mini { margin: 0; }
+.home-prototype .home-project-visual .home-agent-web { margin: 0; }
+.home-prototype .home-project-visual .home-agent-web svg { width: 100%; height: auto; }
+.home-prototype .home-estimate {
+  margin-top: 23px;
+  padding-top: 17px;
+  border-top: 1px solid var(--ui-border-subtle);
+  font-size: var(--home-meta);
+  line-height: 1.6;
+}
+.home-prototype .home-estimate strong { color: var(--ui-text-primary); font-weight: 500; }
+
+/* Diagrammtext bleibt funktional; Verbindungsarten kommen aus dem jeweiligen Fall. */
+.home-prototype .home-diagram { --diagram-accent: #54c596; }
+.home-prototype .home-diagram text {
+  fill: var(--ui-text-primary);
+  font-family: var(--type-family);
+  font-size: 18px;
+  font-weight: 400;
+  text-anchor: middle;
+}
+.home-prototype .home-diagram .diagram-meta { font-size: 14px; fill: var(--ui-text-secondary); }
+.home-prototype .home-diagram .diagram-strong { font-size: 18px; font-weight: 500; }
+.home-prototype .home-diagram .diagram-node { fill: var(--ui-surface-normal); stroke: var(--ui-border-strong); stroke-width: 1.2; }
+.home-prototype .home-diagram .diagram-line { fill: none; stroke: var(--ui-border-strong); stroke-width: 1.5; }
+.home-prototype .home-diagram .diagram-rule { fill: none; stroke: var(--ui-interaction); stroke-width: 1.5; }
+.home-prototype .home-diagram .diagram-accent { fill: none; stroke: var(--diagram-accent); stroke-width: 1.5; }
+.home-prototype .home-diagram path,
+.home-prototype .home-diagram rect,
+.home-prototype .home-diagram ellipse { vector-effect: non-scaling-stroke; }
+
+/* Vier eigenständige Projektbilder: Kennzahlen, Werkzeugauswahl, Datenzugang und Rollenbaum. */
+.home-prototype .home-project-art text {
+  fill: var(--ui-text-primary);
+  font-family: var(--type-family);
+  font-size: 17px;
+  font-weight: 400;
+}
+.home-prototype .home-project-art .art-heading { font-size: 20px; font-weight: 500; }
+.home-prototype .home-project-art .art-note { fill: var(--ui-text-secondary); font-size: 14px; }
+.home-prototype .home-project-art .art-center { text-anchor: middle; }
+.home-prototype .home-project-art .art-align-end { text-anchor: end; }
+.home-prototype .home-project-art :is(path, rect, circle) { vector-effect: non-scaling-stroke; }
+.home-prototype .home-project-art .art-frame {
+  fill: var(--ui-surface-normal);
+  stroke: var(--ui-border-strong);
+  stroke-width: 1.2;
+}
+.home-prototype .home-project-art :is(.art-divider, .art-grid) {
+  fill: none;
+  stroke: var(--ui-border-subtle);
+  stroke-width: 1;
+}
+.home-prototype .home-project-art .art-icon {
+  fill: none;
+  stroke: var(--ui-text-secondary);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.home-prototype .home-project-art .art-solid { fill: var(--ui-surface-emphasized); }
+.home-prototype .home-project-art .art-accent-stroke { stroke: var(--card-accent); }
+.home-prototype .home-project-art :is(.art-link, .agent-branch) {
+  fill: none;
+  stroke: var(--ui-border-strong);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.home-prototype .home-bi-art .bi-bar { fill: var(--card-accent); }
+.home-prototype .home-bi-art :is(.bi-ring-track, .bi-ring-value) { fill: none; stroke-width: 9; }
+.home-prototype .home-bi-art .bi-ring-track { stroke: var(--ui-border-strong); }
+.home-prototype .home-bi-art .bi-ring-value { stroke: var(--card-accent); }
+.home-prototype .home-bi-art .bi-summary { fill: none; stroke: var(--ui-border-strong); stroke-width: 5; stroke-linecap: round; }
+.home-prototype .home-bi-art .bi-area { fill: var(--ui-surface-emphasized); }
+.home-prototype .home-bi-art :is(.bi-curve, .bi-forecast) { fill: none; stroke: var(--card-accent); stroke-width: 2.3; stroke-linecap: round; }
+.home-prototype .home-bi-art .bi-forecast { stroke-dasharray: 5 6; }
+.home-prototype .home-bi-art .bi-point { fill: var(--ui-text-primary); }
+.home-prototype .home-agent-art :is(.agent-node, .agent-leaves circle) {
+  fill: var(--ui-surface-normal);
+  stroke: var(--ui-border-strong);
+  stroke-width: 1.5;
+}
+.home-prototype .home-agent-art .agent-root { stroke: var(--card-accent); }
+.home-prototype .home-agent-art .agent-leaf-icons { stroke-width: 1.3; }
+
+/* Eigenständige Abschlusskarte: Forschung links, drei Zugänge als rechte Fläche. */
+.home-prototype .home-outlook-heading {
+  justify-content: center;
+  padding-top: 32px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.home-prototype .home-outlook {
+  width: min(1040px, calc(100% - 176px));
+  border-left: 1px solid var(--ui-border-subtle);
+  border-top: 3px solid var(--card-accent);
+  border-radius: 8px 8px 18px 18px;
+  margin-bottom: 90px;
+}
+.home-prototype .home-outlook .home-exit {
+  display: grid;
+  align-content: center;
+  min-height: 246px;
+  padding: 20px 26px;
+}
+.home-prototype .home-outlook .home-exit .home-link {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 19px 0;
+  font-size: var(--home-body);
+}
+.home-prototype .home-outlook .home-exit .home-link:last-child { border-bottom: 0; }
+.home-prototype .home-outlook .home-exit .home-arrow { margin-left: auto; }
+
+/* Karten erscheinen einmal beim Eintritt in den sichtbaren Bereich.
+   Die kurzen Hover-Übergänge bleiben unabhängig vom Einblenden. */
+.js .home-prototype [data-reveal] {
+  transition: opacity 600ms ease, transform 600ms ease,
+    background-color 180ms ease, border-color 180ms ease;
+}
+.js .home-prototype [data-reveal]:focus,
+.js .home-prototype [data-reveal]:focus-within { transition: none; }
+
+@media (min-width: 1001px) and (max-width: 1350px) {
+  .home-prototype .home-hero-v2 { padding-top: 90px; }
+  .home-prototype .home-hero-copy { max-width: 670px; }
+  .home-prototype .home-project { gap: 30px; padding-inline: 28px 18px; }
+  .home-prototype .home-project h2 { font-size: 28px; }
+  .home-prototype .home-project-visual { padding-inline: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-prototype .home-arrow,
+  .home-prototype .home-link { transition: none; }
+  .home-prototype a:hover .home-arrow { transform: none; }
+}
+
+/* Ausgewählte Arbeiten: die gesamte Karte führt zum Projekt. */
+.home-prototype .home-project:not(.home-outlook) { position: relative; isolation: isolate; }
+.home-prototype .home-project:not(.home-outlook) h2 a::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; }
+.home-prototype .home-project:not(.home-outlook):has(h2 a:focus-visible) { outline: 3px solid var(--ui-interaction-emphasized); outline-offset: 6px; }
+.home-prototype .home-project:not(.home-outlook) h2 a:focus-visible { outline: none; }
+.home-prototype .home-project:not(.home-outlook):hover { background: var(--ui-surface-emphasized); border-color: var(--ui-border-strong); border-left-color: var(--card-accent); }
+.home-prototype .home-project:not(.home-outlook):hover .home-project-title { text-decoration-color: var(--ui-interaction-emphasized); }
+
+/* Tablet: dieselbe Landschaft, mehr Raum für Text und Projektbilder. */
+@media (max-width: 1100px) {
+  .home-prototype {
+    --home-display: clamp(64px, 7.6vw, 84px);
+    --home-heading: clamp(30px, 3.4vw, 38px);
+  }
+  .home-prototype .core-wrap { width: calc(100% - 48px); }
+  .home-prototype .home-hero-v2 { padding-block: 72px 20px; }
+  .home-prototype .home-capabilities { padding-bottom: 64px; }
+  .home-prototype .home-project { gap: 24px; min-height: 0; padding: 24px; }
+  .home-prototype .home-project h2 { font-size: 28px; }
+  .home-prototype .home-project-visual { padding: 16px 12px; }
+  .home-prototype .home-outlook { width: min(940px, calc(100% - 80px)); }
+}
+
+@media (max-width: 900px) {
+  .home-prototype .home-project { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .home-prototype .home-project-lead { max-width: 62ch; }
+  .home-prototype .home-project-visual { max-width: 640px; margin-inline: auto; }
+  .home-prototype .home-section-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .home-prototype .home-outlook-heading { align-items: center; }
+  .home-prototype .home-outlook { max-width: 720px; }
+  .home-prototype .home-outlook .home-exit { min-height: 0; padding: 10px 24px; }
+}
+
+/* Smartphone: zuerst Aussage und Funktion, darunter die verlinkte Bildvorschau. */
+@media (max-width: 600px) {
+  .home-prototype {
+    --home-display: clamp(48px, 13vw, 64px);
+    --home-heading: clamp(27px, 7vw, 34px);
+    --home-subheading: 24px;
+    --home-body: 17px;
+    --home-body-large: 18px;
+  }
+  .home-prototype .core-wrap { width: calc(100% - 32px); }
+  .home-prototype .home-hero-v2 { padding-block: 44px 20px; }
+  .home-prototype .home-hero-v2 h1 { margin-bottom: 20px; }
+  .home-prototype .home-position { margin-bottom: 22px; }
+  .home-prototype .home-lead { padding: 16px 4px; }
+  .home-prototype .home-hero-v2 .home-primary-link { margin-top: 18px; }
+  .home-prototype .home-capabilities { padding-bottom: 46px; }
+  .home-prototype .home-section-head { margin-bottom: 24px; }
+  .home-prototype .home-project { padding: 22px 18px 18px; gap: 22px; margin-bottom: 22px; }
+  .home-prototype .home-project h2 { font-size: 26px; line-height: 1.22; overflow-wrap: anywhere; }
+  .home-prototype .home-project h2 a { gap: 10px; }
+  .home-prototype .home-project .home-eyebrow { letter-spacing: .035em; }
+  .home-prototype .home-project-lead { font-size: var(--home-body); }
+  .home-prototype .home-project-visual { width: calc(100% + 16px); max-width: none; margin-inline: -8px; padding: 12px 4px; }
+  .home-prototype .home-outlook-heading { padding-top: 26px; }
+  .home-prototype .home-outlook { margin-bottom: 56px; }
+  .home-prototype .home-outlook .home-exit { width: 100%; margin: 0; padding: 6px 16px; }
+  .home-prototype .home-outlook .home-exit .home-link { gap: 16px; padding-block: 17px; font-size: var(--home-ui); }
+}

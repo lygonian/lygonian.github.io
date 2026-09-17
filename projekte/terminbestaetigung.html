@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automatische Terminbestätigungen — Samet Kurt</title>
+  <meta name="description" content="Automatische Kundenbestätigungen aus der Terminplanung. Fehlende Kontaktadressen und unbekannte Terminarten werden intern gemeldet.">
+  <link rel="stylesheet" href="../assets/css/style.css?v=a6908b4eedb8">
+  <link rel="stylesheet" href="../assets/css/terminbestaetigung.css">
+  <link rel="stylesheet" href="../assets/css/project-case.css?v=1c71226806c0">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/logo-symbol.svg">
+</head>
+<body class="subpage subpage--automation wave2-case business-final appointment-case project-case" data-project-category="apps">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html" aria-label="Samet Kurt – Startseite"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="../projekte.html" aria-current="location">Projekte</a>
+        <a href="../forschung/index.html">Forschung</a>
+        <a href="../ueber_mich.html">Über mich</a>
+        <a href="../kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="container wave2-main" tabindex="-1">
+    <nav class="breadcrumb wave2-context" aria-label="Brotkrumen"><ol><li><a href="../projekte.html#apps">Apps &amp; Automationen</a></li><li aria-current="page">Automatische Terminbestätigungen</li></ol></nav>
+    <header class="wave2-intro project-case-intro">
+      <p class="eyebrow wave2-kicker">Apps &amp; Automationen</p>
+      <h1>Automatische Termin&shy;bestätigungen</h1>
+      <p class="lead">Die Automation versendet passende Kundenbestätigungen zu Beratungs- und Montageterminen. Eine Versandmarkierung im Termin gibt den Vorgang frei; Projektkontakt und Terminart bestimmen Empfänger und Nachricht.</p>
+      <p class="business-benefit"><strong>Termindaten einmal pflegen:</strong> Datum, Zeitraum und passende Hinweise fließen automatisch in die E-Mail. Das Team muss die Bestätigung nicht für jeden Termin neu zusammensetzen.</p>
+    </header>
+    <section class="project-overview" aria-label="Projekt und Nutzen">
+<figure class="project-overview-visual appointment-schema">
+        <div class="diagram-scroll" tabindex="0" role="region" aria-label="Vom markierten Termin zur passenden Bestätigung" style="--diagram-width: 480px"><svg viewBox="0 0 480 388" role="img" aria-labelledby="appointment-diagram-title appointment-diagram-desc">
+          <title id="appointment-diagram-title">Vom markierten Termin zur passenden Bestätigung</title>
+          <desc id="appointment-diagram-desc">Ein Termin mit Versandmarkierung liefert Terminart und Zeitraum. Das verknüpfte Projekt liefert die Kontaktadresse. Mit vorhandener Adresse und bekannter Terminart versendet die Automation eine passende Bestätigung. Fehlt die Adresse oder ist die Kategorie unbekannt, erhält das Team einen Hinweis.</desc>
+          <defs><marker id="appointment-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1 9 5 1 9"/></marker></defs>
+          <g class="appointment-lines">
+            <rect x="60" y="28" width="74" height="62" rx="8"/>
+            <path d="M60 48H134M78 20V37M116 20V37M77 63H89M77 76H89"/>
+            <circle class="appointment-accent" cx="121" cy="83" r="17"/>
+            <path class="appointment-accent" d="M112 83 118 89 130 76"/>
+            <path d="M353 29H414L428 44V93H353ZM414 29V44H428"/>
+            <circle cx="376" cy="53" r="8"/>
+            <path d="M363 77Q376 60 389 77M400 59H414M400 74H414"/>
+          </g>
+          <text class="appointment-svg-title" x="98" y="123" text-anchor="middle">Termin</text>
+          <text x="98" y="146" text-anchor="middle">bewusst markiert</text>
+          <text class="appointment-svg-title" x="390" y="123" text-anchor="middle">Projektkontakt</text>
+          <text x="390" y="146" text-anchor="middle">E-Mail-Adresse</text>
+          <g class="appointment-lines"><path class="appointment-flow" d="M98 162V190Q98 200 110 200H190" marker-end="url(#appointment-arrow)"/><path class="appointment-flow" d="M390 162V190Q390 200 378 200H291" marker-end="url(#appointment-arrow)"/><path d="M208 181H272M218 195H262M228 209H252"/></g>
+          <text class="appointment-svg-title" x="240" y="240" text-anchor="middle">Terminart zuordnen</text>
+          <g class="appointment-lines">
+            <path class="appointment-flow" d="M213 256 142 282" marker-end="url(#appointment-arrow)"/>
+            <path class="appointment-flow appointment-exception" d="M267 256 338 282" marker-end="url(#appointment-arrow)"/>
+            <rect x="98" y="296" width="64" height="43" rx="5"/>
+            <path d="M100 300 130 321 160 300"/>
+            <circle class="appointment-accent" cx="161" cy="335" r="14"/>
+            <path class="appointment-accent" d="M154 335 159 340 169 329"/>
+            <path d="M338 319V312A17 17 0 0 1 372 312V319L379 333H331ZM349 342H361"/>
+          </g>
+          <text class="appointment-svg-title" x="131" y="378" text-anchor="middle">Kundenbestätigung</text>
+          <text class="appointment-svg-title" x="355" y="378" text-anchor="middle">Interner Hinweis</text>
+        </svg></div><p class="diagram-scroll-hint">Die Grafik lässt sich auf kleinen Bildschirmen seitlich verschieben.</p>
+        <figcaption>Schema: Bestätigen, wenn Adresse und Terminart passen. Ausnahmen gehen an das Team.</figcaption>
+      </figure>
+      <aside class="project-benefits"><p class="project-benefits-kicker">Kundenkommunikation · Terminplanung</p><h2>Kunden aus der Terminplanung informieren</h2><dl>
+        <div><dt>Weniger Nachrichtenerstellung</dt><dd>Aktuelle Termindaten und hinterlegte Fachvorlagen erzeugen die passende Bestätigung für den Kunden.</dd></div>
+        <div><dt>Relevante Hinweise mitgeben</dt><dd>Beratung, Dachmontage, Elektroarbeiten und Wärmepumpeninstallation erhalten jeweils passende Informationen zur bevorstehenden Arbeit.</dd></div>
+        <div><dt>Ausnahmen gezielt bearbeiten</dt><dd>Eine fehlende E-Mail-Adresse oder unbekannte Terminart löst einen internen Hinweis aus. Das Team erhält einen konkreten Klärbedarf.</dd></div>
+      </dl></aside>
+    </section>
+
+    <section class="wave2-section" aria-labelledby="vorlagen-title">
+      <div class="appointment-section-heading"><h2 id="vorlagen-title">Jede Terminart braucht andere Hinweise</h2><p>Die Nachricht besteht aus einer hinterlegten Fachvorlage und den aktuellen Termin- und Kundendaten. So bleibt die Information passend zur bevorstehenden Arbeit.</p></div>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Inhalte der automatischen Bestätigungen"><table class="appointment-templates">
+        <caption>Inhalte der automatischen Bestätigungen</caption>
+        <thead><tr><th scope="col">Terminart</th><th scope="col">Information für den Kunden</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Vor-Ort-Beratung</th><td>Datum, Beginn und Ende des Termins; Erläuterung zu Anforderungsaufnahme, Datenerfassung und Fotos. Die Kategorie wählt zugleich den passenden Ansprechpartner.</td></tr>
+          <tr><th scope="row">PV-Dachmontage</th><td>Geplanter Montagezeitraum, üblicher Arbeitsbeginn und Hinweise zu Witterung, Modullieferung und Ersatzziegeln. Bei Montage mit Gerüst kommen Hinweise zu Aufbau und Zugang hinzu.</td></tr>
+          <tr><th scope="row">Elektroarbeiten</th><td>Vorgesehener Terminzeitraum und üblicher täglicher Arbeitsbeginn.</td></tr>
+          <tr><th scope="row">Wärmepumpeninstallation</th><td>Vorgesehener Installationszeitraum und üblicher täglicher Arbeitsbeginn.</td></tr>
+        </tbody>
+      </table></div><p class="table-scroll-hint">Die Tabelle lässt sich auf kleinen Bildschirmen seitlich verschieben.</p>
+    </section>
+
+    <section class="wave2-section appointment-decisions" aria-labelledby="kontrolle-title">
+      <div><h2 id="kontrolle-title">Die Freigabe sitzt im Termin</h2><p>Der Ablauf verbindet Terminplanung, Projektabruf, Empfängerprüfung, Vorlagenauswahl und E-Mail-Versand. Die Mitarbeitenden steuern den Versand direkt über eine Markierung in der Terminbeschreibung.</p><p>Nach dieser Markierung erfolgt der Versand automatisch. Eine zusätzliche Vorschau oder Freigabe der einzelnen E-Mail ist im Ablauf nicht vorgesehen.</p></div>
+      <div class="appointment-exceptions"><h3>Ausnahmen werden zur Aufgabe</h3><dl>
+        <div><dt>Keine Kontaktadresse</dt><dd>Das Team erhält einen Hinweis, die Adresse nachzutragen und den Termin neu anzulegen, um den Ablauf erneut auszulösen.</dd></div>
+        <div><dt>Unbekannte Terminart</dt><dd>Ein interner Hinweis nennt Kategorie und Zeitraum. Es wird keine beliebige Standardbestätigung an den Kunden geschickt.</dd></div>
+      </dl></div>
+    </section>
+
+    <section class="wave2-detail" aria-labelledby="grenzen-title">
+      <div><h2 id="grenzen-title">Geplanten Termin mitteilen</h2></div>
+      <div><p>Die Automation teilt den im Geschäftssystem geplanten Termin mit. Rückfragen, Absagen und Terminänderungen bleiben beim Team. Ebenso wichtig bleiben die richtige Zuordnung von Kontakt, Kunde und Projekt sowie die Pflege der Terminarten.</p></div>
+    </section>
+    <nav class="page-nav business-end" aria-label="Rückweg und verwandte Projekte"><a href="../projekte.html#apps">← Apps &amp; Automationen</a><a href="interne_anwendungssuite.html">Interne Anwendungssuite →</a></nav>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="../projekte.html">Projekte</a><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer>
+  <script src="../assets/js/atlas.js?v=f28836006c28" defer></script>
+</body>
+</html>

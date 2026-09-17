@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Materialplanung für PV-Montagen — Samet Kurt</title>
+<meta content="Die Anwendung ordnet Montageterminen die gültigen Angebote zu und übersetzt verkaufte Systeme in bestellbare Komponenten. Einkauf und Office erhalten eine bearbeitbare Materialliste mit Bezug zum jeweiligen Projekt." name="description"/>
+<link href="../assets/css/style.css?v=a6908b4eedb8" rel="stylesheet"/>
+<link href="../assets/img/logo-symbol.svg" rel="icon" type="image/svg+xml"/>
+<link href="../assets/css/project-case.css?v=1c71226806c0" rel="stylesheet"/></head>
+<body class="subpage subpage--automation wave2-case business-final procurement-case project-case" data-project-category="apps">
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<header class="site-header">
+<div class="container">
+<a aria-label="Samet Kurt – Startseite" class="brand" href="../index.html"><span aria-hidden="true" class="brand-symbol"></span>samet<span class="brand-dot">.</span>kurt</a>
+<nav aria-label="Hauptnavigation" class="site-nav">
+<a aria-current="location" href="../projekte.html">Projekte</a>
+<a href="../forschung/index.html">Forschung</a>
+<a href="../ueber_mich.html">Über mich</a>
+<a href="../kontakt.html">Kontakt</a>
+</nav>
+</div>
+</header>
+<main class="container wave2-main" id="main" tabindex="-1">
+<header class="project-case-intro"><nav aria-label="Brotkrumen" class="breadcrumb wave2-context"><ol><li><a href="../projekte.html">Projekte</a></li><li aria-current="page">Einkaufsplanung</li></ol></nav><p class="eyebrow wave2-kicker">Apps &amp; Automationen</p><h1>Materialplanung für PV-Montagen</h1><p class="lead">Die Anwendung ordnet Montageterminen die gültigen Angebote zu und übersetzt verkaufte Systeme in bestellbare Komponenten. Einkauf und Office erhalten eine bearbeitbare Materialliste mit Bezug zum jeweiligen Projekt.</p><p class="business-benefit"><strong>Weniger manuelle Angebots- und Positionsprüfung:</strong> Die Anwendung bündelt den Bedarf; mehrdeutige Angebote und wiederholte Montagetermine liegen gezielt zur Prüfung vor.</p></header><section aria-label="Projekt und Nutzen" class="project-overview"><figure class="app-evidence project-overview-visual"><img alt="Einkaufs-App mit Zeitraum, Montagearten und fünf gruppierten Materialpositionen aus vier Beispielprojekten." height="782" loading="lazy" src="../assets/img/apps/einkauf.webp" width="1528"/><figcaption>Reale Anwendung mit synthetischen Beispieldaten: vier Projekte, fünf Materialpositionen und ein Excel-Export. Die Prüfliste geht der Erstellung voraus; der Projektbezug bleibt in den Detailansichten erhalten.<a class="app-evidence-zoom" href="../assets/img/apps/einkauf.webp" rel="noopener" target="_blank">Ansicht in voller Größe öffnen ↗</a></figcaption></figure><aside class="project-benefits"><p class="project-benefits-kicker">Einkauf · Montagevorbereitung</p><h2>Materialbedarf bündeln und Auswahlfehler sichtbar machen</h2><dl><div><dt>Positionen automatisch vorbereiten</dt><dd>Verkaufte Systeme werden nach Komponentenregeln in Stückzahlen übersetzt und zu Gesamtmengen gruppiert.</dd></div><div><dt>Doppelbedarf gezielt prüfen</dt><dd>Wiederholte Termine derselben Montageart und mehrere mögliche Angebote erscheinen vor der Erstellung in der Prüfliste.</dd></div><div><dt>Mengen bis zum Projekt verfolgen</dt><dd>Bearbeitete, gefilterte, gruppierte und rohe Tabellenansichten erhalten den Bezug zur ursprünglichen Angebotsposition.</dd></div></dl></aside></section>
+<section aria-labelledby="bedarf-title" class="wave2-section business-first">
+<h2 id="bedarf-title">Drei Angaben bestimmen den Materialbedarf</h2>
+<figure class="procurement-equation">
+<div class="procurement-terms"><div><span class="business-label">Bauanlass</span><strong>Montagetermin + Projekt</strong><p>Zeitraum und Montageart legen die Auswahl fest.</p></div><b aria-hidden="true">+</b><div><span class="business-label">Leistungsumfang</span><strong>Gültiges Angebot</strong><p>Angenommene Angebote liefern den beauftragten Umfang.</p></div><b aria-hidden="true">+</b><div><span class="business-label">Bestellpositionen</span><strong>Komponentenregeln</strong><p>Verkaufte Systeme werden in Stückzahlen übersetzt.</p></div></div>
+<div class="procurement-output"><span aria-hidden="true">↓</span><strong>Bestellfähiger Materialbedarf</strong><span>Gruppierte Mengen mit Projekt- und Positionsbezug</span></div>
+<figcaption>Fachliches Schema der Auswahl und Umrechnung. Optionen und ausgeschlossene Positionen tragen keine Menge bei.</figcaption>
+</figure>
+</section>
+
+<section aria-labelledby="auswahl-title" class="wave2-section procurement-decisions">
+<div><h2 id="auswahl-title">Welche Termine und Angebote tragen den Bedarf?</h2><dl class="procurement-selection">
+<div><dt>Ein angenommenes Angebot</dt><dd>Dieser Angebotsstand hat Vorrang.</dd></div>
+<div><dt>Mehrere angenommene Angebote</dt><dd>Standardmäßig fließen alle angenommenen Angebote ein. In der Prüfliste lässt sich die Auswahl bei Bedarf auf eine aktive Angebotsnummer begrenzen.</dd></div>
+<div><dt>Kein angenommenes Angebot</dt><dd>Nur ein eindeutig aktives Angebot kann automatisch führen. Mehrere aktive Angebote bleiben zu klären.</dd></div>
+</dl></div>
+<aside class="procurement-date"><h3>Ein Termin erzeugt Bedarf nach Prüfung</h3><p>Ein Termin für die elektrische Installation (AC) und einer für die Dachmontage (DC) können zum selben Projekt gehören. Mehrere Termine derselben Art erscheinen als möglicher Doppelbedarf in der Prüfliste; frühere passende Termine werden dabei berücksichtigt.</p><p>Die Bearbeitung kann Projekte ausschließen. Die aktuelle Planungsregel lässt AC-Termine aus, die am selben Berliner Kalendertag beginnen oder enden.</p></aside>
+</section>
+<section aria-labelledby="komponenten-title" class="wave2-section"><h2 id="komponenten-title">Vom Speichersystem zu bestellbaren Einzelteilen</h2>
+<figure class="procurement-example"><div><span class="business-label">Beispielhafte Angebotsposition</span><strong>2 Speichersysteme à 10 kWh</strong><p>Für eine unterstützte Baureihe mit 5-kWh-Modulen und einem Standfuß je System.</p></div><span aria-hidden="true" class="procurement-equals">=</span><div><span class="business-label">Umrechnung nach Stücklistenregel</span><strong>4 Module + 2 Standfüße</strong><p>Kapazität bestimmt die Module je System; die Angebotsmenge vervielfacht alle benötigten Teile.</p></div><figcaption>Illustratives Beispiel aus einer vorhandenen Umrechnungsregel. Andere Baureihen besitzen andere Modulgrößen und Zubehörregeln. Unklare Umrechnungen bleiben als Originalposition und Prüffall erhalten.</figcaption></figure>
+</section>
+<section class="wave2-section wave2-detail"><div><h2>Eine Arbeitsgrundlage für den Einkauf</h2><p>Jeder neue Lauf liest Termine, Projekte, Kontakte, Angebote und Positionen direkt aus dem CRM-/ERP-System. Zeitraum, Kategorien und Ausschlussliste sind pflegbar; Positionen werden mit Prüfhinweisen und Herkunft angezeigt.</p></div><div><p>Die datierte Tabellenmappe enthält bearbeitete, gefilterte, gruppierte und rohe Ansichten. So lässt sich eine Gesamtmenge bis zur ursprünglichen Angebotsposition zurückverfolgen.</p><p>Eine geänderte Ausschlussliste verwirft den geladenen Lauf. Prüfauswahl und Excel-Ergebnis liegen in der Sitzung. Nach Änderungen im Quellsystem wird neu geladen. Lagerbestand, Bestellung und Lieferfähigkeit werden anschließend im Beschaffungsprozess geprüft.</p></div></section>
+<nav aria-label="Rückweg und verwandte Projekte" class="page-nav business-end"><a href="../projekte.html">← Alle Projekte</a><a href="interne_anwendungssuite.html">Die interne Anwendungssuite →</a><a href="management_reporting.html">Montagen in der Managementinformation →</a></nav>
+</main>
+<footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="../projekte.html">Projekte</a><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer>
+<script defer="" src="../assets/js/atlas.js?v=f28836006c28">
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI-Assistent für Kunden- und Projektanlage — Samet Kurt</title>
+<meta name="description" content="Der KI-Assistent ruft Kundenanfragen aus dem E-Mail-Postfach ab, strukturiert die enthaltenen Angaben und legt Kunden sowie Projekte direkt im CRM-/ERP-System an. Festgelegte API-Aufrufe verbinden die Nachricht mit dem bearbeitbaren Geschäftsvorgang.">
+<link rel="stylesheet" href="../assets/css/style.css?v=a6908b4eedb8">
+<link rel="stylesheet" href="../assets/css/portfolio-core.css?v=27769db6cf66">
+<link rel="stylesheet" href="../assets/css/projekte-detail.css?v=a693d5112dcf">
+<link rel="stylesheet" href="../assets/css/project-case.css?v=1c71226806c0">
+<link rel="icon" type="image/svg+xml" href="../assets/img/logo-symbol.svg">
+<script src="../assets/js/atlas.js?v=f28836006c28" defer></script>
+</head><body class="core-page project-detail project-case" data-project-category="ai" data-category="ai">
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<header class="site-header"><div class="container">
+<a class="brand" href="../index.html" aria-label="Samet Kurt – Startseite"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a>
+<nav class="site-nav" aria-label="Hauptnavigation"><a href="../projekte.html" aria-current="location">Projekte</a><a href="../forschung/index.html">Forschung</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav>
+</div></header>
+<main id="main" class="core-main detail-main" tabindex="-1"><div class="core-wrap">
+<header class="detail-intro project-case-intro">
+<nav class="detail-breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../projekte.html">Projekte</a></li><li aria-current="page">KI-Assistent für Kunden- und Projektanlage</li></ol></nav>
+<p class="core-kicker">AI &amp; Agentensysteme</p><h1>KI-Assistent für Kunden- und Projektanlage</h1>
+<p class="detail-lead">Der KI-Assistent ruft Kundenanfragen aus dem E-Mail-Postfach ab, strukturiert die enthaltenen Angaben und legt Kunden sowie Projekte direkt im CRM-/ERP-System an. Festgelegte API-Aufrufe verbinden die Nachricht mit dem bearbeitbaren Geschäftsvorgang.</p><p class="detail-value"><strong>Weniger Übertragung zwischen Postfach und CRM:</strong> Kontaktangaben und Leistungswunsch fließen in Kunden- und Projektstammdaten. Fehlende Angaben bleiben für die weitere Bearbeitung sichtbar.</p>
+
+</header>
+<section class="project-overview" aria-label="Projekt und Nutzen">
+<figure class="project-overview-visual"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Vorhandene Angaben strukturieren" style="--diagram-width: 640px"><svg viewBox="0 0 640 380" role="img" aria-labelledby="lead-diagram-title lead-diagram-desc"><title id="lead-diagram-title">Vorhandene Angaben strukturieren</title><desc id="lead-diagram-desc">Eine abgerufene Kundenmail liefert vorhandene Kontakt-, Adress- und Leistungsangaben. Festgelegte Schnittstellenaktionen legen Kunde und Projekt an.</desc><rect class="pc-node" x="95" y="22" width="450" height="72" rx="12"/><text class="pc-label" x="320.0" y="53.0" text-anchor="middle">Kundenanfrage aus dem Postfach</text><text class="pc-small" x="320.0" y="78.0" text-anchor="middle">Nachricht · Eingang · Mailkennung</text><path class="pc-line" d="M320 94V125m-5-7 5 7 5-7" fill="none"/><rect class="pc-node" x="95" y="125" width="450" height="72" rx="12"/><text class="pc-label" x="320.0" y="156.0" text-anchor="middle">Vorhandene Angaben strukturieren</text><text class="pc-small" x="320.0" y="181.0" text-anchor="middle">Kontakt · Adresse · Leistungswunsch</text><path class="pc-line" d="M320 197V234M165 262V234H475V262m-5-7 5 7 5-7M160 255l5 7 5-7" fill="none"/><rect class="pc-node" x="20" y="262" width="290" height="86" rx="12"/><text class="pc-label" x="165.0" y="300.0" text-anchor="middle">Kunde anlegen</text><text class="pc-small" x="165.0" y="325.0" text-anchor="middle">Stammdaten per API</text><rect class="pc-node" x="330" y="262" width="290" height="86" rx="12"/><text class="pc-label" x="475.0" y="300.0" text-anchor="middle">Projekt anlegen</text><text class="pc-small" x="475.0" y="325.0" text-anchor="middle">Anfrage im Geschäftssystem</text></svg></div><p class="diagram-scroll-hint">Die Grafik lässt sich auf kleinen Bildschirmen seitlich verschieben.</p><figcaption>Schema: Die Originalnachricht liefert die Tatsachenbasis; fehlende Angaben bleiben sichtbar.</figcaption></figure>
+<aside class="project-benefits"><p class="project-benefits-kicker">KI-Assistent · Anfragebearbeitung</p><h2>Vom Postfach zum bearbeitbaren Projekt</h2><dl><div><dt>Manuelle Übertragung verringern</dt><dd>Die enthaltenen Kunden- und Anfragedaten gelangen über festgelegte Aktionen in das Geschäftssystem.</dd></div><div><dt>Unvollständigkeit erkennen</dt><dd>Nicht enthaltene Namen, Orte oder andere Angaben bleiben als fehlend erkennbar. Vermutungen werden nicht zu Kundendaten.</dd></div><div><dt>Quelle nachvollziehen</dt><dd>Quelle, Eingangszeit und Mailkennung halten den Rückweg zur ursprünglichen Anfrage offen.</dd></div></dl></aside>
+</section>
+
+<section class="detail-section"><h2>Postfach und Geschäftssystem per API verbinden</h2>
+<dl class="detail-rules"><dt>Anfragen abrufen</dt><dd>Die E-Mail-Anbindung liefert Nachrichten als Grundlage für die Aufbereitung. Die Nachricht enthält die Kundenangaben, den Leistungswunsch und den Bezug zur ursprünglichen Anfrage.</dd><dt>Angaben strukturieren</dt><dd>Der Assistent ordnet die enthaltenen Informationen den Kontakt-, Adress- und Anfragefeldern zu. Festgelegte Extraktions- und Formatregeln bestimmen die Aufbereitung.</dd><dt>Kunde und Projekt anlegen</dt><dd>Die CRM-/ERP-Anbindung übernimmt die direkte Anlage der Kunden- und Projektdatensätze über festgelegte API-Aufrufe. Der Assistent verbindet damit Auskunft und Anlage im selben Arbeitsablauf.</dd></dl></section>
+<section class="detail-section"><h2>Erst abrufen, dann Anfragen einordnen</h2>
+<p>Die Frage nach neuen Leads muss zunächst einen Mailabruf auslösen. Erst dessen Ergebnis bildet die Grundlage der Antwort. Ein technischer Fehler wird als Abruffehler erklärt; er darf nicht als leeres Postfach erscheinen.</p>
+<p>Der Assistent bereitet vorhandene Angaben zu Person oder Firma, Kontakt, Adresse, gewünschter Leistung und Nachricht auf. Quelle, Eingangszeit und eindeutige Mailkennung halten den Bezug zur ursprünglichen Anfrage fest. Mehrere Leads werden nummeriert; eine nicht eindeutig einzuordnende Mail bleibt als „unklare Anfrage“ sichtbar.</p></section>
+<section class="detail-section"><h2>Fehlende Angaben bleiben sichtbar</h2>
+<figure class="detail-figure"><div class="detail-columns"><div><h3>Beispielhafte Anfrage</h3><p>„Wir interessieren uns für eine Wallbox.“</p></div><div><h3>Auszug der erwarteten Aufbereitung</h3><p>Leistung: Wallbox<br>Name: nicht angegeben<br>Ort: nicht angegeben</p></div></div><figcaption>Schematisches Beispiel für eine unvollständige Anfrage.</figcaption></figure>
+<p>Nur tatsächlich enthaltene Werte dürfen übernommen werden. Die Formatregeln erlauben lesbare Telefonnummern, kleingeschriebene E-Mail-Adressen und das Entfernen äußerer Leerzeichen. Fünfstellige Postleitzahlen bleiben erhalten; Namen werden nicht eigenmächtig korrigiert. Eine vermutete Angabe wird nicht zur Kundentatsache.</p></section>
+<section class="detail-section"><h2>Übersicht und Detailauskunft bleiben verfügbar</h2>
+<p>Eine kompakte Übersicht zeigt zunächst Name, Ort, Leistung und Eingangsdatum der Anfragen. Auf Nachfrage folgen die vollständigen vorhandenen Angaben mit Quelle und eindeutiger Mailkennung. So lässt sich die Anfrage zusätzlich zur direkten Anlage im Geschäftssystem nachvollziehen.</p></section>
+<nav class="detail-nav" aria-label="Weitere Projekte"><a href="../projekte.html?filter=ai#ai">← AI &amp; Agentensysteme</a><a href="crm_leseassistent.html">CRM-Leseassistent →</a><a href="lead_automation.html">Anfrageautomation →</a><a href="crm_sync.html">CRM-/ERP-System →</a></nav>
+</div></main>
+<footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="../projekte.html">Projekte</a><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer>
+</body></html>

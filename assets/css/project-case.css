@@ -1,0 +1,225 @@
+/* Projekte: Funktion im Einstieg, Anschauung und Nutzen, danach fachliche Tiefe. */
+body.project-case {
+  --project-accent: #54c596;
+  --context: var(--project-accent);
+  --category: var(--project-accent);
+  --pc-landscape: url('../img/raeume_gewebe.svg');
+}
+body.project-case[data-project-category="business"] {
+  --project-accent: #7297e6;
+}
+body.project-case[data-project-category="data"] {
+  --project-accent: #5cc0e6;
+  --pc-landscape: url('../img/raeume_stroemung.svg');
+}
+body.project-case[data-project-category="ai"] {
+  --project-accent: #c194dd;
+  --pc-landscape: url('../img/raeume_membranen.svg');
+}
+body.project-case[data-project-category="private"] {
+  --project-accent: #cc9653;
+  --pc-landscape: url('../img/raeume_jahresringe.svg');
+}
+body.project-case[data-project-category] main::before,
+body.project-case[data-project-category] .core-main::before,
+body.project-case[data-project-category] .wave2-main::before {
+  background-image: var(--pc-landscape);
+  background-position: right top;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+body.project-case .project-case-intro {
+  display: block;
+  max-width: none;
+  padding-bottom: 28px;
+  margin-bottom: 0;
+}
+body.project-case .project-opening { padding-top: 38px; }
+body.project-case .project-case-intro h1 {
+  max-width: 1050px;
+  font-size: clamp(42px, 3.6vw, 54px);
+  line-height: 1.12;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+  margin: 0 0 18px;
+}
+body.project-case .project-case-intro :is(.lead,.detail-lead,.intro) {
+  max-width: 980px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--ui-text-secondary);
+}
+body.project-case .project-case-intro :is(.eyebrow,.core-kicker,.kicker) {
+  color: var(--project-accent);
+}
+body.project-case .project-case-intro :is(.business-benefit,.detail-value) {
+  max-width: 980px;
+  margin: 20px 0 0;
+  padding: 0 0 0 20px;
+  border-left: 2px solid var(--project-accent);
+  color: var(--ui-text-secondary);
+  font-size: 18px;
+  line-height: 1.5;
+}
+body.project-case .project-case-intro :is(.business-benefit,.detail-value) strong {
+  color: var(--ui-text-primary);
+  font-weight: 500;
+}
+body.project-case .project-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+  padding: 28px 0 48px;
+  margin: 0;
+  border-top: 1px solid var(--ui-border-subtle);
+}
+body.project-case .project-overview-visual {
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+body.project-case .project-overview-visual > :is(svg,img) {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+body.project-case .project-overview-visual > img {
+  border: 1px solid var(--ui-border-strong);
+  border-radius: 5px;
+}
+body.project-case .project-overview-visual--portrait > img {
+  width: auto;
+  max-height: 560px;
+  margin-inline: auto;
+  object-fit: contain;
+}
+body.project-case .project-overview-visual figcaption {
+  margin: 17px 0 0;
+  color: var(--ui-text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 74ch;
+}
+body.project-case .project-benefits { min-width: 0; }
+body.project-case .project-benefits-kicker {
+  color: var(--project-accent);
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+body.project-case .project-benefits h2 {
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -.025em;
+  margin: 0 0 24px;
+  text-wrap: balance;
+}
+body.project-case .project-benefits dl { margin: 0; }
+body.project-case .project-benefits dl > div {
+  border-top: 1px solid var(--ui-border-subtle);
+  padding: 17px 0;
+}
+body.project-case .project-benefits dt {
+  color: var(--ui-text-primary);
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+body.project-case .project-benefits dd {
+  margin: 0;
+  color: var(--ui-text-secondary);
+  font-size: 16px;
+  line-height: 1.55;
+}
+body.project-case .project-overview-visual svg { font-family: var(--type-family); }
+body.project-case .pc-node { fill: var(--ui-surface-normal); stroke: var(--ui-border-strong); stroke-width: 1.2; }
+body.project-case :is(.pc-line,.pc-arrow) { fill: none; stroke: var(--ui-text-secondary); stroke-width: 1.5; }
+body.project-case .pc-accent { fill: none; stroke: var(--project-accent); stroke-width: 2; }
+body.project-case .pc-label { fill: var(--ui-text-primary); font-size: 18px; font-weight: 500; }
+body.project-case .pc-small { fill: var(--ui-text-secondary); font-size: 14px; }
+body.project-case :is(.project-flow,.pc-flow) {
+  display: grid;
+  gap: 0;
+  padding: 4px 26px 4px 24px;
+  border-left: 2px solid var(--project-accent);
+  background: var(--ui-surface-normal);
+  border-radius: 0 26px 8px 0;
+}
+body.project-case :is(.project-flow,.pc-flow) > div {
+  position: relative;
+  padding: 22px 0;
+}
+body.project-case :is(.project-flow,.pc-flow) > div + div {
+  border-top: 1px solid var(--ui-border-subtle);
+}
+body.project-case :is(.project-flow,.pc-flow) > div + div::before {
+  content: '↓';
+  position: absolute;
+  right: 0;
+  top: -15px;
+  color: var(--ui-text-secondary);
+  background: none;
+  font-size: 18px;
+}
+body.project-case :is(.project-flow,.pc-flow) span {
+  display: block;
+  color: var(--project-accent);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+body.project-case :is(.project-flow,.pc-flow) strong {
+  display: block;
+  color: var(--ui-text-primary);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.3;
+}
+body.project-case :is(.project-flow,.pc-flow) p {
+  color: var(--ui-text-secondary);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 8px 0 0;
+}
+@media (max-width: 1100px) {
+  body.project-case .project-overview { gap: 32px; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); }
+  body.project-case .project-benefits h2 { font-size: 25px; }
+}
+@media (max-width: 760px) {
+  body.project-case .project-overview { grid-template-columns: 1fr; }
+  body.project-case .project-case-intro h1 { font-size: 40px; }
+}
+
+@media (max-width:900px) {
+  body.project-case .project-overview { grid-template-columns:minmax(0,1fr); gap:32px; }
+  body.project-case .project-benefits h2 { max-width:30ch; }
+}
+@media (max-width:600px) {
+  body.project-case .project-opening { padding-top:28px; }
+  body.project-case .project-case-intro { padding-bottom:28px; }
+  body.project-case .project-case-intro h1 { font-size:34px; line-height:1.15; letter-spacing:-.025em; }
+  body.project-case .project-case-intro :is(.lead,.detail-lead,.intro) { font-size:19px; line-height:1.55; }
+  body.project-case .project-case-intro :is(.business-benefit,.detail-value) { padding-left:15px; font-size:17px; }
+  body.project-case .project-overview { padding:28px 0 36px; }
+  body.project-case .project-benefits h2 { font-size:26px; }
+  body.project-case :is(.project-flow,.pc-flow) { padding-inline:18px; }
+  body.project-case :is(.project-flow,.pc-flow) strong { font-size:21px; }
+}
+
+/* Rückweg, Kategorie und Funktion bilden einen kompakten Einstieg. */
+@media (min-width: 901px) {
+  body.project-case :is(.wave2-main, .project-opening) { padding-top: 28px; }
+  body.project-case .project-case-intro.detail-intro { padding-top: 30px; }
+  body.project-case :is(.wave2-context, .context-line, .detail-breadcrumb) { margin-bottom: 22px; }
+  body.project-case .project-case-intro :is(.eyebrow, .core-kicker, .kicker, .wave2-kicker) { margin-bottom: 12px; }
+}

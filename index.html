@@ -1,0 +1,331 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Samet Kurt — Operations, Systeme und eigene Wege</title><meta name="description" content="Unternehmensweite Operations-, Prozess- und Systemverantwortung. AI, Automation, Integration und datenbasierte Entscheidungsunterstützung."><link rel="stylesheet" href="assets/css/style.css?v=a6908b4eedb8"><link rel="stylesheet" href="assets/css/portfolio-core.css?v=27769db6cf66"><link rel="stylesheet" href="assets/css/project-scenes.css?v=7e4b7829af07"><link rel="icon" type="image/svg+xml" href="assets/img/logo-symbol.svg">
+<link rel="stylesheet" href="assets/css/home.css?v=f4614be31a5a">
+<link rel="stylesheet" href="assets/css/project-index.css?v=002c893a9c55">
+<script src="assets/js/atlas.js?v=f28836006c28" defer></script>
+</head><body class="core-page core-home home-prototype"><a class="skip-link" href="#main">Zum Inhalt springen</a>
+<header class="site-header">
+<div class="container"><a class="brand" href="index.html" aria-label="Samet Kurt – Startseite"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a>
+<nav class="site-nav" aria-label="Hauptnavigation"><a href="projekte.html">Projekte</a><a href="forschung/index.html">Forschung</a><a href="ueber_mich.html">Über mich</a><a href="kontakt.html">Kontakt</a></nav>
+</div>
+</header>
+<main tabindex="-1" id="main" class="home-main core-landscape"><svg class="biome-world" viewBox="0 0 1000 5000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="canopy-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0c9767" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#030c0b" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="trunk-fill" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#74a34e" stop-opacity="0.02" />
+          <stop offset="48%" stop-color="#aaaa41" stop-opacity="0.11" />
+          <stop offset="100%" stop-color="#d2af37" stop-opacity="0.025" />
+        </linearGradient>
+        <!-- Zenote: Gestein, Schacht, hintere und vordere Wand. Alle Verläufe
+             liegen im Weltkoordinatensystem, damit Rand und Tiefe zusammenpassen. -->
+        <linearGradient id="cave-rock" x1="0" y1="1400" x2="0" y2="3900" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#0b1512" stop-opacity="0" />
+          <stop offset="13%" stop-color="#0a120f" stop-opacity="0.62" />
+          <stop offset="26%" stop-color="#070f0d" stop-opacity="0.88" />
+          <stop offset="62%" stop-color="#030807" stop-opacity="0.95" />
+          <stop offset="100%" stop-color="#01100f" stop-opacity="0.8" />
+        </linearGradient>
+        <linearGradient id="shaft-void" x1="0" y1="1764" x2="0" y2="3900" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#08201b" stop-opacity="0.3" />
+          <stop offset="11%" stop-color="#030c0a" stop-opacity="0.9" />
+          <stop offset="30%" stop-color="#000403" stop-opacity="0.97" />
+          <stop offset="100%" stop-color="#001720" stop-opacity="0.92" />
+        </linearGradient>
+        <linearGradient id="wall-back" x1="0" y1="1764" x2="0" y2="2095" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#9fae86" stop-opacity="0.2" />
+          <stop offset="24%" stop-color="#74a34e" stop-opacity="0.11" />
+          <stop offset="62%" stop-color="#1c3529" stop-opacity="0.07" />
+          <stop offset="100%" stop-color="#03100e" stop-opacity="0.02" />
+        </linearGradient>
+        <linearGradient id="wall-front" x1="0" y1="1950" x2="0" y2="2190" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#0e1a16" stop-opacity="0.9" />
+          <stop offset="55%" stop-color="#05100d" stop-opacity="0.55" />
+          <stop offset="100%" stop-color="#020706" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="rim-far-line" x1="80" y1="0" x2="920" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#9cd1c9" stop-opacity="0.06" />
+          <stop offset="24%" stop-color="#cbd3cd" stop-opacity="0.42" />
+          <stop offset="50%" stop-color="#e2e0c6" stop-opacity="0.5" />
+          <stop offset="76%" stop-color="#cbd3cd" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#9cd1c9" stop-opacity="0.06" />
+        </linearGradient>
+        <linearGradient id="rim-near-line" x1="80" y1="0" x2="920" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#9cd1c9" stop-opacity="0" />
+          <stop offset="30%" stop-color="#8f9a93" stop-opacity="0.22" />
+          <stop offset="70%" stop-color="#8f9a93" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#9cd1c9" stop-opacity="0" />
+        </linearGradient>
+        <radialGradient id="shaft-light" cx="50%" cy="24%" r="72%">
+          <stop offset="0%" stop-color="#e4ebc4" stop-opacity="0.1" />
+          <stop offset="42%" stop-color="#8fc39a" stop-opacity="0.04" />
+          <stop offset="100%" stop-color="#57d4c5" stop-opacity="0" />
+        </radialGradient>
+        <linearGradient id="root-stroke" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#aaaa41" stop-opacity="0.33" />
+          <stop offset="62%" stop-color="#74a34e" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#329c5d" stop-opacity="0.08" />
+        </linearGradient>
+        <linearGradient id="water-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#06383e" stop-opacity="0.12" />
+          <stop offset="38%" stop-color="#032a35" stop-opacity="0.42" />
+          <stop offset="100%" stop-color="#00131d" stop-opacity="0.82" />
+        </linearGradient>
+        <linearGradient id="water-line" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#0c9767" stop-opacity="0" />
+          <stop offset="28%" stop-color="#57d4c5" stop-opacity="0.46" />
+          <stop offset="70%" stop-color="#9cd1c9" stop-opacity="0.38" />
+          <stop offset="100%" stop-color="#0c9767" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="water-column-one" x1="0" y1="3300" x2="0" y2="5100" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#075d63" stop-opacity="0" />
+          <stop offset="22%" stop-color="#075d63" stop-opacity="0.05" />
+          <stop offset="31%" stop-color="#064c57" stop-opacity="0.3" />
+          <stop offset="52%" stop-color="#033640" stop-opacity="0.68" />
+          <stop offset="100%" stop-color="#001720" stop-opacity="0.97" />
+        </linearGradient>
+      </defs>
+
+      <g class="biome-canopy" transform="translate(0 160)">
+        <path class="canopy-mass" d="M-100 -160 H1100 V548 C1028 496 960 516 890 474 C824 434 772 486 704 453 C640 422 592 474 540 451 C524 444 510 438 500 427 C490 438 476 444 460 451 C408 474 360 422 296 453 C228 486 176 434 110 474 C40 516-28 496-100 548 Z" />
+        <g class="world-limbs">
+          <path d="M500 1120 C493 914 484 761 434 645 C393 551 332 495 258 435 C183 374 119 330 18 297" />
+          <path d="M500 1120 C507 914 516 761 566 645 C607 551 668 495 742 435 C817 374 881 330 982 297" />
+          <path d="M455 706 C394 564 312 420 187 311 C119 252 65 215-26 184" />
+          <path d="M545 706 C606 564 688 420 813 311 C881 252 935 215 1026 184" />
+          <path d="M485 781 C440 580 455 388 365 198 C327 119 288 65 225 6" />
+          <path d="M515 781 C560 580 545 388 635 198 C673 119 712 65 775 6" />
+          <path d="M500 722 C500 504 500 284 500 -42" />
+          <path class="canopy-bough--fine" d="M258 435 C168 430 91 443 5 488 M187 311 C159 205 111 129 38 59 M365 198 C344 116 347 54 368 -22 M742 435 C832 430 909 443 995 488 M813 311 C841 205 889 129 962 59 M635 198 C656 116 653 54 632 -22" />
+        </g>
+        <g class="canopy-leaves">
+          <path d="M-72 430 C-88 326-24 229 74 220 C76 124 168 70 246 124 C318 91 376 160 354 242 C420 290 381 393 292 414 C205 480 55 494-72 430 Z" />
+          <path d="M105 285 C72 176 136 55 249 54 C291-42 422-62 476 28 C538 80 502 189 429 222 C355 303 213 334 105 285 Z" />
+          <path d="M330 185 C290 95 350-15 445-12 C470-86 568-86 593-12 C688-15 748 95 708 185 C632 249 406 249 330 185 Z" />
+          <path d="M524 28 C578-62 709-42 751 54 C864 55 928 176 895 285 C787 334 645 303 571 222 C498 189 462 80 524 28 Z" />
+          <path d="M646 242 C624 160 682 91 754 124 C832 70 924 124 926 220 C1024 229 1088 326 1072 430 C945 494 795 480 708 414 C619 393 580 290 646 242 Z" />
+          <path d="M118 445 C96 344 178 253 282 274 C338 214 433 244 454 326 C492 390 448 482 366 502 C292 568 160 540 118 445 Z" />
+          <path d="M546 326 C567 244 662 214 718 274 C822 253 904 344 882 445 C840 540 708 568 634 502 C552 482 508 390 546 326 Z" />
+          <path d="M312 438 C278 354 340 262 428 271 C462 212 538 212 572 271 C660 262 722 354 688 438 C608 520 392 520 312 438 Z" />
+        </g>
+        <g class="canopy-contours">
+          <path d="M-28 403 C64 326 171 289 319 314" />
+          <path d="M145 268 C220 176 327 127 445 167" />
+          <path d="M364 169 C432 97 568 97 636 169" />
+          <path d="M555 167 C673 127 780 176 855 268" />
+          <path d="M681 314 C829 289 936 326 1028 403" />
+          <path d="M151 440 C231 369 335 351 422 399" />
+          <path d="M578 399 C665 351 769 369 849 440" />
+          <path d="M350 426 C429 359 571 359 650 426" />
+        </g>
+      </g>
+
+      <!-- Die Zenote: Mündungsellipse (Mitte 500/1960, 420×196), darin ein
+           enger gestellter Schlund (500/2078, 292×122). Der Baum steht am
+           hinteren Rand, die Wurzeln fallen an der Rückwand und über die
+           beiden Seitenränder hinab. -->
+      <g class="biome-cave">
+        <path class="shaft-void" d="M80 1960 C80 1852 268 1764 500 1764 C732 1764 920 1852 920 1960 C920 2024 866 2054 800 2092 C786 2320 758 2580 768 2870 C778 3150 848 3430 966 3665 C1028 3792 1078 3862 1120 3900 H-120 C-78 3862-28 3792 34 3665 C150 3435 220 3160 230 2880 C240 2590 214 2330 200 2092 C134 2054 80 2024 80 1960 Z" />
+        <ellipse class="shaft-light" cx="500" cy="2180" rx="270" ry="400" />
+        <path class="wall-back" d="M80 1960 C80 1852 268 1764 500 1764 C732 1764 920 1852 920 1960 C920 2024 866 2054 800 2092 L792 2078 C792 2011 661 1956 500 1956 C339 1956 208 2011 208 2078 L200 2092 C134 2054 80 2024 80 1960 Z" />
+        <path class="cave-rock" d="M-120 1400 H1120 V3900 C1078 3862 1028 3792 966 3665 C848 3430 778 3150 768 2870 C758 2580 786 2320 800 2092 C866 2054 920 2024 920 1960 C920 1852 732 1764 500 1764 C268 1764 80 1852 80 1960 C80 2024 134 2054 200 2092 C214 2330 240 2590 230 2880 C220 3160 150 3435 34 3665 C-28 3792-78 3862-120 3900 Z" />
+        <path class="ground-contour" d="M-56 2016 C-20 1874 230 1716 500 1714 C770 1712 1020 1872 1056 2014 M-8 1616 C104 1548 300 1508 500 1508 C700 1508 896 1548 1008 1616" />
+        <path class="cave-strata" d="M222 2326 C300 2394 700 2394 778 2326 M228 2736 C310 2822 690 2822 772 2736 M244 3176 C332 3276 668 3276 756 3176" />
+        <g class="cave-facets">
+          <path d="M204 2130 L252 2202 L242 2352 L214 2330 Z" />
+          <path d="M232 2520 L276 2606 L262 2742 L228 2696 Z" />
+          <path d="M796 2130 L748 2202 L758 2352 L786 2330 Z" />
+          <path d="M768 2520 L724 2606 L738 2742 L772 2696 Z" />
+        </g>
+        <path class="cave-rim cave-rim--far" d="M80 1960 C80 1852 268 1764 500 1764 C732 1764 920 1852 920 1960" />
+      </g>
+
+      <g class="biome-tree">
+        <path class="tree-trunk" d="M404 548 C434 570 462 612 480 660 C474 742 466 840 466 980 C468 1180 462 1340 458 1470 C456 1548 452 1602 450 1638 C446 1690 430 1732 396 1770 C430 1798 570 1798 604 1770 C570 1732 554 1690 550 1638 C548 1602 544 1548 542 1470 C538 1340 532 1180 534 980 C534 842 528 744 520 662 C538 608 560 552 592 510 C584 548 568 590 548 628 C531 660 517 690 505 724 C493 689 478 665 461 636 C444 605 423 575 404 548 Z" />
+        <path class="tree-heartline" d="M500 744 C494 820 506 980 496 1300 C492 1520 500 1660 500 1782 M500 744 C480 688 450 610 408 552 M500 744 C520 680 550 590 586 520" />
+        <path class="tree-ring" d="M466 1150 C482 1138 518 1138 534 1150 M458 1500 C478 1486 522 1486 542 1500" />
+        <path class="tree-flare" d="M452 1620 C448 1676 434 1722 408 1758 M548 1620 C552 1676 566 1722 592 1758 M474 1640 C470 1690 470 1740 474 1782 M526 1640 C530 1690 530 1740 526 1782" />
+      </g>
+
+      <g class="biome-roots">
+        <path class="root root--major" d="M410 1772 C356 1772 302 1782 250 1800 C196 1820 152 1848 132 1884 C118 1912 130 1950 158 1992 C192 2042 222 2110 244 2200 C272 2320 286 2520 276 2740 C266 2960 288 3180 320 3400 C344 3560 344 3722 328 3862" />
+        <path class="root root--major" d="M590 1772 C644 1772 698 1782 750 1800 C804 1820 848 1848 868 1884 C882 1912 870 1950 842 1992 C808 2042 778 2110 756 2200 C728 2320 714 2520 724 2740 C734 2960 712 3180 680 3400 C656 3560 656 3722 672 3862" />
+        <path class="root root--middle" d="M476 1790 C470 1850 468 1904 472 1960 C476 2040 458 2160 450 2320 C440 2560 456 2820 440 3040 C424 3220 426 3440 452 3630 C468 3746 472 3806 468 3866" />
+        <path class="root root--middle" d="M524 1792 C530 1852 532 1906 528 1962 C524 2042 542 2162 550 2322 C560 2562 544 2822 560 3042 C576 3222 574 3442 548 3632 C532 3748 528 3808 532 3868" />
+        <path class="root root--fine" d="M318 1794 C312 1846 320 1892 336 1932 M682 1794 C688 1846 680 1892 664 1932 M436 1782 C430 1836 434 1880 444 1918 M564 1782 C570 1836 566 1880 556 1918 M256 2280 C296 2352 312 2452 300 2552 M744 2280 C704 2352 688 2452 700 2552 M450 2320 C398 2412 386 2532 410 2650 M550 2322 C602 2414 612 2534 588 2652" />
+        <g class="root-nodules">
+          <circle cx="278" cy="2760" r="6" /><circle cx="440" cy="3040" r="5" />
+          <circle cx="560" cy="3042" r="5" /><circle cx="722" cy="2760" r="6" />
+        </g>
+      </g>
+
+      <!-- Der vordere Rand liegt vor den Wurzeln: sie tauchen dahinter weg. -->
+      <g class="biome-cave-lip">
+        <path class="wall-front" d="M920 1960 C920 2068 732 2156 500 2156 C268 2156 80 2068 80 1960 L208 2078 C208 2145 339 2200 500 2200 C661 2200 792 2145 792 2078 Z" />
+        <path class="cave-rim cave-rim--near" d="M920 1960 C920 2068 732 2156 500 2156 C268 2156 80 2068 80 1960" />
+      </g>
+
+      <g class="biome-water">
+        <path class="water-depth" d="M-120 3828 C98 3765 236 3892 449 3835 C656 3780 817 3898 1120 3807 V5100 H-120 Z" />
+        <g class="water-color-transition">
+          <rect x="-160" y="3300" width="1320" height="1800" fill="url(#water-column-one)" />
+        </g>
+        <path class="water-surface water-surface--haze" d="M-90 3850 C120 3787 259 3907 452 3851 C656 3792 826 3910 1090 3828" />
+        <path class="water-surface" d="M-90 3850 C120 3787 259 3907 452 3851 C656 3792 826 3910 1090 3828" />
+        <path class="water-current" d="M-120 4200 C109 4117 286 4245 492 4178 C694 4112 856 4206 1120 4125 M-120 4578 C143 4474 298 4621 526 4538 C729 4464 904 4582 1120 4488" />
+        <g class="water-caustics">
+          <path d="M87 4041 C163 4009 238 4021 300 4072" />
+          <path d="M702 4120 C768 4072 841 4057 922 4084" />
+          <path d="M165 4468 C239 4418 330 4418 397 4471" />
+          <path d="M603 4710 C677 4655 767 4655 839 4702" />
+        </g>
+      </g>
+
+      <g class="biome-plankton">
+        <circle cx="72" cy="3970" r="3" /><circle cx="918" cy="4050" r="4" />
+        <circle cx="148" cy="4320" r="2.5" /><circle cx="861" cy="4390" r="3" />
+        <circle cx="244" cy="4780" r="3.5" /><circle cx="756" cy="4880" r="2.5" />
+      </g>
+    </svg>
+<section class="home-hero-v2 core-wrap" aria-labelledby="home-title"><div class="home-hero-copy">
+
+<h1 id="home-title">Samet Kurt</h1>
+<p class="home-position">Operations führen.<br><span>Systeme gestalten.</span></p>
+<p class="home-lead">Ich setze Prioritäten, führe Mitarbeitende fachlich und berate die Geschäftsführung. Prozesse und Geschäftssysteme gestalte ich von der Entscheidung bis zur eigenen Umsetzung und Einführung.</p>
+<a class="home-link home-primary-link" href="#arbeiten">Ausgewählte Arbeiten</a>
+</div></section>
+<section class="home-capabilities core-wrap" aria-labelledby="capabilities-title">
+<h2 id="capabilities-title" class="visually-hidden">Kompetenzfelder und persönliche Projekte</h2>
+<nav class="project-banner-grid" aria-label="Projektgruppen">
+<a data-reveal class="project-banner" data-project-category="apps" href="projekte.html?filter=apps" aria-labelledby="capability-apps-title">
+<img class="project-banner-art" src="assets/img/organellen.svg?v=b60644b8c4c5#er" alt="" loading="lazy" width="320" height="220">
+<span class="project-banner-kicker">Prozesse in Bewegung</span>
+<h3 id="capability-apps-title">Apps &amp;<br>Automationen</h3>
+<p class="project-banner-description">Wiederkehrende Abläufe vereinfachen und automatisieren.</p>
+<span class="project-banner-cta"><span>Projekte entdecken</span><span class="project-banner-arrow" aria-hidden="true">→</span></span>
+</a>
+<a data-reveal class="project-banner" data-project-category="business" href="projekte.html?filter=business" aria-labelledby="capability-business-title">
+<img class="project-banner-art" src="assets/img/organellen.svg?v=b60644b8c4c5#vesicle-business" alt="" loading="lazy" width="320" height="220">
+<span class="project-banner-kicker">Verbinden und integrieren</span>
+<h3 id="capability-business-title">System&shy;verantwortung<br>&amp; Datenintegration</h3>
+<p class="project-banner-description">Geschäftsdaten verbinden und Schnittstellen gestalten.</p>
+<span class="project-banner-cta"><span>Projekte entdecken</span><span class="project-banner-arrow" aria-hidden="true">→</span></span>
+</a>
+<a data-reveal class="project-banner" data-project-category="data" href="projekte.html?filter=data" aria-labelledby="capability-data-title">
+<img class="project-banner-art" src="assets/img/organellen.svg?v=b60644b8c4c5#golgi" alt="" loading="lazy" width="320" height="220">
+<span class="project-banner-kicker">Strukturieren und nutzbar machen</span>
+<h3 id="capability-data-title">Daten &amp;<br>Analysen</h3>
+<p class="project-banner-description">Daten aufbereiten und Entscheidungen fundieren.</p>
+<span class="project-banner-cta"><span>Projekte entdecken</span><span class="project-banner-arrow" aria-hidden="true">→</span></span>
+</a>
+<a data-reveal class="project-banner" data-project-category="ai" href="projekte.html?filter=ai" aria-labelledby="capability-ai-title">
+<img class="project-banner-art" src="assets/img/organellen.svg?v=b60644b8c4c5#centrosome" alt="" loading="lazy" width="320" height="220">
+<span class="project-banner-kicker">Koordinieren und ermöglichen</span>
+<h3 id="capability-ai-title">AI &amp;<br>Agentensysteme</h3>
+<p class="project-banner-description">Fachagenten koordinieren und Wissen erschließen.</p>
+<span class="project-banner-cta"><span>Projekte entdecken</span><span class="project-banner-arrow" aria-hidden="true">→</span></span>
+</a>
+<a data-reveal class="project-banner" data-project-category="private" href="projekte.html?filter=private" aria-labelledby="capability-private-title">
+<img class="project-banner-art" src="assets/img/organellen.svg?v=170a59d0b002#vacuole-private" alt="" loading="lazy" width="320" height="220">
+<span class="project-banner-kicker">Neugier und Eigenbau</span>
+<h3 id="capability-private-title">Private<br>Projekte</h3>
+<p class="project-banner-description">Eigene Technik bauen und Ideen im Alltag erproben.</p>
+<span class="project-banner-cta"><span>Projekte entdecken</span><span class="project-banner-arrow" aria-hidden="true">→</span></span>
+</a>
+</nav></section>
+<div class="home-section-head home-work-heading core-wrap" id="arbeiten"><h2>Ausgewählte Arbeiten</h2><p>Von Unternehmenssteuerung bis zum eigenen Aufbau.</p></div><section data-reveal class="home-project home-project--report core-wrap" data-project-category="data" id="report" aria-labelledby="report-title"><div class="home-project-copy"><p class="home-eyebrow">Daten &amp; Analysen</p><h2 id="report-title"><a href="projekte/management_reporting.html"><span class="home-project-title">BI für Leistung und Liquidität</span> <span class="home-arrow" aria-hidden="true">↗</span></a></h2><p class="home-project-lead">Die BI-Anwendung verbindet Montagefortschritt, Aufträge, offene Forderungen und Geldbewegungen mit einer Liquiditätsvorschau. Gemeinsame Kennzahlen unterstützen Zahlungsprioritäten und Auswertungsbesprechungen mit der Geschäftsführung.</p></div><figure class="home-project-visual home-visual--report"><svg class="home-project-art home-bi-art" viewBox="0 0 520 320" role="img" aria-labelledby="report-svg-title report-svg-desc">
+<title id="report-svg-title">Management-BI mit Fortschritt, Forderungen und Liquiditätsverlauf</title>
+<desc id="report-svg-desc">Illustrative BI-Ansicht: Ein Säulendiagramm zeigt Montagefortschritt, ein Ringdiagramm offene Forderungen. Darunter verbindet eine Liquiditätskurve den bisherigen Verlauf mit einer gestrichelten Vorschau. Die Diagramme enthalten keine historischen Messwerte.</desc>
+<text class="art-heading" x="14" y="24">Operative Kennzahlen</text><text class="art-note art-align-end" x="506" y="24">Illustrative Ansicht</text>
+<path class="art-divider" d="M14 42H506M279 62V177M14 194H506"/>
+<text class="art-label" x="14" y="70">Montagefortschritt</text>
+<path class="art-grid" d="M18 106H252M18 138H252M18 170H252"/>
+<g class="bi-bar"><rect x="30" y="143" width="20" height="27" rx="3"/><rect x="67" y="124" width="20" height="46" rx="3"/><rect x="104" y="132" width="20" height="38" rx="3"/><rect x="141" y="112" width="20" height="58" rx="3"/><rect x="178" y="99" width="20" height="71" rx="3"/><rect x="215" y="89" width="20" height="81" rx="3"/></g>
+<text class="art-label" x="303" y="70">Offene Forderungen</text>
+<circle class="bi-ring-track" cx="350" cy="132" r="34"/><circle class="bi-ring-value" cx="350" cy="132" r="34" pathLength="100" stroke-dasharray="65 35" transform="rotate(-90 350 132)"/>
+<path class="art-icon" d="M354 120C343 115 338 126 341 136C343 142 349 146 354 142M336 128H350M336 134H348"/>
+<path class="bi-summary" d="M412 109H493M412 132H468M412 155H447"/>
+<text class="art-label" x="14" y="221">Liquidität</text><text class="art-note art-align-end" x="506" y="221">Verlauf &amp; Vorschau</text>
+<path class="art-grid" d="M18 246H501M18 273H501M18 300H501"/>
+<path class="bi-area" d="M20 281C45 280 57 270 82 272S122 290 147 275S185 247 211 255S251 272 279 250S313 251 342 242V300H20Z"/>
+<path class="bi-curve" d="M20 281C45 280 57 270 82 272S122 290 147 275S185 247 211 255S251 272 279 250S313 251 342 242"/>
+<path class="art-divider" d="M342 234V302"/><path class="bi-forecast" d="M342 242C369 233 382 250 410 242S462 233 499 239"/><circle class="bi-point" cx="342" cy="242" r="4"/>
+</svg></figure></section>
+<section data-reveal class="home-project home-project--suite core-wrap" data-project-category="apps" id="suite" aria-labelledby="suite-title"><div class="home-project-copy"><p class="home-eyebrow">Apps &amp; Automationen</p><h2 id="suite-title"><a href="projekte/interne_anwendungssuite.html"><span class="home-project-title">Sechs Fachanwendungen für den Betrieb</span> <span class="home-arrow" aria-hidden="true">↗</span></a></h2><p class="home-project-lead">Sechs Fachanwendungen verbinden Geschäftsdaten mit den Abläufen von Office, Einkauf, Personal und Geschäftsführung. Ein gemeinsamer Einstieg führt von der Auswahl über die Prüfung bis zu Dokumenten, Listen und Kennzahlen.</p></div><figure class="home-project-visual home-visual--suite"><svg class="home-project-art home-suite-art" viewBox="0 0 520 280" role="img" aria-labelledby="suite-mini-title suite-mini-desc">
+<title id="suite-mini-title">Ein gemeinsamer Einstieg in sechs Fachanwendungen</title>
+<desc id="suite-mini-desc">Ein gemeinsamer Anwendungsstarter versammelt sechs unterschiedliche Symbole: Geldschein mit Haken für Zahlungsbestätigungen, Dokument mit Stift für Kaufverträge, Einkaufswagen, Netzanschluss, Lohnunterlage und ein Diagramm für Reporting. Die Anwendungen bleiben eigenständig.</desc>
+<path class="art-frame" d="M33 12H487Q504 12 504 29V251Q504 268 487 268H33Q16 268 16 251V29Q16 12 33 12Z"/>
+<path class="art-divider" d="M16 56H504"/><path class="art-icon" d="M34 39V30L43 23L52 30V39H46V33H40V39Z"/>
+<text class="art-label" x="66" y="40">Ein Einstieg · sechs Anwendungen</text>
+<g class="art-icon" transform="translate(98 101)"><rect x="-26" y="-17" width="45" height="30" rx="4"/><path d="M-19 -17V-11H-26M12 -17V-11H19M-26 7H-19V13"/><circle cx="-3" cy="-2" r="7"/><circle class="art-solid" cx="19" cy="13" r="12"/><path class="art-accent-stroke" d="M13 13L17 17L25 8"/></g>
+<text class="art-label art-center" x="98" y="151">Zahlungen</text>
+<g class="art-icon" transform="translate(260 101)"><path d="M-19 22V-24H6L18 -12V-2M6 -24V-12H18M-10 -3H3M-10 5H-2M-10 13H-3M1 17L19 -1L26 6L8 24L-2 27Z"/><path class="art-accent-stroke" d="M16 2L23 9"/></g>
+<text class="art-label art-center" x="260" y="151">Kaufverträge</text>
+<g class="art-icon" transform="translate(422 101)"><path d="M-29 -19H-21L-12 10H19L27 -12H-18M-9 1H21M-7 -12L-3 10M7 -12L5 10"/><circle cx="-7" cy="21" r="4"/><circle cx="17" cy="21" r="4"/><path class="art-accent-stroke" d="M-8 -23H12M2 -32V-14"/></g>
+<text class="art-label art-center" x="422" y="151">Einkauf</text>
+<g class="art-icon" transform="translate(98 205)"><path d="M-14 -23V-10M9 -23V-10M-20 -10H15V-1C15 10 9 17 -3 17S-20 10 -20 -1Z M-3 17V30"/><path class="art-accent-stroke" d="M1 -6L-6 4H3L-3 13"/></g>
+<text class="art-label art-center" x="98" y="254">Netzanmeldung</text>
+<g class="art-icon" transform="translate(260 205)"><path d="M-20 -24H19V26L12 22L5 26L-2 22L-9 26L-16 22L-20 24Z M-10 8H9M-10 15H4"/><circle cx="-2" cy="-13" r="4"/><path class="art-accent-stroke" d="M-10 0C-10 -8 6 -8 6 0"/></g>
+<text class="art-label art-center" x="260" y="254">Lohnunterlagen</text>
+<g class="art-icon" transform="translate(422 205)"><path d="M-27 -24V25H28M-17 17V2H-8V17M-2 17V-6H7V17M13 17V-16H22V17"/><path class="art-accent-stroke" d="M-18 -9L-4 -16L5 -12L23 -28"/></g>
+<text class="art-label art-center" x="422" y="254">Reporting</text>
+</svg></figure></section>
+<section data-reveal class="home-project home-project--crm core-wrap" data-project-category="business" id="crm" aria-labelledby="crm-title"><div class="home-project-copy"><p class="home-eyebrow">Systemverantwortung &amp; Datenintegration</p><h2 id="crm-title"><a href="projekte/crm_sync.html"><span class="home-project-title">CRM-/ERP-System und Datenversorgung</span> <span class="home-arrow" aria-hidden="true">↗</span></a></h2><p class="home-project-lead">Das CRM-/ERP-System verbindet Kunden, Projekte und Arbeitsstände mit gemeinsamen Pflege- und Zugriffsregeln. Eine zentrale Datenversorgung erschließt den Bestand für Vertragsvorbereitung, Zahlungsbearbeitung und Materialplanung.</p></div><figure class="home-project-visual home-visual--crm"><svg class="home-project-art home-crm-art" viewBox="0 0 520 320" role="img" aria-labelledby="crm-svg-title crm-svg-desc">
+<title id="crm-svg-title">Gemeinsame Geschäftsdaten für eigene Anwendungen</title>
+<desc id="crm-svg-desc">Ein Geschäftsdatenbuch steht für die gemeinsam geführten Kunden, Projekte und Arbeitsstände im CRM-/ERP-System. Eine symbolische Steckverbindung macht die Schnittstelle sichtbar: Verträge, Zahlungen und Materialplanung verwenden diese Daten weiter.</desc>
+<path class="art-frame" d="M45 58H225V270H45Q28 270 28 253V75Q28 58 45 58Z"/>
+<path class="art-divider" d="M49 59V269M65 118H208M65 177H208M65 230H208"/>
+<path class="art-frame" d="M225 79H238V117H225M225 129H238V167H225M225 179H238V217H225"/>
+<text class="art-heading" x="65" y="91">CRM / ERP</text>
+<g class="art-icon" transform="translate(76 143)"><circle cx="0" cy="-9" r="6"/><path d="M-12 11V8C-12 -3 12 -3 12 8V11M11 -14C20 -16 20 -3 13 -3M17 1C22 1 25 5 25 11"/></g>
+<text class="art-label" x="107" y="150">Kunden</text>
+<g class="art-icon" transform="translate(77 202)"><path d="M-17 12V-13H-3L2 -7H17V12Z"/><path class="art-accent-stroke" d="M-9 4L-3 -2L3 3L10 -5"/></g>
+<text class="art-label" x="107" y="208">Projekte</text>
+<g class="art-icon" transform="translate(75 250)"><path class="art-accent-stroke" d="M-12 -1L-8 3L-1 -5"/><path d="M5 -3H22M5 4H17"/></g>
+<text class="art-label" x="107" y="256">Arbeitsstände</text>
+<path class="art-link" d="M239 149H270M328 149H355Q366 149 366 137V65Q366 55 378 55H410M366 149H410M366 149V243Q366 255 378 255H410"/>
+<g class="art-icon" transform="translate(299 149)"><path d="M-29 -13H-15Q-7 -13 -7 -5V5Q-7 13 -15 13H-29Z M29 -13H15Q7 -13 7 -5V5Q7 13 15 13H29Z M-7 -6H7M-7 6H7"/></g>
+<text class="art-note art-center" x="299" y="187">Schnittstelle</text>
+<g class="art-icon" transform="translate(449 51)"><path d="M-16 22V-23H7L19 -11V22Z M7 -23V-11H19M-7 -3H8M-7 5H7"/><path class="art-accent-stroke" d="M-6 14L-2 18L7 10"/></g>
+<text class="art-label art-center" x="449" y="95">Verträge</text>
+<g class="art-icon" transform="translate(449 150)"><rect x="-25" y="-17" width="50" height="33" rx="4"/><path d="M-25 -8H-17V-17M17 -17V-8H25M-25 7H-17V16M17 16V7H25"/><circle class="art-accent-stroke" cx="0" cy="-1" r="8"/></g>
+<text class="art-label art-center" x="449" y="194">Zahlungen</text>
+<g class="art-icon" transform="translate(449 253)"><path d="M0 -22L23 -11V14L0 26L-23 14V-11Z M-23 -11L0 1L23 -11M0 1V26"/><path class="art-accent-stroke" d="M-11 -16L12 -5V4"/></g>
+<text class="art-label art-center" x="449" y="299">Material</text>
+</svg></figure></section>
+<section data-reveal class="home-project home-project--experience core-wrap" data-project-category="ai" id="experience" aria-labelledby="experience-title"><div class="home-project-copy"><p class="home-eyebrow">AI &amp; Agentensysteme</p><h2 id="experience-title"><a href="projekte/erfahrungspool.html"><span class="home-project-title">Quellengebundene Wissenserfassung</span> <span class="home-arrow" aria-hidden="true">↗</span></a></h2><p class="home-project-lead">Spezialisierte Modellaufgaben erschließen Dokumente, Nachrichten und Projektmaterial als quellengebundene Erfahrungen. Extraktion, Prüfung und Verdichtung schaffen eine wiederverwendbare Grundlage für Profil- und Textarbeit.</p></div><figure class="home-project-visual home-visual--experience"><svg class="home-project-art home-agent-art" viewBox="0 0 520 320" role="img" aria-labelledby="experience-svg-title experience-svg-desc">
+<title id="experience-svg-title">Ein Kreis-Stammbaum für koordinierte Modellaufgaben</title>
+<desc id="experience-svg-desc">Schematische Aufgabenverteilung als Stammbaum. Oben steht die Koordination; darunter verzweigt der Baum in Extraktion, Prüfung und Verdichtung. Kleine Kreise zeigen zugehörige Gegenstände: Dokumente und Nachrichten, Referenzen und Prüfergebnisse, einzelne und zusammengeführte Wissenseinträge.</desc>
+<path class="agent-branch" d="M260 73V76M260 96V100M93 131V113Q93 100 107 100H413Q427 100 427 113V131M260 100V131M93 197V201M93 224V231M260 197V201M260 224V231M427 197V201M427 224V231M57 253V242Q57 231 69 231H117Q129 231 129 242V253M224 253V242Q224 231 236 231H284Q296 231 296 242V253M391 253V242Q391 231 403 231H451Q463 231 463 242V253"/>
+<circle class="agent-node agent-root" cx="260" cy="43" r="30"/>
+<g class="art-icon" transform="translate(260 43)"><circle cx="0" cy="0" r="5"/><circle cx="-13" cy="-11" r="3"/><circle cx="13" cy="-11" r="3"/><circle cx="0" cy="15" r="3"/><path d="M-10 -9L-4 -3M10 -9L4 -3M0 5V12"/></g>
+<text class="art-label art-center" x="260" y="91">Koordination</text>
+<circle class="agent-node" cx="93" cy="164" r="33"/><circle class="agent-node" cx="260" cy="164" r="33"/><circle class="agent-node" cx="427" cy="164" r="33"/>
+<g class="art-icon" transform="translate(93 164)"><path d="M-17 -19H6L16 -9V18H-17Z M6 -19V-9H16M-9 -2H2M-9 6H-2"/><path class="art-accent-stroke" d="M7 7H22M17 2L22 7L17 12"/></g>
+<g class="art-icon" transform="translate(260 164)"><path d="M0 -21L18 -14V-1C18 11 8 18 0 22C-8 18 -18 11 -18 -1V-14Z"/><path class="art-accent-stroke" d="M-9 -1L-2 6L10 -7"/></g>
+<g class="art-icon" transform="translate(427 164)"><path d="M-22 -10L0 -21L22 -10L0 1Z M-22 0L0 11L22 0"/><path class="art-accent-stroke" d="M-22 10L0 21L22 10"/></g>
+<text class="art-label art-center" x="93" y="219">Extraktion</text><text class="art-label art-center" x="260" y="219">Prüfung</text><text class="art-label art-center" x="427" y="219">Verdichtung</text>
+<g class="agent-leaves"><circle cx="57" cy="272" r="19"/><circle cx="129" cy="272" r="19"/><circle cx="224" cy="272" r="19"/><circle cx="296" cy="272" r="19"/><circle cx="391" cy="272" r="19"/><circle cx="463" cy="272" r="19"/></g>
+<g class="art-icon agent-leaf-icons"><path d="M51 263H60L64 267V281H51Z M55 270H60M55 274H60M120 264H138V276H129L124 280V276H120Z"/><path d="M217 274L222 269Q226 265 229 269Q232 272 228 276L225 279M231 270L226 275Q222 279 219 275Q216 272 220 268L223 265M287 272L293 278L305 266"/><path d="M382 264H388Q391 264 391 267Q391 264 394 264H400V280H394Q391 280 391 283Q391 280 388 280H382Z M391 267V280M453 267L463 262L473 267L463 272Z M453 273L463 278L473 273M453 279L463 284L473 279"/></g>
+<text class="art-note art-center" x="260" y="316">Schematische Aufgabenverteilung</text>
+</svg></figure></section>
+<section data-reveal class="home-project home-project--irrigation core-wrap" data-project-category="private" id="irrigation" aria-labelledby="irrigation-title"><div class="home-project-copy"><p class="home-eyebrow">Private Projekte · Eigenbau</p><h2 id="irrigation-title"><a href="projekte/bewaesserung.html"><span class="home-project-title">Mehrkanal-Bewässerung mit lokaler Bedienung</span> <span class="home-arrow" aria-hidden="true">↗</span></a></h2><p class="home-project-lead">Das Mehrkanalsystem versorgt fünf Pflanzen und zeigt Messwerte in einer lokalen Bedienoberfläche. Eigene Elektronik, Firmware und Wasserführung verbinden Sensorik mit manuellen Pumpaufträgen und sichtbaren Zuständen.</p></div><figure class="home-project-visual home-visual--irrigation"><svg class="water-mini" viewBox="0 0 600 320" role="img" aria-labelledby="water-mini-title water-mini-desc"><title id="water-mini-title">Selbst gebaute Bewässerung: Steuerung und Wasserweg</title><desc id="water-mini-desc">Lokale Bedienung gibt einen Pumpauftrag an die Steuerung. Der Bodensensor meldet Messwerte. Die Steuerung schaltet die Pumpe über einen Treiber. Wasser fließt vom Vorrat durch Pumpe und Schlauch zur Pflanze. Das Schema zeigt keine messwertabhängige Automatik.</desc><defs><marker id="mini-signal" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#54c596"/></marker><marker id="mini-water" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#5cc0e6"/></marker></defs>
+<g class="mini-hardware"><rect x="38" y="40" width="188" height="67" rx="12"/><rect x="270" y="172" width="100" height="68" rx="12"/><path d="M36 173V264Q96 280 153 264V173Z"/><path d="M459 211H564L550 284H476Z"/></g><path d="M43 224Q75 214 106 224T146 224" fill="none" stroke="#5cc0e6"/><path d="M513 210V131M513 170Q468 167 475 132Q511 133 513 170M514 151Q518 114 555 119Q552 151 514 151" class="mini-leaf"/>
+<g class="mini-signal" marker-end="url(#mini-signal)"><path d="M226 75H320V171"/><path d="M497 229V15H132V39"/></g><g class="mini-water" marker-end="url(#mini-water)"><path d="M154 234H269"/><path d="M370 210H448V197H478"/></g>
+<g class="mini-label"><text x="57" y="68">Steuerung</text><text class="mini-small" x="57" y="92">lokal bedient</text><text x="290" y="210">Pumpe</text><text x="47" y="300">Wasservorrat</text><text x="474" y="310">Pflanze</text><text class="mini-small" x="380" y="252">Bodensensor</text><text class="mini-small" x="335" y="42">Messwert</text><text class="mini-small" x="260" y="137">über Treiber</text><text class="mini-small" x="380" y="183">Schlauch</text></g></svg></figure></section>
+<div class="home-section-head home-outlook-heading core-wrap"><h2>Neugier über den Betrieb hinaus?</h2></div>
+<section data-reveal class="home-outlook home-project core-wrap" data-project-category="private" aria-labelledby="outlook-title">
+<div class="home-project-copy">
+<h2 id="outlook-title"><a href="forschung/index.html"><span class="home-project-title">Biochemische Forschung</span><span class="home-arrow" aria-hidden="true">↗</span></a></h2>
+<p class="home-project-lead">Ich untersuchte molekulare Enge an Membranen, Redoxregulation in neuralen Zellen und Signalwege zwischen Nerven- und Immunsystem.</p>
+</div>
+<nav class="home-exit home-project-visual" aria-label="Weitere Zugänge">
+<a class="home-link" href="ueber_mich.html">Mein Weg <span class="home-arrow" aria-hidden="true">↗</span></a>
+<a class="home-link" href="projekte.html">Projekte &amp; Arbeitsproben <span class="home-arrow" aria-hidden="true">↗</span></a>
+<a class="home-link" href="kontakt.html">Ins Gespräch kommen <span class="home-arrow" aria-hidden="true">↗</span></a>
+</nav>
+</section></main>
+<footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="projekte.html">Projekte</a><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="kontakt.html">Kontakt</a></div></div></footer>
+</body></html>

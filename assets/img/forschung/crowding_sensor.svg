@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="430" viewBox="0 0 1100 430" role="img" aria-labelledby="title desc">
+<title id="title">FRET-Sensor an einer Membran: die zu prüfende Crowding-Hypothese</title><desc id="desc">Links ein ausgedehnter CFP-YFP-Sensor mit Membrananker. Rechts begünstigen räumliche Hindernisse eine kompaktere Form. Der kürzere Abstand soll die Energieübertragung verstärken.</desc>
+<defs><linearGradient id="membrane" x2="0" y2="1"><stop stop-color="#67c7c0" stop-opacity=".24"/><stop offset="1" stop-color="#496f88" stop-opacity=".1"/></linearGradient><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#B7C1BD" stroke-width="1.3"/></marker></defs>
+<g font-family="Arial, sans-serif" font-size="20" fill="#E8EDEA">
+<text x="45" y="45">Weniger Enge an der Oberfläche</text><text x="600" y="45">Mehr Enge an der Oberfläche</text>
+<path d="M35 273Q160 258 281 271T515 267L515 294Q390 310 281 297T35 299Z" fill="url(#membrane)" stroke="#67c7c0"/>
+<path d="M585 273Q710 258 831 271T1065 267L1065 294Q940 310 831 297T585 299Z" fill="url(#membrane)" stroke="#67c7c0"/>
+<g fill="none" stroke="#69706D" stroke-width="2"><path d="M78 255C63 218 74 162 105 165S135 220 120 259M427 265C414 212 435 182 457 195S478 234 466 265"/><path d="M614 263C601 215 614 154 644 170S669 228 654 265M720 263C702 218 720 176 744 198S761 237 754 265M893 269C880 214 896 165 921 182S942 246 933 274M1010 270C991 203 1017 160 1041 183S1062 236 1049 271"/></g>
+<g fill="none" stroke="#B7C1BD" stroke-width="3"><path d="M182 183Q218 110 274 170Q320 231 359 167"/><path d="M274 170L274 278"/><path d="M795 167C760 111 868 96 866 166Q829 200 827 168L827 278"/></g>
+<g fill="#5CC0E6"><circle cx="182" cy="183" r="24"/><circle cx="795" cy="167" r="24"/></g><g fill="#EBD49A"><circle cx="359" cy="167" r="24"/><circle cx="866" cy="166" r="24"/></g>
+<g font-size="18" fill="#050908" text-anchor="middle"><text x="182" y="189">CFP</text><text x="359" y="173">YFP</text><text x="795" y="173">CFP</text><text x="866" y="172">YFP</text></g>
+<g fill="none" stroke="#B7C1BD" stroke-width="1.5" marker-end="url(#arrow)"><path d="M205 223L336 211"/><path d="M814 213L848 213"/></g>
+<g font-size="18" fill="#B7C1BD"><text x="140" y="92">Beweglicher Peptidabschnitt</text><path d="M275 100L267 136" stroke="#69706D" fill="none"/><text x="45" y="339">SecE-Membrananker</text><path d="M240 332L273 292" stroke="#69706D" fill="none"/><text x="600" y="339">Kürzerer Abstand → mehr Energieübertragung</text><text x="45" y="395">Messgröße: gelbe / cyanfarbene Fluoreszenz nach Anregung von CFP</text></g>
+</g></svg>

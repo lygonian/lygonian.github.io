@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App zur Pflege von Netzanmeldelisten — Samet Kurt</title>
+<meta name="description" content="Die Anwendung ergänzt bestehende Netzanmeldelisten um neue PV-Montageprojekte. Sie verbindet Termin-, Projekt- und Kontaktdaten mit der vorhandenen Excel-Arbeitsliste und erhält manuelle Bearbeitungsvermerke.">
+<link rel="stylesheet" href="../assets/css/style.css?v=a6908b4eedb8">
+<link rel="stylesheet" href="../assets/css/portfolio-core.css?v=27769db6cf66">
+<link rel="stylesheet" href="../assets/css/projekte-detail.css?v=a693d5112dcf">
+<link rel="stylesheet" href="../assets/css/project-case.css?v=1c71226806c0">
+<link rel="icon" type="image/svg+xml" href="../assets/img/logo-symbol.svg">
+<script src="../assets/js/atlas.js?v=f28836006c28" defer></script>
+</head><body class="core-page project-detail project-case" data-project-category="apps" data-category="apps">
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<header class="site-header"><div class="container">
+<a class="brand" href="../index.html" aria-label="Samet Kurt – Startseite"><span class="brand-symbol" aria-hidden="true"></span>samet<span class="brand-dot">.</span>kurt</a>
+<nav class="site-nav" aria-label="Hauptnavigation"><a href="../projekte.html" aria-current="location">Projekte</a><a href="../forschung/index.html">Forschung</a><a href="../ueber_mich.html">Über mich</a><a href="../kontakt.html">Kontakt</a></nav>
+</div></header>
+<main id="main" class="core-main detail-main" tabindex="-1"><div class="core-wrap">
+<header class="detail-intro project-case-intro">
+<nav class="detail-breadcrumb" aria-label="Brotkrumen"><ol><li><a href="../projekte.html">Projekte</a></li><li aria-current="page">App zur Pflege von Netzanmeldelisten</li></ol></nav>
+<p class="core-kicker">Apps &amp; Automationen</p><h1>App zur Pflege von Netzanmeldelisten</h1>
+<p class="detail-lead">Die Anwendung ergänzt bestehende Netzanmeldelisten um neue PV-Montageprojekte. Sie verbindet Termin-, Projekt- und Kontaktdaten mit der vorhandenen Excel-Arbeitsliste und erhält manuelle Bearbeitungsvermerke.</p><p class="detail-value"><strong>Neue Projekte ohne verlorenen Fortschritt:</strong> Die Arbeitsliste führt aktuelle Planungsdaten und den Stand der Office-Bearbeitung zusammen.</p>
+
+</header>
+<section class="project-overview" aria-label="Projekt und Nutzen">
+<figure class="project-overview-visual"><img class="detail-image" src="../assets/img/apps/netzanmeldung.webp" width="1528" height="782" loading="lazy" alt="Netzanmeldungs-App mit drei ergänzten Beispielprojekten und einer entfernten unbearbeiteten Dublette."><figcaption>Reale Anwendung mit synthetischen Beispieldaten: Drei ergänzte Projekte und eine entfernte unbearbeitete Dublette. Die Arbeitsliste steht als Excel-Datei bereit. <a href="../assets/img/apps/netzanmeldung.webp" target="_blank" rel="noopener">Ansicht in voller Größe öffnen ↗</a></figcaption></figure>
+<aside class="project-benefits"><p class="project-benefits-kicker">Office-Anwendung · Photovoltaik</p><h2>Die Arbeitsliste mit der Montageplanung verbinden</h2><dl><div><dt>Neue Projekte ergänzen</dt><dd>Fehlende PV-Montageprojekte erscheinen mit den zugehörigen Kunden- und Termindaten in der Arbeitsliste.</dd></div><div><dt>Bearbeitung bewahren</dt><dd>Manuelle Angaben bleiben erhalten. Eine gepflegte Projektzeile hat Vorrang vor einer unbearbeiteten Dublette.</dd></div><div><dt>Prüffälle sichtbar machen</dt><dd>Nicht zuordenbare Termine und riskante Änderungen an der Tabelle werden vor dem weiteren Arbeiten erkennbar.</dd></div></dl></aside>
+</section>
+
+<section class="detail-section"><h2>Upload und Startdatum bestimmen den Abgleich</h2><p>Ein Excel-Upload stößt die Aktualisierung von Terminen, Projekten und Kontakten an. Ab dem gewählten Startdatum werden fehlende Dachmontageprojekte ergänzt, einschließlich zukünftiger Termine. Die Projektnummer verbindet neue Daten mit vorhandenen Zeilen.</p><p>Die Liste bildet den Arbeitsstand der Netzanmeldung ab. Ein weiterer Montagetermin darf deshalb nicht automatisch als ein weiteres anzumeldendes Projekt erscheinen.</p></section><section class="detail-section"><h2>Regeln schützen den vorhandenen Arbeitsstand</h2><dl class="detail-rules"><dt>Vorhandene Projektnummer</dt><dd>Der Abgleich erkennt bereits enthaltene Projekte über ihre Nummer. Die Bearbeitung bleibt am Projekt verankert.</dd><dt>Manuelle Angaben</dt><dd>Die Angaben ab der Notizspalte bleiben bestehen. Sie enthalten Informationen aus der fachlichen Bearbeitung, die der CRM-Abruf nicht ersetzt.</dd><dt>Doppelte Zeilen</dt><dd>Eine unbearbeitete Dublette entfällt nur, wenn bereits eine bearbeitete Zeile zum selben Projekt vorhanden ist.</dd><dt>Unklarer Projektbezug</dt><dd>Termine ohne zuordenbare Projektnummer erscheinen mit verfügbaren Details zur manuellen Prüfung. Ein Zellkommentar erhält ihre Terminidentität für einen späteren Upload.</dd></dl></section><section class="detail-section"><h2>Ein neuer Download führt die Arbeit fort</h2><p>Der Upload wird im Arbeitsspeicher verarbeitet. Die ursprüngliche Datei bleibt beim Nutzer; das Ergebnis wird als neue Excel-Datei heruntergeladen. Ein anderer Upload oder ein geändertes Startdatum erzeugt einen neuen Abgleich.</p><p>Die Verarbeitung stoppt, wenn eine Dublettenbereinigung Formelbezüge gefährdet oder Daten unterhalb der Tabelle überschreiben kann. Die eigentliche Anmeldung beim Netzbetreiber folgt anschließend als eigener Arbeitsschritt.</p></section>
+<nav class="detail-nav" aria-label="Weitere Projekte"><a href="../projekte.html?filter=apps#apps">← Apps &amp; Automationen</a><a href="interne_anwendungssuite.html">Interne Anwendungssuite →</a></nav>
+</div></main>
+<footer class="site-footer"><div class="container"><p>© 2026 Samet Kurt</p><div class="footer-links"><a href="../projekte.html">Projekte</a><a href="https://www.linkedin.com/in/samet-kurt-529a0726b" rel="noopener">LinkedIn</a><a href="../kontakt.html">Kontakt</a></div></div></footer>
+</body></html>
